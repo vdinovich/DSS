@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewBag.Title = "WOR Tabs Forms";
+}
+
+<div style="width:200px;margin:auto">
+    <img src="~/logo.jpg" />
+</div>
+
+<h1 style="text-align:center;font-weight:bold;color:darkorange">WOR Tabs Forms</h1>
+
+<div id="container">
+    <ul style="font-weight:bold; font-family:'Palatino Linotype';font-size:x-large;list-style-type: none">
+        <li>@Html.ActionLink("Critical Incidents", "Insert", "Home", "", new { id="ref"})</li>
+        <li>@Html.ActionLink("Labour Relations", "Labour_Insert", "Home", "", new { id = "ref" })</li>
+        <li>@Html.ActionLink("Community Risks", "Community_Insert", "Home", "", new { id = "ref" })</li>
+
+    </ul>
+</div>
+
+<style>
+    #container{
+       width:250px;
+       margin:auto;
+    }
+    #ref{
+        text-decoration:none;
+        color:mediumslateblue;
+    }
+        #ref:hover {
+            color:darkorange;
+        }
+</style>

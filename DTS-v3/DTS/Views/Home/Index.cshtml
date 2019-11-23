@@ -1,0 +1,62 @@
+﻿@{
+    ViewBag.Title = "Desision Support System";
+}
+
+<div style="width:200px;margin:auto">
+    <img src="~/logo.jpg" />
+</div>
+
+@*<div style="text-align:center;color:green">
+        <h1>Desision Support System</h1>
+    </div>*@
+
+<h2 style="font-weight:bold;color:darkorange;font-family:'Times New Roman', Times, serif">Sign in Page</h2>
+
+<button class="btn btn-primary" style="float:right;width:150px" id="btn1">Exit<br />Sign in Page</button>
+<br /><br /><br />
+<button class="btn btn-primary" onclick="location.href='@Url.Action("WOR_Tabs", "Home")'" style="float:right;width:150px" id="btn2">WOR Tabs<br />Forms</button>
+<br /><br /><br />
+
+<form id="contactForm" class="form-group">
+    <label class="contact" for="name">
+        Care Community Centre:
+        @Html.DropDownList("CareCommunity", ViewBag.listing[0] as SelectList, "Fox Ridge Care Community", new { id = "drop1" })
+    </label>
+    <br />
+    <label class="contact" for="user">
+        User Name:
+        <label>
+            <input id="user" required="" type="text" class="form-control" placeholder="First & Last Name" style="width:1240px;margin:10px 0 0 97px;padding:6px;border-radius:5px" />
+        </label>
+    </label>
+
+    <br />
+    <label class="contact" for="position">
+        Position:
+            @Html.DropDownList("Position", ViewBag.listing[1] as SelectList, "Executive Director", new { id = "drop2" })
+    </label>
+
+    <br /><br /><br /><br />
+
+    <label>
+        Current Date:
+        <label>
+            <input type="date" id="date" class="form-control" placeholder="17/11/2019" />
+        </label>
+    </label>
+    <label style="float:right">
+        Week #:
+        <label><input class="form-control" maxlength="2" name="week" placeholder="52" required="" /></label>
+    </label>
+</form>
+
+<style>
+    #drop1{
+        width: 290px;
+        margin: 10px 0 0 10px;
+    }
+    #drop2 {
+        width: 290px;
+        margin: 10px 0 0 115px;
+    }
+</style>

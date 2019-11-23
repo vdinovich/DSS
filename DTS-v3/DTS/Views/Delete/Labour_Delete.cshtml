@@ -1,0 +1,118 @@
+﻿@model DTS.Models.Labour_Relations
+
+@{
+    ViewBag.Title = "Labour_Delete";
+}
+
+<h2 style="text-align:center">Labour Delete</h2>
+
+<h1 style="text-align:center;color:white;background-color:black">Are you sure you want to delete this?</h1>
+<div id="center">
+    <h1 style="text-align:center;color:darkorange">Labour Relations</h1>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Union)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Union)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Category)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Details)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Details)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Accruals)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Accruals)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Outcome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Outcome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Lessons_Learned)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Lessons_Learned)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        <div class="form-actions no-color">
+            <input id="btn" type="submit" value="Delete" class="btn btn-primary" /> 
+        </div>
+    }
+
+</div>
+@Html.ActionLink("Back to List", "Select_Labour", "Select", "", new { id = "back" })
+<style>
+    #btn {
+        font-size:large;
+    }
+    #back {
+        float: left;
+        border: 2px solid blue;
+        border-radius: 22px;
+        position: absolute;
+        padding: 11px;
+        text-decoration: none;
+        background-color: aqua;
+        color: brown
+    }
+
+        #back:hover {
+            text-decoration: none;
+            background-color: black;
+            color: white
+        }
+
+    #center {
+        width: 370px;
+        margin: auto;
+        border: 1px black solid;
+        position: relative;
+        padding: 17px;
+        border-radius: 22px;
+    }
+</style>
