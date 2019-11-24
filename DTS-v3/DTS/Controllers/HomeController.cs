@@ -68,5 +68,19 @@ namespace DTS.Controllers
             db.SaveChanges();
             return RedirectToAction("../Select/Select_Community");
         }
+
+        [HttpGet]
+        public ActionResult GoodNews_Insert()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult GoodNews_Insert(Good_News entity)
+        {
+            db.Good_News.Add(entity);
+            db.SaveChanges();
+            return RedirectToAction("../Select/Select_GoodNews");
+        }
     }
 }

@@ -62,7 +62,7 @@
         <td id="btns">
             <div id="btn">@Html.ActionLink("Edit", "Edit_Incidents", "Edit", new { id = item.id }, "")</div>
             <div id="btn">@Html.ActionLink("Details", "Incidents_Details", "Details", new { id = item.id }, "")</div>
-            <div id="btn">@Html.ActionLink("Delete", "Incidents_Delete", "Delete", new { id = item.id }, "")</div>
+            <div id="btn">@Html.ActionLink("Delete", "Incident_Delete", "Delete", new { id = item.id }, "")</div>
 </td>
         <td>
             @Html.DisplayFor(modelItem => item.Date)

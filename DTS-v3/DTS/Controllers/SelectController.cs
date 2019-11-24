@@ -27,5 +27,17 @@ namespace DTS.Controllers
             IEnumerable<Community_Risks> list = db.Community_Risks;
             return View(list);
         }
+
+        public ActionResult Select_Users()
+        {
+            IEnumerable<Users> list = db.Users;
+            return View(list);
+        }
+
+        public ActionResult Select_GoodNews()
+        {
+            IEnumerable<Good_News> list = db.Good_News;
+            return View(list);
+        }        
     }
 }

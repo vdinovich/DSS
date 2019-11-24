@@ -7,21 +7,22 @@
     <img src="~/logo.jpg" />
 </div>
 
-<h1 style="text-align:center;font-weight:bold;color:darkorange">WOR Tabs Forms</h1>
-
 <div id="container">
+    <h1 style="text-align:center;font-weight:bold;color:darkorange">WOR Tabs Forms</h1>
     <ul style="font-weight:bold; font-family:'Palatino Linotype';font-size:x-large;list-style-type: none">
-        <li>@Html.ActionLink("Critical Incidents", "Insert", "Home", "", new { id="ref"})</li>
+        <li>@Html.ActionLink("Critical Incidents", "Insert", "Home", "", new { id = "ref" })</li>
         <li>@Html.ActionLink("Labour Relations", "Labour_Insert", "Home", "", new { id = "ref" })</li>
         <li>@Html.ActionLink("Community Risks", "Community_Insert", "Home", "", new { id = "ref" })</li>
+        <li>@Html.ActionLink("Good News", "GoodNews_Insert", "Home", "", new { id = "ref" })</li>
 
     </ul>
 </div>
 
 <style>
     #container{
-       width:250px;
+       width:350px;
        margin:auto;
+       text-align:center;
     }
     #ref{
         text-decoration:none;

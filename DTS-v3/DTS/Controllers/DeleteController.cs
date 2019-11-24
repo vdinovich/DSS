@@ -13,6 +13,29 @@ namespace DTS.Controllers
         MyContext db = new MyContext();
 
         [HttpGet]
+        public ActionResult Incident_Delete(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var delete = db.Critical_Incidents.SingleOrDefault(e => e.id == id);
+            if (delete == null) return HttpNotFound();
+
+            return View(delete);
+        }
+
+
+        [HttpPost]
+        public ActionResult Incident_Delete(int id)
+        {
+            var delete = db.Critical_Incidents.SingleOrDefault(l => l.id == id);
+            db.Critical_Incidents.Remove(delete ?? throw new InvalidOperationException());
+            db.SaveChanges();
+
+            return RedirectToAction("../Select/Select_Incidents");
+        }
+
+        [HttpGet]
         public ActionResult Labour_Delete(int? id)
         {
             if (id == null)

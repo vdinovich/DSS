@@ -1,0 +1,68 @@
+﻿@model IEnumerable<DTS.Models.Users>
+
+@{
+    ViewBag.Title = "Select_Users";
+}
+
+<h1 style="text-align:center;font-weight:bold;color:darkorange">Users - All Records</h1>
+
+@Html.ActionLink("<-- Back", "Register_New_User", "Register", "", new { id = "back" })  <br /><br /><br />
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.First_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Last_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Position)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Care_Community)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Week)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User_Name)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.First_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Last_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Position)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Care_Community)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Week)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User_Name)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit_User", "Register",new { id = item.Id }, "") |
+                @Html.ActionLink("Details", "User_Details", "Register", new { id = item.Id }, "") |
+                @Html.ActionLink("Delete", "User_Delete", "Register", new { id = item.Id }, "")
+            </td>
+        </tr>
+    }
+
+</table>
