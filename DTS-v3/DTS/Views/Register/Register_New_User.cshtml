@@ -4,6 +4,7 @@
     ViewBag.Title = "Register_New_User";
 }
 
+
 <h1 style="color:darkorange;font-weight:bold;text-align:center">Registration New User - Entry Form</h1>
 
 @using (Html.BeginForm())
@@ -52,8 +53,8 @@
                 @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @*<label>
-                        <input type="date" id="date" class="form-control" placeholder="17/11/2019" />
-                    </label>*@
+                            <input type="date" id="date" class="form-control" placeholder="17/11/2019" />
+                        </label>*@
                     @Html.TextBoxFor(m => m.Date, "{0:dd/MM/yyyy}", new { @class = "form-control" })
                     @*@Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" } })*@
                     @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
@@ -86,7 +87,7 @@
 }
 
 
-    @Html.ActionLink("Back to List", "Index", "Home", new { id = "back" })
+@Html.ActionLink("Back to List", "Index", "Home", new { id = "back" })
 
 <style>
     #center {
