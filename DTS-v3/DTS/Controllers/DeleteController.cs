@@ -57,7 +57,7 @@ namespace DTS.Controllers
 
             return RedirectToAction("../Select/Select_Labour");
         }
-        
+
         [HttpGet]
         public ActionResult Community_Delete(int? id)
         {
@@ -79,6 +79,29 @@ namespace DTS.Controllers
             db.SaveChanges();
 
             return RedirectToAction("../Select/Select_Community");
+        }
+
+        [HttpGet]
+        public ActionResult User_Delete(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var delete = db.Users.SingleOrDefault(e => e.Id == id);
+            if (delete == null) return HttpNotFound();
+
+            return View(delete);
+        }
+
+
+        [HttpPost]
+        public ActionResult User_Delete(int id)
+        {
+            var delete = db.Users.SingleOrDefault(l => l.Id == id);
+            db.Users.Remove(delete ?? throw new InvalidOperationException());
+            db.SaveChanges();
+
+            return RedirectToAction("../Select/Select_Users");
         }
     }
 }

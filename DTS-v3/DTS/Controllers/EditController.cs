@@ -89,5 +89,31 @@ namespace DTS.Controllers
 
             return View(risk);
         }
+
+        [HttpGet]
+        public ActionResult Edit_User(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var risk = db.Users.SingleOrDefault(e => e.Id == id);
+            if (risk == null) return HttpNotFound();
+
+            return View(risk);
+        }
+
+
+        [HttpPost]
+        public ActionResult Edit_User(Users u)
+        {
+            if (ModelState.IsValid)
+            {
+                db = new MyContext();
+                db.Entry(u).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("../Select/Select_Users");
+            }
+
+            return View(u);
+        }
     }
 }

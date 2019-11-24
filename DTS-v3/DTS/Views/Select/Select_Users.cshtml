@@ -59,10 +59,25 @@
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit_User", "Register",new { id = item.Id }, "") |
-                @Html.ActionLink("Details", "User_Details", "Register", new { id = item.Id }, "") |
-                @Html.ActionLink("Delete", "User_Delete", "Register", new { id = item.Id }, "")
+                @Html.ActionLink("Details", "User_Details", "Details", new { id = item.Id }, "") |
+                @Html.ActionLink("Delete", "User_Delete", "Delete", new { id = item.Id }, "")
             </td>
         </tr>
     }
 
 </table>
+
+
+<style>
+    #back {
+        text-decoration: none;
+        border: 2px solid blue;
+        border-radius: 25px;
+        padding: 14px;
+    }
+
+        #back:hover {
+            background-color: blue;
+            color: white;
+        }
+</style>

@@ -205,6 +205,9 @@
     <Content Include="Views\Select\Select_Users.cshtml" />
     <Content Include="Views\Home\GoodNews_Insert.cshtml" />
     <Content Include="Views\Select\Select_GoodNews.cshtml" />
+    <Content Include="Views\Edit\Edit_User.cshtml" />
+    <Content Include="Views\Details\User_Details.cshtml" />
+    <Content Include="Views\Delete\User_Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

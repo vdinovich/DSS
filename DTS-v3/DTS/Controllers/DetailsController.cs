@@ -35,7 +35,7 @@ namespace DTS.Controllers
                 return HttpNotFound();
             return View(entity);
         }
-       
+
         public ActionResult Community_Details(int? id)
         {
             if (id == null)
@@ -43,6 +43,18 @@ namespace DTS.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             var entity = db.Community_Risks.SingleOrDefault(rel => rel.Id == id);
+            if (entity == null)
+                return HttpNotFound();
+            return View(entity);
+        }
+
+        public ActionResult User_Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var entity = db.Users.SingleOrDefault(rel => rel.Id == id);
             if (entity == null)
                 return HttpNotFound();
             return View(entity);
