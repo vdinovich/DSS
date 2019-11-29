@@ -59,5 +59,17 @@ namespace DTS.Controllers
                 return HttpNotFound();
             return View(entity);
         }
+
+        public ActionResult GoodNews_Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var entity = db.Good_News.SingleOrDefault(rel => rel.Id == id);
+            if (entity == null)
+                return HttpNotFound();
+            return View(entity);
+        }
     }
 }

@@ -93,6 +93,14 @@ namespace DTS.Controllers
         [HttpGet]
         public ActionResult Edit_User(int? id)
         {
+            List<Care_Community> communities = db.Care_Communities.ToList();
+            SelectList list = new SelectList(communities, "Id", "Name");
+
+            List<Position> positions = db.Positions.ToList();
+            SelectList list2 = new SelectList(positions, "Id", "Name");
+            List<object> both = new List<object> { list, list2 };
+            ViewBag.listing = both;
+
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             var risk = db.Users.SingleOrDefault(e => e.Id == id);
@@ -114,6 +122,32 @@ namespace DTS.Controllers
             }
 
             return View(u);
+        }
+
+        [HttpGet]
+        public ActionResult Edit_GoodNews(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var risk = db.Good_News.SingleOrDefault(e => e.Id == id);
+            if (risk == null) return HttpNotFound();
+
+            return View(risk);
+        }
+
+
+        [HttpPost]
+        public ActionResult Edit_GoodNews(Good_News news)
+        {
+            if (ModelState.IsValid)
+            {
+                db = new MyContext();
+                db.Entry(news).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("../Select/Select_GoodNews");
+            }
+
+            return View(news);
         }
     }
 }

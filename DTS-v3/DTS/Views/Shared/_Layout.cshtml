@@ -22,12 +22,15 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("About", "Index", "AdminLTE")</li>
                 </ul>
             </div>
         </div>
     </div>
     <div class="container body-content">
+        <div style="width:320px;margin:auto">
+            <img src="~/Logo/logo1_sm.png" />
+        </div>
         @RenderBody()
         <hr />
         <footer>

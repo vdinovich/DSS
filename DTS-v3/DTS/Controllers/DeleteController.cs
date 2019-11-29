@@ -103,5 +103,28 @@ namespace DTS.Controllers
 
             return RedirectToAction("../Select/Select_Users");
         }
+
+        [HttpGet]
+        public ActionResult GoodNews_Delete(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var delete = db.Good_News.SingleOrDefault(e => e.Id == id);
+            if (delete == null) return HttpNotFound();
+
+            return View(delete);
+        }
+
+
+        [HttpPost]
+        public ActionResult GoodNews_Delete(int id)
+        {
+            var delete = db.Good_News.SingleOrDefault(l => l.Id == id);
+            db.Good_News.Remove(delete ?? throw new InvalidOperationException());
+            db.SaveChanges();
+
+            return RedirectToAction("../Select/Select_GoodNews");
+        }
     }
 }

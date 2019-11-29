@@ -79,14 +79,20 @@
 
     @using (Html.BeginForm())
     {
-        <div class="form-actions no-color">
-            <input id="btn" type="submit" value="Delete" class="btn btn-primary" /> 
+        @Html.AntiForgeryToken()
+
+        <div id="cent" class="form-actions no-color">
+            <input id="centBtn" type="submit" value="Delete" class="btn btn-danger" />
         </div>
     }
 
 </div>
 @Html.ActionLink("Back to List", "Select_Labour", "Select", "", new { id = "back" })
 <style>
+    #cent, #centBtn {
+        width: 200px;
+        margin: auto;
+    }
     #btn {
         font-size:large;
     }

@@ -2,28 +2,21 @@
     ViewBag.Title = "Desision Support System";
 }
 
-<div style="width:200px;margin:auto">
-    @* <img src="~/logo.jpg" />*@
-    <img src="~/Logo/logo1_sm.png" />
-</div>
-
-@*<div style="text-align:center;color:green">
-        <h1>Desision Support System</h1>
-    </div>*@
 
 <h2 style="font-weight:bold;color:darkorange;font-family:'Times New Roman', Times, serif">Sign in Page</h2>
 
-<button class="btn btn-primary" style="float:right;width:150px" id="btn1">Exit<br />Sign in Page</button>
+<a class="btn btn-primary" style="float:right;width:150px" href="https://siennaliving.sharepoint.com/SitePages/Home.aspx" id="btn1">Exit<br />Sign in Page</a>
 <br /><br /><br />
 <button class="btn btn-primary" onclick="location.href='@Url.Action("WOR_Tabs", "Home")'" style="float:right;width:150px" id="btn2">WOR Tabs<br />Forms</button>
 <br /><br /><br />
-<button class="btn btn-success" onclick="location.href='@Url.Action("Register_New_User", "Register")'" style="float:right;width:150px" id="btn2">Register <br/> New User</button>
-<br />
+<button class="btn btn-success" onclick="location.href='@Url.Action("Register_New_User", "Register")'" style="float:right;width:150px" id="btn2">Register <br /> New User</button>
 
 <form id="contactForm" class="form-group">
-    <label class="contact" for="name">
+    <label class="contact" for="care_community">
         Care Community Centre:
-        @Html.DropDownList("CareCommunity", ViewBag.listing[0] as SelectList, "Fox Ridge Care Community", new { id = "drop1" })
+        <label>
+            @Html.DropDownList("CareCommunity", ViewBag.listing[0] as SelectList, "Fox Ridge Care Community", new { id = "drop1" })
+        </label>
     </label>
     <br />
     <label class="contact" for="user">
@@ -36,7 +29,9 @@
     <br />
     <label class="contact" for="position">
         Position:
-        @Html.DropDownList("Position", ViewBag.listing[1] as SelectList, "Executive Director", new { id = "drop2" })
+        <label>
+            @Html.DropDownList("Position", ViewBag.listing[1] as SelectList, "Executive Director", new { id = "drop2" })
+        </label>
     </label>
 
     <br /><br /><br /><br />
@@ -55,12 +50,55 @@
 
 <style>
     #drop1 {
-        width: 290px;
         margin: 10px 0 0 10px;
+        display: block;
+        width: 100%;
+        height: 34px;
+        padding: 6px 12px;
+        font-size: 14px;
+        line-height: 1.42857143;
+        color: #555;
+        background-color: #fff;
+        background-image: none;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+        -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+        -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+        transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
     }
 
     #drop2 {
-        width: 290px;
         margin: 10px 0 0 115px;
+        display: block;
+        width: 100%;
+        height: 34px;
+        padding: 6px 12px;
+        font-size: 14px;
+        line-height: 1.42857143;
+        color: #555;
+        background-color: #fff;
+        background-image: none;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+        -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+        -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+        transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    }
+
+    #drop1:focus {
+        border-color: #66afe9;
+        outline: 0;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+    }
+    #drop2:focus {
+        border-color: #66afe9;
+        outline: 0;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
     }
 </style>
