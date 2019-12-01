@@ -4202,7 +4202,6 @@
     <Content Include="Views\Details\Community_Details.cshtml" />
     <Content Include="Views\Delete\Community_Delete.cshtml" />
     <Content Include="Views\Delete\Incident_Delete.cshtml" />
-    <Content Include="Views\Register\Register_New_User.cshtml" />
     <Content Include="Views\Select\Select_Users.cshtml" />
     <Content Include="Views\Home\GoodNews_Insert.cshtml" />
     <Content Include="Views\Select\Select_GoodNews.cshtml" />
@@ -4671,6 +4670,9 @@
     <Content Include="wwwroot\bower_components\select2\src\scss\_dropdown.scss" />
     <Content Include="wwwroot\bower_components\select2\src\scss\_multiple.scss" />
     <Content Include="wwwroot\bower_components\select2\src\scss\_single.scss" />
+    <Content Include="Views\Home\SignIN.cshtml" />
+    <Content Include="Views\Shared\empty.cshtml" />
+    <Content Include="Views\Register\Register_New_User.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

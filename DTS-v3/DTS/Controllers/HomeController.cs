@@ -10,11 +10,37 @@ namespace DTS.Controllers
     public class HomeController : Controller
     {
         MyContext db = new MyContext();
+
+        [HttpGet]
+        public ActionResult SignIN()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult SignIN(Users user)
+        {
+            string login = user.Login;
+            string password = user.Password;
+            List<Users> users = db.Users.ToList();
+            bool flag = false;
+            for (int i = 0; i< users.Count(); i++)
+            {
+                if (users[i].Login == login && users[i].Password == password)
+                {
+                    flag = true;
+                    return RedirectToAction("../Home/Index");
+                }
+            }
+            if (!flag) { ViewBag.incorrect = "Incorrect Login or Password..Try again!"; }
+            return View();
+        }
+
         public ActionResult Index()
         {
             List<Care_Community> communities = db.Care_Communities.ToList();
             SelectList list = new SelectList(communities, "Id", "Name");
- 
+
             List<Position> positions = db.Positions.ToList();
             SelectList list2 = new SelectList(positions, "Id", "Name");
             List<object> both = new List<object> { list, list2 };

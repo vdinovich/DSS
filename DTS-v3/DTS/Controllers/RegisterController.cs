@@ -14,13 +14,13 @@ namespace DTS.Controllers
         [HttpGet]
         public ActionResult Register_New_User()
         {
-            List<Care_Community> communities = db.Care_Communities.ToList();
-            SelectList list = new SelectList(communities, "Id", "Name");
+            //List<Care_Community> communities = db.Care_Communities.ToList();
+            //SelectList list = new SelectList(communities, "Id", "Name");
 
-            List<Position> positions = db.Positions.ToList();
-            SelectList list2 = new SelectList(positions, "Id", "Name");
-            List<object> both = new List<object> { list, list2 };
-            ViewBag.listing = both;
+            //List<Position> positions = db.Positions.ToList();
+            //SelectList list2 = new SelectList(positions, "Id", "Name");
+            //List<object> both = new List<object> { list, list2 };
+            //ViewBag.listing = both;
 
             return View();
         }

@@ -1,0 +1,64 @@
+﻿@model DTS.Models.Users
+
+@{ 
+    Layout = "~/Views/Shared/empty.cshtml";
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+<div id="center">
+    <div style="width:320px;margin:auto">
+        <img src="~/Logo/logo1_sm.png" />
+    </div>
+    <h3 style="text-align:center;color:red">@ViewBag.incorrect</h3>
+    <div class="form-horizontal">
+        <h4 style="text-align:center;color:blue"> Please Log in here </h4>
+        <hr />
+
+        <div id="inputs">
+            <div class="form-group">
+                @Html.Label("Login: ", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Login, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Login, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Password: ", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.PasswordFor(model=>model.Password, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div id="btn" class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Log in" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+</div>
+}
+
+
+<style>
+    #btn{
+        width:150px;
+        margin:auto;
+    }
+    #inputs {
+        width:440px;
+        margin:auto;
+    }
+        #center {
+        width:500px;
+        margin:auto;
+        border:1px black solid;
+        border-radius:4px;
+        padding:17px;
+    }
+</style>

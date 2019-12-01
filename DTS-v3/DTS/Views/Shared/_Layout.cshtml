@@ -17,12 +17,17 @@
                     <span class="icon-bar"></span>
                 </button>
                 @*<a href="~/Home/Index"><img src="~/Logo/logo2.png" style="width:90px;height:35px;margin:7px 0 0 10px" /></a>*@
-                 @Html.ActionLink("SIENNA", "Index", "Home", new { id = "nameApp" })
+                @Html.ActionLink("SIENNA", "Index", "Home", null, new { id = "nameApp" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("WOR Tabs", "WOR_Tabs", "Home")</li>
+                    <li>@Html.ActionLink("Register", "Register_New_User", "Register")</li>
                     <li>@Html.ActionLink("About", "Index", "AdminLTE")</li>
+                    <li>
+                        <a href="https://siennaliving.sharepoint.com/SitePages/Home.aspx">Exit</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -34,7 +39,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p style="text-align:center">&copy; @DateTime.Now.Year - WOR Report</p>
+            <p style="text-align:center;font-weight:bold">&copy; @DateTime.Now.Year - WOR Report</p>
         </footer>
     </div>
 

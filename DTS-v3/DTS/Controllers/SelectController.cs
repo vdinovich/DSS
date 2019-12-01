@@ -30,8 +30,23 @@ namespace DTS.Controllers
 
         public ActionResult Select_Users()
         {
-            IEnumerable<Users> list = db.Users;
-            return View(list);
+            var position = from user in db.Users
+                            join posit in db.Positions on user.Position equals posit.Id
+                            select new { user.Position, posit.Name };
+            var care_community = from u in db.Users
+                           join care in db.Care_Communities on u.Care_Community equals care.Id
+                           select new { u.Care_Community, care.Name };
+
+            List<string> list = new List<string>();
+            foreach (var i in position) 
+                list.Add(i.Name);
+            foreach (var i in care_community)
+                list.Add(i.Name);
+
+            ViewBag.pos_care = list;
+
+            IEnumerable<Users>  users = db.Users;
+            return View(users);
         }
 
         public ActionResult Select_GoodNews()
