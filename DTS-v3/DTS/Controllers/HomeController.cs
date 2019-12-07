@@ -10,6 +10,18 @@ namespace DTS.Controllers
     public class HomeController : Controller
     {
         MyContext db = new MyContext();
+        List<Care_Community> communities;
+        List<Position> positions;
+        SelectList list2, list;
+
+        public HomeController()
+        {
+            communities = db.Care_Communities.ToList();
+            list = new SelectList(communities, "Id", "Name");
+
+            positions = db.Positions.ToList();
+            list2 = new SelectList(positions, "Id", "Name");
+        }
 
         [HttpGet]
         public ActionResult SignIN()
@@ -36,16 +48,23 @@ namespace DTS.Controllers
             return View();
         }
 
+        [HttpGet]
         public ActionResult Index()
-        {
-            List<Care_Community> communities = db.Care_Communities.ToList();
-            SelectList list = new SelectList(communities, "Id", "Name");
-
-            List<Position> positions = db.Positions.ToList();
-            SelectList list2 = new SelectList(positions, "Id", "Name");
+        {         
             List<object> both = new List<object> { list, list2 };
             ViewBag.listing = both;
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult Index(Sign_in_Main main)
+        {
+            main.Care_Community_Centre = communities.Select(c => c.Name).FirstOrDefault();
+            main.Position = positions.Select(m => m.Name).FirstOrDefault();
+            main.Date_Entred = DateTime.Now;
+            db.Sign_in_Mains.Add(main);
+            db.SaveChanges();
+            return View(main);
         }
 
         public ActionResult WOR_Tabs()

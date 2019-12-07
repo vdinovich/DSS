@@ -147,6 +147,7 @@
     <Compile Include="Models\Labour_Relations.cs" />
     <Compile Include="Models\MyContext.cs" />
     <Compile Include="Models\Position.cs" />
+    <Compile Include="Models\Sign_in_Main.cs" />
     <Compile Include="Models\Users.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

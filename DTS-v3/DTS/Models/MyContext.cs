@@ -12,6 +12,7 @@ namespace DTS.Models
         public virtual DbSet<Labour_Relations> Relations { get; set; }
         public virtual DbSet<Community_Risks> Community_Risks { get; set; }
         public virtual DbSet<Users> Users { get; set; }
-        public virtual DbSet<Good_News> Good_News { get; set; }        
+        public virtual DbSet<Good_News> Good_News { get; set; }
+        public virtual DbSet<Sign_in_Main> Sign_in_Mains { get; set; }
     }
 }
