@@ -13,6 +13,7 @@ namespace DTS.Controllers
         List<Care_Community> communities;
         List<Position> positions;
         SelectList list2, list;
+        List<object> both;
 
         public HomeController()
         {
@@ -50,8 +51,8 @@ namespace DTS.Controllers
 
         [HttpGet]
         public ActionResult Index()
-        {         
-            List<object> both = new List<object> { list, list2 };
+        {
+            both = new List<object> { list, list2 };
             ViewBag.listing = both;
             return View();
         }
@@ -59,12 +60,19 @@ namespace DTS.Controllers
         [HttpPost]
         public ActionResult Index(Sign_in_Main main)
         {
-            main.Care_Community_Centre = communities.Select(c => c.Name).FirstOrDefault();
-            main.Position = positions.Select(m => m.Name).FirstOrDefault();
+            both = new List<object> { list, list2 };
+            main.Care_Community_Centre = list.Where(p => p.Value == main.Care_Community_Centre).First().Text;
+            main.Position = list2.Where(p => p.Value == main.Position).First().Text;
             main.Date_Entred = DateTime.Now;
             db.Sign_in_Mains.Add(main);
             db.SaveChanges();
-            return View(main);
+
+            main.Care_Community_Centre = null;
+            main.Position = null;
+            main.Week = 0;
+            main.User_Name = null;
+            ViewBag.listing = both;
+            return View();
         }
 
         public ActionResult WOR_Tabs()
