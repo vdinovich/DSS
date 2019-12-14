@@ -13,5 +13,10 @@ namespace DTS.Controllers
         {
             return View();
         }
+
+        public ActionResult _View()
+        {
+            return View();
+        }
     }
 }

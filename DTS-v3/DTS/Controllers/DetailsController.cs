@@ -71,5 +71,17 @@ namespace DTS.Controllers
                 return HttpNotFound();
             return View(entity);
         }
+
+        public ActionResult Agency_Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var entity = db.Visits_Agencies.SingleOrDefault(rel => rel.Id == id);
+            if (entity == null)
+                return HttpNotFound();
+            return View(entity);
+        }
     }
 }

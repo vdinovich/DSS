@@ -1,8 +1,6 @@
 ﻿using DTS.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace DTS.Controllers
@@ -54,5 +52,11 @@ namespace DTS.Controllers
             IEnumerable<Good_News> list = db.Good_News;
             return View(list);
         }        
+
+        public ActionResult Select_Agencies()
+        {
+            IEnumerable<Visits_Agency> list = db.Visits_Agencies;
+            return View(list);
+        }
     }
 }

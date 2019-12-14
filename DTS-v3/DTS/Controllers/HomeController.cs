@@ -72,7 +72,7 @@ namespace DTS.Controllers
             main.Week = 0;
             main.User_Name = null;
             ViewBag.listing = both;
-            return View();
+            return RedirectToAction("Index");
         }
 
         public ActionResult WOR_Tabs()
@@ -134,6 +134,20 @@ namespace DTS.Controllers
             db.Good_News.Add(entity);
             db.SaveChanges();
             return RedirectToAction("../Select/Select_GoodNews");
+        }
+
+        [HttpGet]
+        public ActionResult Agency_Insert()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Agency_Insert(Visits_Agency entity)
+        {
+            db.Visits_Agencies.Add(entity);
+            db.SaveChanges();
+            return RedirectToAction("../Select/Select_Agencies");
         }
     }
 }

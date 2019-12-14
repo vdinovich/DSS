@@ -149,5 +149,31 @@ namespace DTS.Controllers
 
             return View(news);
         }
+
+
+        [HttpGet]
+        public ActionResult Edit_Agency(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            Visits_Agency risk = db.Visits_Agencies.SingleOrDefault(e => e.Id == id);
+            if (risk == null) return HttpNotFound();
+
+            return View(risk);
+        }
+        
+        [HttpPost]
+        public ActionResult Edit_Agency(Visits_Agency agency)
+        {
+            if (ModelState.IsValid)
+            {
+                db = new MyContext();
+                db.Entry(agency).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("../Select/Select_Agencies");
+            }
+
+            return View(agency);
+        }
     }
 }

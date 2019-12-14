@@ -2,7 +2,7 @@ namespace DTS.Models
 {
     using System.Data.Entity;
 
-    public partial class MyContext : DbContext
+    public partial class MyContext : DbContext  // 
     {
         public MyContext() : base("name=MyContext") { }
 
@@ -14,5 +14,6 @@ namespace DTS.Models
         public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<Good_News> Good_News { get; set; }
         public virtual DbSet<Sign_in_Main> Sign_in_Mains { get; set; }
+        public virtual DbSet<Visits_Agency> Visits_Agencies { get; set; }
     }
 }

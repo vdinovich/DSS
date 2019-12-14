@@ -149,6 +149,7 @@
     <Compile Include="Models\Position.cs" />
     <Compile Include="Models\Sign_in_Main.cs" />
     <Compile Include="Models\Users.cs" />
+    <Compile Include="Models\Visits_Agency.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -4674,6 +4675,12 @@
     <Content Include="Views\Home\SignIN.cshtml" />
     <Content Include="Views\Shared\empty.cshtml" />
     <Content Include="Views\Register\Register_New_User.cshtml" />
+    <Content Include="Views\AdminLTE\_View.cshtml" />
+    <Content Include="Views\Home\Agency_Insert.cshtml" />
+    <Content Include="Views\Select\Select_Agencies.cshtml" />
+    <Content Include="Views\Edit\Edit_Agency.cshtml" />
+    <Content Include="Views\Details\Agency_Details.cshtml" />
+    <Content Include="Views\Delete\Agency_Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

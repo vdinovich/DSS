@@ -126,5 +126,28 @@ namespace DTS.Controllers
 
             return RedirectToAction("../Select/Select_GoodNews");
         }
+
+        [HttpGet]
+        public ActionResult Agency_Delete(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var delete = db.Visits_Agencies.SingleOrDefault(e => e.Id == id);
+            if (delete == null) return HttpNotFound();
+
+            return View(delete);
+        }
+
+
+        [HttpPost]
+        public ActionResult Agency_Delete(int id)
+        {
+            var delete = db.Visits_Agencies.SingleOrDefault(l => l.Id == id);
+            db.Visits_Agencies.Remove(delete ?? throw new InvalidOperationException());
+            db.SaveChanges();
+
+            return RedirectToAction("../Select/Select_Agencies");
+        }
     }
 }
