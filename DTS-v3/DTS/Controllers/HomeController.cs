@@ -149,5 +149,19 @@ namespace DTS.Controllers
             db.SaveChanges();
             return RedirectToAction("../Select/Select_Agencies");
         }
+
+        [HttpGet]
+        public ActionResult WSIB()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult WSIB(WSIB entity)
+        {
+            db.WSIBs.Add(entity);
+            db.SaveChanges();
+            return RedirectToAction("../Select/Select_WSIB");
+        }
     }
 }

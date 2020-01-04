@@ -1,4 +1,5 @@
 ﻿@model DTS.Models.Sign_in_Main
+ 
 @{
     ViewBag.Title = "Desision Support System";
 }
@@ -27,7 +28,6 @@
         User Name:
         <label  style="margin:10px 0 0 90px;padding:6px;border-radius:5px;width:500px">
             @Html.EditorFor(model => model.User_Name, new { htmlAttributes = new { @class = "form-control" } })
-            @*<input id="user" required="" type="text" class="form-control" placeholder="First & Last Name" style="width:1240px;margin:10px 0 0 97px;padding:6px;border-radius:5px" />*@
         </label>
     </label>
 
@@ -45,7 +45,6 @@
         Current Date:
         <label>
             @Html.TextBoxFor(m => m.Current_Date, "{0:d MMM yyyy}", new { @class = "form-control" })
-           @* <input type="date" id="date" class="form-control" placeholder="17/11/2019" />*@
         </label>
     </label>
     <label style="float:right">

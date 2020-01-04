@@ -150,6 +150,7 @@
     <Compile Include="Models\Sign_in_Main.cs" />
     <Compile Include="Models\Users.cs" />
     <Compile Include="Models\Visits_Agency.cs" />
+    <Compile Include="Models\WSIB.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -4681,9 +4682,16 @@
     <Content Include="Views\Edit\Edit_Agency.cshtml" />
     <Content Include="Views\Details\Agency_Details.cshtml" />
     <Content Include="Views\Delete\Agency_Delete.cshtml" />
+    <Content Include="Views\Home\Select_WSIB.cshtml" />
+    <Content Include="Views\Home\WSIB.cshtml" />
+    <Content Include="Views\Select\Select_WSIB.cshtml" />
+    <Content Include="Views\Edit\Edit_WSIB.cshtml" />
+    <Content Include="Views\Details\WSIB_Details.cshtml" />
+    <Content Include="Views\Delete\WSIB_Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\WSIB\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

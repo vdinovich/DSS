@@ -175,5 +175,30 @@ namespace DTS.Controllers
 
             return View(agency);
         }
+
+        [HttpGet]
+        public ActionResult Edit_WSIB(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            WSIB wsib = db.WSIBs.SingleOrDefault(e => e.Id == id);
+            if (wsib == null) return HttpNotFound();
+
+            return View(wsib);
+        }
+
+        [HttpPost]
+        public ActionResult Edit_WSIB(WSIB entity)
+        {
+            if (ModelState.IsValid)
+            {
+                db = new MyContext();
+                db.Entry(entity).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("../Select/Select_WSIB");
+            }
+
+            return View();
+        }
     }
 }

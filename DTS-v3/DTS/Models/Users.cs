@@ -14,6 +14,6 @@
         public string User_Name { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
-        public System.DateTime Date_Register { get; set; } = System.DateTime.Now;
+        public System.DateTime Date_Register { get; set; }// = System.DateTime.Now;
     }
 }

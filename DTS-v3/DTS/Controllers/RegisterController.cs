@@ -28,6 +28,7 @@ namespace DTS.Controllers
         [HttpPost]
         public ActionResult Register_New_User(Users user)
         {
+            user.Date_Register = DateTime.Now;
             db.Users.Add(user);
             db.SaveChanges();
             return RedirectToAction("../Select/Select_Users");

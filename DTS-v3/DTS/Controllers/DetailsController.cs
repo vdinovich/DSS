@@ -83,5 +83,17 @@ namespace DTS.Controllers
                 return HttpNotFound();
             return View(entity);
         }
+
+        public ActionResult WSIB_Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            WSIB entity = db.WSIBs.SingleOrDefault(w => w.Id == id);
+            if (entity == null)
+                return HttpNotFound();
+            return View(entity);
+        }
     }
 }

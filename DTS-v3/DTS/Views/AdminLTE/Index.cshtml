@@ -1,6 +1,5 @@
 ﻿
-@{ Layout = null;}
-
+@{ Layout = "~/Views/Shared/empty.cshtml";}
 
 <!DOCTYPE html>
 <html>
@@ -12,7 +11,7 @@
             padding: 7px;
             font-family: 'Times New Roman';
             font-size: x-large;
-            position :absolute;
+            position: absolute;
         }
 
         ul, #myUL {
@@ -25,13 +24,13 @@
         }
 
         .caret {
-             cursor: pointer;
+            cursor: pointer;
             -webkit-user-select: none; /* Safari 3.1+ */
             -moz-user-select: none; /* Firefox 2+ */
             -ms-user-select: none; /* IE 10+ */
             user-select: none;
         }
-   
+
 
             .caret::before {
                 content: "\25B6";
@@ -43,7 +42,7 @@
         .caret-down::before {
             -ms-transform: rotate(90deg); /* IE 9 */
             -webkit-transform: rotate(90deg); /* Safari */
-             transform: rotate(90deg);
+            transform: rotate(90deg);
         }
 
         .nested {
@@ -57,36 +56,46 @@
 </head>
 <body>
     <div id="container">
+
+        <input type="text" class="form-control" placeholder="input name (readonly)" readonly />
+        <br />
+        <input type="text" class="form-control" placeholder="input age" />
+
         <ul id="myUL">
             <li>
-                <span class="caret">Beverages</span>
+                <span class="caret">Sienna Communities</span>
                 <ul class="nested">
-                    <li>Water</li>
-                    <li>Coffee</li>
+                    @*<li>Care Communities</li>*@
+                    @*<li>Coffee</li>*@
                     <li>
-                        <span class="caret">Tea</span>
-                        <ul class="nested">
-                            <li>Black Tea</li>
-                            <li>White Tea</li>
-                            <li>
-                                <span class="caret">Green Tea</span>
+                        @*<span class="caret">Tea</span>
                                 <ul class="nested">
-                                    <li>Sencha</li>
-                                    <li>Gyokuro</li>
-                                    <li>Matcha</li>
-                                    <li>Pi Lo Chun</li>
+                                    <li>Black Tea</li>
+                                    <li>White Tea</li>
+                                    <li>
+                                        <span class="caret">Green Tea</span>
+                                        <ul class="nested">
+                                            <li>Sencha</li>
+                                            <li>Gyokuro</li>
+                                            <li>Matcha</li>
+                                            <li>Pi Lo Chun</li>
+                                        </ul>
+                                    </li>
                                 </ul>
-                            </li>
-                        </ul>
-                    </li>
+                            </li>*@
                     <li>
-                        <span class="caret">Rappers</span>
+                        <span class="caret">Care Communities</span>
                         <ul class="nested">
-                            <li>WU Tang Clan</li>
-                            <li>2Pac</li>
-                            <li>Dr.Dre</li>
-                            <li>Snoop Dog</li>
-                        </ul>
+                            <li>Algamo</li>
+                            <li>Altamont</li>
+                            <li>Astoria</li>
+                            <li>Barnswallow</li>
+                            <li>Bearbrook</li>
+                            <span class="caret">Trillium</span>
+                            <ul class="nested">
+                                <li>Trillium CC</li>
+                                <li>Trillium Retirement</li>
+                            </ul>
                     </li>
 
                 </ul>
@@ -108,3 +117,8 @@
 
 </body>
 </html>
+
+
+
+
+

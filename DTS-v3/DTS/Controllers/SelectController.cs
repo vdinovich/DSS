@@ -58,5 +58,11 @@ namespace DTS.Controllers
             IEnumerable<Visits_Agency> list = db.Visits_Agencies;
             return View(list);
         }
+
+        public ActionResult Select_WSIB()
+        {
+            IEnumerable<WSIB> list = db.WSIBs;
+            return View(list);
+        }
     }
 }

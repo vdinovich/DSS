@@ -149,5 +149,28 @@ namespace DTS.Controllers
 
             return RedirectToAction("../Select/Select_Agencies");
         }
+
+        [HttpGet]
+        public ActionResult WSIB_Delete(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var delete = db.WSIBs.SingleOrDefault(e => e.Id == id);
+            if (delete == null) return HttpNotFound();
+
+            return View(delete);
+        }
+
+
+        [HttpPost]
+        public ActionResult WSIB_Delete(int id)
+        {
+            var delete = db.WSIBs.SingleOrDefault(l => l.Id == id);
+            db.WSIBs.Remove(delete ?? throw new InvalidOperationException());
+            db.SaveChanges();
+
+            return RedirectToAction("../Select/Select_WSIB");
+        }
     }
 }
