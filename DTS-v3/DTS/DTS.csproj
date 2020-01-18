@@ -146,10 +146,13 @@
     <Compile Include="Models\Good_News.cs" />
     <Compile Include="Models\Labour_Relations.cs" />
     <Compile Include="Models\MyContext.cs" />
+    <Compile Include="Models\Not_WSIBs.cs" />
+    <Compile Include="Models\Outbreaks.cs" />
     <Compile Include="Models\Position.cs" />
     <Compile Include="Models\Sign_in_Main.cs" />
     <Compile Include="Models\Users.cs" />
     <Compile Include="Models\Visits_Agency.cs" />
+    <Compile Include="Models\Visits_Others.cs" />
     <Compile Include="Models\WSIB.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -4682,12 +4685,27 @@
     <Content Include="Views\Edit\Edit_Agency.cshtml" />
     <Content Include="Views\Details\Agency_Details.cshtml" />
     <Content Include="Views\Delete\Agency_Delete.cshtml" />
-    <Content Include="Views\Home\Select_WSIB.cshtml" />
     <Content Include="Views\Home\WSIB.cshtml" />
     <Content Include="Views\Select\Select_WSIB.cshtml" />
     <Content Include="Views\Edit\Edit_WSIB.cshtml" />
     <Content Include="Views\Details\WSIB_Details.cshtml" />
     <Content Include="Views\Delete\WSIB_Delete.cshtml" />
+    <Content Include="Views\Home\Not_WSIB.cshtml" />
+    <Content Include="Views\Select\Select_Not_WSIB.cshtml" />
+    <Content Include="Views\Home\Care_Community.cshtml" />
+    <Content Include="Views\Home\Add_Position.cshtml" />
+    <Content Include="Views\Edit\Edit_Not_WSIB.cshtml" />
+    <Content Include="Views\Home\Visits_Others.cshtml" />
+    <Content Include="Views\Details\Not_WSIB_Details.cshtml" />
+    <Content Include="Views\Select\Select_Visits_Others.cshtml" />
+    <Content Include="Views\Edit\Edit_Visits_Others.cshtml" />
+    <Content Include="Views\Details\Visits_Others_Details.cshtml" />
+    <Content Include="Views\Delete\Visits_Others_Delete.cshtml" />
+    <Content Include="Views\Home\Outbreaks.cshtml" />
+    <Content Include="Views\Details\Outbreaks.cshtml" />
+    <Content Include="Views\Edit\Edit_Outbreaks.cshtml" />
+    <Content Include="Views\Select\Outbreaks.cshtml" />
+    <Content Include="Views\Delete\Outbreaks_Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

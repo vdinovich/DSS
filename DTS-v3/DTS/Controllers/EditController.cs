@@ -200,5 +200,78 @@ namespace DTS.Controllers
 
             return View();
         }
+
+        [HttpGet]
+        public ActionResult Edit_Not_WSIB(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            Not_WSIBs wsib = db.Not_WSIBs.SingleOrDefault(e => e.Id == id);
+            if (wsib == null) return HttpNotFound();
+
+            return View(wsib);
+        }
+
+        [HttpPost]
+        public ActionResult Edit_Not_WSIB(Not_WSIBs entity)
+        {
+            if (ModelState.IsValid)
+            {
+                db = new MyContext();
+                db.Entry(entity).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("../Select/Select_Not_WSIB");
+            }
+
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult Edit_Visits_Others(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            Visits_Others visit = db.Visits_Others.SingleOrDefault(o => o.Id == id);
+            if (visit == null) return HttpNotFound();
+
+            return View(visit);
+        }
+
+        [HttpPost]
+        public ActionResult Edit_Visits_Others(Visits_Others entity)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(entity).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("../Select/Select_Visits_Others");
+            }
+
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult Edit_Outbreaks(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            Outbreaks outbreaks = db.Outbreaks.SingleOrDefault(o => o.Id == id);
+            if (outbreaks == null) return HttpNotFound();
+
+            return View(outbreaks);
+        }
+
+        [HttpPost]
+        public ActionResult Edit_Outbreaks(Outbreaks entity)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(entity).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("../Select/Outbreaks");
+            }
+
+            return View();
+        }
     }
 }

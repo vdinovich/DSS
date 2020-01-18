@@ -172,5 +172,51 @@ namespace DTS.Controllers
 
             return RedirectToAction("../Select/Select_WSIB");
         }
+
+        [HttpGet]
+        public ActionResult Visits_Others_Delete(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var delete = db.Visits_Others.SingleOrDefault(e => e.Id == id);
+            if (delete == null) return HttpNotFound();
+
+            return View(delete);
+        }
+
+
+        [HttpPost]
+        public ActionResult Visits_Others_Delete(int id)
+        {
+            Visits_Others delete = db.Visits_Others.SingleOrDefault(l => l.Id == id);
+            db.Visits_Others.Remove(delete ?? throw new InvalidOperationException());
+            db.SaveChanges();
+
+            return RedirectToAction("../Select/Select_Visits_Others");
+        }
+
+        [HttpGet]
+        public ActionResult Outbreaks_Delete(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var delete = db.Outbreaks.SingleOrDefault(e => e.Id == id);
+            if (delete == null) return HttpNotFound();
+
+            return View(delete);
+        }
+
+
+        [HttpPost]
+        public ActionResult Outbreaks_Delete(int id)
+        {
+            Outbreaks delete = db.Outbreaks.SingleOrDefault(l => l.Id == id);
+            db.Outbreaks.Remove(delete ?? throw new InvalidOperationException());
+            db.SaveChanges();
+
+            return RedirectToAction("../Select/Outbreaks");
+        }
     }
 }

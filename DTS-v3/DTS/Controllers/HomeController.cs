@@ -162,6 +162,87 @@ namespace DTS.Controllers
             db.WSIBs.Add(entity);
             db.SaveChanges();
             return RedirectToAction("../Select/Select_WSIB");
+
         }
+
+        [HttpGet]
+        public ActionResult Not_WSIB()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Not_WSIB(Not_WSIBs entity)
+        {
+            db.Not_WSIBs.Add(entity);
+            db.SaveChanges();
+            return RedirectToAction("../Select/Select_Not_WSIB");
+
+        }
+
+        [HttpGet]
+        public ActionResult Care_Community()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Care_Community(Care_Community entity)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Care_Communities.Add(entity);
+                db.SaveChanges();
+                return RedirectToAction("../Home/Index");
+            }
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult Add_Position()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Add_Position(Position entity)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Positions.Add(entity);
+                db.SaveChanges();
+                return RedirectToAction("../Home/Index");
+            }
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult Visits_Others()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Visits_Others(Visits_Others entity)
+        {
+            db.Visits_Others.Add(entity);
+            db.SaveChanges();
+            return RedirectToAction("../Select/Select_Visits_Others");
+        }
+
+        [HttpGet]
+        public ActionResult Outbreaks()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Outbreaks(Outbreaks entity)
+        {
+            db.Outbreaks.Add(entity);
+            db.SaveChanges();
+            return RedirectToAction("../Select/Select_Outbreaks");
+        }
+
     }
 }

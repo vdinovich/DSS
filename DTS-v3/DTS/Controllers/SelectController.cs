@@ -64,5 +64,23 @@ namespace DTS.Controllers
             IEnumerable<WSIB> list = db.WSIBs;
             return View(list);
         }
+
+        public ActionResult Select_Not_WSIB()
+        {
+            IEnumerable<Not_WSIBs> list = db.Not_WSIBs;
+            return View(list);
+        }
+
+        public ActionResult Select_Visits_Others()
+        {
+            IEnumerable<Visits_Others> list = db.Visits_Others;
+            return View(list);
+        }
+
+        public ActionResult Outbreaks()
+        {
+            IEnumerable<Outbreaks> list = db.Outbreaks;
+            return View(list);
+        }
     }
 }

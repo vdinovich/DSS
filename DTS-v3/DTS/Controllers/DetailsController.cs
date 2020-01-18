@@ -95,5 +95,29 @@ namespace DTS.Controllers
                 return HttpNotFound();
             return View(entity);
         }
+
+        public ActionResult Visits_Others_Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Visits_Others entity = db.Visits_Others.SingleOrDefault(w => w.Id == id);
+            if (entity == null)
+                return HttpNotFound();
+            return View(entity);
+        }
+
+        public ActionResult Outbreaks(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Outbreaks entity = db.Outbreaks.SingleOrDefault(w => w.Id == id);
+            if (entity == null)
+                return HttpNotFound();
+            return View(entity);
+        }
     }
 }

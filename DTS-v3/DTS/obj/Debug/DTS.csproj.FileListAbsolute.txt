@@ -393,8 +393,8 @@ C:\Users\ldinovich-Admin\Documents\z_Ed\C# - Andrei\5. ASP.NET\Working\DSS\DTS-v
 C:\Users\ldinovich-Admin\Documents\z_Ed\C# - Andrei\5. ASP.NET\Working\DSS\DTS-v3\DTS\bin\Newtonsoft.Json.xml
 C:\Users\ldinovich-Admin\Documents\z_Ed\C# - Andrei\5. ASP.NET\Working\DSS\DTS-v3\DTS\bin\Antlr3.Runtime.pdb
 C:\Users\ldinovich-Admin\Documents\z_Ed\C# - Andrei\5. ASP.NET\Working\DSS\DTS-v3\DTS\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\ldinovich-Admin\Documents\z_Ed\C# - Andrei\5. ASP.NET\Working\DSS\DTS-v3\DTS\obj\Debug\DTS.csprojAssemblyReference.cache
 C:\Users\ldinovich-Admin\Documents\z_Ed\C# - Andrei\5. ASP.NET\Working\DSS\DTS-v3\DTS\obj\Debug\DTS.csproj.CoreCompileInputs.cache
 C:\Users\ldinovich-Admin\Documents\z_Ed\C# - Andrei\5. ASP.NET\Working\DSS\DTS-v3\DTS\obj\Debug\DTS.csproj.CopyComplete
 C:\Users\ldinovich-Admin\Documents\z_Ed\C# - Andrei\5. ASP.NET\Working\DSS\DTS-v3\DTS\obj\Debug\DTS.dll
 C:\Users\ldinovich-Admin\Documents\z_Ed\C# - Andrei\5. ASP.NET\Working\DSS\DTS-v3\DTS\obj\Debug\DTS.pdb
+C:\Users\ldinovich-Admin\Documents\z_Ed\C# - Andrei\5. ASP.NET\Working\DSS\DTS-v3\DTS\obj\Debug\DTS.csprojAssemblyReference.cache
