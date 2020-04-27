@@ -1,0 +1,91 @@
+﻿@model DTS.Models.Visits_Others
+
+@{
+    ViewBag.Title = "Visits_Others_Details";
+}
+
+<div>
+    <h1 style="text-align:center;font-size:x-large;color:darkorange">Visits Others Record - Details Id  @Html.DisplayFor(model => model.Id):</h1>
+    <hr />
+    <div id="center">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Date_of_Visit)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Date_of_Visit)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Agency)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Agency)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Number_of_Findings)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Number_of_Findings)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Details_of_Findings)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Details_of_Findings)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Corrective_Actions)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Corrective_Actions)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Report_Posted)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Report_Posted)
+            </dd>
+
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Back to List", "Select_Visits_Others", "Select", "", new { id = "backBtn" })
+    </p>
+</div>
+
+<style>
+    #center {
+        width: 420px;
+        margin: auto;
+        border: 1px black solid;
+        position: relative;
+        padding: 17px;
+        border-radius: 22px;
+    }
+
+    #backBtn {
+        border-radius: 22px;
+        border: 2px solid blue;
+        padding: 15px;
+        background-color: white;
+        color: blue;
+        position: absolute;
+        text-decoration: none;
+    }
+
+        #backBtn:hover {
+            background-color: blue;
+            color: white;
+        }
+</style>

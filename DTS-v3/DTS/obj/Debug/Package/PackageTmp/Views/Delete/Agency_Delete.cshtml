@@ -1,0 +1,112 @@
+﻿@model DTS.Models.Visits_Agency
+
+@{
+    ViewBag.Title = "Agency_Delete";
+}
+
+<h2 style="text-align:center">Community Delete</h2>
+
+<h1 style="text-align:center;color:white;background-color:black">Are you sure you want to delete this?</h1>
+<div id="center">
+    <h1 style="text-align:center;color:darkorange">Visits Agency <br /> ID - @Html.DisplayFor(id => id.Id)</h1>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Date_of_Visit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date_of_Visit)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Agency)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Agency)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Findings_number)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Findings_number)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Findings_Details)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Findings_Details)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Corrective_Actions)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Corrective_Actions)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Report_Posted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Report_Posted)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div id="cent" class="form-actions no-color">
+            <input id="centBtn" type="submit" value="Delete" class="btn btn-danger" />
+        </div>
+    }
+</div>
+
+@Html.ActionLink("Back to List", "Select_Agencies", "Select", "", new { id = "back" })
+
+
+<style>
+    #cent, #centBtn {
+        width: 200px;
+        margin: auto;
+    }
+
+    #btn {
+        font-size: large;
+    }
+
+    #back {
+        float: left;
+        border: 2px solid blue;
+        border-radius: 22px;
+        position: absolute;
+        padding: 11px;
+        text-decoration: none;
+        background-color: aqua;
+        color: brown
+    }
+
+        #back:hover {
+            text-decoration: none;
+            background-color: black;
+            color: white
+        }
+
+    #center {
+        width: 400px;
+        margin: auto;
+        border: 1px black solid;
+        position: relative;
+        padding: 17px;
+        border-radius: 22px;
+    }
+</style>

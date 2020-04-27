@@ -1,0 +1,138 @@
+﻿@model IEnumerable<DTS.Models.Critical_Incidents>
+
+@{
+    ViewBag.Title = "Critical Incidents Records - Details";
+}
+
+<h1 style="text-align:center;font-weight:bold;color:darkorange">Critical Incidents - All Records</h1>
+
+@Html.ActionLink("<-- Back", "Insert", "Home", "", new { id = "back" })  <br /><br /><br />
+<table class="table">
+    <tr style="font-size:xx-small">
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CI_Form_Number)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CI_Category_Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Location)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Brief_Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MOH_Notified)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Police_Notified)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.POAS_Notified)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Care_Plan_Updated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Quality_Improvement_Actions)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MOHLTC_Follow_Up)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CIS_Initiated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Follow_Up_Amendments)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Risk_Locked)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.File_Complete)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td id="btns">
+            <div id="btn">@Html.ActionLink("Edit", "Edit_Incidents", "Edit", new { id = item.id }, "")</div>
+            <div id="btn">@Html.ActionLink("Details", "Incidents_Details", "Details", new { id = item.id }, "")</div>
+            <div id="btn">@Html.ActionLink("Delete", "Incident_Delete", "Delete", new { id = item.id }, "")</div>
+</td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CI_Form_Number)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CI_Category_Type)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Location)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Brief_Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MOH_Notified)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Police_Notified)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.POAS_Notified)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Care_Plan_Updated)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Quality_Improvement_Actions)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MOHLTC_Follow_Up)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CIS_Initiated)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Follow_Up_Amendments)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Risk_Locked)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.File_Complete)
+        </td>
+
+    </tr>
+    }
+
+</table>
+
+<style>
+    #back {
+        text-decoration: none;
+        border: 2px solid darkorange;
+        color: darkorange;
+        border-radius: 25px;
+        padding: 14px;
+    }
+
+        #back:hover {
+            background-color: darkorange;
+            color: white;
+        }
+
+    #btn {
+        border: 1px solid blue;
+        padding: 5px;
+        text-align: center;
+        border-radius:12px;
+    }
+</style>

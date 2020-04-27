@@ -1,0 +1,170 @@
+﻿@model DTS.Models.Outbreaks
+
+@{
+    ViewBag.Title = "Outbreaks_Delete";
+}
+
+<h2 style="text-align:center">Outbreaks Delete</h2>
+
+<h1 style="text-align:center;color:white;background-color:black">Are you sure you want to delete this?</h1>
+<div id="center">
+    <h1 style="text-align:center;color:darkorange">Outbreaks <br /> ID - @Html.DisplayFor(id => id.Id)</h1>
+    <hr />
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Date_Declared)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date_Declared)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date_Concluded)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date_Concluded)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Type_of_Outbreak)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Type_of_Outbreak)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Total_Days_Closed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Total_Days_Closed)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Total_Residents_Affected)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Total_Residents_Affected)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Total_Staff_Affected)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Total_Staff_Affected)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Strain_Identified)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Strain_Identified)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Deaths_Due)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Deaths_Due)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CI_Report_Submitted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CI_Report_Submitted)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Notify_MOL)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Notify_MOL)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Credit_for_Lost_Days)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Credit_for_Lost_Days)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tracking_Sheet_Completed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tracking_Sheet_Completed)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Docs_Submitted_Finance)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Docs_Submitted_Finance)
+        </dd>
+
+    </dl>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div id="cent" class="form-actions no-color">
+                <input id="centBtn" type="submit" value="Delete" class="btn btn-danger" />
+            </div>
+        }
+</div>
+
+@Html.ActionLink("Back to List", "Outbreaks", "Select", "", new { id = "back" })
+
+
+<style>
+    #cent, #centBtn {
+        width: 200px;
+        margin: auto;
+    }
+
+    #btn {
+        font-size: large;
+    }
+
+    #back {
+        float: left;
+        border: 2px solid blue;
+        border-radius: 22px;
+        position: absolute;
+        padding: 11px;
+        text-decoration: none;
+        background-color: aqua;
+        color: brown
+    }
+
+        #back:hover {
+            text-decoration: none;
+            background-color: black;
+            color: white
+        }
+
+    #center {
+        width: 400px;
+        margin: auto;
+        border: 1px black solid;
+        position: relative;
+        padding: 17px;
+        border-radius: 22px;
+    }
+</style>

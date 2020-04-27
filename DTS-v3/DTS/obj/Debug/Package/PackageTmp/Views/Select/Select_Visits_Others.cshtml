@@ -1,0 +1,91 @@
+﻿@model IEnumerable<DTS.Models.Visits_Others>
+
+@{
+    ViewBag.Title = "Select_Visits_Others";
+}
+
+
+<h1 style="text-align:center;color:darkorange"> All Records Visits Others </h1>
+
+@Html.ActionLink("<-- Back", "Visits_Others", "Home", "", new { id = "back" })  <br /><br /><br />
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date_of_Visit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Agency)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Number_of_Findings)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Details_of_Findings)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Corrective_Actions)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Report_Posted)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date_of_Visit)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Agency)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Number_of_Findings)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Details_of_Findings)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Corrective_Actions)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Report_Posted)
+        </td>
+        <td>
+            |
+            @Html.ActionLink("Edit", "Edit_Visits_Others", "Edit", new { id = item.Id }, "") |
+            @Html.ActionLink("Details", "Visits_Others_Details", "Details", new { id = item.Id }, "") |
+            @Html.ActionLink("Delete", "Visits_Others_Delete", "Delete", new { id = item.Id }, "") |
+        </td>
+    </tr>
+    }
+
+</table>
+
+
+<style>
+    #back {
+        text-decoration: none;
+        border: 2px solid darkorange;
+        border-radius: 25px;
+        padding: 14px;
+        color: darkorange;
+    }
+
+        #back:hover {
+            background-color: darkorange;
+            color: white;
+        }
+
+    #btn {
+        padding: 1px;
+        text-align: center;
+    }
+</style>

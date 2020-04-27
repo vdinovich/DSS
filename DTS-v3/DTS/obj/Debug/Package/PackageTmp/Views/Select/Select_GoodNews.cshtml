@@ -1,0 +1,107 @@
+﻿@model IEnumerable<DTS.Models.Good_News>
+
+@{
+    ViewBag.Title = "Select_GoodNews";
+}
+
+<h1 style="text-align:center;font-weight:bold;color:darkorange">Good News - All Records</h1>
+
+@Html.ActionLink("<-- Back", "GoodNews_Insert", "Home", "", new { id = "back" })  <br /><br /><br />
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Description_Complim)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Respect)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Passion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Teamwork)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Responsibility)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Growth)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Compliment)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Spot_Awards)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Awards_Received)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Community_Inititives)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description_Complim)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Respect)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Passion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Teamwork)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Responsibility)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Growth)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Compliment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Spot_Awards)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Awards_Received)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Community_Inititives)
+            </td>
+            <td>
+                <div id="btn"> @Html.ActionLink("Edit", "Edit_GoodNews", "Edit", new { id = item.Id }, "") </div>
+                <div id="btn"> @Html.ActionLink("Details", "GoodNews_Details", "Details", new { id = item.Id }, "") </div>
+                <div id="btn"> @Html.ActionLink("Delete", "GoodNews_Delete", "Delete", new { id = item.Id }, "")</div>
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+
+<style>
+    #btn {
+        padding: 1px;
+        text-align: center;
+    }
+    #back {
+        text-decoration: none;
+        border: 2px solid darkorange;
+        border-radius: 25px;
+        color: darkorange;
+        padding: 14px;
+    }
+
+        #back:hover {
+            background-color: darkorange;
+            color: white;
+        }
+</style>

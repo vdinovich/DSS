@@ -1,0 +1,117 @@
+﻿@model DTS.Models.WSIB
+
+@{
+    ViewBag.Title = "WSIB_Details";
+}
+
+<div>
+    <h1 style="text-align:center;font-size:x-large;color:darkorange">WSIB Records - Details Id  @Html.DisplayFor(model => model.Id):</h1>
+    <hr />
+    <div id="center">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Date_Accident)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Date_Accident)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Employee_Initials)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Employee_Initials)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Accident_Cause)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Accident_Cause)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Date_Duties)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Date_Duties)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Date_Regular)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Date_Regular)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Lost_Days)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Lost_Days)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Modified_Days_Not_Shadowed)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Modified_Days_Not_Shadowed)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Modified_Days_Shadowed)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Modified_Days_Shadowed)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Form_7)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Form_7)
+            </dd>
+
+        </dl>
+    </div>
+
+    <p>
+        @Html.ActionLink("Back to List", "Select_WSIB", "Select", "", new { id = "backBtn" })
+    </p>
+</div>
+<style>
+    #center {
+        width: 370px;
+        margin: auto;
+        border: 1px black solid;
+        position: relative;
+        padding: 17px;
+        border-radius: 22px;
+    }
+
+    #backBtn {
+        float: left;
+        border: 2px solid blue;
+        border-radius: 22px;
+        position: absolute;
+        padding: 11px;
+        text-decoration: none;
+        background-color: aqua;
+        color: brown
+    }
+
+        #backBtn:hover {
+            text-decoration: none;
+            background-color: black;
+            color: white
+        }
+</style>

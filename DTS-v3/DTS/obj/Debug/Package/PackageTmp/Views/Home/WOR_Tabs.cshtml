@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewBag.Title = "WOR Tabs Forms";
+}
+
+<div id="container">
+    <h1 style="text-align:center;font-weight:bold;color:darkorange">WOR Tabs Forms</h1><br /><br />
+    <ul style="font-weight:bold; font-family:'Palatino Linotype';font-size:x-large;list-style-type: none">
+        <li>@Html.ActionLink("Critical Incidents", "Insert", "Home", "", new { id = "ref" })</li>
+        <li>@Html.ActionLink("Labour Relations", "Labour_Insert", "Home", "", new { id = "ref" })</li>
+        <li>@Html.ActionLink("Community Risks or Legal", "Community_Insert", "Home", "", new { id = "ref" })</li>
+        <li>@Html.ActionLink("Good News", "GoodNews_Insert", "Home", "", new { id = "ref" })</li>
+        <li>@Html.ActionLink("Visits by Regulatory Agencies ", "Agency_Insert", "Home", "", new { id = "ref" })</li>
+        <li>@Html.ActionLink("WSIB", "WSIB", "Home", "", new { id = "ref" })</li>
+        <li>@Html.ActionLink("Not WSIB", "Not_WSIB", "Home", "", new { id = "ref" })</li>
+        <li>@Html.ActionLink("Visits by Other Agencies", "Visits_Others", "Home", "", new { id = "ref" })</li>
+        <li>@Html.ActionLink("Outbreak", "Outbreaks", "Home", "", new { id = "ref" })</li>
+    </ul>
+</div>
+
+<style>
+    #container {
+        width: 450px;
+        margin: auto;
+        text-align: center;
+    }
+
+    #ref {
+        text-decoration: none;
+        color: mediumslateblue;
+    }
+
+        #ref:hover {
+            color: darkorange;
+        }
+</style>

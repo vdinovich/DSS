@@ -1,0 +1,90 @@
+﻿@model IEnumerable<DTS.Models.Labour_Relations>
+
+@{
+    ViewBag.Title = "Labour Relations Records - Details";
+}
+
+<h1 style="text-align:center;font-weight:bold;color:darkorange">Labour Relations - All Records</h1>
+
+@Html.ActionLink("<-- Back", "Labour_Insert", "Home", "", new { id = "back" })  <br /><br /><br />
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Union)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Category)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Details)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Accruals)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Outcome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lessons_Learned)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Union)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Details)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Accruals)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Outcome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lessons_Learned)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit_Labour", "Edit", new { id = item.Id }, "") |
+                @Html.ActionLink( "Details", "Labour_Details", "Details", new { id = item.Id }, "") |
+                @Html.ActionLink("Delete", "Labour_Delete", "Delete", new { id = item.Id }, "")
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+<style>
+    #back {
+        text-decoration: none;
+        border: 2px solid darkorange;
+        border-radius: 25px;
+        color: darkorange;
+        padding: 14px;
+    }
+
+        #back:hover {
+            background-color: darkorange;
+            color: white;
+        }
+</style>

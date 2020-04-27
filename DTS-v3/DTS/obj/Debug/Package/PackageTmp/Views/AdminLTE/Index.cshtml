@@ -1,0 +1,124 @@
+﻿
+@{ Layout = "~/Views/Shared/layout_lte.cshtml";}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        #container {
+            border: 2px solid blue;
+            padding: 7px;
+            font-family: 'Times New Roman';
+            font-size: x-large;
+            position: absolute;
+        }
+
+        ul, #myUL {
+            list-style-type: none;
+        }
+
+        #myUL {
+            margin: 0;
+            padding: 0;
+        }
+
+        .caret {
+            cursor: pointer;
+            -webkit-user-select: none; /* Safari 3.1+ */
+            -moz-user-select: none; /* Firefox 2+ */
+            -ms-user-select: none; /* IE 10+ */
+            user-select: none;
+        }
+
+
+            .caret::before {
+                content: "\25B6";
+                color: black;
+                display: inline-block;
+                margin-right: 6px;
+            }
+
+        .caret-down::before {
+            -ms-transform: rotate(90deg); /* IE 9 */
+            -webkit-transform: rotate(90deg); /* Safari */
+            transform: rotate(90deg);
+        }
+
+        .nested {
+            display: none;
+        }
+
+        .active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+
+        <input type="text" class="form-control" placeholder="input name (readonly)" readonly />
+        <br />
+        <input type="text" class="form-control" placeholder="input age" />
+
+        <ul id="myUL">
+            <li>
+                <span class="caret">Sienna Communities</span>
+                <ul class="nested">
+                    @*<li>Care Communities</li>*@
+                    @*<li>Coffee</li>*@
+                    <li>
+                        @*<span class="caret">Tea</span>
+                                <ul class="nested">
+                                    <li>Black Tea</li>
+                                    <li>White Tea</li>
+                                    <li>
+                                        <span class="caret">Green Tea</span>
+                                        <ul class="nested">
+                                            <li>Sencha</li>
+                                            <li>Gyokuro</li>
+                                            <li>Matcha</li>
+                                            <li>Pi Lo Chun</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>*@
+                    <li>
+                        <span class="caret">Care Communities</span>
+                        <ul class="nested">
+                            <li>Algamo</li>
+                            <li>Altamont</li>
+                            <li>Astoria</li>
+                            <li>Barnswallow</li>
+                            <li>Bearbrook</li>
+                            <span class="caret">Trillium</span>
+                            <ul class="nested">
+                                <li>Trillium CC</li>
+                                <li>Trillium Retirement</li>
+                            </ul>
+                    </li>
+
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        var toggler = document.getElementsByClassName("caret");
+        var i;
+
+        for (i = 0; i < toggler.length; i++) {
+            toggler[i].addEventListener("click", function () {
+                this.parentElement.querySelector(".nested").classList.toggle("active");
+                this.classList.toggle("caret-down");
+            });
+        }
+    </script>
+
+</body>
+</html>
+
+
+
+
+
