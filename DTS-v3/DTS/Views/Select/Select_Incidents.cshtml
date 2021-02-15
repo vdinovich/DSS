@@ -3,119 +3,150 @@
 @{
     ViewBag.Title = "Critical Incidents Records - Details";
 }
-
+@*<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">*@
 <h1 style="text-align:center;font-weight:bold;color:darkorange">Critical Incidents - All Records</h1>
 
-@Html.ActionLink("<-- Back", "Insert", "Home", "", new { id = "back" })  <br /><br /><br />
-<table class="table">
-    <tr style="font-size:xx-small">
-        <th>
-            @Html.DisplayNameFor(model => model.Date)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CI_Form_Number)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CI_Category_Type)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Location)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Brief_Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MOH_Notified)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Police_Notified)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.POAS_Notified)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Care_Plan_Updated)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Quality_Improvement_Actions)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MOHLTC_Follow_Up)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CIS_Initiated)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Follow_Up_Amendments)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Risk_Locked)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.File_Complete)
-        </th>
-        <th></th>
-    </tr>
-    @foreach (var item in Model)
-    {
-    <tr>
-        <td id="btns">
-            <div id="btn">@Html.ActionLink("Edit", "Edit_Incidents", "Edit", new { id = item.id }, "")</div>
-            <div id="btn">@Html.ActionLink("Details", "Incidents_Details", "Details", new { id = item.id }, "")</div>
-            <div id="btn">@Html.ActionLink("Delete", "Incident_Delete", "Delete", new { id = item.id }, "")</div>
-</td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CI_Form_Number)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CI_Category_Type)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Location)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Brief_Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MOH_Notified)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Police_Notified)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.POAS_Notified)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Care_Plan_Updated)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Quality_Improvement_Actions)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MOHLTC_Follow_Up)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CIS_Initiated)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Follow_Up_Amendments)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Risk_Locked)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.File_Complete)
-        </td>
 
-    </tr>
+@Html.ActionLink("<-- Back", "Insert", "Home", "", new { id = "back" })
+<br />
+<br />
+@if (ViewBag.err)
+{
+    <h3 style="text-align:center;color:green;font-family:'Palatino Linotype'"> @ViewBag.info_insert </h3>
+    <table class="table table-bordered">
+        <thead>
+            <tr style="font-size:small">
+                <th scope="col">
+                    <label style="color:red;font-size:large">#</label>
+                </th>
+                <th scope="col">
+                    <label>Date mm-dd-yyyy</label>
+                </th>
+                <th scope="col">
+                    <label>CI Form Number</label>
+                </th>
+                <th scope="col">
+                    <label>CI Category / Type</label>
+                </th>
+                <th scope="col">
+                    <label>Location (eg. Vaga Hause)</label>
+                </th>
+                <th scope="col">
+                    <label>Brief Description</label>
+                </th>
+                <th scope="col">
+                    <label>MOH Notified</label>
+                </th>
+                <th scope="col">
+                    <label>Police Notified</label>
+                </th>
+                <th scope="col">
+                    <label>POA's Notified</label>
+                </th>
+                <th scope="col">
+                    <label>Care Plan Updated</label>
+                </th>
+                <th scope="col">
+                    <label>Brief Description Of Quality Improvement Action/Measures</label>
+                </th>
+                <th scope="col">
+                    <label>MOHLTC Follow Up</label>
+                </th>
+                <th scope="col">
+                    <label>Was CIS Initiated on Time</label>
+                </th>
+                <th scope="col">
+                    <label>All Follow Up Amendments completed Ready for MOH Visit</label>
+                </th>
+                <th scope="col">
+                    <label>Risk Locked</label>
+                </th>
+                <th scope="col">
+                    <label>File Complete Ready for MOH</label>
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @{
+                int i = 0;
+                foreach (var item in Model)
+                {
+                    <tr style="font-size:small">
+                        <td scope="row" style="color:red">
+                            @Html.DisplayFor(modelItem => item.id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Date)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CI_Form_Number)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CI_Category_Type)
+                        </td>
+                        <td>
+                            @ViewBag.list;
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Brief_Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MOH_Notified)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Police_Notified)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.POAS_Notified)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Care_Plan_Updated)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Quality_Improvement_Actions)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MOHLTC_Follow_Up)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CIS_Initiated)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Follow_Up_Amendments)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Risk_Locked)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.File_Complete)
+                        </td>
+                        <td id="btns">
+                            <div id="btn">@Html.ActionLink("Edit", "Edit_Incidents", "Edit", new { id = item.id }, new { @class = "b" })</div>
+                            <div id="btn">@Html.ActionLink("Details", "Incidents_Details", "Details", new { id = item.id }, new { @class = "b" })</div>
+                            <div id="btn">@Html.ActionLink("Delete", "Incident_Delete", "Delete", new { id = item.id }, new { @class = "b" })</div>
+                        </td>
+                    </tr>
+                } }
+        </tbody>
+    </table>
+}
+else
+{
+    <h4 style="text-align:center;color:red;border:2px solid red;border-radius:9px;padding:12px">@ViewBag.emptyMsg</h4>
+}
+<style>
+    .b {
+        color: blue;
+        text-decoration: none;
     }
 
-</table>
+        .b:hover {
+            color: red;
+            text-decoration: none;
+        }
 
-<style>
     #back {
         text-decoration: none;
         border: 2px solid darkorange;
@@ -129,10 +160,18 @@
             color: white;
         }
 
+    .btnn {
+        text-decoration: none;
+    }
+
     #btn {
         border: 1px solid blue;
         padding: 5px;
         text-align: center;
-        border-radius:12px;
+        border-radius: 12px;
     }
+
+        #btn:hover {
+            background-color: blue;
+        }
 </style>

@@ -478,3 +478,324 @@ D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS\D
 D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS\DTS-v3\DTS\obj\Debug\DTS.dll
 D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS\DTS-v3\DTS\obj\Debug\DTS.pdb
 D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS\DTS-v3\DTS\bin\System.Configuration.dll
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\DTS.dll.config
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\DTS.dll
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\DTS.pdb
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\csc.exe
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\csc.exe.config
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\csc.rsp
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\csi.exe
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\csi.exe.config
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\csi.rsp
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\Microsoft.Managed.Core.targets
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.AppContext.dll
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Collections.Immutable.dll
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Console.dll
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Diagnostics.StackTrace.dll
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.IO.Compression.dll
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.IO.FileSystem.dll
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.IO.FileSystem.Primitives.dll
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.IO.Pipes.AccessControl.dll
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.IO.Pipes.dll
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Reflection.Metadata.dll
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Security.AccessControl.dll
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Security.Claims.dll
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Security.Cryptography.Encoding.dll
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Security.Cryptography.Primitives.dll
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Security.Principal.Windows.dll
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Text.Encoding.CodePages.dll
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.ValueTuple.dll
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Xml.ReaderWriter.dll
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Xml.XmlDocument.dll
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Xml.XPath.dll
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Xml.XPath.XDocument.dll
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\vbc.exe
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\vbc.exe.config
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\vbc.rsp
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\VBCSCompiler.exe
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\VBCSCompiler.exe.config
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\Antlr3.Runtime.dll
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\EntityFramework.dll
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\EntityFramework.SqlServer.dll
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\Microsoft.Web.Infrastructure.dll
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\Newtonsoft.Json.dll
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Configuration.dll
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Web.Helpers.dll
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Web.Mvc.dll
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Web.Optimization.dll
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Web.Razor.dll
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Web.WebPages.Deployment.dll
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Web.WebPages.dll
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Web.WebPages.Razor.dll
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\WebGrease.dll
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\EntityFramework.xml
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\EntityFramework.SqlServer.xml
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Web.Helpers.xml
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Web.Mvc.xml
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Web.Optimization.xml
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Web.Razor.xml
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Web.WebPages.xml
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Web.WebPages.Deployment.xml
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Web.WebPages.Razor.xml
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\Newtonsoft.Json.xml
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\Antlr3.Runtime.pdb
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\obj\Debug\DTS.csprojAssemblyReference.cache
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\obj\Debug\DTS.csproj.CoreCompileInputs.cache
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\obj\Debug\DTS.csproj.CopyComplete
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\obj\Debug\DTS.dll
+D:\Software Development\C# All Persons\Vladimir Dinovich (Canada, Toronto)\DSS (WOR Compliants)\DTS-v3\DTS\obj\Debug\DTS.pdb
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\DTS.dll.config
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\DTS.dll
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\DTS.pdb
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\csc.exe
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\csc.exe.config
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\csc.rsp
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\csi.exe
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\csi.exe.config
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\csi.rsp
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\Microsoft.Managed.Core.targets
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.AppContext.dll
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Console.dll
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.IO.Compression.dll
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.IO.FileSystem.dll
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.IO.Pipes.AccessControl.dll
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.IO.Pipes.dll
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Security.AccessControl.dll
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Security.Claims.dll
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Security.Cryptography.Encoding.dll
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Security.Cryptography.Primitives.dll
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Security.Principal.Windows.dll
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Text.Encoding.CodePages.dll
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.ValueTuple.dll
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Xml.ReaderWriter.dll
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Xml.XmlDocument.dll
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Xml.XPath.dll
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Xml.XPath.XDocument.dll
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\vbc.exe
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\vbc.exe.config
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\vbc.rsp
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\VBCSCompiler.exe
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\Antlr3.Runtime.dll
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\EntityFramework.dll
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\EntityFramework.SqlServer.dll
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\Newtonsoft.Json.dll
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Configuration.dll
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Web.Helpers.dll
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Web.Mvc.dll
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Web.Optimization.dll
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Web.Razor.dll
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Web.WebPages.Deployment.dll
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Web.WebPages.dll
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Web.WebPages.Razor.dll
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\WebGrease.dll
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\EntityFramework.xml
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\EntityFramework.SqlServer.xml
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Web.Helpers.xml
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Web.Mvc.xml
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Web.Optimization.xml
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Web.Razor.xml
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Web.WebPages.xml
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Web.WebPages.Deployment.xml
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Web.WebPages.Razor.xml
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\Newtonsoft.Json.xml
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\Antlr3.Runtime.pdb
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\obj\Debug\DTS.csprojAssemblyReference.cache
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\obj\Debug\DTS.csproj.CopyComplete
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\obj\Debug\DTS.dll
+C:\Users\ldinovich-Admin\Downloads\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\obj\Debug\DTS.pdb
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\DTS.dll.config
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\DTS.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\DTS.pdb
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\csc.exe
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\csc.exe.config
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\csc.rsp
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\csi.exe
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\csi.exe.config
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\csi.rsp
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\Microsoft.Managed.Core.targets
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.AppContext.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Console.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.IO.Compression.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.IO.FileSystem.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.IO.Pipes.AccessControl.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.IO.Pipes.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Security.AccessControl.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Security.Claims.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Security.Cryptography.Encoding.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Security.Cryptography.Primitives.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Security.Principal.Windows.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Text.Encoding.CodePages.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.ValueTuple.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Xml.ReaderWriter.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Xml.XmlDocument.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Xml.XPath.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Xml.XPath.XDocument.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\vbc.exe
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\vbc.exe.config
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\vbc.rsp
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\VBCSCompiler.exe
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\Antlr3.Runtime.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\EntityFramework.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\EntityFramework.SqlServer.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\Newtonsoft.Json.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Configuration.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Web.Helpers.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Web.Mvc.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Web.Optimization.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Web.Razor.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Web.WebPages.Deployment.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Web.WebPages.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Web.WebPages.Razor.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\WebGrease.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\EntityFramework.xml
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\EntityFramework.SqlServer.xml
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Web.Helpers.xml
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Web.Mvc.xml
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Web.Optimization.xml
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Web.Razor.xml
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Web.WebPages.xml
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Web.WebPages.Deployment.xml
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Web.WebPages.Razor.xml
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\Newtonsoft.Json.xml
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\Antlr3.Runtime.pdb
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\obj\Debug\DTS.csprojAssemblyReference.cache
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\obj\Debug\DTS.csproj.CopyComplete
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\obj\Debug\DTS.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants)\DSS (WOR Compliants)\DTS-v3\DTS\obj\Debug\DTS.pdb
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\DTS.dll.config
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\DTS.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\DTS.pdb
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\csc.exe
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\csc.exe.config
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\csc.rsp
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\csi.exe
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\csi.exe.config
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\csi.rsp
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\Microsoft.Managed.Core.targets
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.AppContext.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Console.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.IO.Compression.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.IO.FileSystem.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.IO.Pipes.AccessControl.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.IO.Pipes.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Security.AccessControl.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Security.Claims.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Security.Cryptography.Encoding.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Security.Cryptography.Primitives.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Security.Principal.Windows.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Text.Encoding.CodePages.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.ValueTuple.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Xml.ReaderWriter.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Xml.XmlDocument.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Xml.XPath.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\System.Xml.XPath.XDocument.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\vbc.exe
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\vbc.exe.config
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\vbc.rsp
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\VBCSCompiler.exe
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\Antlr3.Runtime.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\EntityFramework.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\EntityFramework.SqlServer.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\Newtonsoft.Json.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Configuration.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Web.Helpers.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Web.Mvc.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Web.Optimization.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Web.Razor.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Web.WebPages.Deployment.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Web.WebPages.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Web.WebPages.Razor.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\WebGrease.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\EntityFramework.xml
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\EntityFramework.SqlServer.xml
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Web.Helpers.xml
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Web.Mvc.xml
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Web.Optimization.xml
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Web.Razor.xml
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Web.WebPages.xml
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Web.WebPages.Deployment.xml
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\System.Web.WebPages.Razor.xml
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\Newtonsoft.Json.xml
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\Antlr3.Runtime.pdb
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\obj\Debug\DTS.csprojAssemblyReference.cache
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\obj\Debug\DTS.csproj.CopyComplete
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\obj\Debug\DTS.dll
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\obj\Debug\DTS.pdb

@@ -1,4 +1,4 @@
-﻿
+﻿@model DTS.Models.Critical_Incidents
 @{
     ViewBag.Title = "WOR Tabs Forms";
 }
@@ -6,7 +6,7 @@
 <div id="container">
     <h1 style="text-align:center;font-weight:bold;color:darkorange">WOR Tabs Forms</h1><br /><br />
     <ul style="font-weight:bold; font-family:'Palatino Linotype';font-size:x-large;list-style-type: none">
-        <li>@Html.ActionLink("Critical Incidents", "Insert", "Home", "", new { id = "ref" })</li>
+        <li>@Html.ActionLink("Critical Incidents", "Select_Incidents", "Select", new { id =  @ViewBag.id }, new { id = "ref" })</li>
         <li>@Html.ActionLink("Labour Relations", "Labour_Insert", "Home", "", new { id = "ref" })</li>
         <li>@Html.ActionLink("Community Risks or Legal", "Community_Insert", "Home", "", new { id = "ref" })</li>
         <li>@Html.ActionLink("Good News", "GoodNews_Insert", "Home", "", new { id = "ref" })</li>

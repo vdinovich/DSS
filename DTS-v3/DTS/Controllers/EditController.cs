@@ -20,7 +20,7 @@ namespace DTS.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             Critical_Incidents incident = db.Critical_Incidents.SingleOrDefault(e => e.id == id);
             if (incident == null) return HttpNotFound();
-
+            ViewBag.id = id;
             return View(incident);
         }
 

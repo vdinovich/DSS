@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace DTS.Controllers
@@ -10,6 +9,8 @@ namespace DTS.Controllers
     public class HomeController : Controller
     {
         MyContext db = new MyContext();
+        public static string msg_infos { get; set; } 
+        public static int id_care_center { get; set; }
         List<Care_Community> communities;
         List<Position> positions;
         SelectList list2, list;
@@ -37,7 +38,7 @@ namespace DTS.Controllers
             string password = user.Password;
             List<Users> users = db.Users.ToList();
             bool flag = false;
-            for (int i = 0; i< users.Count(); i++)
+            for (int i = 0; i < users.Count(); i++)
             {
                 if (users[i].Login == login && users[i].Password == password)
                 {
@@ -60,6 +61,12 @@ namespace DTS.Controllers
         [HttpPost]
         public ActionResult Index(Sign_in_Main main)
         {
+            if(main.Id == 0)
+            {
+                if (main.Care_Community_Centre == null) return RedirectToAction("Index");
+                id_care_center = int.Parse(main.Care_Community_Centre);
+                return RedirectToAction("WOR_Tabs");
+            }
             both = new List<object> { list, list2 };
             main.Care_Community_Centre = list.Where(p => p.Value == main.Care_Community_Centre).First().Text;
             main.Position = list2.Where(p => p.Value == main.Position).First().Text;
@@ -77,21 +84,47 @@ namespace DTS.Controllers
 
         public ActionResult WOR_Tabs()
         {
+            ViewBag.id = id_care_center;
             return View();
         }
 
         [HttpGet]
         public ActionResult Insert()
         {
+            ViewBag.locations = list;
             return View();
         }
 
         [HttpPost]
         public ActionResult Insert(Critical_Incidents entity)
         {
-            db.Critical_Incidents.Add(entity);
-            db.SaveChanges();
-            return View(entity);
+            if (entity.Brief_Description == null && entity.Care_Plan_Updated == null && entity.CIS_Initiated == null && entity.CI_Category_Type == null &&
+               entity.CI_Form_Number == null && entity.Date == null && entity.File_Complete == null && entity.Follow_Up_Amendments == null &&
+               entity.Location == null && entity.MOHLTC_Follow_Up == null && entity.MOH_Notified == null && entity.POAS_Notified == null && entity.Police_Notified == null &&
+               entity.Quality_Improvement_Actions == null && entity.Risk_Locked == null)
+            {
+                ViewBag.Empty = "All fields have to be filled..";
+                return View();
+            }
+            else if (entity.Brief_Description == null || entity.Care_Plan_Updated == null || entity.CIS_Initiated == null || entity.CI_Category_Type == null ||
+              entity.CI_Form_Number == null || entity.Date == null || entity.File_Complete == null || entity.Follow_Up_Amendments == null ||
+              entity.Location == null || entity.MOHLTC_Follow_Up == null || entity.MOH_Notified == null || entity.POAS_Notified == null || entity.Police_Notified == null ||
+              entity.Quality_Improvement_Actions == null || entity.Risk_Locked == null)
+            {
+                ViewBag.Empty = "Some one field is Empty.. Try to Fill out it, and try again!";
+                return View();
+            }
+            else
+            {
+                try
+                {
+                    //db.Critical_Incidents.Add(entity);
+                    //db.SaveChanges();
+                    msg_infos = ADO_NET_CRUD.Insert_Incident(entity);
+                    return RedirectToAction("../Select/Select_Incidents");
+                }
+                catch(Exception ex) { return HttpNotFound(ex.Message); }
+            }
         }
 
         [HttpGet]
@@ -241,7 +274,8 @@ namespace DTS.Controllers
         {
             db.Outbreaks.Add(entity);
             db.SaveChanges();
-            return RedirectToAction("../Select/Select_Outbreaks");
+            return RedirectToAction("../Home/WOR_Tabs");
+            //return RedirectToAction("../Select/Select_Outbreaks");
         }
 
     }

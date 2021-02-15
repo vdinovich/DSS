@@ -49,6 +49,7 @@
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
                 }
+             <div id="dddd">Don't have an account? @Html.ActionLink("Sign-Up", "Register_New_User", "Register", "", new { id="reg"})</div>
                 <div class="copy-text">Created with <i class="fa fa-heart"></i> by Me</div>
             </div>
             <div class="col-md-8 banner-sec">
@@ -95,7 +96,18 @@
 
 
 <style>
+    #dddd{
+        width:200px;
+        margin:auto;
+    }
+    #reg{
+        text-decoration:none;
+        font-size:larger;
+    }
+     #reg:hover{
+       color:greenyellow;
 
+    }
     .login-block {
         background: #DE6262; /* fallback for old browsers */
         background: -webkit-linear-gradient(to bottom, #FFB88C, #DE6262); /* Chrome 10-25, Safari 5.1-6 */

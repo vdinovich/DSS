@@ -1,17 +1,41 @@
 ﻿using DTS.Models;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using System.Collections.Generic;
 
 namespace DTS.Controllers
 {
     public class SelectController : Controller
     {
         MyContext db = new MyContext();
+
         public ActionResult Select_Incidents()
         {
-            IEnumerable<Critical_Incidents> list = db.Critical_Incidents;
-            return View(list);
+            string info = HomeController.msg_infos;
+            bool flag;
+            int id_loc = HomeController.id_care_center;
+            IEnumerable<Critical_Incidents> list = db.Critical_Incidents.Where(l => l.Location == id_loc);
+            if(list.Count() == 0)
+            {
+                ViewBag.err = flag = false;
+                ViewBag.emptyMsg = "The form - Critical Incidents is empty.. Please fill it out!";
+                return View();
+            }
+            else
+            {
+                if (info != null || info != "" || info != string.Empty)
+                {
+                    ViewBag.info_insert = info;
+                    ViewBag.err = flag = true;
+                    Care_Community cc = db.Care_Communities.Find(id_loc);
+                    ViewBag.list = cc.Name;
+                    return View(list);
+                }
+                Care_Community c = db.Care_Communities.Find(id_loc);
+                ViewBag.list = c.Name;
+                ViewBag.err = flag = true;
+                return View(list);
+            }
         }
 
         public ActionResult Select_Labour()

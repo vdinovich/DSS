@@ -8,8 +8,8 @@
 
 <a class="btn btn-primary" style="float:right;width:150px" href="https://siennaliving.sharepoint.com/SitePages/Home.aspx" id="btn1">Exit<br />Sign in Page</a>
 <br /><br /><br />
-<button class="btn btn-primary" type="submit" onclick="location.href='@Url.Action("WOR_Tabs", "Home")'" style="float:right;width:150px" id="btn2">WOR Tabs<br />Forms</button>
-<br /><br /><br />
+@*<button class="btn btn-primary" type="submit" onclick="location.href='@Url.Action("WOR_Tabs", "Home")'" style="float:right;width:150px" id="btn2">WOR Tabs<br />Forms</button>
+<br /><br /><br />*@
 <button class="btn btn-success" onclick="location.href='@Url.Action("Register_New_User", "Register")'" style="float:right;width:150px" id="btn2">Register <br /> New User</button>
 @using (Html.BeginForm())
 {
@@ -55,8 +55,9 @@
 
         <div id="btn" class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-success" />
+                <button class="btn btn-primary" type="submit" style="width:150px" id="btn2">WOR Tabs<br />Forms</button>
             </div>
+            <br />
         </div>
         <br /><br />
     </div>
