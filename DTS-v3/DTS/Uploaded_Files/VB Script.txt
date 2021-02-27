@@ -1,0 +1,70 @@
+'   Checks the job status with the given name by calling sp_GetJobStatus procedure
+'
+Sub LTC_CheckJobStatus()
+    
+    Application.Cursor = xlWait
+    
+    jobName = "Main DWH Load"
+
+On Error GoTo ErrConnect
+    Set conndb = CreateObject("ADODB.Connection")
+    Set rs = CreateObject("ADODB.Recordset")
+
+    strServer = g_serverName 'The name or IP Address of the SQL Server
+    strDBase = "LTC"
+    strUser = "" 'leave this blank for Windows authentication
+    strPwd = ""
+    
+    If strPwd > "" Then
+        strConnectionstring = "DRIVER={SQL Server};Server=" & strServer & ";Database=" & strDBase & ";Uid=" & strUser & ";Pwd=" & strPwd & ";Connection Timeout=30;"
+    Else
+        strConnectionstring = "DRIVER={SQL Server};SERVER=" & strServer & ";Trusted_Connection=yes;DATABASE=" & strDBase    'Windows authentication
+    End If
+    conndb.ConnectionTimeout = 30
+    conndb.Open strConnectionstring
+    
+   
+    Set cmd = CreateObject("ADODB.Command")
+    cmd.ActiveConnection = conndb
+    cmd.CommandType = 4
+    cmd.CommandText = "sp_GetJobStatus"
+    
+    Set param = cmd.CreateParameter("jobName", 202, 1, 100)
+    param.Value = jobName
+    cmd.Parameters.Append param
+    
+    Set param = cmd.CreateParameter("@isRunning", 3, 2)
+    cmd.Parameters.Append param
+    
+    Set param = cmd.CreateParameter("@isOK", 3, 2)
+    cmd.Parameters.Append param
+    
+    Set param = cmd.CreateParameter("@statusMsg", 202, 2, 1000)
+    cmd.Parameters.Append param
+    
+    cmd.Execute
+    
+'    Set rs = rs.nextrecordset
+        
+    If cmd.Parameters(1).Value = 1 Then
+        MsgBox "The job '" & jobName & "' is still running", vbInformation
+    ElseIf cmd.Parameters(2).Value = 1 Then
+        MsgBox "The job '" & jobName & "' has finished with status OK" & vbCrLf & cmd.Parameters(3).Value, vbInformation
+    Else
+        MsgBox "The job '" & jobName & "' has failed." & vbCrLf & cmd.Parameters(3).Value, vbExclamation
+    End If
+    
+    Set conndb = Nothing
+    Set rs = Nothing
+    
+    Application.Cursor = xlDefault
+
+    
+Exit Sub
+ErrConnect:
+    Set conndb = Nothing
+    Set rs = Nothing
+    MsgBox "Following error occured while detecting the job status: " & vbCrLf & Err.Description, vbCritical
+    Application.Cursor = xlDefault
+
+End Sub

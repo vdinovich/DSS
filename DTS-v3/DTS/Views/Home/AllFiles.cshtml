@@ -1,0 +1,25 @@
+﻿@model IEnumerable<string>
+@{
+    ViewBag.Title = "AllFiles";
+}
+
+<h2 style="text-align:center;color:green">All Uploaded Files</h2>
+
+@using (Html.BeginForm())
+{
+  foreach (var item in Model)
+    {
+        <a href="~/Uploaded_Files/@item">@item</a>
+        @*@Html.ActionLink($"{item}", "AllFiles", "Home", new { id = item }, new { @class = "filename" })*@
+        <br />
+    }
+}
+<style>
+    .filename {
+        text-align: center;
+        font-size: larger;
+    }
+</style>
+
+
+

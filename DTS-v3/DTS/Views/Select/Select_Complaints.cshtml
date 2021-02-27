@@ -1,0 +1,247 @@
+﻿@model IEnumerable<DTS.Models.Complaint>
+
+@{
+    ViewBag.Title = "Select_Complaints"; Layout = null;
+}
+
+<h1 style="text-align:center;color:darkorange">List of Complaints</h1>
+@Styles.Render("~/Content/css")
+@Html.ActionLink("<-- Back", "Complaint_Insert", "Home", "", new { id = "back" })
+<br />
+<br />
+<br />
+@if (ViewBag.err)
+{
+    <h3 style="text-align:center;color:green;font-family:'Palatino Linotype'"> @ViewBag.info_insert </h3>
+    <table class="table table-bordered">
+        <thead>
+            <tr style="font-size:small">
+                <th>
+                    @Html.DisplayNameFor(model => model.DateReceived)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Location)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.WritenOrVerbal)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Receive_Directly)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FromResident)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ResidentName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Department)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BriefDescription)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsAdministration)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CareServices)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PalliativeCare)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Dietary)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Housekeeping)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Laundry)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Maintenance)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Programs)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Physician)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Beautician)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FootCare)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DentalCare)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Physio)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Other)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MOHLTCNotified)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CopyToVP)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ResponseSent)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ActionToken)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Resolved)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MinistryVisit)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr style="">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateReceived)
+                    </td>
+                    <td>
+                        @ViewBag.list
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.WritenOrVerbal)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Receive_Directly)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FromResident)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ResidentName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Department)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BriefDescription)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsAdministration)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CareServices)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PalliativeCare)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Dietary)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Housekeeping)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Laundry)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Maintenance)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Programs)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Physician)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Beautician)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FootCare)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DentalCare)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Physio)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Other)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MOHLTCNotified)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CopyToVP)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ResponseSent)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ActionToken)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Resolved)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MinistryVisit)
+                    </td>
+                    <td>
+                    <td id="btns">
+                        <div id="btn">@Html.ActionLink("Edit", "Edit_Complaints", "Edit", new { id = item.Id }, new { @class = "b" })</div>
+                        <div id="btn">@Html.ActionLink("Details", "Complaints_Details", "Details", new { id = item.Id }, new { @class = "b" })</div>
+                        <div id="btn">@Html.ActionLink("Delete", "Complaints_Delete", "Delete", new { id = item.Id }, new { @class = "b" })</div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h4 style="text-align:center;color:red;border:2px solid red;border-radius:9px;padding:12px">@ViewBag.emptyMsg</h4>
+}
+<style>
+    .b {
+        color: blue;
+        text-decoration: none;
+    }
+
+        .b:hover {
+            color: red;
+            text-decoration: none;
+        }
+
+    #back {
+        text-decoration: none;
+        border: 2px solid darkorange;
+        color: darkorange;
+        border-radius: 25px;
+        padding: 14px;
+    }
+
+        #back:hover {
+            background-color: darkorange;
+            color: white;
+        }
+
+    .btnn {
+        text-decoration: none;
+    }
+
+    #btn {
+        border: 1px solid blue;
+        padding: 5px;
+        text-align: center;
+        border-radius: 12px;
+    }
+
+        #btn:hover {
+            background-color: blue;
+        }
+</style>

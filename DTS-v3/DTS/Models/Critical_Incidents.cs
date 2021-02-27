@@ -1,11 +1,17 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace DTS.Models
 {
     public partial class Critical_Incidents
     {
         public int id { get; set; }
+        [DataType(DataType.Date)]
+        [Required(ErrorMessage = "This field is required! Please fill it in.")]
         public System.DateTime? Date { get; set; }
+
         public string CI_Form_Number { get; set; }
         public string CI_Category_Type { get; set; }
+        [Required(ErrorMessage = "This field is required! Please fill it in.")]
         public int? Location { get; set; }
         public string Brief_Description { get; set; }
         public string MOH_Notified { get; set; }

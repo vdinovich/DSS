@@ -6,21 +6,26 @@
 <div id="container">
     <h1 style="text-align:center;font-weight:bold;color:darkorange">WOR Tabs Forms</h1><br /><br />
     <ul style="font-weight:bold; font-family:'Palatino Linotype';font-size:x-large;list-style-type: none">
-        <li>@Html.ActionLink("Critical Incidents", "Select_Incidents", "Select", new { id =  @ViewBag.id }, new { id = "ref" })</li>
-        <li>@Html.ActionLink("Labour Relations", "Labour_Insert", "Home", "", new { id = "ref" })</li>
-        <li>@Html.ActionLink("Community Risks or Legal", "Community_Insert", "Home", "", new { id = "ref" })</li>
-        <li>@Html.ActionLink("Good News", "GoodNews_Insert", "Home", "", new { id = "ref" })</li>
-        <li>@Html.ActionLink("Visits by Regulatory Agencies ", "Agency_Insert", "Home", "", new { id = "ref" })</li>
-        <li>@Html.ActionLink("WSIB", "WSIB", "Home", "", new { id = "ref" })</li>
-        <li>@Html.ActionLink("Not WSIB", "Not_WSIB", "Home", "", new { id = "ref" })</li>
-        <li>@Html.ActionLink("Visits by Other Agencies", "Visits_Others", "Home", "", new { id = "ref" })</li>
-        <li>@Html.ActionLink("Outbreak", "Outbreaks", "Home", "", new { id = "ref" })</li>
+        <li>@Html.ActionLink("1. Critical Incidents", "Select_Incidents", "Select", new { id = @ViewBag.id }, new { id = "ref" })</li>
+        <li>@Html.ActionLink("2. Complaints", "Complaint_Insert", "Home", "", new { id = "ref" })</li>
+        <li>@Html.ActionLink("3. Good News", "GoodNews_Insert", "Home", "", new { id = "ref" })</li>
+        <li>@Html.ActionLink("4. Emergency prep", "", "Home", "", new { id = "ref" })</li>
+        <li>@Html.ActionLink("5. Community Risks or Legal", "Community_Insert", "Home", "", new { id = "ref" })</li>
+        <li>@Html.ActionLink("6. Visits by Other Agencies", "Visits_Others", "Home", "", new { id = "ref" })</li>
+        <li>@Html.ActionLink("7. Privacy", "", "Home", "", new { id = "ref" })</li>
+        <li>@Html.ActionLink("8. Education", "", "Home", "", new { id = "ref" })</li>
+        <li>@Html.ActionLink("9. Labour Relations", "Labour_Insert", "Home", "", new { id = "ref" })</li>
+        <li>@Html.ActionLink("10. Immunization", "", "Home", "", new { id = "ref" })</li>
+        <li>@Html.ActionLink("11. Outbreak", "Outbreaks", "Home", "", new { id = "ref" })</li>
+        <li>@Html.ActionLink("12a. WSIB", "WSIB", "Home", "", new { id = "ref" })</li>
+        <li>@Html.ActionLink("12b. Not WSIB", "Not_WSIB", "Home", "", new { id = "ref" })</li>
+      @*  <li>@Html.ActionLink("9. Visits by Regulatory Agencies ", "Agency_Insert", "Home", "", new { id = "ref" })</li>*@
     </ul>
 </div>
 
 <style>
     #container {
-        width: 450px;
+        width: 400px;
         margin: auto;
         text-align: center;
     }

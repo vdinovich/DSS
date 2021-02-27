@@ -11,7 +11,7 @@ namespace DTS.Controllers
 
         public ActionResult Select_Incidents()
         {
-            string info = HomeController.msg_infos;
+            string info = HomeController.msg_infos, msg2 =  HomeController.success_nsg;
             bool flag;
             int id_loc = HomeController.id_care_center;
             IEnumerable<Critical_Incidents> list = db.Critical_Incidents.Where(l => l.Location == id_loc);
@@ -35,6 +35,35 @@ namespace DTS.Controllers
                 ViewBag.list = c.Name;
                 ViewBag.err = flag = true;
                 return View(list);
+            }
+        }
+
+        public ActionResult Select_Complaints()
+        {
+            string info = HomeController.success_nsg;
+            bool flag;
+            int id_loc = HomeController.id_complaints;
+            IEnumerable<Complaint> list = db.Complaints.Where(l => l.Location == id_loc);
+            if (list.Count() == 0)
+            {
+                ViewBag.err = flag = false;
+                ViewBag.emptyMsg = "The form - Critical Incidents is empty.. Please fill it out!";
+                return View();
+            }
+            else
+            {
+                if (info != null || info != "" || info != string.Empty)
+                {
+                    ViewBag.info_insert = info;
+                    ViewBag.err = flag = true;
+                    Care_Community cc = db.Care_Communities.Find(id_loc);
+                    ViewBag.list = cc.Name;
+                    return View(list);
+                }
+                Care_Community c = db.Care_Communities.Find(id_loc);
+                ViewBag.list = c.Name;
+                ViewBag.err = flag = true;
+                return View();
             }
         }
 
@@ -73,8 +102,30 @@ namespace DTS.Controllers
 
         public ActionResult Select_GoodNews()
         {
-            IEnumerable<Good_News> list = db.Good_News;
-            return View(list);
+            string  msg2 = HomeController.success_nsg;
+            bool flag;
+            int id_loc = HomeController.id_care_center;
+            IEnumerable<Good_News> list = db.Good_News.Where(l => l.Location == id_loc);
+            if (list.Count() == 0)
+            {
+                ViewBag.err = flag = false;
+                ViewBag.emptyMsg = "The form - Good News is empty.. Please fill it out!";
+                return View();
+            }
+            else
+            {
+                if (msg2 != null || msg2 != "" || msg2 != string.Empty)
+                {
+                    ViewBag.info_insert = msg2;
+                    ViewBag.err = flag = true;
+                    Care_Community cc = db.Care_Communities.Find(id_loc);
+                    ViewBag.list = cc.Name;
+                    return View(list);
+                }
+                Care_Community c = db.Care_Communities.Find(id_loc);
+                ViewBag.list = c.Name;
+            }
+            return View();
         }        
 
         public ActionResult Select_Agencies()

@@ -1,7 +1,9 @@
 ﻿using DTS.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 
 namespace DTS.Controllers
@@ -9,8 +11,18 @@ namespace DTS.Controllers
     public class HomeController : Controller
     {
         MyContext db = new MyContext();
-        public static string msg_infos { get; set; } 
+        static string notsel;
+        public static string path { get; set; }
+        public static string msg_infos { get; set; }
         public static int id_care_center { get; set; }
+        public static int id_labor_relation { get; set; }
+        public static int id_community_risk { get; set; }
+        public static int id_complaints { get; set; }
+        public static int id_goodNews { get; set; }
+        public static string success_nsg = string.Empty;
+        //public static int id_care_center { get; set; }
+        //public static int id_care_center { get; set; }
+        //public static int id_care_center { get; set; }
         List<Care_Community> communities;
         List<Position> positions;
         SelectList list2, list;
@@ -23,6 +35,29 @@ namespace DTS.Controllers
 
             positions = db.Positions.ToList();
             list2 = new SelectList(positions, "Id", "Name");
+        }
+
+        public ActionResult Complaint_Insert()
+        {
+            ViewBag.locations = list;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Complaint_Insert(Complaint c)
+        {
+            if (c != null)
+            {
+                id_complaints = c.Location;
+                db.Complaints.Add(c);
+                int res = db.SaveChanges();
+                if (res == 1)
+                    success_nsg = "Your record was successfully saved!";
+                else
+                    success_nsg = "Something went wrong...";
+                return RedirectToAction("../Select/Select_Complaints");
+            }
+            return View();
         }
 
         [HttpGet]
@@ -63,8 +98,14 @@ namespace DTS.Controllers
         {
             if(main.Id == 0)
             {
-                if (main.Care_Community_Centre == null) return RedirectToAction("Index");
+                if (main.Care_Community_Centre == null)
+                {
+                    notsel = "You have to select a Care Community from a drop-down list";
+                    ViewBag.not_selected = notsel;
+                    return RedirectToAction("Index");
+                }
                 id_care_center = int.Parse(main.Care_Community_Centre);
+                id_complaints = int.Parse(main.Care_Community_Centre);
                 return RedirectToAction("WOR_Tabs");
             }
             both = new List<object> { list, list2 };
@@ -82,9 +123,52 @@ namespace DTS.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpPost]
+        public ActionResult Uploded(HttpPostedFileBase file)
+        {
+            if (file != null)
+            {
+                try
+                {
+                    if (file.ContentLength > 0)
+                    {
+                        string _FileName = Path.GetFileName(file.FileName);
+                        path = Path.Combine(Server.MapPath("~/Uploaded_Files"), _FileName);
+                        file.SaveAs(path);
+                    }
+                    ViewBag.Message = "File Uploaded Successfully!!";
+                    return RedirectToAction("Index");
+                }
+                catch
+                {
+                    ViewBag.Message = "File upload failed!!";
+                    return RedirectToAction("Index");
+                }
+            }
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult AllFiles()
+        {
+            List<string> names = new List<string>();
+            path = Server.MapPath("~/Uploaded_Files");
+            string[] files_names = Directory.GetFiles(path, "*", SearchOption.AllDirectories);
+            for (int i = 0; i < files_names.Length; i++)
+                names.Add(Path.GetFileName(files_names[i]));
+
+            return View(names);
+        }
+
+        [HttpPost]
+        public ActionResult AllFiles(string item)
+        {
+            return View();
+        }
+
         public ActionResult WOR_Tabs()
         {
             ViewBag.id = id_care_center;
+            ViewBag.idComplaints = id_complaints;
             return View();
         }
 
@@ -158,15 +242,25 @@ namespace DTS.Controllers
         [HttpGet]
         public ActionResult GoodNews_Insert()
         {
+            ViewBag.locations = list;
             return View();
         }
 
         [HttpPost]
         public ActionResult GoodNews_Insert(Good_News entity)
         {
-            db.Good_News.Add(entity);
-            db.SaveChanges();
-            return RedirectToAction("../Select/Select_GoodNews");
+            if (entity != null)
+            {
+                id_goodNews = entity.Location;
+                db.Good_News.Add(entity);
+                int res = db.SaveChanges();
+                if (res == 1)
+                    success_nsg = "Your record was successfully saved!";
+                else
+                    success_nsg = "Somthing went wrong...";
+                return RedirectToAction("../Select/Select_GoodNews");
+            }
+            return View();
         }
 
         [HttpGet]
