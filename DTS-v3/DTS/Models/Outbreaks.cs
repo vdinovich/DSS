@@ -12,6 +12,7 @@ namespace DTS.Models
         public DateTime Date_Concluded { get; set; }
         public string Type_of_Outbreak { get; set; }
         public int Total_Days_Closed { get; set; }
+        public int Location { get; set; }
         public int Total_Residents_Affected { get; set; }
         public int Total_Staff_Affected { get; set; }
         public string Strain_Identified { get; set; }

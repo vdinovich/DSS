@@ -3,6 +3,7 @@
     public class Not_WSIBs
     {
         public int Id { get; set; }
+        public int Location { get; set; }
         public System.DateTime Date_of_Incident { get; set; }
         public string Employee_Initials { get; set; }
         public string Position { get; set; }

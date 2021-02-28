@@ -149,10 +149,12 @@
     </Compile>
     <Compile Include="Models\ADO_NET_CRUD.cs" />
     <Compile Include="Models\Care_Community.cs" />
+    <Compile Include="Models\CI_Category_Type.cs" />
     <Compile Include="Models\Community_Risks.cs" />
     <Compile Include="Models\Complaint.cs" />
     <Compile Include="Models\Critical_Incidents.cs" />
     <Compile Include="Models\Good_News.cs" />
+    <Compile Include="Models\Immunization.cs" />
     <Compile Include="Models\Labour_Relations.cs" />
     <Compile Include="Models\MyContext.cs" />
     <Compile Include="Models\Not_WSIBs.cs" />
@@ -4741,6 +4743,8 @@
     <Content Include="Views\Home\GoodNews_Insert.cshtml" />
     <Content Include="Uploaded_Files\Working Local db.docx" />
     <Content Include="Views\Home\AllFiles.cshtml" />
+    <Content Include="Views\Home\Immunization_Insert.cshtml" />
+    <Content Include="Views\Select\Select_Immunization.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\WSIB\" />

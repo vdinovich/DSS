@@ -36,7 +36,8 @@
             @Html.Label("CI Category / Type:", htmlAttributes: new { @class = "control-label col-md-2" })
             @* @Html.LabelFor(model => model.CI_Category_Type, htmlAttributes: new { @class = "control-label col-md-2" })*@
             <div class="col-md-10">
-                @Html.EditorFor(model => model.CI_Category_Type, new { htmlAttributes = new { @class = "form-control" } })
+               @* @Html.EditorFor(model => model.CI_Category_Type, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.DropDownListFor(model => model.CI_Category_Type, ViewBag.locations[1] as SelectList, "", new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.CI_Category_Type, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -45,7 +46,7 @@
             @Html.Label("Location:", htmlAttributes: new { @class = "control-label col-md-2" })
             @*@Html.LabelFor(model => model.Location, htmlAttributes: new { @class = "control-label col-md-2" })*@
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.Location, ViewBag.locations as SelectList, "", new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.Location, ViewBag.locations[0] as SelectList, "", new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
             </div>
         </div>

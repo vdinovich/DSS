@@ -84,10 +84,11 @@
                             @Html.DisplayFor(modelItem => item.CI_Form_Number)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.CI_Category_Type)
+                            @ViewBag.List1[0]
+                           @* @Html.DisplayFor(modelItem => item.CI_Category_Type)*@
                         </td>
                         <td>
-                            @ViewBag.list;
+                            @ViewBag.list
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Brief_Description)

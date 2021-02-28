@@ -7,47 +7,58 @@
 
 <h1 style="text-align:center;color:darkorange"> All Records Not_WSIB </h1>
 
-@Html.ActionLink("<-- Back", "Not_WSIB", "Home", "", new { id = "back" })  <br /><br /><br />
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Date_of_Incident)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Employee_Initials)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Position)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Time_of_Incident)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Shift)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Home_Area)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Injury_Related)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Type_of_Injury)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Details_of_Incident)
-        </th>
-        <th></th>
-    </tr>
+@Html.ActionLink("<-- Back", "Not_WSIB", "Home", "", new { id = "back" })
+<br />
+<br />
+<br />
+@if (ViewBag.err)
+{
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Location)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date_of_Incident)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Employee_Initials)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Position)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Time_of_Incident)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Shift)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Home_Area)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Injury_Related)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Type_of_Injury)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Details_of_Incident)
+            </th>
+            <th></th>
+        </tr>
 
-    @foreach (var item in Model)
-    {
+        @foreach (var item in Model)
+        {
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Location)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Date_of_Incident)
@@ -82,10 +93,14 @@
             <div id="btn">@Html.ActionLink("Delete", "Not_WSIB_Delete", "Delete", new { id = item.Id }, "")</div>
         </td>
     </tr>
-    }
+        }
 
-</table>
-
+    </table>
+}
+else
+{
+    <h4 style="text-align:center;color:red;border:2px solid red;border-radius:9px;padding:12px">@ViewBag.emptyMsg</h4>
+}
 
 <style>
     #back {

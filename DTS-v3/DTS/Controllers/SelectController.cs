@@ -15,6 +15,7 @@ namespace DTS.Controllers
             bool flag;
             int id_loc = HomeController.id_care_center;
             IEnumerable<Critical_Incidents> list = db.Critical_Incidents.Where(l => l.Location == id_loc);
+            IEnumerable<CI_Category_Type> ll = db.CI_Category_Types;
             if(list.Count() == 0)
             {
                 ViewBag.err = flag = false;
@@ -28,6 +29,16 @@ namespace DTS.Controllers
                     ViewBag.info_insert = info;
                     ViewBag.err = flag = true;
                     Care_Community cc = db.Care_Communities.Find(id_loc);
+                    List<string> nms = new List<string>();
+                    List<Critical_Incidents> kk = list.ToList();
+                    for (int i = 0; i < kk.Count; i++)
+                    {
+                        int id = kk[i].CI_Category_Type;
+                        string name = db.CI_Category_Types.Find(id).Name;
+                        nms.Add(name);
+                        ViewBag.List1 = nms;
+                    }
+  
                     ViewBag.list = cc.Name;
                     return View(list);
                 }
@@ -69,8 +80,32 @@ namespace DTS.Controllers
 
         public ActionResult Select_Labour()
         {
-            IEnumerable<Labour_Relations> list = db.Relations;
-            return View(list);
+            string info = HomeController.msg_infos, msg2 = HomeController.success_nsg;
+            bool flag;
+            int id_loc = HomeController.id_outbrakes;
+            IEnumerable<Labour_Relations> list = db.Relations.Where(l => l.Location == id_loc);
+            if (list.Count() == 0)
+            {
+                ViewBag.err = flag = false;
+                ViewBag.emptyMsg = "The form - Labour Relations is empty.. Please fill it out!";
+                return View();
+            }
+            else
+            {
+                if (info != null || info != "" || info != string.Empty)
+                {
+                    ViewBag.info_insert = info;
+                    ViewBag.err = flag = true;
+                    Care_Community cc = db.Care_Communities.Find(id_loc);
+
+                    ViewBag.list = cc.Name;
+                    return View(list);
+                }
+                Care_Community c = db.Care_Communities.Find(id_loc);
+                ViewBag.list = c.Name;
+                ViewBag.err = flag = true;
+                return View(list);
+            }
         }
 
         public ActionResult Select_Community()
@@ -136,26 +171,152 @@ namespace DTS.Controllers
 
         public ActionResult Select_WSIB()
         {
-            IEnumerable<WSIB> list = db.WSIBs;
-            return View(list);
+            string info = HomeController.msg_infos, msg2 = HomeController.success_nsg;
+            bool flag;
+            int id_loc = HomeController.id_wsib;
+            IEnumerable<WSIB> list = db.WSIBs.Where(l => l.Location == id_loc);
+            if (list.Count() == 0)
+            {
+                ViewBag.err = flag = false;
+                ViewBag.emptyMsg = "The form - WSIB is empty.. Please fill it out!";
+                return View();
+            }
+            else
+            {
+                if (info != null || info != "" || info != string.Empty)
+                {
+                    ViewBag.info_insert = info;
+                    ViewBag.err = flag = true;
+                    Care_Community cc = db.Care_Communities.Find(id_loc);
+
+                    ViewBag.list = cc.Name;
+                    return View(list);
+                }
+                Care_Community c = db.Care_Communities.Find(id_loc);
+                ViewBag.list = c.Name;
+                ViewBag.err = flag = true;
+                return View(list);
+            }
         }
 
         public ActionResult Select_Not_WSIB()
         {
-            IEnumerable<Not_WSIBs> list = db.Not_WSIBs;
-            return View(list);
+            string info = HomeController.msg_infos, msg2 = HomeController.success_nsg;
+            bool flag;
+            int id_loc = HomeController.id_wsib;
+            IEnumerable<Not_WSIBs> list = db.Not_WSIBs.Where(l => l.Location == id_loc);
+            if (list.Count() == 0)
+            {
+                ViewBag.err = flag = false;
+                ViewBag.emptyMsg = "The form - NOT WSIB is empty.. Please fill it out!";
+                return View();
+            }
+            else
+            {
+                if (info != null || info != "" || info != string.Empty)
+                {
+                    ViewBag.info_insert = info;
+                    ViewBag.err = flag = true;
+                    Care_Community cc = db.Care_Communities.Find(id_loc);
+
+                    ViewBag.list = cc.Name;
+                    return View(list);
+                }
+                Care_Community c = db.Care_Communities.Find(id_loc);
+                ViewBag.list = c.Name;
+                ViewBag.err = flag = true;
+                return View(list);
+            }
         }
 
         public ActionResult Select_Visits_Others()
         {
-            IEnumerable<Visits_Others> list = db.Visits_Others;
-            return View(list);
+            string info = HomeController.msg_infos, msg2 = HomeController.success_nsg;
+            bool flag;
+            int id_loc = HomeController.id_visit_order;
+            IEnumerable<Visits_Others> list = db.Visits_Others.Where(l => l.Location == id_loc);
+            if (list.Count() == 0)
+            {
+                ViewBag.err = flag = false;
+                ViewBag.emptyMsg = "The form - Visits by Others is empty.. Please fill it out!";
+                return View();
+            }
+            else
+            {
+                if (info != null || info != "" || info != string.Empty)
+                {
+                    ViewBag.info_insert = info;
+                    ViewBag.err = flag = true;
+                    Care_Community cc = db.Care_Communities.Find(id_loc);
+
+                    ViewBag.list = cc.Name;
+                    return View(list);
+                }
+                Care_Community c = db.Care_Communities.Find(id_loc);
+                ViewBag.list = c.Name;
+                ViewBag.err = flag = true;
+                return View(list);
+            }
         }
 
         public ActionResult Outbreaks()
         {
-            IEnumerable<Outbreaks> list = db.Outbreaks;
-            return View(list);
+            string info = HomeController.msg_infos, msg2 = HomeController.success_nsg;
+            bool flag;
+            int id_loc = HomeController.id_outbrakes;
+            IEnumerable<Outbreaks> list = db.Outbreaks.Where(l => l.Location == id_loc);
+            if (list.Count() == 0)
+            {
+                ViewBag.err = flag = false;
+                ViewBag.emptyMsg = "The form - Outbreakes is empty.. Please fill it out!";
+                return View();
+            }
+            else
+            {
+                if (info != null || info != "" || info != string.Empty)
+                {
+                    ViewBag.info_insert = info;
+                    ViewBag.err = flag = true;
+                    Care_Community cc = db.Care_Communities.Find(id_loc);
+
+                    ViewBag.list = cc.Name;
+                    return View(list);
+                }
+                Care_Community c = db.Care_Communities.Find(id_loc);
+                ViewBag.list = c.Name;
+                ViewBag.err = flag = true;
+                return View(list);
+            }
+        }
+
+        public ActionResult Select_Immunization()
+        {
+            string info = HomeController.msg_infos, msg2 = HomeController.success_nsg;
+            bool flag;
+            int id_loc = HomeController.id_outbrakes;
+            IEnumerable<Immunization> list = db.Immunizations.Where(l => l.Location == id_loc);
+            if (list.Count() == 0)
+            {
+                ViewBag.err = flag = false;
+                ViewBag.emptyMsg = "The form - Immunization is empty.. Please fill it out!";
+                return View();
+            }
+            else
+            {
+                if (info != null || info != "" || info != string.Empty)
+                {
+                    ViewBag.info_insert = info;
+                    ViewBag.err = flag = true;
+                    Care_Community cc = db.Care_Communities.Find(id_loc);
+
+                    ViewBag.list = cc.Name;
+                    return View(list);
+                }
+                Care_Community c = db.Care_Communities.Find(id_loc);
+                ViewBag.list = c.Name;
+                ViewBag.err = flag = true;
+                return View(list);
+            }
         }
     }
 }

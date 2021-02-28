@@ -7,78 +7,94 @@
 
 <h1 style="text-align:center;color:darkorange"> All Records WSIB </h1>
 
-@Html.ActionLink("<-- Back", "WSIB", "Home", "", new { id = "back" })  <br /><br /><br />
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Date_Accident)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Employee_Initials)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Accident_Cause)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Date_Duties)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Date_Regular)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Lost_Days)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Modified_Days_Not_Shadowed)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Modified_Days_Shadowed)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Form_7)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+@Html.ActionLink("<-- Back", "WSIB", "Home", "", new { id = "back" })
+<br />
+<br />
+<br />
+@if (ViewBag.err)
+{
+    <table class="table">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date_Accident)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Employee_Initials)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Accident_Cause)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date_Duties)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date_Regular)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Lost_Days)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Modified_Days_Not_Shadowed)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Modified_Days_Shadowed)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Form_7)
-            </td>
-            <td>
-                <div id="btn">@Html.ActionLink("Edit", "Edit_WSIB", "Edit", new { id = item.Id }, "")</div>
-                <div id="btn">@Html.ActionLink("Details", "WSIB_Details", "Details", new { id = item.Id }, "")</div>
-                <div id="btn">@Html.ActionLink("Delete", "WSIB_Delete", "Delete", new { id = item.Id }, "")</div>
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.Date_Accident)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Location)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Employee_Initials)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Accident_Cause)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date_Duties)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date_Regular)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Lost_Days)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Modified_Days_Not_Shadowed)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Modified_Days_Shadowed)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Form_7)
+            </th>
+            <th></th>
         </tr>
-    }
 
-</table>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date_Accident)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Location)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Employee_Initials)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Accident_Cause)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date_Duties)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date_Regular)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Lost_Days)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Modified_Days_Not_Shadowed)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Modified_Days_Shadowed)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Form_7)
+                </td>
+                <td>
+                    <div id="btn">@Html.ActionLink("Edit", "Edit_WSIB", "Edit", new { id = item.Id }, "")</div>
+                    <div id="btn">@Html.ActionLink("Details", "WSIB_Details", "Details", new { id = item.Id }, "")</div>
+                    <div id="btn">@Html.ActionLink("Delete", "WSIB_Delete", "Delete", new { id = item.Id }, "")</div>
+                </td>
+            </tr>
+        }
+
+    </table>
+}
+else
+{
+    <h4 style="text-align:center;color:red;border:2px solid red;border-radius:9px;padding:12px">@ViewBag.emptyMsg</h4>
+}
 
 <style>
     #back {

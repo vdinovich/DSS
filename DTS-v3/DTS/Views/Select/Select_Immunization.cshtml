@@ -1,0 +1,93 @@
+﻿@model IEnumerable<DTS.Models.Immunization>
+
+@{
+    ViewBag.Title = "Select_Immunization";
+}
+
+
+<h1 style="text-align:center;color:darkorange"> All Records Immunizations </h1>
+
+@Html.ActionLink("<-- Back", "Immunization_Insert", "Home", "", new { id = "back" })
+<br />
+<br />
+<br />
+@if (ViewBag.err)
+{
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Location)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Numb_Res_Comm)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Numb_Res_Immun)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Numb_Res_Not_Immun)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Per_Res_Immun)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Per_Res_Not_Immun)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @ViewBag.list
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Numb_Res_Comm)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Numb_Res_Immun)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Numb_Res_Not_Immun)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Per_Res_Immun)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Per_Res_Not_Immun)
+                </td>
+                <td>
+                    <div id="btn">@Html.ActionLink("Edit", "Edit_Immun", "Edit", new { id = item.Id }, "")</div>
+                    <div id="btn">@Html.ActionLink("Details", "Immun_Details", "Details", new { id = item.Id }, "")</div>
+                    <div id="btn">@Html.ActionLink("Delete", "Immun_Delete", "Delete", new { id = item.Id }, "")</div>
+                </td>
+            </tr>
+        }
+
+    </table>
+}
+else
+{
+    <h4 style="text-align:center;color:red;border:2px solid red;border-radius:9px;padding:12px">@ViewBag.emptyMsg</h4>
+}
+
+<style>
+    #back {
+        text-decoration: none;
+        border: 2px solid darkorange;
+        border-radius: 25px;
+        padding: 14px;
+        color: darkorange;
+    }
+
+        #back:hover {
+            background-color: darkorange;
+            color: white;
+        }
+
+    #btn {
+        padding: 1px;
+        text-align: center;
+    }
+</style>

@@ -19,7 +19,8 @@ namespace DTS.Models
         public virtual DbSet<Not_WSIBs> Not_WSIBs { get; set; }
         public virtual DbSet<Visits_Others> Visits_Others { get; set; }
         public virtual DbSet<Outbreaks> Outbreaks { get; set; }
-
         public virtual DbSet<Complaint> Complaints { get; set; }
+        public virtual DbSet<CI_Category_Type> CI_Category_Types { get; set; }
+        public virtual DbSet<Immunization> Immunizations { get; set; }
     }
 }

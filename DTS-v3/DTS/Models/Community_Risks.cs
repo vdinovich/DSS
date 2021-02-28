@@ -4,6 +4,7 @@
     {
         public int Id { get; set;}
         public System.DateTime Date { get; set; }
+        public int Location { get; set; }
         public string Type_Of_Risk { get; set; }
         public string Descriptions { get; set; }
         public string Potential_Risk { get; set; }

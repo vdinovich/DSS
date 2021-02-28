@@ -46,102 +46,114 @@
         <h1 style="text-align:center;color:darkorange">Select Outbreaks</h1>
 
         @Html.ActionLink("<-- Back", "Outbreaks", "Home", "", new { id = "back" })  <br /><br /><br />
-        <table class="table" style="font-size:x-small;float:left;font-weight:bold">
-
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Date_Declared)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Date_Concluded)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Type_of_Outbreak)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Total_Days_Closed)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Total_Residents_Affected)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Total_Staff_Affected)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Strain_Identified)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Deaths_Due)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.CI_Report_Submitted)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Notify_MOL)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Credit_for_Lost_Days)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Tracking_Sheet_Completed)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Docs_Submitted_Finance)
-                </th>
-                <th></th>
-            </tr>
-
-            @foreach (var item in Model)
-            {
+        @if (ViewBag.err)
+        {
+            <table class="table" style="font-size:x-small;float:left;font-weight:bold">
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Date_Declared)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Date_Concluded)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Type_of_Outbreak)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Total_Days_Closed)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Total_Residents_Affected)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Total_Staff_Affected)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Strain_Identified)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Deaths_Due)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CI_Report_Submitted)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Notify_MOL)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Credit_for_Lost_Days)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Tracking_Sheet_Completed)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Docs_Submitted_Finance)
-                    </td>
-                    <td style="text-align:center">
-                        <div>@Html.ActionLink("Edit", "Edit_Outbreaks", "Edit", new { id = item.Id }, new { @class="edt"})</div>
-                        <div>@Html.ActionLink("Details", "Outbreaks", "Details", new { id = item.Id }, new { @class = "edt" })</div>
-                        <div>@Html.ActionLink("Delete", "Outbreaks_Delete", "Delete", new { id = item.Id }, new { @class = "edt" })</div>
-                    </td>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Date_Declared)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Location)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Date_Concluded)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Type_of_Outbreak)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Total_Days_Closed)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Total_Residents_Affected)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Total_Staff_Affected)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Strain_Identified)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Deaths_Due)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CI_Report_Submitted)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Notify_MOL)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Credit_for_Lost_Days)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Tracking_Sheet_Completed)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Docs_Submitted_Finance)
+                    </th>
+                    <th></th>
                 </tr>
-            }
 
-        </table>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Date_Declared)
+                        </td>
+                        <td>
+                            @ViewBag.list
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Date_Concluded)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Type_of_Outbreak)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Total_Days_Closed)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Total_Residents_Affected)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Total_Staff_Affected)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Strain_Identified)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Deaths_Due)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CI_Report_Submitted)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Notify_MOL)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Credit_for_Lost_Days)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Tracking_Sheet_Completed)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Docs_Submitted_Finance)
+                        </td>
+                        <td style="text-align:center">
+                            <div>@Html.ActionLink("Edit", "Edit_Outbreaks", "Edit", new { id = item.Id }, new { @class = "edt" })</div>
+                            <div>@Html.ActionLink("Details", "Outbreaks", "Details", new { id = item.Id }, new { @class = "edt" })</div>
+                            <div>@Html.ActionLink("Delete", "Outbreaks_Delete", "Delete", new { id = item.Id }, new { @class = "edt" })</div>
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
+        else
+        {
+            <h4 style="text-align:center;color:red;border:2px solid red;border-radius:9px;padding:12px">@ViewBag.emptyMsg</h4>
+        }
+
         @*------------------------------------------- View End -----------------------------------------------------------------*@
         <hr />
         <footer>

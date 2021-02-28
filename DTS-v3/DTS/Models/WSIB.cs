@@ -5,6 +5,7 @@
     public class WSIB
     {
         public int Id { get; set; }
+        public int Location { get; set; }
         public DateTime Date_Accident { get; set; }
         public string Employee_Initials { get; set; }
         public string Accident_Cause { get; set; }

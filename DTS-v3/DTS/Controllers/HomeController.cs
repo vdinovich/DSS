@@ -20,12 +20,13 @@ namespace DTS.Controllers
         public static int id_complaints { get; set; }
         public static int id_goodNews { get; set; }
         public static string success_nsg = string.Empty;
-        //public static int id_care_center { get; set; }
-        //public static int id_care_center { get; set; }
-        //public static int id_care_center { get; set; }
+        public static int id_visit_order{ get; set; }
+        public static int id_outbrakes { get; set; }
+        public static int id_wsib { get; set; }
+        List<CI_Category_Type> categories;
         List<Care_Community> communities;
         List<Position> positions;
-        SelectList list2, list;
+        SelectList list2, list, list3;
         List<object> both;
 
         public HomeController()
@@ -35,6 +36,9 @@ namespace DTS.Controllers
 
             positions = db.Positions.ToList();
             list2 = new SelectList(positions, "Id", "Name");
+
+            categories = db.CI_Category_Types.ToList();
+            list3 = new SelectList(categories, "Id", "Name");
         }
 
         public ActionResult Complaint_Insert()
@@ -104,8 +108,9 @@ namespace DTS.Controllers
                     ViewBag.not_selected = notsel;
                     return RedirectToAction("Index");
                 }
-                id_care_center = int.Parse(main.Care_Community_Centre);
-                id_complaints = int.Parse(main.Care_Community_Centre);
+                id_care_center = id_complaints = 
+                id_visit_order = id_outbrakes = id_wsib = int.Parse(main.Care_Community_Centre);
+
                 return RedirectToAction("WOR_Tabs");
             }
             both = new List<object> { list, list2 };
@@ -175,14 +180,15 @@ namespace DTS.Controllers
         [HttpGet]
         public ActionResult Insert()
         {
-            ViewBag.locations = list;
+            object[] objs = new object[] { list, list3 };
+            ViewBag.locations = objs;
             return View();
         }
 
         [HttpPost]
         public ActionResult Insert(Critical_Incidents entity)
         {
-            if (entity.Brief_Description == null && entity.Care_Plan_Updated == null && entity.CIS_Initiated == null && entity.CI_Category_Type == null &&
+            if (entity.Brief_Description == null && entity.Care_Plan_Updated == null && entity.CIS_Initiated == null && entity.CI_Category_Type == 0 &&
                entity.CI_Form_Number == null && entity.Date == null && entity.File_Complete == null && entity.Follow_Up_Amendments == null &&
                entity.Location == null && entity.MOHLTC_Follow_Up == null && entity.MOH_Notified == null && entity.POAS_Notified == null && entity.Police_Notified == null &&
                entity.Quality_Improvement_Actions == null && entity.Risk_Locked == null)
@@ -190,7 +196,7 @@ namespace DTS.Controllers
                 ViewBag.Empty = "All fields have to be filled..";
                 return View();
             }
-            else if (entity.Brief_Description == null || entity.Care_Plan_Updated == null || entity.CIS_Initiated == null || entity.CI_Category_Type == null ||
+            else if (entity.Brief_Description == null || entity.Care_Plan_Updated == null || entity.CIS_Initiated == null || entity.CI_Category_Type == 0 ||
               entity.CI_Form_Number == null || entity.Date == null || entity.File_Complete == null || entity.Follow_Up_Amendments == null ||
               entity.Location == null || entity.MOHLTC_Follow_Up == null || entity.MOH_Notified == null || entity.POAS_Notified == null || entity.Police_Notified == null ||
               entity.Quality_Improvement_Actions == null || entity.Risk_Locked == null)
@@ -214,6 +220,7 @@ namespace DTS.Controllers
         [HttpGet]
         public ActionResult Labour_Insert()
         {
+            ViewBag.locations = list;
             return View();
         }
 
@@ -228,6 +235,7 @@ namespace DTS.Controllers
         [HttpGet]
         public ActionResult Community_Insert()
         {
+            ViewBag.locations = list;
             return View();
         }
 
@@ -280,6 +288,7 @@ namespace DTS.Controllers
         [HttpGet]
         public ActionResult WSIB()
         {
+            ViewBag.locations = list;
             return View();
         }
 
@@ -295,6 +304,7 @@ namespace DTS.Controllers
         [HttpGet]
         public ActionResult Not_WSIB()
         {
+            ViewBag.locations = list;
             return View();
         }
 
@@ -346,6 +356,7 @@ namespace DTS.Controllers
         [HttpGet]
         public ActionResult Visits_Others()
         {
+            ViewBag.locations = list;
             return View();
         }
 
@@ -360,6 +371,7 @@ namespace DTS.Controllers
         [HttpGet]
         public ActionResult Outbreaks()
         {
+            ViewBag.locations = list;
             return View();
         }
 
@@ -372,5 +384,10 @@ namespace DTS.Controllers
             //return RedirectToAction("../Select/Select_Outbreaks");
         }
 
+        public ActionResult Immunization_Insert()
+        {
+            ViewBag.locations = list;
+            return View();
+        }
     }
 }

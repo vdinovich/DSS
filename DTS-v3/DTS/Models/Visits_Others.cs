@@ -6,6 +6,7 @@
     {
         public int Id { get; set; }
         public DateTime Date_of_Visit { get; set; }
+        public int Location { get; set; }
         public string Agency { get; set; }
         public int Number_of_Findings { get; set; }
         public string Details_of_Findings { get; set; }

@@ -10,7 +10,7 @@ namespace DTS.Models
         public System.DateTime? Date { get; set; }
 
         public string CI_Form_Number { get; set; }
-        public string CI_Category_Type { get; set; }
+        public int CI_Category_Type { get; set; }
         [Required(ErrorMessage = "This field is required! Please fill it in.")]
         public int? Location { get; set; }
         public string Brief_Description { get; set; }
@@ -23,6 +23,6 @@ namespace DTS.Models
         public string CIS_Initiated { get; set; }
         public string Follow_Up_Amendments { get; set; }
         public string Risk_Locked { get; set; }
-        public string File_Complete { get; set; }
+        public string File_Complete { get; set; }    
     }
 }
