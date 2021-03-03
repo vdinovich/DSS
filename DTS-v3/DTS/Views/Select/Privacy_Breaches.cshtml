@@ -1,0 +1,135 @@
+﻿@model IEnumerable<DTS.Models.Privacy_Breaches>
+
+@{
+    ViewBag.Title = "Privacy_Breaches";
+}
+
+    <h1 style="text-align:center;font-weight:bold;color:darkorange">Privacy Breaches - All Records</h1>
+
+@Html.ActionLink("<-- Back", "Privacy_Breaches", "Home", "", new { id = "back" })
+<br />
+<br />
+<br />
+@if (ViewBag.err)
+{
+    <h3 style="text-align:center;color:green;font-family:'Palatino Linotype'"> @ViewBag.info_insert </h3>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Location)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date_Breach_Occurred)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date_Breach_Reported)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date_Breach_Reported_By)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Type_of_Breach)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Type_of_PHI_Involved)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Number_of_Individuals_Affected)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description_Outcome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Risk_Level)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @ViewBag.list
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date_Breach_Occurred)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date_Breach_Reported)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date_Breach_Reported_By)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type_of_Breach)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type_of_PHI_Involved)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Number_of_Individuals_Affected)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description_Outcome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Risk_Level)
+                </td>
+                <td id="btns">
+                    <div id="btn">@Html.ActionLink("Edit", "Edit_Incidents", "Edit", new { id = item.Id }, new { @class = "b" })</div>
+                    <div id="btn">@Html.ActionLink("Details", "Incidents_Details", "Details", new { id = item.Id }, new { @class = "b" })</div>
+                    <div id="btn">@Html.ActionLink("Delete", "Incident_Delete", "Delete", new { id = item.Id }, new { @class = "b" })</div>
+                </td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <h4 style="text-align:center;color:red;border:2px solid red;border-radius:9px;padding:12px">@ViewBag.emptyMsg</h4>
+}
+<style>
+    .b {
+        color: blue;
+        text-decoration: none;
+    }
+
+        .b:hover {
+            color: red;
+            text-decoration: none;
+        }
+
+    #back {
+        text-decoration: none;
+        border: 2px solid darkorange;
+        color: darkorange;
+        border-radius: 25px;
+        padding: 14px;
+    }
+
+        #back:hover {
+            background-color: darkorange;
+            color: white;
+        }
+
+    .btnn {
+        text-decoration: none;
+    }
+
+    #btn {
+        border: 1px solid blue;
+        padding: 5px;
+        text-align: center;
+        border-radius: 12px;
+    }
+
+        #btn:hover {
+            background-color: blue;
+        }
+</style>

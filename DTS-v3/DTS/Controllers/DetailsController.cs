@@ -119,5 +119,17 @@ namespace DTS.Controllers
                 return HttpNotFound();
             return View(entity);
         }
+
+        public ActionResult Privacy_Breaches(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Outbreaks entity = db.Outbreaks.SingleOrDefault(w => w.Id == id);
+            if (entity == null)
+                return HttpNotFound();
+            return View(entity);
+        }
     }
 }

@@ -295,5 +295,27 @@ namespace DTS.Controllers
 
             return View();
         }
+
+        public ActionResult Edit_Privacy_Breaches(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            Complaint founded = db.Complaints.Find(id);
+            if (founded == null) return HttpNotFound();
+            return View(founded);
+        }
+
+        [HttpPost]
+        public ActionResult Edit_Privacy_Breaches(Complaint edit)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(edit).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("../Select/Select_Complaints");
+            }
+
+            return View();
+        }
     }
 }

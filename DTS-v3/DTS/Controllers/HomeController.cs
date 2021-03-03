@@ -193,7 +193,7 @@ namespace DTS.Controllers
                entity.Location == null && entity.MOHLTC_Follow_Up == null && entity.MOH_Notified == null && entity.POAS_Notified == null && entity.Police_Notified == null &&
                entity.Quality_Improvement_Actions == null && entity.Risk_Locked == null)
             {
-                ViewBag.Empty = "All fields have to be filled..";
+                ViewBag.Empty = "All fields have to be filled.";
                 return View();
             }
             else if (entity.Brief_Description == null || entity.Care_Plan_Updated == null || entity.CIS_Initiated == null || entity.CI_Category_Type == 0 ||
@@ -201,7 +201,7 @@ namespace DTS.Controllers
               entity.Location == null || entity.MOHLTC_Follow_Up == null || entity.MOH_Notified == null || entity.POAS_Notified == null || entity.Police_Notified == null ||
               entity.Quality_Improvement_Actions == null || entity.Risk_Locked == null)
             {
-                ViewBag.Empty = "Some one field is Empty.. Try to Fill out it, and try again!";
+                ViewBag.Empty = "Some fields are empty. Please fill it out and try again!";
                 return View();
             }
             else
@@ -388,6 +388,51 @@ namespace DTS.Controllers
         {
             ViewBag.locations = list;
             return View();
+        }
+
+        [HttpGet]
+        public ActionResult Privacy_Breaches()
+        {
+            ViewBag.locations = list;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Privacy_Breaches(Privacy_Breaches entity)
+        {
+            db.Privacy_Breaches.Add(entity);
+            db.SaveChanges();
+            return RedirectToAction("../Select/Privacy_Breaches");
+        }
+
+        [HttpGet]
+        public ActionResult Privacy_Complaints()
+        {
+            ViewBag.locations = list;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Privacy_Complaints(Privacy_Complaints entity)
+        {
+            db.Privacy_Complaints.Add(entity);
+            db.SaveChanges();
+            return RedirectToAction("../Select/Privacy_Complaints");
+        }
+
+        [HttpGet]
+        public ActionResult Education_Insert()
+        {
+            ViewBag.locations = list;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Education_Insert(Education entity)
+        {
+            db.Education.Add(entity);
+            db.SaveChanges();
+            return RedirectToAction("../Select/Education_Select");
         }
     }
 }

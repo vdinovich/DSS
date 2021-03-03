@@ -8,12 +8,14 @@ namespace DTS.Models
         [DataType(DataType.Date)]
         [Required(ErrorMessage = "This field is required! Please fill it in.")]
         public System.DateTime? Date { get; set; }
-
+        [Required(ErrorMessage = "This field is required! Please fill it in.")]
         public string CI_Form_Number { get; set; }
+        [Required(ErrorMessage = "This field is required! Please fill it in.")]
         public int CI_Category_Type { get; set; }
         [Required(ErrorMessage = "This field is required! Please fill it in.")]
         public int? Location { get; set; }
-        public string Brief_Description { get; set; }
+        [Required(ErrorMessage = "This field is required! Please fill it in.")]
+        public string Brief_Description { get; set; }       
         public string MOH_Notified { get; set; }
         public string Police_Notified { get; set; }
         public string POAS_Notified { get; set; }

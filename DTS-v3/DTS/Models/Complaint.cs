@@ -1,12 +1,19 @@
-﻿namespace DTS.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace DTS.Models
 {
     public class Complaint
     {
         public int Id { get; set; }
+        [Required(ErrorMessage = "This field is required! Please fill it in.")]
         public System.DateTime DateReceived { get; set; }
+        [Required(ErrorMessage = "This field is required! Please fill it in.")]
         public int Location { get; set; }
+        [Required(ErrorMessage = "This field is required! Please fill it in.")]
         public string WritenOrVerbal { get; set; }
+        [Required(ErrorMessage = "This field is required! Please fill it in.")]
         public string Receive_Directly { get; set; }
+        [Required(ErrorMessage = "This field is required! Please fill it in.")]
         public string FromResident { get; set; }
         public string ResidentName { get; set; }
         public string Department { get; set; }

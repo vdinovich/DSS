@@ -47,11 +47,11 @@
 
           <div class="form-group">
               @Html.TextBox("file", "", new { type = "file" })
-              <input type="submit" value="Upload" class="form-control-file" />
+              <input type="submit" value="Upload File/s" class="form-control-file" />
   
                   <h5 style="color:green;font-family:'Palatino Linotype'"> @ViewBag.UploadMsg</h5>
         
-              @Html.ActionLink("See All Files", "AllFiles", "Home", "", new { @class= "btn btn-danger"})
+              @Html.ActionLink("See All Uploaded Files", "AllFiles", "Home", "", new { @class= "btn btn-danger"})
           </div>
    
     <br /><br />

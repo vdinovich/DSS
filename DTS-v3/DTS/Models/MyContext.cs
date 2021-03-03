@@ -22,5 +22,8 @@ namespace DTS.Models
         public virtual DbSet<Complaint> Complaints { get; set; }
         public virtual DbSet<CI_Category_Type> CI_Category_Types { get; set; }
         public virtual DbSet<Immunization> Immunizations { get; set; }
+        public virtual DbSet<Privacy_Breaches> Privacy_Breaches { get; set; }
+        public virtual DbSet<Privacy_Complaints> Privacy_Complaints { get; set; }
+        public virtual DbSet<Education> Education { get; set; }
     }
 }

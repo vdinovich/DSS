@@ -9,17 +9,18 @@
         <li>@Html.ActionLink("1. Critical Incidents", "Select_Incidents", "Select", new { id = @ViewBag.id }, new { id = "ref" })</li>
         <li>@Html.ActionLink("2. Complaints", "Complaint_Insert", "Home", "", new { id = "ref" })</li>
         <li>@Html.ActionLink("3. Good News", "GoodNews_Insert", "Home", "", new { id = "ref" })</li>
-        <li>@Html.ActionLink("4. Emergency prep", "", "Home", "", new { id = "ref" })</li>
+        <li>@Html.ActionLink("4. Emergency Prep", "", "Home", "", new { id = "ref" })</li>
         <li>@Html.ActionLink("5. Community Risks or Legal", "Community_Insert", "Home", "", new { id = "ref" })</li>
         <li>@Html.ActionLink("6. Visits by Other Agencies", "Visits_Others", "Home", "", new { id = "ref" })</li>
-        <li>@Html.ActionLink("7. Privacy", "", "Home", "", new { id = "ref" })</li>
-        <li>@Html.ActionLink("8. Education", "", "Home", "", new { id = "ref" })</li>
+        <li>@Html.ActionLink("7a. Privacy Breaches", "Privacy_Breaches", "Home", "", new { id = "ref" })</li>
+        <li>@Html.ActionLink("7b. Privacy Complaints", "Privacy_Complaints", "Home", "", new { id = "ref" })</li>
+        <li>@Html.ActionLink("8. Education", "Education_Insert", "Home", "", new { id = "ref" })</li>
         <li>@Html.ActionLink("9. Labour Relations", "Labour_Insert", "Home", "", new { id = "ref" })</li>
         <li>@Html.ActionLink("10. Immunization", "Immunization_Insert", "Home", "", new { id = "ref" })</li>
         <li>@Html.ActionLink("11. Outbreak", "Outbreaks", "Home", "", new { id = "ref" })</li>
         <li>@Html.ActionLink("12a. WSIB", "WSIB", "Home", "", new { id = "ref" })</li>
         <li>@Html.ActionLink("12b. Not WSIB", "Not_WSIB", "Home", "", new { id = "ref" })</li>
-      @*  <li>@Html.ActionLink("9. Visits by Regulatory Agencies ", "Agency_Insert", "Home", "", new { id = "ref" })</li>*@
+        @*  <li>@Html.ActionLink("9. Visits by Regulatory Agencies ", "Agency_Insert", "Home", "", new { id = "ref" })</li>*@
     </ul>
 </div>
 

@@ -1,0 +1,169 @@
+﻿@model DTS.Models.Privacy_Breaches
+
+@{
+    ViewBag.Title = "Privacy_Breaches";
+}
+<h1 style="color:darkorange;font-weight:bold;text-align:center">Privacy Breaches - Entry Form</h1>
+<h3 style="text-align:center;color:red">@ViewBag.Empty</h3>
+<br />
+<br />
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ActionLink("Show All Records", "Privacy_Breaches", "Select", "", new { id = "select" })
+    <br />
+    <br />
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Location, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Location, ViewBag.locations as SelectList, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">
+                Date Breach Occurred
+            </label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Date_Breach_Occurred, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Date_Breach_Occurred, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">
+                Date Breach Reported
+            </label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Date_Breach_Reported, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Date_Breach_Reported, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">
+           Date Breach Reported By
+            </label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Date_Breach_Reported_By, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Date_Breach_Reported_By, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">
+                Type of Breach (Select from dropdown list)
+            </label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Type_of_Breach, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Type_of_Breach, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">
+                Types of PHI involved (i.e. healthcard number)
+            </label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Type_of_PHI_Involved, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Type_of_PHI_Involved, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">
+                Number of Individuals Affected
+            </label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Number_of_Individuals_Affected, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Number_of_Individuals_Affected, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">
+                Description/Outcome
+            </label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Description_Outcome, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Description_Outcome, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">
+                Risk Level (Select from drop down)
+            </label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Risk_Level, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Risk_Level, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to WOR Tabs", "WOR_Tabs", "Home", new { id = "back" })
+</div>
+<style>
+    #center {
+        /*width: 650px;
+        margin: auto;
+        border: 1px black solid;
+        position: relative;*/
+        padding: 17px;
+        /*border-radius: 22px;*/
+    }
+
+    #back {
+        border: 2px solid blue;
+        border-radius: 22px;
+        position: absolute;
+        padding: 11px;
+        text-decoration: none;
+        background-color: aqua;
+        color: brown
+    }
+
+        #back:hover {
+            text-decoration: none;
+            background-color: black;
+            color: white
+        }
+
+    #select {
+        border: 2px solid darkorange;
+        color: darkorange;
+        position: absolute;
+        border-radius: 22px;
+        padding: 7px;
+        text-decoration: none;
+    }
+
+        #select:hover {
+            background-color: darkorange;
+            color: white;
+        }
+</style>
+
+
+

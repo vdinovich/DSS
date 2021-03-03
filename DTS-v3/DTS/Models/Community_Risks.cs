@@ -1,11 +1,17 @@
-﻿namespace DTS.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace DTS.Models
 {
     public class Community_Risks
     {
         public int Id { get; set;}
+        [Required(ErrorMessage = "This field is required! Please fill it in.")]
         public System.DateTime Date { get; set; }
+        [Required(ErrorMessage = "This field is required! Please fill it in.")]
         public int Location { get; set; }
+        [Required(ErrorMessage = "This field is required! Please fill it in.")]
         public string Type_Of_Risk { get; set; }
+        [Required(ErrorMessage = "This field is required! Please fill it in.")]
         public string Descriptions { get; set; }
         public string Potential_Risk { get; set; }
         public string MOH_Visit { get; set; }

@@ -218,5 +218,27 @@ namespace DTS.Controllers
 
             return RedirectToAction("../Select/Outbreaks");
         }
+
+        [HttpGet]
+        public ActionResult Privacy_Breaches_Delete(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var delete = db.Outbreaks.SingleOrDefault(e => e.Id == id);
+            if (delete == null) return HttpNotFound();
+
+            return View(delete);
+        }
+
+        [HttpPost]
+        public ActionResult Privacy_Breaches_Delete(int id)
+        {
+            Outbreaks delete = db.Outbreaks.SingleOrDefault(l => l.Id == id);
+            db.Outbreaks.Remove(delete ?? throw new InvalidOperationException());
+            db.SaveChanges();
+
+            return RedirectToAction("../Select/Outbreaks");
+        }
     }
 }

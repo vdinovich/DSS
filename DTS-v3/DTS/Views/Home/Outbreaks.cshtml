@@ -9,7 +9,7 @@
 <div id="center">
     @Html.AntiForgeryToken()
     @Html.ActionLink("Show All Records", "Outbreaks", "Select", "", new { id = "select" })
-    <h1 style="text-align:center;color:darkorange"> Add New Outbreak </h1>
+    <h1 style="text-align:center;color:darkorange"> Outbreak - Entry Form</h1>
     <div class="form-horizontal" id="center">
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
