@@ -6,7 +6,7 @@
 
 <h1 style="text-align:center;font-weight:bold;color:darkorange">Privacy Complaints - All Records</h1>
 
-@Html.ActionLink("<-- Back", "Privacy_Complaints", "Home", "", new { id = "back" })
+@Html.ActionLink("<-- Back", "Education", "Home", "", new { id = "back" })
 <br />
 <br />
 <br />
@@ -124,9 +124,9 @@
                     @Html.DisplayFor(modelItem => item.Approx_Per_Educated)
                 </td>
                 <td id="btns">
-                    <div id="btn">@Html.ActionLink("Edit", "Edit_Incidents", "Edit", new { id = item.Id }, new { @class = "b" })</div>
-                    <div id="btn">@Html.ActionLink("Details", "Incidents_Details", "Details", new { id = item.Id }, new { @class = "b" })</div>
-                    <div id="btn">@Html.ActionLink("Delete", "Incident_Delete", "Delete", new { id = item.Id }, new { @class = "b" })</div>
+                    <div id="btn">@Html.ActionLink("Edit", "Edit_Education", "Edit", new { id = item.Id }, new { @class = "b" })</div>
+                    <div id="btn">@Html.ActionLink("Details", "Education_Details", "Details", new { id = item.Id }, new { @class = "b" })</div>
+                    <div id="btn">@Html.ActionLink("Delete", "Education_Delete", "Delete", new { id = item.Id }, new { @class = "b" })</div>
                 </td>
             </tr>
         }

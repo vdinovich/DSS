@@ -19,6 +19,8 @@ namespace DTS.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             Critical_Incidents incident = db.Critical_Incidents.SingleOrDefault(e => e.id == id);
+            object[] objs = new object[] { HomeController.list, HomeController.list3 };
+            ViewBag.locations = objs;
             if (incident == null) return HttpNotFound();
             ViewBag.id = id;
             return View(incident);

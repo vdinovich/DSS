@@ -19,6 +19,10 @@ namespace DTS.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
             var delete = db.Critical_Incidents.SingleOrDefault(e => e.id == id);
+            Care_Community name1 = db.Care_Communities.Find(delete.Location);
+            CI_Category_Type name2 = db.CI_Category_Types.Find(delete.CI_Category_Type);
+            var arr = new string[] { name1.Name, name2.Name };
+            ViewBag.list = arr;
             if (delete == null) return HttpNotFound();
 
             return View(delete);
@@ -225,7 +229,7 @@ namespace DTS.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            var delete = db.Outbreaks.SingleOrDefault(e => e.Id == id);
+            var delete = db.Privacy_Breaches.SingleOrDefault(e => e.Id == id);
             if (delete == null) return HttpNotFound();
 
             return View(delete);
@@ -239,6 +243,28 @@ namespace DTS.Controllers
             db.SaveChanges();
 
             return RedirectToAction("../Select/Outbreaks");
+        }
+
+        [HttpGet]
+        public ActionResult Emergency_Prep_Delete(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var delete = db.Emergency_Prep.SingleOrDefault(e => e.Id == id);
+            if (delete == null) return HttpNotFound();
+
+            return View(delete);
+        }
+
+        [HttpPost]
+        public ActionResult Emergency_Prep_Delete(int id)
+        {
+            Outbreaks delete = db.Outbreaks.SingleOrDefault(l => l.Id == id);
+            db.Outbreaks.Remove(delete ?? throw new InvalidOperationException());
+            db.SaveChanges();
+
+            return RedirectToAction("../Select/Emergency_Prep");
         }
     }
 }

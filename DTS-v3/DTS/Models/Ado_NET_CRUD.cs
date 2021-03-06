@@ -28,7 +28,7 @@
                     cmd.Parameters.AddWithValue("@Date", inc.Date);
                     cmd.Parameters.AddWithValue("@CI_Form_Number", inc.CI_Form_Number);
                     cmd.Parameters.AddWithValue("@CI_Category_Type", inc.CI_Category_Type);
-                    cmd.Parameters.AddWithValue("@Location", System.Convert.ToInt32(inc.Location));
+                    cmd.Parameters.AddWithValue("@Location", inc.Location);
                     cmd.Parameters.AddWithValue("@Brief_Description", inc.Brief_Description);
                     cmd.Parameters.AddWithValue("@MOH_Notified", inc.MOH_Notified);
                     cmd.Parameters.AddWithValue("@Police_Notified", inc.Police_Notified);

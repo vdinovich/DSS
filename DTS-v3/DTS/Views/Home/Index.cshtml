@@ -46,14 +46,55 @@
     <br /><br />
 
           <div class="form-group">
-              @Html.TextBox("file", "", new { type = "file" })
-              <input type="submit" value="Upload File/s" class="form-control-file" />
-  
-                  <h5 style="color:green;font-family:'Palatino Linotype'"> @ViewBag.UploadMsg</h5>
-        
-              @Html.ActionLink("See All Uploaded Files", "AllFiles", "Home", "", new { @class= "btn btn-danger"})
+               @*@Html.TextBox("file", new { id = "FileUpload1" }, new { type = "file" })*@
+              <input type="file" id="FileUpload1" />
+              <input type="button" id="btnUpload" value="Upload File/s" @*class="form-control-file"*@ />
+
+              <h5 style="color:green;font-family:'Palatino Linotype'"> @ViewBag.UploadMsg</h5>
+
+              @Html.ActionLink("See All Uploaded Files", "AllFiles", "Home", "", new { @class = "btn btn-danger" })
           </div>
-   
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#btnUpload').click(function () {
+
+                // Checking whether FormData is available in browser
+                if (window.FormData !== undefined) {
+
+                    var fileUpload = $("#FileUpload1").get(0);
+                    var files = fileUpload.files;
+
+                    // Create FormData object
+                    var fileData = new FormData();
+
+                    // Looping over all files and add it to FormData object
+                    for (var i = 0; i < files.length; i++) {
+                        fileData.append(files[i].name, files[i]);
+                    }
+
+                    // Adding one more key to FormData object
+                   // fileData.append('username', 'Manas');
+
+                    $.ajax({
+                        url: '/Home/Uploded',
+                        type: "POST",
+                        contentType: false, // Not to set any content header
+                        processData: false, // Not to process data
+                        data: fileData,
+                        success: function (result) {
+                            alert(result);
+                        },
+                        error: function (err) {
+                            alert(err.statusText);
+                        }
+                    });
+                } else {
+                    alert("FormData is not supported.");
+                }
+            });
+        });
+    </script>
     <br /><br />
 
     <label>

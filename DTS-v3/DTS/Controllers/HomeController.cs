@@ -26,7 +26,7 @@ namespace DTS.Controllers
         List<CI_Category_Type> categories;
         List<Care_Community> communities;
         List<Position> positions;
-        SelectList list2, list, list3;
+        public static SelectList list2, list, list3;
         List<object> both;
 
         public HomeController()
@@ -129,28 +129,49 @@ namespace DTS.Controllers
         }
 
         [HttpPost]
-        public ActionResult Uploded(HttpPostedFileBase file)
-        {
-            if (file != null)
+        public ActionResult Uploded() 
+        {// Checking no of files injected in Request object  
+            if (Request.Files.Count > 0)
             {
                 try
                 {
-                    if (file.ContentLength > 0)
+                    //  Get all files from Request object  
+                    HttpFileCollectionBase files = Request.Files;
+                    for (int i = 0; i < files.Count; i++)
                     {
-                        string _FileName = Path.GetFileName(file.FileName);
-                        path = Path.Combine(Server.MapPath("~/Uploaded_Files"), _FileName);
-                        file.SaveAs(path);
+                        //string path = AppDomain.CurrentDomain.BaseDirectory + "Uploads/";  
+                        //string filename = Path.GetFileName(Request.Files[i].FileName);  
+
+                        HttpPostedFileBase file = files[i];
+                        string fname;
+
+                        // Checking for Internet Explorer  
+                        if (Request.Browser.Browser.ToUpper() == "IE" || Request.Browser.Browser.ToUpper() == "INTERNETEXPLORER")
+                        {
+                            string[] testfiles = file.FileName.Split(new char[] { '\\' });
+                            fname = testfiles[testfiles.Length - 1];
+                        }
+                        else
+                        {
+                            fname = file.FileName;
+                        }
+
+                        // Get the complete folder path and store the file inside it.  
+                        fname = Path.Combine(Server.MapPath("~/Uploaded_Files/"), fname);
+                        file.SaveAs(fname);
                     }
-                    ViewBag.Message = "File Uploaded Successfully!!";
-                    return RedirectToAction("Index");
+                    // Returns message that successfully uploaded  
+                    return Json("File Was Uploaded Successfully!");
                 }
-                catch
+                catch (Exception ex)
                 {
-                    ViewBag.Message = "File upload failed!!";
-                    return RedirectToAction("Index");
+                    return Json("Error occurred. Error details: " + ex.Message);
                 }
             }
-            return RedirectToAction("Index");
+            else
+            {
+                return Json("No files selected.");
+            }
         }
 
         public ActionResult AllFiles()
@@ -188,9 +209,11 @@ namespace DTS.Controllers
         [HttpPost]
         public ActionResult Insert(Critical_Incidents entity)
         {
+            object[] objs = new object[] { list, list3 };
+            ViewBag.locations = objs;
             if (entity.Brief_Description == null && entity.Care_Plan_Updated == null && entity.CIS_Initiated == null && entity.CI_Category_Type == 0 &&
                entity.CI_Form_Number == null && entity.Date == null && entity.File_Complete == null && entity.Follow_Up_Amendments == null &&
-               entity.Location == null && entity.MOHLTC_Follow_Up == null && entity.MOH_Notified == null && entity.POAS_Notified == null && entity.Police_Notified == null &&
+               entity.Location == 0 && entity.MOHLTC_Follow_Up == null && entity.MOH_Notified == null && entity.POAS_Notified == null && entity.Police_Notified == null &&
                entity.Quality_Improvement_Actions == null && entity.Risk_Locked == null)
             {
                 ViewBag.Empty = "All fields have to be filled.";
@@ -198,11 +221,20 @@ namespace DTS.Controllers
             }
             else if (entity.Brief_Description == null || entity.Care_Plan_Updated == null || entity.CIS_Initiated == null || entity.CI_Category_Type == 0 ||
               entity.CI_Form_Number == null || entity.Date == null || entity.File_Complete == null || entity.Follow_Up_Amendments == null ||
-              entity.Location == null || entity.MOHLTC_Follow_Up == null || entity.MOH_Notified == null || entity.POAS_Notified == null || entity.Police_Notified == null ||
+              entity.Location == 0 || entity.MOHLTC_Follow_Up == null || entity.MOH_Notified == null || entity.POAS_Notified == null || entity.Police_Notified == null ||
               entity.Quality_Improvement_Actions == null || entity.Risk_Locked == null)
             {
-                ViewBag.Empty = "Some fields are empty. Please fill it out and try again!";
-                return View();
+
+                try
+                {
+                    db.Critical_Incidents.Add(entity);
+                    db.SaveChanges();
+                    //msg_infos = ADO_NET_CRUD.Insert_Incident(entity);
+                    return RedirectToAction("../Select/Select_Incidents");
+                }
+                catch (Exception ex) { return Json("Error occurred. Error details: " + ex.Message); }
+                // ViewBag.Empty = "Some fields are empty. Please fill it out and try again!";
+                // return View();
             }
             else
             {
@@ -433,6 +465,21 @@ namespace DTS.Controllers
             db.Education.Add(entity);
             db.SaveChanges();
             return RedirectToAction("../Select/Education_Select");
+        }
+
+        [HttpGet]
+        public ActionResult Emergency_Prep_Insert()
+        {
+            ViewBag.locations = list;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Emergency_Prep_Insert(Emergency_Prep entity)
+        {
+            db.Emergency_Prep.Add(entity);
+            db.SaveChanges();
+            return RedirectToAction("../Select/Select_Emergency_Prep");
         }
     }
 }

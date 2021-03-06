@@ -25,5 +25,6 @@ namespace DTS.Models
         public virtual DbSet<Privacy_Breaches> Privacy_Breaches { get; set; }
         public virtual DbSet<Privacy_Complaints> Privacy_Complaints { get; set; }
         public virtual DbSet<Education> Education { get; set; }
+        public virtual DbSet<Emergency_Prep> Emergency_Prep { get; set; }
     }
 }

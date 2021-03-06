@@ -4,7 +4,7 @@
     ViewBag.Title = "Privacy_Complaints";
 }
 
-<h1 style="text-align:center;font-weight:bold;color:darkorange">Educations - All Records</h1>
+<h1 style="text-align:center;font-weight:bold;color:darkorange">Education - All Records</h1>
 
 @Html.ActionLink("<-- Back", "Education_Insert", "Home", "", new { id = "back" })
 <br />
@@ -64,9 +64,9 @@
                     @Html.DisplayFor(modelItem => item.Description_Outcome)
                 </td>
                 <td id="btns">
-                    <div id="btn">@Html.ActionLink("Edit", "Edit_Incidents", "Edit", new { id = item.id }, new { @class = "b" })</div>
-                    <div id="btn">@Html.ActionLink("Details", "Incidents_Details", "Details", new { id = item.id }, new { @class = "b" })</div>
-                    <div id="btn">@Html.ActionLink("Delete", "Incident_Delete", "Delete", new { id = item.id }, new { @class = "b" })</div>
+                    <div id="btn">@Html.ActionLink("Edit", "Edit_Privacy_Complaints", "Edit", new { id = item.id }, new { @class = "b" })</div>
+                    <div id="btn">@Html.ActionLink("Details", "Privacy_Complaints_Details", "Details", new { id = item.id }, new { @class = "b" })</div>
+                    <div id="btn">@Html.ActionLink("Delete", "Privacy_Complaints_Delete", "Delete", new { id = item.id }, new { @class = "b" })</div>
                 </td>
             </tr>
         }

@@ -13,7 +13,7 @@ namespace DTS.Models
         [Required(ErrorMessage = "This field is required! Please fill it in.")]
         public int CI_Category_Type { get; set; }
         [Required(ErrorMessage = "This field is required! Please fill it in.")]
-        public int? Location { get; set; }
+        public int Location { get; set; }
         [Required(ErrorMessage = "This field is required! Please fill it in.")]
         public string Brief_Description { get; set; }       
         public string MOH_Notified { get; set; }

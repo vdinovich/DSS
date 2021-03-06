@@ -407,5 +407,34 @@ namespace DTS.Controllers
                 return View(list);
             }
         }
+        public ActionResult Select_Emergency_Prep()
+        {
+            string info = HomeController.msg_infos, msg2 = HomeController.success_nsg;
+            bool flag;
+            int id_loc = HomeController.id_outbrakes;
+            IEnumerable<Emergency_Prep> list = db.Emergency_Prep.Where(l => l.Location == id_loc);
+            if (list.Count() == 0)
+            {
+                ViewBag.err = flag = false;
+                ViewBag.emptyMsg = "The form - Education is empty.. Please fill it out!";
+                return View();
+            }
+            else
+            {
+                if (info != null || info != "" || info != string.Empty)
+                {
+                    ViewBag.info_insert = info;
+                    ViewBag.err = flag = true;
+                    Care_Community cc = db.Care_Communities.Find(id_loc);
+
+                    ViewBag.list = cc.Name;
+                    return View(list);
+                }
+                Care_Community c = db.Care_Communities.Find(id_loc);
+                ViewBag.list = c.Name;
+                ViewBag.err = flag = true;
+                return View(list);
+            }
+        }
     }
 }

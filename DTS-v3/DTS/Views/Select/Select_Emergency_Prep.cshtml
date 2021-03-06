@@ -1,0 +1,158 @@
+﻿@model IEnumerable<DTS.Models.Emergency_Prep>
+
+@{
+    ViewBag.Title = "Select_Emergency_Prep";
+}
+
+<h1 style="text-align:center;font-weight:bold;color:darkorange">Privacy Complaints - All Records</h1>
+
+@Html.ActionLink("<-- Back", "Emergency_Prep_Insert", "Home", "", new { id = "back" })
+<br />
+<br />
+<br />
+@if (ViewBag.err)
+{
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Location)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Jan)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Feb)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mar)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Apr)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.May)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Jun)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Jul)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Aug)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sep)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Oct)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nov)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Dec)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Location)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Jan)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Feb)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Mar)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Apr)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.May)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Jun)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Jul)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Aug)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sep)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Oct)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nov)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Dec)
+                </td>
+                <td id="btns">
+                    <div id="btn">@Html.ActionLink("Edit", "Edit_Emergency", "Edit", new { id = item.Id }, new { @class = "b" })</div>
+                    <div id="btn">@Html.ActionLink("Details", "Emergency_Details", "Details", new { id = item.Id }, new { @class = "b" })</div>
+                    <div id="btn">@Html.ActionLink("Delete", "Emergencyn_Delete", "Delete", new { id = item.Id }, new { @class = "b" })</div>
+                </td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <h4 style="text-align:center;color:red;border:2px solid red;border-radius:9px;padding:12px">@ViewBag.emptyMsg</h4>
+}
+<style>
+    .b {
+        color: blue;
+        text-decoration: none;
+    }
+
+        .b:hover {
+            color: red;
+            text-decoration: none;
+        }
+
+    #back {
+        text-decoration: none;
+        border: 2px solid darkorange;
+        color: darkorange;
+        border-radius: 25px;
+        padding: 14px;
+    }
+
+        #back:hover {
+            background-color: darkorange;
+            color: white;
+        }
+
+    .btnn {
+        text-decoration: none;
+    }
+
+    #btn {
+        border: 1px solid blue;
+        padding: 5px;
+        text-align: center;
+        border-radius: 12px;
+    }
+
+        #btn:hover {
+            background-color: blue;
+        }
+</style>
