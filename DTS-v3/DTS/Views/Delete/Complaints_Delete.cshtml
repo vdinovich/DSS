@@ -1,0 +1,287 @@
+﻿@model DTS.Models.Complaint
+
+@{
+    ViewBag.Title = "Complaints_Delete";
+}
+
+<h2 style="text-align:center">Complaints - Delete Form</h2>
+
+<h1 style="text-align:center;color:white;background-color:black">Are you sure you want to delete this record?</h1>
+<div id="center">
+    <h1 style="text-align:center;color:darkorange">Critical Incidents <br /> ID - @Html.DisplayFor(id => id.Id)</h1>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DateReceived)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateReceived)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Location)
+        </dt>
+
+        <dd>
+            @ViewBag.list
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WritenOrVerbal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WritenOrVerbal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Receive_Directly)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Receive_Directly)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FromResident)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FromResident)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ResidentName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ResidentName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Department)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Department)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BriefDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BriefDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsAdministration)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsAdministration)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CareServices)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CareServices)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PalliativeCare)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PalliativeCare)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Dietary)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Dietary)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Housekeeping)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Housekeeping)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Laundry)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Laundry)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Maintenance)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Maintenance)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Programs)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Programs)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Physician)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Physician)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Beautician)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Beautician)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FootCare)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FootCare)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DentalCare)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DentalCare)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Physio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Physio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Other)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Other)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MOHLTCNotified)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MOHLTCNotified)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CopyToVP)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CopyToVP)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ResponseSent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ResponseSent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ActionToken)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ActionToken)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Resolved)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Resolved)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MinistryVisit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MinistryVisit)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div id="cent" class="form-actions no-color">
+            <input id="centBtn" type="submit" value="Delete" class="btn btn-danger" /> 
+        </div>
+    }
+</div>
+@Html.ActionLink("Back to All Records", "Select_Complaints", "Select", "", new { id = "back" })
+
+
+<style>
+    #cent, #centBtn {
+        width: 200px;
+        margin: auto;
+    }
+
+    #btn {
+        font-size: large;
+    }
+
+    #back {
+        float: left;
+        border: 2px solid blue;
+        border-radius: 22px;
+        position: absolute;
+        padding: 11px;
+        text-decoration: none;
+        background-color: aqua;
+        color: brown
+    }
+
+        #back:hover {
+            text-decoration: none;
+            background-color: black;
+            color: white
+        }
+
+    #center {
+        width: 470px;
+        margin: auto;
+        border: 1px black solid;
+        position: relative;
+        padding: 17px;
+        border-radius: 22px;
+    }
+</style>

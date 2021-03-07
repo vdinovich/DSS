@@ -13,7 +13,7 @@
 <br />
 @if (ViewBag.err)
 {
-    <h3 style="text-align:center;color:green;font-family:'Palatino Linotype'"> @ViewBag.info_insert </h3>
+    @*<h3 style="text-align:center;color:green;font-family:'Palatino Linotype'"> @ViewBag.info_insert </h3>*@
     <table class="table table-bordered">
         <tr>
             <th>
@@ -137,9 +137,9 @@
                     @Html.DisplayFor(modelItem => item.Community_Inititives)
                 </td>
                 <td id="btns">
-                    <div id="btn">@Html.ActionLink("Edit", "Edit_Incidents", "Edit", new { id = item.Id }, new { @class = "b" })</div>
-                    <div id="btn">@Html.ActionLink("Details", "Incidents_Details", "Details", new { id = item.Id }, new { @class = "b" })</div>
-                    <div id="btn">@Html.ActionLink("Delete", "Incident_Delete", "Delete", new { id = item.Id }, new { @class = "b" })</div>
+                    <div id="btn">@Html.ActionLink("Edit", "Edit_GoodNews", "Edit", new { id = item.Id }, new { @class = "b" })</div>
+                    <div id="btn">@Html.ActionLink("Details", "GoodNews_Details", "Details", new { id = item.Id }, new { @class = "b" })</div>
+                    <div id="btn">@Html.ActionLink("Delete", "GoodNews_Delete", "Delete", new { id = item.Id }, new { @class = "b" })</div>
                 </td>
             </tr>
         } 

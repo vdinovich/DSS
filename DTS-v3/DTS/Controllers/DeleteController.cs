@@ -46,6 +46,8 @@ namespace DTS.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
             Labour_Relations delete = db.Relations.SingleOrDefault(e => e.Id == id);
+            Care_Community name1 = db.Care_Communities.Find(delete.Location);
+            ViewBag.list = name1.Name;
             if (delete == null) return HttpNotFound();
 
             return View(delete);
@@ -115,6 +117,8 @@ namespace DTS.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
             var delete = db.Good_News.SingleOrDefault(e => e.Id == id);
+            Care_Community c = db.Care_Communities.Find(delete.Location);
+            ViewBag.list = c.Name;
             if (delete == null) return HttpNotFound();
 
             return View(delete);
@@ -184,6 +188,8 @@ namespace DTS.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
             var delete = db.Visits_Others.SingleOrDefault(e => e.Id == id);
+            Care_Community n = db.Care_Communities.Find(delete.Location);
+            ViewBag.list = n.Name;
             if (delete == null) return HttpNotFound();
 
             return View(delete);
@@ -260,11 +266,35 @@ namespace DTS.Controllers
         [HttpPost]
         public ActionResult Emergency_Prep_Delete(int id)
         {
-            Outbreaks delete = db.Outbreaks.SingleOrDefault(l => l.Id == id);
+            var delete = db.Outbreaks.SingleOrDefault(l => l.Id == id);
             db.Outbreaks.Remove(delete ?? throw new InvalidOperationException());
             db.SaveChanges();
 
             return RedirectToAction("../Select/Emergency_Prep");
+        }
+
+        [HttpGet]
+        public ActionResult Complaints_Delete(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var delete = db.Complaints.SingleOrDefault(e => e.Id == id);
+            Care_Community name1 = db.Care_Communities.Find(delete.Location);
+            ViewBag.list = name1.Name;
+            if (delete == null) return HttpNotFound();
+
+            return View(delete);
+        }
+
+        [HttpPost]
+        public ActionResult Complaints_Delete(int id)
+        {
+            var delete = db.Complaints.SingleOrDefault(l => l.Id == id);
+            db.Complaints.Remove(delete ?? throw new InvalidOperationException());
+            db.SaveChanges();
+
+            return RedirectToAction("../Select/Select_Complaints");
         }
     }
 }

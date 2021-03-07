@@ -35,6 +35,8 @@ namespace DTS.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             var entity = db.Relations.SingleOrDefault(rel => rel.Id == id);
+            Care_Community name1 = db.Care_Communities.Find(entity.Location);
+            ViewBag.list = name1.Name;
             if (entity == null)
                 return HttpNotFound();
             return View(entity);
@@ -71,6 +73,8 @@ namespace DTS.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             var entity = db.Good_News.SingleOrDefault(rel => rel.Id == id);
+            Care_Community c = db.Care_Communities.Find(entity.Location);
+            ViewBag.list = c.Name;
             if (entity == null)
                 return HttpNotFound();
             return View(entity);
@@ -107,6 +111,8 @@ namespace DTS.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Visits_Others entity = db.Visits_Others.SingleOrDefault(w => w.Id == id);
+            Care_Community n = db.Care_Communities.Find(entity.Location);
+            ViewBag.list = n.Name;
             if (entity == null)
                 return HttpNotFound();
             return View(entity);
@@ -131,6 +137,20 @@ namespace DTS.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Outbreaks entity = db.Outbreaks.SingleOrDefault(w => w.Id == id);
+            if (entity == null)
+                return HttpNotFound();
+            return View(entity);
+        }
+
+        public ActionResult Complaints_Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Complaint entity = db.Complaints.SingleOrDefault(w => w.Id == id);
+            Care_Community name1 = db.Care_Communities.Find(entity.Location);
+            ViewBag.list = name1.Name;
             if (entity == null)
                 return HttpNotFound();
             return View(entity);

@@ -4759,6 +4759,9 @@
     <Content Include="Views\Select\Select_Emergency_Prep.cshtml" />
     <Content Include="Uploaded_Files\2021 ON WOR Report - Altamont.xlsx" />
     <Content Include="Uploaded_Files\p7.pdf" />
+    <Content Include="Uploaded_Files\WOR Report.pbix" />
+    <Content Include="Views\Details\Complaints_Details.cshtml" />
+    <Content Include="Views\Delete\Complaints_Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\WSIB\" />

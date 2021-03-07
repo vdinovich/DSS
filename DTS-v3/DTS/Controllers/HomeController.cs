@@ -20,7 +20,7 @@ namespace DTS.Controllers
         public static int id_complaints { get; set; }
         public static int id_goodNews { get; set; }
         public static string success_nsg = string.Empty;
-        public static int id_visit_order{ get; set; }
+        public static int id_visit_order { get; set; }
         public static int id_outbrakes { get; set; }
         public static int id_wsib { get; set; }
         List<CI_Category_Type> categories;
@@ -48,20 +48,51 @@ namespace DTS.Controllers
         }
 
         [HttpPost]
-        public ActionResult Complaint_Insert(Complaint c)
+        public ActionResult Complaint_Insert(Complaint entity)
         {
-            if (c != null)
+            ViewBag.locations = list;
+            if (entity.DateReceived == null && entity.Location == 0 && entity.WritenOrVerbal == null && entity.Receive_Directly == null &&
+               entity.FromResident == null && entity.ResidentName == null && entity.Department == null && entity.BriefDescription == null &&
+               entity.IsAdministration == false && entity.CareServices == false && entity.PalliativeCare == false && entity.Dietary == false && entity.Housekeeping == false &&
+               entity.Laundry == false && entity.Maintenance == false && entity.Programs == false && entity.Physician == false && entity.Beautician == false &&
+               entity.FootCare == false && entity.DentalCare == false && entity.Physio == false && entity.Other == false && entity.MOHLTCNotified == null && entity.CopyToVP == null &&
+               entity.ResponseSent == null && entity.ActionToken == null && entity.Resolved == null && entity.MinistryVisit == null)
             {
-                id_complaints = c.Location;
-                db.Complaints.Add(c);
-                int res = db.SaveChanges();
-                if (res == 1)
-                    success_nsg = "Your record was successfully saved!";
-                else
-                    success_nsg = "Something went wrong...";
-                return RedirectToAction("../Select/Select_Complaints");
+                ViewBag.Empty = "All fields have to be filled.";
+                return View();
             }
-            return View();
+            else if (entity.DateReceived == null || entity.Location == 0 || entity.WritenOrVerbal == null || entity.Receive_Directly == null ||
+               entity.FromResident == null || entity.ResidentName == null || entity.Department == null || entity.BriefDescription == null ||
+               entity.IsAdministration == false || entity.CareServices == false || entity.PalliativeCare == false || entity.Dietary == false || entity.Housekeeping == false ||
+               entity.Laundry == false || entity.Maintenance == false || entity.Programs == false || entity.Physician == false || entity.Beautician == false ||
+               entity.FootCare == false || entity.DentalCare == false || entity.Physio == false || entity.Other == false || entity.MOHLTCNotified == null || entity.CopyToVP == null ||
+               entity.ResponseSent == null || entity.ActionToken == null || entity.Resolved == null || entity.MinistryVisit == null)
+            {
+
+                try
+                {
+                    id_complaints = entity.Location;
+                    db.Complaints.Add(entity);
+                    db.SaveChanges();
+
+                    return RedirectToAction("../Select/Select_Complaints");
+                }
+                catch (Exception ex) { return Json("Error occurred. Error details: " + ex.Message); }
+                // ViewBag.Empty = "Some fields are empty. Please fill it out and try again!";
+                // return View();
+            }
+            else
+            {
+                try
+                {
+                    id_complaints = entity.Location;
+                    db.Complaints.Add(entity);
+                    db.SaveChanges();
+
+                    return RedirectToAction("../Select/Select_Complaints");
+                }
+                catch (Exception ex) { return HttpNotFound(ex.Message); }
+            }
         }
 
         [HttpGet]
@@ -100,7 +131,7 @@ namespace DTS.Controllers
         [HttpPost]
         public ActionResult Index(Sign_in_Main main)
         {
-            if(main.Id == 0)
+            if (main.Id == 0)
             {
                 if (main.Care_Community_Centre == null)
                 {
@@ -108,7 +139,7 @@ namespace DTS.Controllers
                     ViewBag.not_selected = notsel;
                     return RedirectToAction("Index");
                 }
-                id_care_center = id_complaints = 
+                id_care_center = id_complaints =
                 id_visit_order = id_outbrakes = id_wsib = int.Parse(main.Care_Community_Centre);
 
                 return RedirectToAction("WOR_Tabs");
@@ -129,7 +160,7 @@ namespace DTS.Controllers
         }
 
         [HttpPost]
-        public ActionResult Uploded() 
+        public ActionResult Uploded()
         {// Checking no of files injected in Request object  
             if (Request.Files.Count > 0)
             {
@@ -240,12 +271,12 @@ namespace DTS.Controllers
             {
                 try
                 {
-                    //db.Critical_Incidents.Add(entity);
-                    //db.SaveChanges();
-                    msg_infos = ADO_NET_CRUD.Insert_Incident(entity);
+                    db.Critical_Incidents.Add(entity);
+                    db.SaveChanges();
+                    // msg_infos = ADO_NET_CRUD.Insert_Incident(entity);
                     return RedirectToAction("../Select/Select_Incidents");
                 }
-                catch(Exception ex) { return HttpNotFound(ex.Message); }
+                catch (Exception ex) { return HttpNotFound(ex.Message); }
             }
         }
 
@@ -259,9 +290,27 @@ namespace DTS.Controllers
         [HttpPost]
         public ActionResult Labour_Insert(Labour_Relations entity)
         {
-            db.Relations.Add(entity);
-            db.SaveChanges();
-            return RedirectToAction("../Select/Select_Labour");
+            ViewBag.locations = list;
+            if (entity.Accruals == null && entity.Category == null && entity.Date == DateTime.MinValue && entity
+                .Details == null && entity.Lessons_Learned == null && entity.Location == 0 && entity.Outcome == null && entity.Status == null &&
+                entity.Union == null)
+            {
+                return View();
+            }
+            else if (entity.Accruals == null || entity.Category == null || entity.Date == DateTime.MinValue || entity
+                          .Details == null || entity.Lessons_Learned == null || entity.Location == 0 || entity.Outcome == null || entity.Status == null ||
+                          entity.Union == null)
+            {
+                db.Relations.Add(entity);
+                db.SaveChanges();
+                return RedirectToAction("../Select/Select_Labour");
+            }
+            else
+            {
+                db.Relations.Add(entity);
+                db.SaveChanges();
+                return RedirectToAction("../Select/Select_Labour");
+            }
         }
 
         [HttpGet]
@@ -395,9 +444,28 @@ namespace DTS.Controllers
         [HttpPost]
         public ActionResult Visits_Others(Visits_Others entity)
         {
-            db.Visits_Others.Add(entity);
-            db.SaveChanges();
-            return RedirectToAction("../Select/Select_Visits_Others");
+            ViewBag.locations = list;
+            if (entity.Agency == null && entity.Corrective_Actions == null && entity.Date_of_Visit == DateTime.MinValue &&
+                entity.Details_of_Findings == null && entity.LHIN_Letter_Received == null && entity.Location == 0 &&
+                entity.Number_of_Findings == 0 && entity.PH_Letter_Received == null && entity.Report_Posted == null)
+            {
+                //ViewBag.Empty = "All fields have to be filled.";
+                return View();
+            }
+            else if (entity.Agency == null || entity.Corrective_Actions == null || entity.Date_of_Visit == DateTime.MinValue ||
+                entity.Details_of_Findings == null || entity.LHIN_Letter_Received == null || entity.Location == 0 ||
+                entity.Number_of_Findings == 0 || entity.PH_Letter_Received == null || entity.Report_Posted == null)
+            {
+                db.Visits_Others.Add(entity);
+                db.SaveChanges();
+                return RedirectToAction("../Select/Select_Visits_Others");
+            }
+            else
+            {
+                db.Visits_Others.Add(entity);
+                db.SaveChanges();
+                return RedirectToAction("../Select/Select_Visits_Others");
+            }
         }
 
         [HttpGet]

@@ -18,7 +18,7 @@ namespace DTS.Controllers
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            Critical_Incidents incident = db.Critical_Incidents.SingleOrDefault(e => e.id == id);
+            Critical_Incidents incident = db.Critical_Incidents.Find( id);
             object[] objs = new object[] { HomeController.list, HomeController.list3 };
             ViewBag.locations = objs;
             if (incident == null) return HttpNotFound();
@@ -46,7 +46,9 @@ namespace DTS.Controllers
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            Labour_Relations labour = db.Relations.SingleOrDefault(e => e.Id == id);
+            Labour_Relations labour = db.Relations.Find(id);
+            ViewBag.locations = HomeController.list;
+
             if (labour == null) return HttpNotFound();
 
             return View(labour);
@@ -57,7 +59,6 @@ namespace DTS.Controllers
         {
             if (ModelState.IsValid)
             {
-                db = new MyContext();
                 db.Entry(labour).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("../Select/Select_Labour");
@@ -131,25 +132,24 @@ namespace DTS.Controllers
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var risk = db.Good_News.SingleOrDefault(e => e.Id == id);
-            if (risk == null) return HttpNotFound();
-
-            return View(risk);
+            var founded = db.Good_News.Find(id);
+            ViewBag.locations = HomeController.list;
+            if (founded == null) return HttpNotFound();
+            return View(founded);
         }
 
 
         [HttpPost]
-        public ActionResult Edit_GoodNews(Good_News news)
+        public ActionResult Edit_GoodNews(Good_News edit)
         {
             if (ModelState.IsValid)
             {
-                db = new MyContext();
-                db.Entry(news).State = EntityState.Modified;
+                db.Entry(edit).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("../Select/Select_GoodNews");
             }
 
-            return View(news);
+            return View();
         }
 
 
@@ -233,7 +233,8 @@ namespace DTS.Controllers
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            Visits_Others visit = db.Visits_Others.SingleOrDefault(o => o.Id == id);
+            Visits_Others visit = db.Visits_Others.Find(id);
+            ViewBag.locations = HomeController.list;
             if (visit == null) return HttpNotFound();
 
             return View(visit);
@@ -281,6 +282,7 @@ namespace DTS.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             Complaint founded = db.Complaints.Find(id);
+            ViewBag.locations = HomeController.list;
             if (founded == null) return HttpNotFound();
             return View(founded);
         }
