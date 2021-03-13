@@ -1,8 +1,11 @@
 ﻿namespace DTS.Models
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class Good_News
     {
         public int Id { get; set; }
+        [Required(ErrorMessage = "This field is required! Please fill it in.")]
         public int Location { get; set; }
         public string DateNews { get; set; }
         public string Category { get; set; }

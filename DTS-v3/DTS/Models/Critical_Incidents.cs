@@ -5,7 +5,6 @@ namespace DTS.Models
     public partial class Critical_Incidents
     {
         public int id { get; set; }
-        [DataType(DataType.Date)]
         [Required(ErrorMessage = "This field is required! Please fill it in.")]
         public System.DateTime? Date { get; set; }
         [Required(ErrorMessage = "This field is required! Please fill it in.")]

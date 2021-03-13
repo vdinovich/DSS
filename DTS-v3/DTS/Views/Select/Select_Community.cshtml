@@ -4,88 +4,112 @@
     ViewBag.Title = "Select_Community";
 }
 
-<h1 style="text-align:center;color:darkorange">Select Community</h1>
+    <h1 style="text-align:center;color:darkorange"> Community Risks - All Records</h1>
 
-@Html.ActionLink("<-- Back", "Community_Insert", "Home", "", new { id = "back" })  <br /><br /><br />
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Date)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Type_Of_Risk)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Descriptions)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Potential_Risk)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MOH_Visit)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Risk_Legal_Action)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Hot_Alert)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Status_Update)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Resolved)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+@Html.ActionLink("<-- Back", "Community_Insert", "Home", "", new { id = "back" })
+<br />
+<br />
+<br />
+@if (ViewBag.err)
+{
+    <table class="table table-bordered">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Type_Of_Risk)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Descriptions)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Potential_Risk)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MOH_Visit)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Risk_Legal_Action)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Hot_Alert)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status_Update)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Resolved)
-            </td>
-            <td>
-                <div id="btn">@Html.ActionLink("Edit", "Edit_Community", "Edit", new { id = item.Id }, "")</div>
-                <div id="btn">@Html.ActionLink("Details", "Community_Details", "Details", new { id = item.Id }, "")</div>
-                <div id="btn">@Html.ActionLink("Delete", "Community_Delete", "Delete", new { id = item.Id }, "")</div>
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Location)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Type_Of_Risk)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descriptions)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Potential_Risk)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MOH_Visit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Risk_Legal_Action)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Hot_Alert)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status_Update)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Resolved)
+            </th>
+            <th></th>
         </tr>
+
+        @foreach (var item in Model)
+        {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @ViewBag.list
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Type_Of_Risk)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descriptions)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Potential_Risk)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MOH_Visit)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Risk_Legal_Action)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Hot_Alert)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status_Update)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Resolved)
+        </td>
+        <td id="btns">
+            <div id="btn">@Html.ActionLink("Edit", "Edit_Community", "Edit", new { id = item.Id }, new { @class = "b" })</div>
+            <div id="btn">@Html.ActionLink("Details", "Community_Details", "Details", new { id = item.Id }, new { @class = "b" })</div>
+            <div id="btn">@Html.ActionLink("Delete", "Community_Delete", "Delete", new { id = item.Id }, new { @class = "b" })</div>
+        </td>
+    </tr>
+        }
+    </table>
+}
+else
+{
+    <h4 style="text-align:center;color:red;border:2px solid red;border-radius:9px;padding:12px">@ViewBag.emptyMsg</h4>
+}
+<style>
+    .b {
+        color: blue;
+        text-decoration: none;
     }
 
-</table>
+        .b:hover {
+            color: red;
+            text-decoration: none;
+        }
 
-<style>
     #back {
         text-decoration: none;
         border: 2px solid darkorange;
+        color: darkorange;
         border-radius: 25px;
         padding: 14px;
-        color: darkorange;
     }
 
         #back:hover {
@@ -93,8 +117,19 @@
             color: white;
         }
 
-    #btn {
-        padding: 1px;
-        text-align: center;
+    .btnn {
+        text-decoration: none;
     }
+
+    #btn {
+        border: 1px solid blue;
+        padding: 5px;
+        text-align: center;
+        border-radius: 12px;
+        margin-bottom:4px;
+    }
+
+        #btn:hover {
+            background-color: blue;
+        }
 </style>

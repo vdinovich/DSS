@@ -6,7 +6,7 @@
 
 <div>
     <h1 style="text-align:center;font-size:x-large;color:darkorange">Community Risk Records - Details Id  @Html.DisplayFor(model => model.Id):</h1>
-    <hr />   
+    <hr />
     <div id="center">
         <dl class="dl-horizontal">
             <dt>
@@ -17,8 +17,17 @@
                 @Html.DisplayFor(model => model.Date)
             </dd>
 
+
             <dt>
-                @Html.DisplayNameFor(model => model.Type_Of_Risk)
+                @Html.DisplayNameFor(model => model.Location)
+            </dt>
+
+            <dd>
+                @ViewBag.list
+            </dd>
+
+            <dt>
+                Type Of Risk
             </dt>
 
             <dd>
@@ -34,7 +43,7 @@
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.Potential_Risk)
+                Potential Risk
             </dt>
 
             <dd>
@@ -42,7 +51,7 @@
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.MOH_Visit)
+                MOH Visit
             </dt>
 
             <dd>
@@ -50,7 +59,7 @@
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.Risk_Legal_Action)
+                Risk Legal Action
             </dt>
 
             <dd>
@@ -58,7 +67,7 @@
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.Hot_Alert)
+                Hot Alert
             </dt>
 
             <dd>
@@ -66,7 +75,7 @@
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.Status_Update)
+                Status Update
             </dt>
 
             <dd>
@@ -86,7 +95,7 @@
     <p>
         @Html.ActionLink("Back to List", "Select_Community", "Select", "", new { id = "backBtn" })
     </p>
-    </div>
+</div>
 <style>
     #center {
         width: 370px;

@@ -192,7 +192,7 @@ namespace DTS.Controllers
                         file.SaveAs(fname);
                     }
                     // Returns message that successfully uploaded  
-                    return Json("File Was Uploaded Successfully!");
+                    return Json("Your File Was Uploaded Successfully!");
                 }
                 catch (Exception ex)
                 {
@@ -210,6 +210,12 @@ namespace DTS.Controllers
             List<string> names = new List<string>();
             path = Server.MapPath("~/Uploaded_Files");
             string[] files_names = Directory.GetFiles(path, "*", SearchOption.AllDirectories);
+            //if(files_names == null || files_names.Length == 0)
+            //{
+            //    ViewBag.Empty = "There is no uploaded file here. Please go to the upload area.";
+            //    return View();
+            //}
+  
             for (int i = 0; i < files_names.Length; i++)
                 names.Add(Path.GetFileName(files_names[i]));
 
@@ -220,6 +226,19 @@ namespace DTS.Controllers
         public ActionResult AllFiles(string item)
         {
             return View();
+        }
+
+        public ActionResult DeleteFile(string item)
+        {
+            bool flag = false;
+            if (item != null)
+            {
+                flag = true;
+                string path = Path.Combine(Server.MapPath($"~/Uploaded_Files/{item}"));
+              System.IO.File.Delete(path);
+            }
+            if (!flag) return Json("There is nothing to delete...Please upload any file!");
+            else return RedirectToAction("../Home/AllFiles");
         }
 
         public ActionResult WOR_Tabs()
@@ -500,9 +519,35 @@ namespace DTS.Controllers
         [HttpPost]
         public ActionResult Privacy_Breaches(Privacy_Breaches entity)
         {
-            db.Privacy_Breaches.Add(entity);
-            db.SaveChanges();
-            return RedirectToAction("../Select/Privacy_Breaches");
+            ViewBag.locations = list;
+            if (entity.Date_Breach_Reported == DateTime.MinValue && 
+                entity.Location == 0 && 
+                entity.Number_of_Individuals_Affected == 0 && 
+                entity.Risk_Level == null && 
+                entity.Status == null && 
+                entity.Type_of_Breach == null && 
+                entity.Type_of_PHI_Involved == null &&
+                entity.Date_Breach_Occurred == DateTime.MinValue &&
+                entity.Date_Breach_Reported_By == null &&
+                entity.Description_Outcome == null
+                )
+            {
+                //ViewBag.Empty = "All fields have to be filled.";
+                return View();
+            }
+            //else if (entity.Date_Breach_Reported == DateTime.MinValue || entity.Risk_Level == null ||
+            //    entity.Status == null || entity.Type_of_Breach == null || entity.Type_of_PHI_Involved == null)
+            //{
+            //    db.Privacy_Breaches.Add(entity);
+            //    db.SaveChanges();
+            //    return RedirectToAction("../Select/Privacy_Breaches");
+            //}
+            else
+            {
+                db.Privacy_Breaches.Add(entity);
+                db.SaveChanges();
+                return RedirectToAction("../Select/Privacy_Breaches");
+            }
         }
 
         [HttpGet]

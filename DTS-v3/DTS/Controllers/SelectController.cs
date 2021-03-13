@@ -110,8 +110,32 @@ namespace DTS.Controllers
 
         public ActionResult Select_Community()
         {
-            IEnumerable<Community_Risks> list = db.Community_Risks;
-            return View(list);
+            string info = HomeController.msg_infos, msg2 = HomeController.success_nsg;
+            bool flag;
+            int id_loc = HomeController.id_outbrakes;
+            IEnumerable<Community_Risks> list = db.Community_Risks.Where(l => l.Location == id_loc);
+            if (list.Count() == 0)
+            {
+                ViewBag.err = flag = false;
+                ViewBag.emptyMsg = "The form - Community Risks is empty.. Please fill it out!";
+                return View();
+            }
+            else
+            {
+                if (info != null || info != "" || info != string.Empty)
+                {
+                    ViewBag.info_insert = info;
+                    ViewBag.err = flag = true;
+                    Care_Community cc = db.Care_Communities.Find(id_loc);
+
+                    ViewBag.list = cc.Name;
+                    return View(list);
+                }
+                Care_Community c = db.Care_Communities.Find(id_loc);
+                ViewBag.list = c.Name;
+                ViewBag.err = flag = true;
+                return View(list);
+            }
         }
 
         public ActionResult Select_Users()

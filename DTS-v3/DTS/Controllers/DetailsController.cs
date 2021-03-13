@@ -49,6 +49,8 @@ namespace DTS.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             var entity = db.Community_Risks.SingleOrDefault(rel => rel.Id == id);
+            Care_Community name1 = db.Care_Communities.Find(entity.Location);
+            ViewBag.list = name1.Name;
             if (entity == null)
                 return HttpNotFound();
             return View(entity);

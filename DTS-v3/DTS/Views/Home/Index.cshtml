@@ -4,121 +4,138 @@
     ViewBag.Title = "Desision Support System";
 }
 
-<h1 style="font-weight:bold;color:darkorange;text-align:center;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">Sign in Page</h1>
 
-<a class="btn btn-primary" style="float:right;width:150px" href="../Home/SignIn" id="btn1">Exit<br />Sign in Page</a>
-<br />
-<br />
-<br />
-@*<button class="btn btn-primary" type="submit" onclick="location.href='@Url.Action("WOR_Tabs", "Home")'" style="float:right;width:150px" id="btn2">WOR Tabs<br />Forms</button>
-    <br /><br /><br />*@
-<button class="btn btn-success" onclick="location.href='@Url.Action("Register_New_User", "Register")'" style="float:right;width:150px" id="btn2">Register <br /> New User</button>
-@using (Html.BeginForm(@*"Uploded", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }*@))
+@using (Html.BeginForm())
 {
+    <h1 style="font-weight:bold;color:darkorange;text-align:center;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">Sign in Page</h1>
+   <a class="btn btn-primary" style="float:right;width:150px;margin:0 0 0 0" href="../Home/SignIn" id="btn1">Exit<br />Sign in Page</a>
+    <br />
+    <br />
+    <br />
+    <button type="submit" id="btn2">WOR Tabs<br />Forms</button>
+
+    @*<button class="btn btn-success" onclick="location.href='@Url.Action("Register_New_User", "Register")'" style="float:right;width:150px" id="btn2">Register <br /> New User</button>*@
+
 
     @Html.AntiForgeryToken()
-<div id="contactForm" class="form-group">
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <label class="contact" for="care_community">
-        Care Community Centre:
-        <label>
-            @Html.DropDownListFor(model => model.Care_Community_Centre, ViewBag.listing[0] as SelectList, "", new { id = "drop1" })
+    <div id="contactForm" class="form-group">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <label class="contact" for="care_community">
+            Care Community Centre:
+            <label>
+                @Html.DropDownListFor(model => model.Care_Community_Centre, ViewBag.listing[0] as SelectList, "", new { id = "drop1" })
+            </label>
+            @Html.ActionLink("ADD", "Care_Community", "Home", "", new { @class = "btnCommunity" })
         </label>
-        @Html.ActionLink("ADD", "Care_Community", "Home", "", new { @class = "btnCommunity" })
-    </label>
-    <br />
-    <label class="contact" for="user">
-        User Name:
-        <label style="margin:10px 0 0 90px;padding:6px;border-radius:5px;width:500px">
-            @Html.EditorFor(model => model.User_Name, new { htmlAttributes = new { @class = "form-control" } })
-        </label>
-    </label>
-    <br />
-    <label class="contact" for="position">
-        Position:
-        <label>
-            @Html.DropDownListFor(model => model.Position, ViewBag.listing[1] as SelectList, "", new { id = "drop2" })
-        </label>
-        @Html.ActionLink("ADD", "Add_Position", "Home", "", new { @class = "btnPosition" })
-    </label>
-
-    <br /><br />
-
-          <div class="form-group">
-               @*@Html.TextBox("file", new { id = "FileUpload1" }, new { type = "file" })*@
-              <input type="file" id="FileUpload1" />
-              <input type="button" id="btnUpload" value="Upload File/s" @*class="form-control-file"*@ />
-
-              <h5 style="color:green;font-family:'Palatino Linotype'"> @ViewBag.UploadMsg</h5>
-
-              @Html.ActionLink("See All Uploaded Files", "AllFiles", "Home", "", new { @class = "btn btn-danger" })
-          </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $('#btnUpload').click(function () {
-
-                // Checking whether FormData is available in browser
-                if (window.FormData !== undefined) {
-
-                    var fileUpload = $("#FileUpload1").get(0);
-                    var files = fileUpload.files;
-
-                    // Create FormData object
-                    var fileData = new FormData();
-
-                    // Looping over all files and add it to FormData object
-                    for (var i = 0; i < files.length; i++) {
-                        fileData.append(files[i].name, files[i]);
-                    }
-
-                    // Adding one more key to FormData object
-                   // fileData.append('username', 'Manas');
-
-                    $.ajax({
-                        url: '/Home/Uploded',
-                        type: "POST",
-                        contentType: false, // Not to set any content header
-                        processData: false, // Not to process data
-                        data: fileData,
-                        success: function (result) {
-                            alert(result);
-                        },
-                        error: function (err) {
-                            alert(err.statusText);
-                        }
-                    });
-                } else {
-                    alert("FormData is not supported.");
-                }
-            });
-        });
-    </script>
-    <br /><br />
-
-    <label>
-        Current Date:
-        <label>
-            @Html.TextBoxFor(m => m.Current_Date, "{0:d MMM yyyy}", new { @class = "form-control" })
-        </label>
-    </label>
-    <label style="float:right">
-        Week #:
-        <label><input class="form-control" maxlength="2" name="week" placeholder="52" required="" /></label>
-    </label>
-
-    <div id="btn" class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <button class="btn btn-primary" type="submit" style="width:150px" id="btn2">WOR Tabs<br />Forms</button>
-        </div>
         <br />
+        <label class="contact" for="user">
+            User Name:
+            <label style="margin:10px 0 0 90px;padding:6px;border-radius:5px;width:500px">
+                @Html.EditorFor(model => model.User_Name, new { htmlAttributes = new { @class = "form-control" } })
+            </label>
+        </label>
+        <br />
+        <label class="contact" for="position">
+            Position:
+            <label>
+                @Html.DropDownListFor(model => model.Position, ViewBag.listing[1] as SelectList, "", new { id = "drop2" })
+            </label>
+            @Html.ActionLink("ADD", "Add_Position", "Home", "", new { @class = "btnPosition" })
+        </label>
+        <br />
+        <label>
+            Current Date:
+            <label style="margin:10px 0 0 78px;padding:6px;border-radius:5px;width:500px">
+                @Html.TextBoxFor(m => m.Current_Date, "{0:d MMM yyyy}", new { @class = "form-control" })
+            </label>
+        </label>
+
+        <br /><br /><br />
+
+        <div id="file_upl" class="form-group">
+            @*@Html.TextBox("file", new { id = "FileUpload1" }, new { type = "file" })*@
+            <input type="file" id="FileUpload1" />
+            <input type="button" id="btnUpload" value="Upload File/s" @*class="form-control-file"*@ />
+
+            <h5 style="color:green;font-family:'Palatino Linotype'"> @ViewBag.UploadMsg</h5>
+
+            @Html.ActionLink("See All Uploaded Files", "AllFiles", "Home", "", new { @class = "btn btn-danger" })
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('#btnUpload').click(function () {
+
+                    // Checking whether FormData is available in browser
+                    if (window.FormData !== undefined) {
+
+                        var fileUpload = $("#FileUpload1").get(0);
+                        var files = fileUpload.files;
+
+                        // Create FormData object
+                        var fileData = new FormData();
+
+                        // Looping over all files and add it to FormData object
+                        for (var i = 0; i < files.length; i++) {
+                            fileData.append(files[i].name, files[i]);
+                        }
+
+                        $.ajax({
+                            url: '/Home/Uploded',
+                            type: "POST",
+                            contentType: false,
+                            processData: false,
+                            data: fileData,
+                            success: function (result) {
+                                alert(result);
+                            },
+                            error: function (err) {
+                                alert(err.statusText);
+                            }
+                        });
+                    } else {
+                        alert("FormData is not supported.");
+                    }
+                });
+            });
+        </script>
+        <br /><br /><br /><br /> <br /><br /><br /><br /><br />
+
+        <label style="float:right">
+            Week #:
+            <label>
+                <input class="form-control" name="week" placeholder="52" />
+            </label>
+        </label>
+
+        <br /><br />
     </div>
-    <br /><br />
-</div>
     <h3 style="text-align:center;color:red;font-family:'Palatino Linotype'">@ViewBag.not_selected</h3>
 }
 <style>
+    #file_upl {
+        border: 0.1px solid black;
+        position: absolute;
+        border-radius: 15px;
+        padding: 35px;
+    }
+
+    #btn2 {
+        border: 1px solid darkorange;
+        border-radius: 4px;
+        float: right;
+        width: 150px;
+        background-color: darkorange;
+        padding: 9px;
+        color: white;
+    }
+
+        #btn2:hover {
+            background-color: floralwhite;
+            color: darkorange;
+        }
+
     .btnCommunity {
         color: blue;
         background-color: azure;

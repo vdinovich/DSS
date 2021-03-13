@@ -67,17 +67,16 @@ namespace DTS.Controllers
             return View(labour);
         }
 
-        [HttpGet]
         public ActionResult Edit_Community(int? id)
         {
-            if (id == null)
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            Community_Risks risk = db.Community_Risks.SingleOrDefault(e => e.Id == id);
-            if (risk == null) return HttpNotFound();
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            Community_Risks edit = db.Community_Risks.Find(id);
+            ViewBag.locations = HomeController.list;
 
-            return View(risk);
+            if (edit == null) return HttpNotFound();
+
+            return View(edit);
         }
-
 
         [HttpPost]
         public ActionResult Edit_Community(Community_Risks risk)
@@ -86,7 +85,7 @@ namespace DTS.Controllers
             {
                 db = new MyContext();
                 db.Entry(risk).State = EntityState.Modified;
-                db.SaveChanges();
+                int res = db.SaveChanges();
                 return RedirectToAction("../Select/Select_Community");
             }
 

@@ -281,7 +281,6 @@
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="admin-lte\css\adminlte.min.css.map" />
     <Content Include="admin-lte\css\adminlte.css.map" />
-    <Content Include="Uploaded_Files\VB Script.txt" />
     <Content Include="wwwroot\bower_components\bootstrap-colorpicker\dist\css\bootstrap-colorpicker.css" />
     <Content Include="wwwroot\bower_components\bootstrap-colorpicker\dist\css\bootstrap-colorpicker.min.css" />
     <Content Include="wwwroot\bower_components\bootstrap-colorpicker\dist\img\bootstrap-colorpicker\alpha-horizontal.png" />
@@ -4745,7 +4744,6 @@
     <Content Include="Views\Edit\Edit_Complaints.cshtml" />
     <Content Include="Views\Select\Select_GoodNews.cshtml" />
     <Content Include="Views\Home\GoodNews_Insert.cshtml" />
-    <Content Include="Uploaded_Files\Working Local db.docx" />
     <Content Include="Views\Home\AllFiles.cshtml" />
     <Content Include="Views\Home\Immunization_Insert.cshtml" />
     <Content Include="Views\Select\Select_Immunization.cshtml" />
@@ -4757,13 +4755,11 @@
     <Content Include="Views\Select\Education_Select.cshtml" />
     <Content Include="Views\Home\Emergency_Prep_Insert.cshtml" />
     <Content Include="Views\Select\Select_Emergency_Prep.cshtml" />
-    <Content Include="Uploaded_Files\2021 ON WOR Report - Altamont.xlsx" />
-    <Content Include="Uploaded_Files\p7.pdf" />
-    <Content Include="Uploaded_Files\WOR Report.pbix" />
     <Content Include="Views\Details\Complaints_Details.cshtml" />
     <Content Include="Views\Delete\Complaints_Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Uploaded_Files\" />
     <Folder Include="Views\WSIB\" />
   </ItemGroup>
   <ItemGroup>

@@ -71,6 +71,8 @@ namespace DTS.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
             var delete = db.Community_Risks.SingleOrDefault(e => e.Id == id);
+            Care_Community name1 = db.Care_Communities.Find(delete.Location);
+            ViewBag.list = name1.Name;
             if (delete == null) return HttpNotFound();
 
             return View(delete);
