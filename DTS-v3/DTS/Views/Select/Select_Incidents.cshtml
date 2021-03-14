@@ -29,7 +29,7 @@
                     <label>CI Category / Type</label>
                 </th>
                 <th scope="col">
-                    <label>Location (eg. Vaga Hause)</label>
+                    <label>Location</label>
                 </th>
                 <th scope="col">
                     <label>Brief Description</label>
@@ -64,7 +64,14 @@
                 <th scope="col">
                     <label>File Complete Ready for MOH</label>
                 </th>
-                <th></th>
+                @{
+                    StreamWriter sw = null;
+                    string path = Server.MapPath("~/PrintTables/critical_incident.txt");
+                    using (sw = new StreamWriter(path))
+                    {
+                        sw.WriteLine("Date mm-dd-yyyy | CI Form Number | CI Category / Type | Location | Brief Description | MOH Notified | Police Notified | POA's Notified | Care Plan Updated Brief Description | MOHLTC Follow Up | Was CIS Initiated on Time | All Follow Up Amendments | Risk Locked | File Complete Ready for MOH");
+                    }
+                }
             </tr>
         </thead>
         <tbody>
@@ -85,7 +92,7 @@
                         </td>
                         <td>
                             @ViewBag.List1[0]
-                           @* @Html.DisplayFor(modelItem => item.CI_Category_Type)*@
+                            @* @Html.DisplayFor(modelItem => item.CI_Category_Type)*@
                         </td>
                         <td>
                             @ViewBag.list

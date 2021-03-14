@@ -3,12 +3,12 @@
 @{
     ViewBag.Title = "Desision Support System";
 }
-
+<h3 style="text-align:center;color:red;font-family:'Palatino Linotype'">@ViewBag.not_selected</h3>
 
 @using (Html.BeginForm())
 {
     <h1 style="font-weight:bold;color:darkorange;text-align:center;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">Sign in Page</h1>
-   <a class="btn btn-primary" style="float:right;width:150px;margin:0 0 0 0" href="../Home/SignIn" id="btn1">Exit<br />Sign in Page</a>
+    <a class="btn btn-primary" style="float:right;width:150px;margin:0 0 0 0" href="../Home/SignIn" id="btn1">Exit<br />Sign in Page</a>
     <br />
     <br />
     <br />
@@ -51,7 +51,7 @@
             </label>
         </label>
 
-        <br /><br /><br />
+        <br />    @*<button type="submit" class="btn btn-success" id="sbm_btn"> Insert to DB </button>*@<br /><br /><br />
 
         <div id="file_upl" class="form-group">
             @*@Html.TextBox("file", new { id = "FileUpload1" }, new { type = "file" })*@
@@ -111,7 +111,8 @@
 
         <br /><br />
     </div>
-    <h3 style="text-align:center;color:red;font-family:'Palatino Linotype'">@ViewBag.not_selected</h3>
+
+
 }
 <style>
     #file_upl {

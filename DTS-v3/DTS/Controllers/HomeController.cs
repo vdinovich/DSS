@@ -133,30 +133,43 @@ namespace DTS.Controllers
         {
             if (main.Id == 0)
             {
+                if(main.User_Name == null || main.Position == null || main.Week == 0 || main.Current_Date == DateTime.MinValue)
+                {
+                    id_care_center = id_complaints =
+              id_visit_order = id_outbrakes = id_wsib = int.Parse(main.Care_Community_Centre);
+                    both = new List<object> { list, list2 };
+                    ViewBag.listing = both;
+                    main.Care_Community_Centre = list.Where(p => p.Value == main.Care_Community_Centre).First().Text;
+                    return RedirectToAction("../Home/WOR_Tabs");
+                }
                 if (main.Care_Community_Centre == null)
                 {
                     notsel = "You have to select a Care Community from a drop-down list";
+                    both = new List<object> { list, list2 };
+                    ViewBag.listing = both;
                     ViewBag.not_selected = notsel;
-                    return RedirectToAction("Index");
+                    return View();
                 }
                 id_care_center = id_complaints =
                 id_visit_order = id_outbrakes = id_wsib = int.Parse(main.Care_Community_Centre);
+                both = new List<object> { list, list2 };
+                ViewBag.listing = both;
+                main.Care_Community_Centre = list.Where(p => p.Value == main.Care_Community_Centre).First().Text;
+                main.Position = list2.Where(p => p.Value == main.Position).First().Text;
+                main.Date_Entred = DateTime.Now;
+                db.Sign_in_Mains.Add(main);
+                db.SaveChanges();
 
-                return RedirectToAction("WOR_Tabs");
+                main.Care_Community_Centre = null;
+                main.Position = null;
+                main.Week = 0;
+                main.User_Name = null;
+                //ViewBag.listing = both;
+                ViewBag.ResultMsg = "Your Record was inserted Successfuly!";
+
+                return View();
             }
-            both = new List<object> { list, list2 };
-            main.Care_Community_Centre = list.Where(p => p.Value == main.Care_Community_Centre).First().Text;
-            main.Position = list2.Where(p => p.Value == main.Position).First().Text;
-            main.Date_Entred = DateTime.Now;
-            db.Sign_in_Mains.Add(main);
-            db.SaveChanges();
-
-            main.Care_Community_Centre = null;
-            main.Position = null;
-            main.Week = 0;
-            main.User_Name = null;
-            ViewBag.listing = both;
-            return RedirectToAction("Index");
+            return View();
         }
 
         [HttpPost]
@@ -342,9 +355,20 @@ namespace DTS.Controllers
         [HttpPost]
         public ActionResult Community_Insert(Community_Risks entity)
         {
-            db.Community_Risks.Add(entity);
-            db.SaveChanges();
-            return RedirectToAction("../Select/Select_Community");
+            ViewBag.locations = list;
+            if (entity.Date == DateTime.MinValue && entity.Descriptions == null && entity.Hot_Alert == null &&
+                entity.Location == 0 && entity.MOH_Visit == null && entity.Potential_Risk == null && entity.Resolved == null &&
+                entity.Risk_Legal_Action == null && entity.Status_Update == null && entity.Type_Of_Risk == null)
+            {
+                //ViewBag.Empty = "All fields have to be filled.";
+                return View();
+            }
+            else
+            {
+                db.Community_Risks.Add(entity);
+                db.SaveChanges();
+                return RedirectToAction("../Select/Select_Community");
+            }
         }
 
         [HttpGet]
@@ -357,7 +381,17 @@ namespace DTS.Controllers
         [HttpPost]
         public ActionResult GoodNews_Insert(Good_News entity)
         {
-            if (entity != null)
+            ViewBag.locations = list;
+            if (entity.Awards_Details == null && entity.Awards_Received == null && entity.Category == null && entity.Community_Inititives == null && 
+                entity.Compliment == null && entity.DateNews == null && entity.Department == null && entity.Location == 0 && 
+                entity.Description_Complim == null && entity.Growth == false && entity.NameAwards == null && entity.Passion == false &&
+                entity.ReceivedFrom == null && entity.Respect == false && entity.Responsibility == false && entity.SourceCompliment == null &&
+                entity.Spot_Awards == null && entity.Teamwork == false)
+            {
+                //ViewBag.Empty = "All fields have to be filled.";
+                return View();
+            }
+            else
             {
                 id_goodNews = entity.Location;
                 db.Good_News.Add(entity);
@@ -366,9 +400,20 @@ namespace DTS.Controllers
                     success_nsg = "Your record was successfully saved!";
                 else
                     success_nsg = "Somthing went wrong...";
-                return RedirectToAction("../Select/Select_GoodNews");
+                    return RedirectToAction("../Select/Select_GoodNews");
             }
-            return View();
+            //if (entity != null)
+            //{
+            //    id_goodNews = entity.Location;
+            //    db.Good_News.Add(entity);
+            //    int res = db.SaveChanges();
+            //    if (res == 1)
+            //        success_nsg = "Your record was successfully saved!";
+            //    else
+            //        success_nsg = "Somthing went wrong...";
+            //    return RedirectToAction("../Select/Select_GoodNews");
+            //}
+            //return View();
         }
 
         [HttpGet]
@@ -380,9 +425,19 @@ namespace DTS.Controllers
         [HttpPost]
         public ActionResult Agency_Insert(Visits_Agency entity)
         {
-            db.Visits_Agencies.Add(entity);
-            db.SaveChanges();
-            return RedirectToAction("../Select/Select_Agencies");
+            ViewBag.locations = list;
+            if (entity.Agency == null && entity.Corrective_Actions == null && entity.Date_of_Visit == DateTime.Now && 
+                entity.Findings_Details == null && entity.Findings_number == 0 && entity.Report_Posted  == null)
+            {
+                //ViewBag.Empty = "All fields have to be filled.";
+                return View();
+            }
+            else
+            {
+                db.Visits_Agencies.Add(entity);
+                db.SaveChanges();  
+                return RedirectToAction("../Select/Select_Agencies");
+            }         
         }
 
         [HttpGet]
@@ -395,9 +450,23 @@ namespace DTS.Controllers
         [HttpPost]
         public ActionResult WSIB(WSIB entity)
         {
-            db.WSIBs.Add(entity);
+            ViewBag.locations = list;
+            if (entity.Accident_Cause == null && entity.Date_Accident == DateTime.MinValue && entity.Date_Duties == DateTime.MinValue &&
+                entity.Date_Regular == DateTime.MinValue && entity.Employee_Initials == null && entity.Form_7 == null && 
+                entity.Location == 0 && entity.Lost_Days == 0 && entity.Modified_Days_Not_Shadowed == 0 && entity.Modified_Days_Shadowed == 0)
+            {
+                //ViewBag.Empty = "All fields have to be filled.";
+                return View();
+            }
+            else
+            {
+                db.WSIBs.Add(entity);
+                db.SaveChanges();
+                return RedirectToAction("../Select/Select_WSIB");
+            }
+    
             db.SaveChanges();
-            return RedirectToAction("../Select/Select_WSIB");
+           
 
         }
 
@@ -411,10 +480,20 @@ namespace DTS.Controllers
         [HttpPost]
         public ActionResult Not_WSIB(Not_WSIBs entity)
         {
-            db.Not_WSIBs.Add(entity);
-            db.SaveChanges();
-            return RedirectToAction("../Select/Select_Not_WSIB");
-
+            ViewBag.locations = list;
+            if (entity.Date_of_Incident == DateTime.MinValue && entity.Details_of_Incident == null && entity.Employee_Initials == null &&
+                entity.Home_Area == null && entity.Injury_Related == null && entity.Location == 0 && entity.Position == null && 
+                entity.Shift == null && entity.Time_of_Incident == null && entity.Type_of_Injury == null)
+            {
+                //ViewBag.Empty = "All fields have to be filled.";
+                return View();
+            }
+            else
+            {
+                db.Not_WSIBs.Add(entity);
+                db.SaveChanges();
+                return RedirectToAction("../Select/Select_Not_WSIB");
+            }
         }
 
         [HttpGet]
@@ -426,13 +505,18 @@ namespace DTS.Controllers
         [HttpPost]
         public ActionResult Care_Community(Care_Community entity)
         {
-            if (ModelState.IsValid)
+            ViewBag.locations = list;
+            if (entity.Name == null)
+            {
+                //ViewBag.Empty = "All fields have to be filled.";
+                return View();
+            }
+            else
             {
                 db.Care_Communities.Add(entity);
                 db.SaveChanges();
                 return RedirectToAction("../Home/Index");
-            }
-            return View();
+            }    
         }
 
         [HttpGet]
@@ -444,13 +528,18 @@ namespace DTS.Controllers
         [HttpPost]
         public ActionResult Add_Position(Position entity)
         {
-            if (ModelState.IsValid)
+            ViewBag.locations = list;
+            if (entity.Name == null)
+            {
+                //ViewBag.Empty = "All fields have to be filled.";
+                return View();
+            }
+            else
             {
                 db.Positions.Add(entity);
                 db.SaveChanges();
                 return RedirectToAction("../Home/Index");
             }
-            return View();
         }
 
         [HttpGet]
@@ -497,10 +586,22 @@ namespace DTS.Controllers
         [HttpPost]
         public ActionResult Outbreaks(Outbreaks entity)
         {
-            db.Outbreaks.Add(entity);
-            db.SaveChanges();
-            return RedirectToAction("../Home/WOR_Tabs");
-            //return RedirectToAction("../Select/Select_Outbreaks");
+            ViewBag.locations = list;
+            if (entity.CI_Report_Submitted == null && entity.Credit_for_Lost_Days == 0 && entity.Date_Concluded == DateTime.MinValue &&
+                entity.Date_Declared == DateTime.MinValue && entity.Deaths_Due == 0 && entity.Docs_Submitted_Finance == null &&
+                entity.Location == 0 && entity.Notify_MOL == null && entity.Strain_Identified == null && entity.Total_Days_Closed == 0 &&
+                entity.Total_Residents_Affected == 0 && entity.Total_Staff_Affected == 0 && entity.Tracking_Sheet_Completed == null  &&
+                entity.Type_of_Outbreak == null)
+            {
+                //ViewBag.Empty = "All fields have to be filled.";
+                return View();
+            }
+            else
+            {
+                db.Outbreaks.Add(entity);
+                db.SaveChanges();     
+                return RedirectToAction("../Select/Select_Outbreaks");
+            }
         }
 
         public ActionResult Immunization_Insert()
@@ -560,9 +661,20 @@ namespace DTS.Controllers
         [HttpPost]
         public ActionResult Privacy_Complaints(Privacy_Complaints entity)
         {
-            db.Privacy_Complaints.Add(entity);
-            db.SaveChanges();
-            return RedirectToAction("../Select/Privacy_Complaints");
+
+            ViewBag.locations = list;
+            if (entity.Complain_Filed_By == null && entity.Date_Complain_Received == DateTime.MinValue && entity.Description_Outcome == null&&
+                entity.Is_Complaint_Resolved == null && entity.Location == 0 && entity.Status == null && entity.Type_of_Complaint == null)
+            {
+                //ViewBag.Empty = "All fields have to be filled.";
+                return View();
+            }
+            else
+            {
+                db.Privacy_Complaints.Add(entity);
+                db.SaveChanges();
+                return RedirectToAction("../Select/Privacy_Complaints");
+            }
         }
 
         [HttpGet]
@@ -575,9 +687,24 @@ namespace DTS.Controllers
         [HttpPost]
         public ActionResult Education_Insert(Education entity)
         {
-            db.Education.Add(entity);
+            ViewBag.locations = list;
+            if (entity.Apr == 0 && entity.Aug == 0 && entity.Dec == 0 && entity.Feb == 0 && entity.Jan == 0 &&
+                entity.Jul == 0 && entity.Jun == 0 && entity.Location == 0 && entity.Mar == 0 && entity.May == 0 &&
+                entity.Session_Name == null && entity.Nov == 0 && entity.Oct == 0 && entity.Sep == 0 && entity.Total_Numb_Educ == 0 && 
+                entity.Total_Numb_Eligible == 0 && entity.Approx_Per_Educated == 0)
+            {
+                //ViewBag.Empty = "All fields have to be filled.";
+                return View();
+            }
+            else
+            {
+                db.Education.Add(entity);
+                db.SaveChanges();
+                return RedirectToAction("../Select/Education_Select");
+            }
+           
             db.SaveChanges();
-            return RedirectToAction("../Select/Education_Select");
+           
         }
 
         [HttpGet]
@@ -590,9 +717,20 @@ namespace DTS.Controllers
         [HttpPost]
         public ActionResult Emergency_Prep_Insert(Emergency_Prep entity)
         {
-            db.Emergency_Prep.Add(entity);
-            db.SaveChanges();
-            return RedirectToAction("../Select/Select_Emergency_Prep");
+            ViewBag.locations = list;
+            if (entity.Apr == null && entity.Aug == null && entity.Dec == null && entity.Feb == null && entity.Jan == null &&
+                entity.Jul == null && entity.Jun == null && entity.Location == 0 && entity.Mar == null && entity.May == null &&
+                entity.Name == null && entity.Nov == null && entity.Oct == null && entity.Sep == null) 
+            {
+                //ViewBag.Empty = "All fields have to be filled.";
+                return View();
+            }
+            else
+            {
+                db.Emergency_Prep.Add(entity);
+                db.SaveChanges();
+                return RedirectToAction("../Select/Select_Emergency_Prep");
+            }            
         }
     }
 }

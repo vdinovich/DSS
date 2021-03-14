@@ -6,6 +6,7 @@ namespace DTS.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        [Required(ErrorMessage ="This is a required field. Please fill it in.")]
         public int Location { get; set; }
         public string Jan { get; set; }
         public string Feb { get; set; }

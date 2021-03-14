@@ -4,6 +4,7 @@
     {
        public int Id{ get; set; }
         public string Session_Name { get; set; }
+        [System.ComponentModel.DataAnnotations.Required(ErrorMessage = "This field is empty. Please fill it in.")]
         public int Location { get; set; }
         public int Jan { get; set; }
         public int Feb { get; set; }

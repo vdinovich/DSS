@@ -1,0 +1,1 @@
+Date mm-dd-yyyy | CI Form Number | CI Category / Type | Location | Brief Description | MOH Notified | Police Notified | POA's Notified | Care Plan Updated Brief Description | MOHLTC Follow Up | Was CIS Initiated on Time | All Follow Up Amendments | Risk Locked | File Complete Ready for MOH
