@@ -795,7 +795,7 @@ C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - C
 C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\Newtonsoft.Json.xml
 C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\Antlr3.Runtime.pdb
 C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\obj\Debug\DTS.csprojAssemblyReference.cache
 C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\obj\Debug\DTS.csproj.CopyComplete
 C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\obj\Debug\DTS.dll
 C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\obj\Debug\DTS.pdb
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\obj\Debug\DTS.csprojAssemblyReference.cache

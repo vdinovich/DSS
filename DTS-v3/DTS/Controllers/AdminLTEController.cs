@@ -18,5 +18,11 @@ namespace DTS.Controllers
         {
             return View();
         }
+
+        public ActionResult Pdf_Viewer(string text)
+        {
+            ViewBag.Text = HomeController.text;
+            return View();
+        }
     }
 }

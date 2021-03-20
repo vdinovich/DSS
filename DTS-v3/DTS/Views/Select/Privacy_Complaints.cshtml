@@ -2,116 +2,188 @@
 
 @{
     ViewBag.Title = "Privacy_Complaints";
+    Layout = null;
 }
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - WOR Compliants sf</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @*<a href="~/Home/Index"><img src="~/Logo/logo2.png" style="width:90px;height:35px;margin:7px 0 0 10px" /></a>*@
+                @Html.ActionLink("SIENNA", "SignIN", "Home", null, new { id = "nameApp" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("WOR Tabs", "WOR_Tabs", "Home")</li>
+                    <li>@Html.ActionLink("All Uploaded Files", "AllFiles", "Home")</li>
+                    <li>@Html.ActionLink("Register", "Register_New_User", "Register")</li>
+                    <li>@Html.ActionLink("About", "Index", "AdminLTE")</li>
+                    <li>
+                        <a href="https://siennaliving.sharepoint.com/SitePages/Home.aspx">Exit</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class=" body-content">
+        <div style="width:320px;margin:auto">
+            <img src="~/Logo/logo1_sm.png" />
+        </div>
+        <h1 style="text-align:center;font-weight:bold;color:darkorange;margin-top:7px;">Privacy Complaints - All Records</h1>
 
-<h1 style="text-align:center;font-weight:bold;color:darkorange">Education - All Records</h1>
-
-@Html.ActionLink("<-- Back", "Education_Insert", "Home", "", new { id = "back" })
-<br />
-<br />
-<br />
-@if (ViewBag.err)
-{
-    <h3 style="text-align:center;color:green;font-family:'Palatino Linotype'"> @ViewBag.info_insert </h3>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Location)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Date_Complain_Received)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Complain_Filed_By)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Type_of_Complaint)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Is_Complaint_Resolved)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description_Outcome)
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model)
+        @Html.ActionLink("<-- Back", "Privacy_Complaints", "Home", "", new { id = "back" })
+        <br />
+        <br />
+        <br />
+        @if (ViewBag.err)
         {
-            <tr>
-                <td>
-                    @ViewBag.list
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Status)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Date_Complain_Received)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Complain_Filed_By)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Type_of_Complaint)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Is_Complaint_Resolved)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description_Outcome)
-                </td>
-                <td id="btns">
-                    <div id="btn">@Html.ActionLink("Edit", "Edit_Privacy_Complaints", "Edit", new { id = item.id }, new { @class = "b" })</div>
-                    <div id="btn">@Html.ActionLink("Details", "Privacy_Complaints_Details", "Details", new { id = item.id }, new { @class = "b" })</div>
-                    <div id="btn">@Html.ActionLink("Delete", "Privacy_Complaints_Delete", "Delete", new { id = item.id }, new { @class = "b" })</div>
-                </td>
-            </tr>
-        }
-    </table>
-}
-else
-{
-    <h4 style="text-align:center;color:red;border:2px solid red;border-radius:9px;padding:12px">@ViewBag.emptyMsg</h4>
-}
-<style>
-    .b {
-        color: blue;
-        text-decoration: none;
-    }
+            @*<h3 style="text-align:center;color:green;font-family:'Palatino Linotype'"> @ViewBag.info_insert </h3>*@
+            <table class="table table-bordered">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Location)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Status)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Date_Complain_Received)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Complain_Filed_By)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Type_of_Complaint)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Is_Complaint_Resolved)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Description_Outcome)
+                    </th>
+                
+                </tr>
 
-        .b:hover {
-            color: red;
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @ViewBag.list
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Date_Complain_Received)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Complain_Filed_By)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Type_of_Complaint)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Is_Complaint_Resolved)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description_Outcome)
+                        </td>
+                        <td id="btns">
+                            @Html.ActionLink("Edit", "Edit_Privacy_Complaints", "Edit", new { id = item.id }, new { @class = "b" })
+                            @Html.ActionLink("Details", "Privacy_Complaints_Details", "Details", new { id = item.id }, new { @class = "b" })
+                            @Html.ActionLink("Delete", "Privacy_Complaints_Delete", "Delete", new { id = item.id }, new { @class = "b" })
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
+        else
+        {
+            <h4 style="text-align:center;color:red;border:2px solid red;border-radius:9px;padding:12px">@ViewBag.emptyMsg</h4>
+        }
+        <hr />
+        <footer>
+            <p style="text-align:center;font-weight:bold">&copy; @DateTime.Now.Year - WOR Report</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    <style>
+        .b {
+            border-radius: 6px;
+            color: blue;
+            text-decoration: none;
+            border: 1px solid blue;
+            padding: 6px;
+        }
+
+            .b:hover {
+                color: red;
+                text-decoration: none;
+                background-color: blue;
+            }
+
+        #back {
+            text-decoration: none;
+            border: 2px solid darkorange;
+            color: darkorange;
+            border-radius: 25px;
+            padding: 14px;
+        }
+
+            #back:hover {
+                background-color: darkorange;
+                color: white;
+            }
+
+        .btnn {
             text-decoration: none;
         }
 
-    #back {
-        text-decoration: none;
-        border: 2px solid darkorange;
-        color: darkorange;
-        border-radius: 25px;
-        padding: 14px;
-    }
-
-        #back:hover {
-            background-color: darkorange;
-            color: white;
+        #btn {
+            border: 1px solid blue;
+            padding: 5px;
+            text-align: center;
+            border-radius: 12px;
         }
 
-    .btnn {
-        text-decoration: none;
-    }
+            #btn:hover {
+                background-color: blue;
+            }
 
-    #btn {
-        border: 1px solid blue;
-        padding: 5px;
-        text-align: center;
-        border-radius: 12px;
-    }
 
-        #btn:hover {
-            background-color: blue;
+  #nameApp {
+            font-family: 'Times New Roman';
+            font-weight: bold;
+            font-size: x-large;
+            float: left;
+            height: 50px;
+            padding: 15px 15px;
+            font-size: 18px;
+            line-height: 20px;
+            color: darkorange;
         }
-</style>
+
+            #nameApp:hover {
+                text-decoration: none;
+                color: navajowhite;
+            }
+    </style>
+</body>
+</html>

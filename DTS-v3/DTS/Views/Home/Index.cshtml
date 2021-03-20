@@ -21,13 +21,14 @@
     <div id="contactForm" class="form-group">
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <label class="contact" for="care_community">
-            Care Community Centre:
-            <label>
-                @Html.DropDownListFor(model => model.Care_Community_Centre, ViewBag.listing[0] as SelectList, "", new { id = "drop1" })
-            </label>
-            @Html.ActionLink("ADD", "Care_Community", "Home", "", new { @class = "btnCommunity" })
+    <label class="contact" for="care_community">
+        Care Community Centre:
+        <label>
+            @Html.DropDownListFor(model => model.Care_Community_Centre, ViewBag.listing[0] as SelectList, "", new { id = "drop1" })
         </label>
+        @Html.ActionLink("ADD", "Care_Community", "Home", "", new { @class = "btnCommunity" })<br />
+        <span style="font-family:'Palatino Linotype';color:red">@ViewBag.EmptyRequired</span>
+    </label>
         <br />
         <label class="contact" for="user">
             User Name:

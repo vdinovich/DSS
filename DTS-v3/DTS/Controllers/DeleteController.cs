@@ -65,6 +65,30 @@ namespace DTS.Controllers
         }
 
         [HttpGet]
+        public ActionResult Education_Delete(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var delete = db.Educations.SingleOrDefault(e => e.Id == id);
+            Care_Community name1 = db.Care_Communities.Find(delete.Location);
+            ViewBag.list = name1.Name;
+            if (delete == null) return HttpNotFound();
+
+            return View(delete);
+        }
+
+        [HttpPost]
+        public ActionResult Education_Delete(int id)
+        {
+            var delete = db.Educations.SingleOrDefault(l => l.Id == id);
+            db.Educations.Remove(delete ?? throw new InvalidOperationException());
+            db.SaveChanges();
+
+            return RedirectToAction("../Select/Education_Select");
+        }
+
+        [HttpGet]
         public ActionResult Community_Delete(int? id)
         {
             if (id == null)
@@ -282,8 +306,8 @@ namespace DTS.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
             var delete = db.Complaints.SingleOrDefault(e => e.Id == id);
-            Care_Community name1 = db.Care_Communities.Find(delete.Location);
-            ViewBag.list = name1.Name;
+            Care_Community name = db.Care_Communities.Find(delete.Location);
+            ViewBag.list = name.Name;
             if (delete == null) return HttpNotFound();
 
             return View(delete);
@@ -297,6 +321,31 @@ namespace DTS.Controllers
             db.SaveChanges();
 
             return RedirectToAction("../Select/Select_Complaints");
+        }
+
+        [HttpGet]
+        public ActionResult Privacy_Complaints_Delete(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var delete = db.Privacy_Complaints.SingleOrDefault(e => e.id == id);
+            Care_Community name = db.Care_Communities.Find(delete.Location);
+            ViewBag.list = name.Name;
+            if (delete == null) return HttpNotFound();
+
+            return View(delete);
+        }
+
+        [HttpPost]
+        public ActionResult Privacy_Complaints_Delete(int id)
+        {
+
+            var delete = db.Privacy_Complaints.SingleOrDefault(l => l.id == id);
+            db.Privacy_Complaints.Remove(delete ?? throw new InvalidOperationException());
+            db.SaveChanges();
+
+            return RedirectToAction("../Select/Privacy_Complaints");
         }
     }
 }

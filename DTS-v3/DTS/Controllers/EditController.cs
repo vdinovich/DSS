@@ -42,6 +42,32 @@ namespace DTS.Controllers
         }
 
         [HttpGet]
+        public ActionResult EditEducation(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var founded = db.Educations.Find(id);
+            ViewBag.locations = HomeController.list;
+            if (founded == null) return HttpNotFound();
+            return View(founded);
+        }
+
+        [HttpPost]
+        public ActionResult EditEducation(Education entity)
+        {
+            if (ModelState.IsValid)
+            {
+                db = new MyContext();
+                db.Entry(entity).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("../Select/Education_Select");
+            }
+
+            return View(entity);
+        }
+
+
+        [HttpGet]
         public ActionResult Edit_Labour(int? id)
         {
             if (id == null)
@@ -157,7 +183,7 @@ namespace DTS.Controllers
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            Visits_Agency risk = db.Visits_Agencies.SingleOrDefault(e => e.Id == id);
+            var risk = db.Visits_Agencies.SingleOrDefault(e => e.Id == id);
             if (risk == null) return HttpNotFound();
 
             return View(risk);
@@ -182,7 +208,7 @@ namespace DTS.Controllers
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            WSIB wsib = db.WSIBs.SingleOrDefault(e => e.Id == id);
+            var wsib = db.WSIBs.SingleOrDefault(e => e.Id == id);
             if (wsib == null) return HttpNotFound();
 
             return View(wsib);
@@ -207,7 +233,7 @@ namespace DTS.Controllers
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            Not_WSIBs wsib = db.Not_WSIBs.SingleOrDefault(e => e.Id == id);
+            var wsib = db.Not_WSIBs.SingleOrDefault(e => e.Id == id);
             if (wsib == null) return HttpNotFound();
 
             return View(wsib);
@@ -232,7 +258,7 @@ namespace DTS.Controllers
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            Visits_Others visit = db.Visits_Others.Find(id);
+            var visit = db.Visits_Others.Find(id);
             ViewBag.locations = HomeController.list;
             if (visit == null) return HttpNotFound();
 
@@ -257,7 +283,7 @@ namespace DTS.Controllers
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            Outbreaks outbreaks = db.Outbreaks.SingleOrDefault(o => o.Id == id);
+            var outbreaks = db.Outbreaks.SingleOrDefault(o => o.Id == id);
             if (outbreaks == null) return HttpNotFound();
 
             return View(outbreaks);
@@ -276,11 +302,36 @@ namespace DTS.Controllers
             return View();
         }
 
+        [HttpGet]
+        public ActionResult Edit_Privacy_Complaints(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var founded = db.Privacy_Complaints.Find(id);
+            ViewBag.locations = HomeController.list;
+            if (founded == null) return HttpNotFound();
+            return View(founded);
+        }
+
+        [HttpPost]
+        public ActionResult Edit_Privacy_Complaints(Privacy_Complaints edit)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(edit).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("../Select/Privacy_Complaints");
+            }
+
+            return View();
+        }
+
+        [HttpGet]
         public ActionResult Edit_Complaints(int? id)
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            Complaint founded = db.Complaints.Find(id);
+            var founded = db.Complaints.Find(id);
             ViewBag.locations = HomeController.list;
             if (founded == null) return HttpNotFound();
             return View(founded);
@@ -303,7 +354,7 @@ namespace DTS.Controllers
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            Complaint founded = db.Complaints.Find(id);
+            var founded = db.Complaints.Find(id);
             if (founded == null) return HttpNotFound();
             return View(founded);
         }

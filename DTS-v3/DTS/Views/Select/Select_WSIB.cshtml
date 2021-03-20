@@ -13,7 +13,7 @@
 <br />
 @if (ViewBag.err)
 {
-    <table class="table">
+    <table class="table table-bordered">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Date_Accident)
@@ -45,7 +45,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.Form_7)
             </th>
-            <th></th>
         </tr>
 
         @foreach (var item in Model)
@@ -81,10 +80,12 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Form_7)
                 </td>
-                <td>
-                    <div id="btn">@Html.ActionLink("Edit", "Edit_WSIB", "Edit", new { id = item.Id }, "")</div>
-                    <div id="btn">@Html.ActionLink("Details", "WSIB_Details", "Details", new { id = item.Id }, "")</div>
-                    <div id="btn">@Html.ActionLink("Delete", "WSIB_Delete", "Delete", new { id = item.Id }, "")</div>
+                <td>      
+                    <div style="width:160px;margin-top:10px">
+                        @Html.ActionLink("Edit", "Edit_WSIB", "Edit", new { id = item.Id }, new { id = "b" })
+                        @Html.ActionLink("Details", "WSIB_Details", "Details", new { id = item.Id }, new { id = "b" })
+                        @Html.ActionLink("Delete", "WSIB_Delete", "Delete", new { id = item.Id }, new { id = "b" })
+                    </div>
                 </td>
             </tr>
         }
@@ -97,12 +98,26 @@ else
 }
 
 <style>
+    #b {
+        border-radius: 6px;
+        color: blue;
+        text-decoration: none;
+        border: 1px solid blue;
+        padding: 6px;
+    }
+
+        #b:hover {
+            color: red;
+            text-decoration: none;
+            background-color: blue;
+        }
+
     #back {
         text-decoration: none;
         border: 2px solid darkorange;
+        color: darkorange;
         border-radius: 25px;
         padding: 14px;
-        color: darkorange;
     }
 
         #back:hover {
@@ -110,8 +125,18 @@ else
             color: white;
         }
 
-    #btn {
-        padding: 1px;
-        text-align: center;
+    .btnn {
+        text-decoration: none;
     }
+
+    #btn {
+        border: 1px solid blue;
+        padding: 5px;
+        text-align: center;
+        border-radius: 12px;
+    }
+
+        #btn:hover {
+            background-color: blue;
+        }
 </style>

@@ -4800,10 +4800,17 @@
     <Content Include="Views\Select\Select_Emergency_Prep.cshtml" />
     <Content Include="Views\Details\Complaints_Details.cshtml" />
     <Content Include="Views\Delete\Complaints_Delete.cshtml" />
+    <Content Include="Views\Details\EducationDetails.cshtml" />
+    <Content Include="Views\Edit\EditEducation.cshtml" />
+    <Content Include="Views\Delete\Education_Delete.cshtml" />
+    <Content Include="Views\Edit\Edit_Privacy_Complaints.cshtml" />
+    <Content Include="Views\Details\Privacy_Complaints_Details.cshtml" />
+    <Content Include="Views\Delete\Privacy_Complaints_Delete.cshtml" />
+    <Content Include="Uploaded_Files\p7-1.pdf" />
+    <Content Include="Views\AdminLTE\Pdf_Viewer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="PrintTables\" />
-    <Folder Include="Uploaded_Files\" />
     <Folder Include="Views\WSIB\" />
   </ItemGroup>
   <ItemGroup>

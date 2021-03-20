@@ -116,13 +116,26 @@ namespace DTS.Controllers
                     return RedirectToAction("../Home/Index");
                 }
             }
-            if (!flag) { ViewBag.incorrect = "Incorrect Login or Password..Try again!"; }
+            if (!flag) { ViewBag.incorrect = "Incorrect Login or Password...Please try again!"; }
             return View();
         }
 
+        public static string text { get; set; }
         [HttpGet]
         public ActionResult Index()
         {
+            /// Temporary Test:
+            string absolPath = Path.Combine(Server.MapPath("~/Uploaded_Files/p7-1.pdf"));
+            FileStream stream = new FileStream(absolPath, FileMode.Open, FileAccess.ReadWrite);
+            using(StreamReader sr =new StreamReader(stream))
+            {
+                 text = sr.ReadToEnd();           
+            }
+            if(text != "")
+            {
+                return RedirectToAction($"../AdminLTE/Pdf_Viewer");
+            }
+            ///
             both = new List<object> { list, list2 };
             ViewBag.listing = both;
             return View();
@@ -133,41 +146,64 @@ namespace DTS.Controllers
         {
             if (main.Id == 0)
             {
-                if(main.User_Name == null || main.Position == null || main.Week == 0 || main.Current_Date == DateTime.MinValue)
+                if (main.User_Name == null || main.Position == null || main.Week == 0 || main.Current_Date == DateTime.MinValue)
+                {
+                    if (main.Care_Community_Centre == null)
+                    {
+                        notsel = "You have to choose a Location from a drop-down list to move forward.";
+                        both = new List<object> { list, list2 };
+                        ViewBag.listing = both;
+                        ViewBag.EmptyRequired = notsel;
+                    }
+                    else//if(main.User_Name == null || main.Position == null || main.Week == 0 || main.Current_Date == DateTime.MinValue)
+                    {
+                        id_care_center = id_complaints =
+                     id_visit_order = id_outbrakes = id_wsib = int.Parse(main.Care_Community_Centre);
+                        both = new List<object> { list, list2 };
+                        ViewBag.listing = both;
+                        main.Care_Community_Centre = list.Where(p => p.Value == main.Care_Community_Centre).First().Text;
+                        if(main.Position == null)
+                        {
+                            return RedirectToAction("../Home/WOR_Tabs");
+                        }
+                        else
+                        {
+                            main.Position = list2.Where(p => p.Value == main.Position).First().Text;
+                            main.Date_Entred = DateTime.Now;
+                            db.Sign_in_Mains.Add(main);
+                            db.SaveChanges();
+
+                            main.Care_Community_Centre = null;
+                            main.Position = null;
+                            main.Week = 0;
+                            main.User_Name = null;
+                            //ViewBag.listing = both;
+                            ViewBag.ResultMsg = "Your record was added successfuly!";
+                            return RedirectToAction("../Home/WOR_Tabs");
+                        }
+                    }
+                }
+                else
                 {
                     id_care_center = id_complaints =
-              id_visit_order = id_outbrakes = id_wsib = int.Parse(main.Care_Community_Centre);
+                    id_visit_order = id_outbrakes = id_wsib = int.Parse(main.Care_Community_Centre);
                     both = new List<object> { list, list2 };
                     ViewBag.listing = both;
                     main.Care_Community_Centre = list.Where(p => p.Value == main.Care_Community_Centre).First().Text;
-                    return RedirectToAction("../Home/WOR_Tabs");
-                }
-                if (main.Care_Community_Centre == null)
-                {
-                    notsel = "You have to select a Care Community from a drop-down list";
-                    both = new List<object> { list, list2 };
-                    ViewBag.listing = both;
-                    ViewBag.not_selected = notsel;
+                    main.Position = list2.Where(p => p.Value == main.Position).First().Text;
+                    main.Date_Entred = DateTime.Now;
+                    db.Sign_in_Mains.Add(main);
+                    db.SaveChanges();
+
+                    main.Care_Community_Centre = null;
+                    main.Position = null;
+                    main.Week = 0;
+                    main.User_Name = null;
+                    //ViewBag.listing = both;
+                    ViewBag.ResultMsg = "Your record was added successfuly!";
+
                     return View();
                 }
-                id_care_center = id_complaints =
-                id_visit_order = id_outbrakes = id_wsib = int.Parse(main.Care_Community_Centre);
-                both = new List<object> { list, list2 };
-                ViewBag.listing = both;
-                main.Care_Community_Centre = list.Where(p => p.Value == main.Care_Community_Centre).First().Text;
-                main.Position = list2.Where(p => p.Value == main.Position).First().Text;
-                main.Date_Entred = DateTime.Now;
-                db.Sign_in_Mains.Add(main);
-                db.SaveChanges();
-
-                main.Care_Community_Centre = null;
-                main.Position = null;
-                main.Week = 0;
-                main.User_Name = null;
-                //ViewBag.listing = both;
-                ViewBag.ResultMsg = "Your Record was inserted Successfuly!";
-
-                return View();
             }
             return View();
         }
@@ -205,7 +241,7 @@ namespace DTS.Controllers
                         file.SaveAs(fname);
                     }
                     // Returns message that successfully uploaded  
-                    return Json("Your File Was Uploaded Successfully!");
+                    return Json("Your file was uploaded successfully!");
                 }
                 catch (Exception ex)
                 {
@@ -214,7 +250,7 @@ namespace DTS.Controllers
             }
             else
             {
-                return Json("No files selected.");
+                return Json("There was no file selected. Please try again.");
             }
         }
 
@@ -228,7 +264,7 @@ namespace DTS.Controllers
             //    ViewBag.Empty = "There is no uploaded file here. Please go to the upload area.";
             //    return View();
             //}
-  
+
             for (int i = 0; i < files_names.Length; i++)
                 names.Add(Path.GetFileName(files_names[i]));
 
@@ -248,7 +284,7 @@ namespace DTS.Controllers
             {
                 flag = true;
                 string path = Path.Combine(Server.MapPath($"~/Uploaded_Files/{item}"));
-              System.IO.File.Delete(path);
+                System.IO.File.Delete(path);
             }
             if (!flag) return Json("There is nothing to delete...Please upload any file!");
             else return RedirectToAction("../Home/AllFiles");
@@ -295,7 +331,7 @@ namespace DTS.Controllers
                     //msg_infos = ADO_NET_CRUD.Insert_Incident(entity);
                     return RedirectToAction("../Select/Select_Incidents");
                 }
-                catch (Exception ex) { return Json("Error occurred. Error details: " + ex.Message); }
+                catch (Exception ex) { return Json("An error has occurred. Error details: " + ex.Message); }
                 // ViewBag.Empty = "Some fields are empty. Please fill it out and try again!";
                 // return View();
             }
@@ -382,8 +418,8 @@ namespace DTS.Controllers
         public ActionResult GoodNews_Insert(Good_News entity)
         {
             ViewBag.locations = list;
-            if (entity.Awards_Details == null && entity.Awards_Received == null && entity.Category == null && entity.Community_Inititives == null && 
-                entity.Compliment == null && entity.DateNews == null && entity.Department == null && entity.Location == 0 && 
+            if (entity.Awards_Details == null && entity.Awards_Received == null && entity.Category == null && entity.Community_Inititives == null &&
+                entity.Compliment == null && entity.DateNews == null && entity.Department == null && entity.Location == 0 &&
                 entity.Description_Complim == null && entity.Growth == false && entity.NameAwards == null && entity.Passion == false &&
                 entity.ReceivedFrom == null && entity.Respect == false && entity.Responsibility == false && entity.SourceCompliment == null &&
                 entity.Spot_Awards == null && entity.Teamwork == false)
@@ -400,7 +436,7 @@ namespace DTS.Controllers
                     success_nsg = "Your record was successfully saved!";
                 else
                     success_nsg = "Somthing went wrong...";
-                    return RedirectToAction("../Select/Select_GoodNews");
+                return RedirectToAction("../Select/Select_GoodNews");
             }
             //if (entity != null)
             //{
@@ -426,8 +462,8 @@ namespace DTS.Controllers
         public ActionResult Agency_Insert(Visits_Agency entity)
         {
             ViewBag.locations = list;
-            if (entity.Agency == null && entity.Corrective_Actions == null && entity.Date_of_Visit == DateTime.Now && 
-                entity.Findings_Details == null && entity.Findings_number == 0 && entity.Report_Posted  == null)
+            if (entity.Agency == null && entity.Corrective_Actions == null && entity.Date_of_Visit == DateTime.Now &&
+                entity.Findings_Details == null && entity.Findings_number == 0 && entity.Report_Posted == null)
             {
                 //ViewBag.Empty = "All fields have to be filled.";
                 return View();
@@ -435,9 +471,9 @@ namespace DTS.Controllers
             else
             {
                 db.Visits_Agencies.Add(entity);
-                db.SaveChanges();  
+                db.SaveChanges();
                 return RedirectToAction("../Select/Select_Agencies");
-            }         
+            }
         }
 
         [HttpGet]
@@ -452,7 +488,7 @@ namespace DTS.Controllers
         {
             ViewBag.locations = list;
             if (entity.Accident_Cause == null && entity.Date_Accident == DateTime.MinValue && entity.Date_Duties == DateTime.MinValue &&
-                entity.Date_Regular == DateTime.MinValue && entity.Employee_Initials == null && entity.Form_7 == null && 
+                entity.Date_Regular == DateTime.MinValue && entity.Employee_Initials == null && entity.Form_7 == null &&
                 entity.Location == 0 && entity.Lost_Days == 0 && entity.Modified_Days_Not_Shadowed == 0 && entity.Modified_Days_Shadowed == 0)
             {
                 //ViewBag.Empty = "All fields have to be filled.";
@@ -464,9 +500,9 @@ namespace DTS.Controllers
                 db.SaveChanges();
                 return RedirectToAction("../Select/Select_WSIB");
             }
-    
+
             db.SaveChanges();
-           
+
 
         }
 
@@ -482,7 +518,7 @@ namespace DTS.Controllers
         {
             ViewBag.locations = list;
             if (entity.Date_of_Incident == DateTime.MinValue && entity.Details_of_Incident == null && entity.Employee_Initials == null &&
-                entity.Home_Area == null && entity.Injury_Related == null && entity.Location == 0 && entity.Position == null && 
+                entity.Home_Area == null && entity.Injury_Related == null && entity.Location == 0 && entity.Position == null &&
                 entity.Shift == null && entity.Time_of_Incident == null && entity.Type_of_Injury == null)
             {
                 //ViewBag.Empty = "All fields have to be filled.";
@@ -516,7 +552,7 @@ namespace DTS.Controllers
                 db.Care_Communities.Add(entity);
                 db.SaveChanges();
                 return RedirectToAction("../Home/Index");
-            }    
+            }
         }
 
         [HttpGet]
@@ -560,20 +596,44 @@ namespace DTS.Controllers
                 //ViewBag.Empty = "All fields have to be filled.";
                 return View();
             }
-            else if (entity.Agency == null || entity.Corrective_Actions == null || entity.Date_of_Visit == DateTime.MinValue ||
-                entity.Details_of_Findings == null || entity.LHIN_Letter_Received == null || entity.Location == 0 ||
-                entity.Number_of_Findings == 0 || entity.PH_Letter_Received == null || entity.Report_Posted == null)
+            else if ((entity.Date_of_Visit != DateTime.MinValue &&
+                      entity.Details_of_Findings != null && entity.Location != 0 &&
+                      entity.Number_of_Findings != 0) && entity.Agency == null || entity.Corrective_Actions == null || entity.LHIN_Letter_Received == null ||
+                      entity.PH_Letter_Received == null || entity.Report_Posted == null)
             {
                 db.Visits_Others.Add(entity);
                 db.SaveChanges();
                 return RedirectToAction("../Select/Select_Visits_Others");
             }
-            else
+            return View();
+        }
+
+        public ActionResult Education()
+        {
+            ViewBag.locations = list;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Education(Education entity)
+        {
+            ViewBag.locations = list;
+            if (entity.Approx_Per_Educated == 0 && entity.Apr == 0 && entity.Aug == 0 && entity.Dec == 0 && entity.Feb == 0 && entity.Jan == 0 &&
+                entity.Jul == 0 && entity.Jun == 0 && entity.Location == 0 && entity.Mar == 0 && entity.May == 0 && entity.Nov == 0 && entity.Oct == 0 &&
+                entity.Sep == 0 && entity.Session_Name == null && entity.Total_Numb_Educ == 0 && entity.Total_Numb_Eligible == 0)
             {
-                db.Visits_Others.Add(entity);
-                db.SaveChanges();
-                return RedirectToAction("../Select/Select_Visits_Others");
+                //ViewBag.Empty = "All fields have to be filled.";
+                return View();
             }
+            else if ((entity.Location != 0) && entity.Approx_Per_Educated == 0 || entity.Apr == 0 || entity.Aug == 0 || entity.Dec == 0 || entity.Feb == 0 || entity.Jan == 0 ||
+                entity.Jul == 0 || entity.Jun == 0 || entity.Location == 0 || entity.Mar == 0 || entity.May == 0 || entity.Nov == 0 || entity.Oct == 0 ||
+                entity.Sep == 0 || entity.Session_Name == null || entity.Total_Numb_Educ == 0 || entity.Total_Numb_Eligible == 0)
+            {
+                db.Educations.Add(entity);
+                db.SaveChanges();
+                return RedirectToAction("../Select/Education_Select");
+            }
+            return View();
         }
 
         [HttpGet]
@@ -590,7 +650,7 @@ namespace DTS.Controllers
             if (entity.CI_Report_Submitted == null && entity.Credit_for_Lost_Days == 0 && entity.Date_Concluded == DateTime.MinValue &&
                 entity.Date_Declared == DateTime.MinValue && entity.Deaths_Due == 0 && entity.Docs_Submitted_Finance == null &&
                 entity.Location == 0 && entity.Notify_MOL == null && entity.Strain_Identified == null && entity.Total_Days_Closed == 0 &&
-                entity.Total_Residents_Affected == 0 && entity.Total_Staff_Affected == 0 && entity.Tracking_Sheet_Completed == null  &&
+                entity.Total_Residents_Affected == 0 && entity.Total_Staff_Affected == 0 && entity.Tracking_Sheet_Completed == null &&
                 entity.Type_of_Outbreak == null)
             {
                 //ViewBag.Empty = "All fields have to be filled.";
@@ -599,8 +659,8 @@ namespace DTS.Controllers
             else
             {
                 db.Outbreaks.Add(entity);
-                db.SaveChanges();     
-                return RedirectToAction("../Select/Select_Outbreaks");
+                db.SaveChanges();
+                return RedirectToAction("../Select/Outbreaks");
             }
         }
 
@@ -621,34 +681,32 @@ namespace DTS.Controllers
         public ActionResult Privacy_Breaches(Privacy_Breaches entity)
         {
             ViewBag.locations = list;
-            if (entity.Date_Breach_Reported == DateTime.MinValue && 
-                entity.Location == 0 && 
-                entity.Number_of_Individuals_Affected == 0 && 
-                entity.Risk_Level == null && 
-                entity.Status == null && 
-                entity.Type_of_Breach == null && 
+            if (entity.Date_Breach_Reported == DateTime.MinValue &&
+                entity.Location == 0 &&
+                entity.Number_of_Individuals_Affected == 0 &&
+                entity.Risk_Level == null &&
+                entity.Status == null &&
+                entity.Type_of_Breach == null &&
                 entity.Type_of_PHI_Involved == null &&
                 entity.Date_Breach_Occurred == DateTime.MinValue &&
                 entity.Date_Breach_Reported_By == null &&
                 entity.Description_Outcome == null
-                )
-            {
-                //ViewBag.Empty = "All fields have to be filled.";
-                return View();
-            }
-            //else if (entity.Date_Breach_Reported == DateTime.MinValue || entity.Risk_Level == null ||
-            //    entity.Status == null || entity.Type_of_Breach == null || entity.Type_of_PHI_Involved == null)
-            //{
-            //    db.Privacy_Breaches.Add(entity);
-            //    db.SaveChanges();
-            //    return RedirectToAction("../Select/Privacy_Breaches");
-            //}
-            else
+                ) return View();
+            else if ((entity.Location != 0 && entity.Date_Breach_Occurred != DateTime.MinValue) &&
+                      entity.Number_of_Individuals_Affected == 0 &&
+                entity.Risk_Level == null &&
+                entity.Status == null &&
+                entity.Type_of_Breach == null &&
+                entity.Type_of_PHI_Involved == null &&
+                entity.Date_Breach_Occurred == DateTime.MinValue &&
+                entity.Date_Breach_Reported_By == null &&
+                entity.Description_Outcome == null)
             {
                 db.Privacy_Breaches.Add(entity);
                 db.SaveChanges();
                 return RedirectToAction("../Select/Privacy_Breaches");
             }
+            return View();
         }
 
         [HttpGet]
@@ -663,18 +721,20 @@ namespace DTS.Controllers
         {
 
             ViewBag.locations = list;
-            if (entity.Complain_Filed_By == null && entity.Date_Complain_Received == DateTime.MinValue && entity.Description_Outcome == null&&
+            if (entity.Complain_Filed_By == null && entity.Date_Complain_Received == DateTime.MinValue && entity.Description_Outcome == null &&
                 entity.Is_Complaint_Resolved == null && entity.Location == 0 && entity.Status == null && entity.Type_of_Complaint == null)
             {
                 //ViewBag.Empty = "All fields have to be filled.";
                 return View();
             }
-            else
+            else if ((entity.Location != 0) && entity.Complain_Filed_By == null || entity.Date_Complain_Received == DateTime.MinValue || entity.Description_Outcome == null ||
+                entity.Is_Complaint_Resolved == null || entity.Status == null || entity.Type_of_Complaint == null)
             {
                 db.Privacy_Complaints.Add(entity);
                 db.SaveChanges();
                 return RedirectToAction("../Select/Privacy_Complaints");
             }
+            return View();
         }
 
         [HttpGet]
@@ -690,7 +750,7 @@ namespace DTS.Controllers
             ViewBag.locations = list;
             if (entity.Apr == 0 && entity.Aug == 0 && entity.Dec == 0 && entity.Feb == 0 && entity.Jan == 0 &&
                 entity.Jul == 0 && entity.Jun == 0 && entity.Location == 0 && entity.Mar == 0 && entity.May == 0 &&
-                entity.Session_Name == null && entity.Nov == 0 && entity.Oct == 0 && entity.Sep == 0 && entity.Total_Numb_Educ == 0 && 
+                entity.Session_Name == null && entity.Nov == 0 && entity.Oct == 0 && entity.Sep == 0 && entity.Total_Numb_Educ == 0 &&
                 entity.Total_Numb_Eligible == 0 && entity.Approx_Per_Educated == 0)
             {
                 //ViewBag.Empty = "All fields have to be filled.";
@@ -698,13 +758,10 @@ namespace DTS.Controllers
             }
             else
             {
-                db.Education.Add(entity);
+                db.Educations.Add(entity);
                 db.SaveChanges();
                 return RedirectToAction("../Select/Education_Select");
             }
-           
-            db.SaveChanges();
-           
         }
 
         [HttpGet]
@@ -720,7 +777,7 @@ namespace DTS.Controllers
             ViewBag.locations = list;
             if (entity.Apr == null && entity.Aug == null && entity.Dec == null && entity.Feb == null && entity.Jan == null &&
                 entity.Jul == null && entity.Jun == null && entity.Location == 0 && entity.Mar == null && entity.May == null &&
-                entity.Name == null && entity.Nov == null && entity.Oct == null && entity.Sep == null) 
+                entity.Name == null && entity.Nov == null && entity.Oct == null && entity.Sep == null)
             {
                 //ViewBag.Empty = "All fields have to be filled.";
                 return View();
@@ -730,7 +787,7 @@ namespace DTS.Controllers
                 db.Emergency_Prep.Add(entity);
                 db.SaveChanges();
                 return RedirectToAction("../Select/Select_Emergency_Prep");
-            }            
+            }
         }
     }
 }

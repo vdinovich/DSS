@@ -2,176 +2,253 @@
 
 @{
     ViewBag.Title = "Education_Select";
+    Layout = null;
 }
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - WOR Compliants sf</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @*<a href="~/Home/Index"><img src="~/Logo/logo2.png" style="width:90px;height:35px;margin:7px 0 0 10px" /></a>*@
+                @Html.ActionLink("SIENNA", "SignIN", "Home", null, new { id = "nameApp" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("WOR Tabs", "WOR_Tabs", "Home")</li>
+                    <li>@Html.ActionLink("All Uploaded Files", "AllFiles", "Home")</li>
+                    <li>@Html.ActionLink("Register", "Register_New_User", "Register")</li>
+                    <li>@Html.ActionLink("About", "Index", "AdminLTE")</li>
+                    <li>
+                        <a href="https://siennaliving.sharepoint.com/SitePages/Home.aspx">Exit</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class=" body-content">
+        <div style="width:320px;margin:auto">
+            <img src="~/Logo/logo1_sm.png" />
+        </div>
+        <h1 style="text-align:center;font-weight:bold;color:darkorange">Education - All Records</h1>
 
-<h1 style="text-align:center;font-weight:bold;color:darkorange">Privacy Complaints - All Records</h1>
-
-@Html.ActionLink("<-- Back", "Education", "Home", "", new { id = "back" })
-<br />
-<br />
-<br />
-@if (ViewBag.err)
-{
-    <h3 style="text-align:center;color:green;font-family:'Palatino Linotype'"> @ViewBag.info_insert </h3>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Session_Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Location)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Jan)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Feb)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Mar)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Apr)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.May)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Jun)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Jul)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Aug)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Sep)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Oct)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Nov)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Dec)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Total_Numb_Educ)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Total_Numb_Eligible)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Approx_Per_Educated)
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model)
+        @Html.ActionLink("<-- Back", "Education", "Home", "", new { id = "back" })
+        <br />
+        <br />
+        <br />
+        @if (ViewBag.err)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Session_Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Location)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Jan)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Feb)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Mar)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Apr)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.May)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Jun)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Jul)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Aug)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Sep)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Oct)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Nov)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Dec)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Total_Numb_Educ)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Total_Numb_Eligible)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Approx_Per_Educated)
-                </td>
-                <td id="btns">
-                    <div id="btn">@Html.ActionLink("Edit", "Edit_Education", "Edit", new { id = item.Id }, new { @class = "b" })</div>
-                    <div id="btn">@Html.ActionLink("Details", "Education_Details", "Details", new { id = item.Id }, new { @class = "b" })</div>
-                    <div id="btn">@Html.ActionLink("Delete", "Education_Delete", "Delete", new { id = item.Id }, new { @class = "b" })</div>
-                </td>
-            </tr>
-        }
-    </table>
-}
-else
-{
-    <h4 style="text-align:center;color:red;border:2px solid red;border-radius:9px;padding:12px">@ViewBag.emptyMsg</h4>
-}
-<style>
-    .b {
-        color: blue;
-        text-decoration: none;
-    }
+            <h3 style="text-align:center;color:green;font-family:'Palatino Linotype'"> @ViewBag.info_insert </h3>
+            <table class="table table-bordered">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Session_Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Location)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Jan)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Feb)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Mar)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Apr)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.May)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Jun)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Jul)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Aug)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Sep)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Oct)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Nov)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Dec)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Total_Numb_Educ)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Total_Numb_Eligible)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Approx_Per_Educated)
+                    </th>
+                </tr>
 
-        .b:hover {
-            color: red;
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Session_Name)
+                        </td>
+                        <td>
+                            @ViewBag.list
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Jan)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Feb)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Mar)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Apr)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.May)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Jun)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Jul)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Aug)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Sep)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Oct)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nov)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Dec)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Total_Numb_Educ)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Total_Numb_Eligible)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Approx_Per_Educated)
+                        </td>
+                        <td id="btns">
+                            @Html.ActionLink("Edit", "EditEducation", "Edit", new { id = item.Id }, new { @class = "b" })
+                            @Html.ActionLink("Details", "EducationDetails", "Details", new { id = item.Id }, new { @class = "b" })
+                            @Html.ActionLink("Delete", "Education_Delete", "Delete", new { id = item.Id }, new { @class = "b" })
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        }
+        else
+        {
+            <h4 style="text-align:center;color:red;border:2px solid red;border-radius:9px;padding:12px">@ViewBag.emptyMsg</h4>
+        }
+        <hr />
+        <footer>
+            <p style="text-align:center;font-weight:bold">&copy; @DateTime.Now.Year - WOR Report</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    <style>
+           #nameApp {
+            font-family: 'Times New Roman';
+            font-weight: bold;
+            font-size: x-large;
+            float: left;
+            height: 50px;
+            padding: 15px 15px;
+            font-size: 18px;
+            line-height: 20px;
+            color: darkorange;
+        }
+
+            #nameApp:hover {
+                text-decoration: none;
+                color: navajowhite;
+            }
+        .b {
+            border-radius: 6px;
+            color: blue;
+            text-decoration: none;
+            border: 1px solid blue;
+            padding: 6px;
+        }
+
+            .b:hover {
+                color: red;
+                text-decoration: none;
+                background-color: blue;
+            }
+
+        #back {
+            text-decoration: none;
+            border: 2px solid darkorange;
+            color: darkorange;
+            border-radius: 25px;
+            padding: 14px;
+        }
+
+            #back:hover {
+                background-color: darkorange;
+                color: white;
+            }
+
+        .btnn {
             text-decoration: none;
         }
 
-    #back {
-        text-decoration: none;
-        border: 2px solid darkorange;
-        color: darkorange;
-        border-radius: 25px;
-        padding: 14px;
-    }
-
-        #back:hover {
-            background-color: darkorange;
-            color: white;
+        #btn {
+            border: 1px solid blue;
+            padding: 5px;
+            text-align: center;
+            border-radius: 12px;
         }
 
-    .btnn {
-        text-decoration: none;
-    }
+            #btn:hover {
+                background-color: blue;
+            }
 
-    #btn {
-        border: 1px solid blue;
-        padding: 5px;
-        text-align: center;
-        border-radius: 12px;
-    }
 
-        #btn:hover {
-            background-color: blue;
-        }
-</style>
+
+        /*#btn {
+                padding: 1px;
+                text-align: center;
+            }*/
+    </style>
+</body>
+</html>

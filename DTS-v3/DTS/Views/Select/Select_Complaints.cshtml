@@ -193,9 +193,9 @@
                     </td>
                     <td>
                     <td id="btns">
-                        <div id="btn">@Html.ActionLink("Edit", "Edit_Complaints", "Edit", new { id = item.Id }, new { @class = "b" })</div>
-                        <div id="btn">@Html.ActionLink("Details", "Complaints_Details", "Details", new { id = item.Id }, new { @class = "b" })</div>
-                        <div id="btn">@Html.ActionLink("Delete", "Complaints_Delete", "Delete", new { id = item.Id }, new { @class = "b" })</div>
+                        @Html.ActionLink("Edit", "Edit_Complaints", "Edit", new { id = item.Id }, new { @class = "b" })
+                        @Html.ActionLink("Details", "Complaints_Details", "Details", new { id = item.Id }, new { @class = "b" })
+                        @Html.ActionLink("Delete", "Complaints_Delete", "Delete", new { id = item.Id }, new { @class = "b" })
                     </td>
                 </tr>
             }
@@ -206,15 +206,20 @@ else
 {
     <h4 style="text-align:center;color:red;border:2px solid red;border-radius:9px;padding:12px">@ViewBag.emptyMsg</h4>
 }
+
+
 <style>
     .b {
+        border-radius: 6px;
         color: blue;
         text-decoration: none;
+         padding: 6px;
     }
 
         .b:hover {
             color: red;
             text-decoration: none;
+            background-color: blue;
         }
 
     #back {
@@ -244,4 +249,11 @@ else
         #btn:hover {
             background-color: blue;
         }
+
+
+
+    /*#btn {
+        padding: 1px;
+        text-align: center;
+    }*/
 </style>

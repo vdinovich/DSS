@@ -1,0 +1,99 @@
+﻿@model DTS.Models.Privacy_Complaints
+
+@{
+    ViewBag.Title = "Privacy_Complaints_Details";
+}
+
+<div>
+   @* <h1 style="text-align:center;font-size:x-large;color:darkorange">Education Record - Details Id  @Html.DisplayFor(model => model.Id):</h1>*@
+    <hr />
+    <div id="center">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Location)
+            </dt>
+
+            <dd>
+               @ViewBag.list
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Status)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Status)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Date_Complain_Received)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Date_Complain_Received)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Complain_Filed_By)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Complain_Filed_By)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Type_of_Complaint)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Type_of_Complaint)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Is_Complaint_Resolved)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Is_Complaint_Resolved)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Description_Outcome)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Description_Outcome)
+            </dd>
+
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Back to List", "Privacy_Complaints", "Select", "", new { id = "backBtn" })
+    </p>
+</div>
+
+<style>
+    #center {
+        width: 420px;
+        margin: auto;
+        border: 1px black solid;
+        position: relative;
+        padding: 17px;
+        border-radius: 22px;
+    }
+
+    #backBtn {
+        border-radius: 22px;
+        border: 2px solid blue;
+        padding: 15px;
+        background-color: white;
+        color: blue;
+        position: absolute;
+        text-decoration: none;
+    }
+
+        #backBtn:hover {
+            background-color: blue;
+            color: white;
+        }
+</style>

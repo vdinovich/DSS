@@ -120,6 +120,20 @@ namespace DTS.Controllers
             return View(entity);
         }
 
+        public ActionResult EducationDetails(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var entity = db.Educations.SingleOrDefault(w => w.Id == id);
+            Care_Community n = db.Care_Communities.Find(entity.Location);
+            ViewBag.list = n.Name;
+            if (entity == null)
+                return HttpNotFound();
+            return View(entity);
+        }
+
         public ActionResult Outbreaks(int? id)
         {
             if (id == null)
@@ -147,10 +161,20 @@ namespace DTS.Controllers
         public ActionResult Complaints_Details(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Complaint entity = db.Complaints.SingleOrDefault(w => w.Id == id);
+            var entity = db.Complaints.SingleOrDefault(w => w.Id == id);
+            Care_Community name1 = db.Care_Communities.Find(entity.Location);
+            ViewBag.list = name1.Name;
+            if (entity == null)
+                return HttpNotFound();
+            return View(entity);
+        }
+
+        public ActionResult Privacy_Complaints_Details(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var entity = db.Privacy_Complaints.SingleOrDefault(w => w.id == id);
             Care_Community name1 = db.Care_Communities.Find(entity.Location);
             ViewBag.list = name1.Name;
             if (entity == null)

@@ -48,7 +48,7 @@
         @Html.ActionLink("<-- Back", "Outbreaks", "Home", "", new { id = "back" })  <br /><br /><br />
         @if (ViewBag.err)
         {
-            <table class="table" style="font-size:x-small;float:left;font-weight:bold">
+            <table class="table table-bordered" style="float:left;">
                 <tr>
                     <th>
                         @Html.DisplayNameFor(model => model.Date_Declared)

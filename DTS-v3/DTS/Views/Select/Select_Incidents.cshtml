@@ -130,10 +130,12 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.File_Complete)
                         </td>
-                        <td id="btns">
-                            <div id="btn">@Html.ActionLink("Edit", "Edit_Incidents", "Edit", new { id = item.id }, new { @class = "b" })</div>
-                            <div id="btn">@Html.ActionLink("Details", "Incidents_Details", "Details", new { id = item.id }, new { @class = "b" })</div>
-                            <div id="btn">@Html.ActionLink("Delete", "Incident_Delete", "Delete", new { id = item.id }, new { @class = "b" })</div>
+                        <td>
+                            <div style="width:160px;margin-top:10px">
+                                @Html.ActionLink("Edit", "Edit_Incidents", "Edit", new { id = item.id }, new { @class = "b" })
+                                @Html.ActionLink("Details", "Incidents_Details", "Details", new { id = item.id }, new { @class = "b" })
+                                @Html.ActionLink("Delete", "Incident_Delete", "Delete", new { id = item.id }, new { @class = "b" })
+                            </div>
                         </td>
                     </tr>
                 } }
@@ -144,15 +146,21 @@ else
 {
     <h4 style="text-align:center;color:red;border:2px solid red;border-radius:9px;padding:12px">@ViewBag.emptyMsg</h4>
 }
+
+
 <style>
     .b {
+        border-radius: 6px;
         color: blue;
         text-decoration: none;
+        border: 1px solid blue;
+        padding: 6px;
     }
 
         .b:hover {
             color: red;
             text-decoration: none;
+            background-color: blue;
         }
 
     #back {
@@ -182,4 +190,11 @@ else
         #btn:hover {
             background-color: blue;
         }
+
+
+
+    /*#btn {
+        padding: 1px;
+        text-align: center;
+    }*/
 </style>

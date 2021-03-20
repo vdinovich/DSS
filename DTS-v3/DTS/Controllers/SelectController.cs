@@ -377,7 +377,7 @@ namespace DTS.Controllers
             string info = HomeController.msg_infos, msg2 = HomeController.success_nsg;
             bool flag;
             int id_loc = HomeController.id_outbrakes;
-            IEnumerable<Privacy_Complaints> list = db.Privacy_Complaints.Where(l => l.Location == id_loc);
+            List<Privacy_Complaints> list = db.Privacy_Complaints.Where(l => l.Location == id_loc).ToList();
             if (list.Count() == 0)
             {
                 ViewBag.err = flag = false;
@@ -407,7 +407,7 @@ namespace DTS.Controllers
             string info = HomeController.msg_infos, msg2 = HomeController.success_nsg;
             bool flag;
             int id_loc = HomeController.id_outbrakes;
-            IEnumerable<Education> list = db.Education.Where(l => l.Location == id_loc);
+            IEnumerable<Education> list = db.Educations.Where(l => l.Location == id_loc);
             if (list.Count() == 0)
             {
                 ViewBag.err = flag = false;
