@@ -163,8 +163,8 @@ namespace DTS.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             var entity = db.Complaints.SingleOrDefault(w => w.Id == id);
-            Care_Community name1 = db.Care_Communities.Find(entity.Location);
-            ViewBag.list = name1.Name;
+            Care_Community name = db.Care_Communities.Find(entity.Location);
+            ViewBag.list = name.Name;
             if (entity == null)
                 return HttpNotFound();
             return View(entity);
@@ -175,8 +175,57 @@ namespace DTS.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             var entity = db.Privacy_Complaints.SingleOrDefault(w => w.id == id);
-            Care_Community name1 = db.Care_Communities.Find(entity.Location);
-            ViewBag.list = name1.Name;
+            Care_Community name = db.Care_Communities.Find(entity.Location);
+            ViewBag.list = name.Name;
+            if (entity == null)
+                return HttpNotFound();
+            return View(entity);
+        }
+
+        public ActionResult Emergency_Details(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var entity = db.Emergency_Prep.SingleOrDefault(w => w.Id == id);
+            Care_Community name = db.Care_Communities.Find(entity.Location);
+            ViewBag.list = name.Name;
+            if (entity == null)
+                return HttpNotFound();
+            return View(entity);
+        }
+
+        public ActionResult Privacy_Breaches_Details(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var entity = db.Privacy_Breaches.SingleOrDefault(w => w.Id == id);
+            Care_Community name = db.Care_Communities.Find(entity.Location);
+            ViewBag.list = name.Name;
+            if (entity == null)
+                return HttpNotFound();
+            return View(entity);
+        }
+
+        public ActionResult Immun_Details(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var entity = db.Immunizations.SingleOrDefault(w => w.Id == id);
+            Care_Community name = db.Care_Communities.Find(entity.Location);
+            ViewBag.list = name.Name;
+            if (entity == null)
+                return HttpNotFound();
+            return View(entity);
+        }
+
+        [HttpGet]
+        public ActionResult Not_WSIB_Details(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var entity = db.Not_WSIBs.SingleOrDefault(w => w.Id == id);
+            Care_Community name = db.Care_Communities.Find(entity.Location);
+            ViewBag.list = name.Name;
             if (entity == null)
                 return HttpNotFound();
             return View(entity);

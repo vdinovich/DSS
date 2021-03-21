@@ -209,6 +209,7 @@ namespace DTS.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             var wsib = db.WSIBs.SingleOrDefault(e => e.Id == id);
+            ViewBag.locations = HomeController.list;
             if (wsib == null) return HttpNotFound();
 
             return View(wsib);
@@ -234,6 +235,7 @@ namespace DTS.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             var wsib = db.Not_WSIBs.SingleOrDefault(e => e.Id == id);
+            ViewBag.locations = HomeController.list;
             if (wsib == null) return HttpNotFound();
 
             return View(wsib);
@@ -350,23 +352,74 @@ namespace DTS.Controllers
             return View();
         }
 
+        [HttpGet]
         public ActionResult Edit_Privacy_Breaches(int? id)
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var founded = db.Complaints.Find(id);
+            ViewBag.locations = HomeController.list;
+            var founded = db.Privacy_Breaches.Find(id);
             if (founded == null) return HttpNotFound();
             return View(founded);
         }
 
         [HttpPost]
-        public ActionResult Edit_Privacy_Breaches(Complaint edit)
+        public ActionResult Edit_Privacy_Breaches(Privacy_Breaches edit)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(edit).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("../Select/Select_Complaints");
+                return RedirectToAction("../Select/Privacy_Breaches");
+            }
+
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult Edit_Emergency(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            ViewBag.locations = HomeController.list;
+            var founded = db.Emergency_Prep.Find(id);
+            if (founded == null) return HttpNotFound();
+            return View(founded);
+        }
+
+        [HttpPost]
+        public ActionResult Edit_Emergency(Emergency_Prep edit)
+        {
+
+            if (ModelState.IsValid)
+            {
+                db.Entry(edit).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("../Select/Select_Emergency_Prep");
+            }
+
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult Edit_Immun(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            ViewBag.locations = HomeController.list;
+            var founded = db.Immunizations.Find(id);
+            if (founded == null) return HttpNotFound();
+            return View(founded);
+        }
+
+        [HttpPost]
+        public ActionResult Edit_Immun(Immunization edit)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(edit).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("../Select/Select_Immunization");
             }
 
             return View();

@@ -5,7 +5,7 @@
 }
 
 
-<h1 style="text-align:center;color:darkorange"> All Records WSIB </h1>
+<h1 style="text-align:center;color:darkorange"> WSIB - All Records</h1>
 
 @Html.ActionLink("<-- Back", "WSIB", "Home", "", new { id = "back" })
 <br />
@@ -54,7 +54,7 @@
                     @Html.DisplayFor(modelItem => item.Date_Accident)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Location)
+                    @ViewBag.list
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Employee_Initials)

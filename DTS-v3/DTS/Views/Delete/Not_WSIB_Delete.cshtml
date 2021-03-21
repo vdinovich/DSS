@@ -1,0 +1,144 @@
+﻿@model DTS.Models.Not_WSIBs
+
+@{
+    ViewBag.Title = "Not_WSIB_Delete";
+}
+
+<h2 style="text-align:center">NOT WSIB - Delete Form</h2>
+
+<h1 style="text-align:center;color:white;background-color:black">Are you sure you want to delete this?</h1>
+<div id="center">
+    <h1 style="text-align:center;color:darkorange">NOT WSIB <br /> ID - @Html.DisplayFor(id => id.Id)</h1>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Location)
+        </dt>
+
+        <dd>
+            @ViewBag.list
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date_of_Incident)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date_of_Incident)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Employee_Initials)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Employee_Initials)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Position)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Position)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Time_of_Incident)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Time_of_Incident)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Shift)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Shift)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Home_Area)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Home_Area)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Injury_Related)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Injury_Related)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Type_of_Injury)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Type_of_Injury)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Details_of_Incident)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Details_of_Incident)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div id="cent" class="form-actions no-color">
+            <input id="centBtn" type="submit" value="Delete" class="btn btn-danger" />
+        </div>
+    }
+</div>
+
+@Html.ActionLink("Back to List", "Select_Not_WSIB", "Select", "", new { id = "back" })
+
+
+<style>
+    #cent, #centBtn {
+        width: 200px;
+        margin: auto;
+    }
+
+    #btn {
+        font-size: large;
+    }
+
+    #back {
+        float: left;
+        border: 2px solid blue;
+        border-radius: 22px;
+        position: absolute;
+        padding: 11px;
+        text-decoration: none;
+        background-color: aqua;
+        color: brown
+    }
+
+        #back:hover {
+            text-decoration: none;
+            background-color: black;
+            color: white
+        }
+
+    #center {
+        width: 370px;
+        margin: auto;
+        border: 1px black solid;
+        position: relative;
+        padding: 17px;
+        border-radius: 22px;
+    }
+</style>

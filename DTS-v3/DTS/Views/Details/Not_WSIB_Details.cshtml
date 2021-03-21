@@ -4,87 +4,122 @@
     ViewBag.Title = "Not_WSIB_Details";
 }
 
-<h2>Not_WSIB_Details</h2>
-
 <div>
-    <h4>Not_WSIBs</h4>
+    <h1 style="text-align:center;font-size:x-large;color:darkorange">NOT WSIB Records - Details Id  @Html.DisplayFor(model => model.Id):</h1>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Date_of_Incident)
-        </dt>
+    <div id="center">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Date_of_Incident)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Date_of_Incident)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Location)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Employee_Initials)
-        </dt>
+            <dd>
+                @ViewBag.list
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Employee_Initials)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Date_of_Incident)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Position)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Employee_Initials)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Position)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Employee_Initials)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Time_of_Incident)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Position)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Time_of_Incident)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Position)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Shift)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Time_of_Incident)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Shift)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Time_of_Incident)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Home_Area)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Shift)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Home_Area)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Shift)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Injury_Related)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Home_Area)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Injury_Related)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Home_Area)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Type_of_Injury)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Injury_Related)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Type_of_Injury)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Injury_Related)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Details_of_Incident)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Type_of_Injury)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Details_of_Incident)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Type_of_Injury)
+            </dd>
 
-    </dl>
+            <dt>
+                @Html.DisplayNameFor(model => model.Details_of_Incident)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Details_of_Incident)
+            </dd>
+
+        </dl>
+    </div>
+
+    <p>
+        @Html.ActionLink("Back to List", "Select_Not_WSIB", "Select", "", new { id = "backBtn" })
+    </p>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<style>
+    #center {
+        width: 370px;
+        margin: auto;
+        border: 1px black solid;
+        position: relative;
+        padding: 17px;
+        border-radius: 22px;
+    }
+
+    #backBtn {
+        float: left;
+        border: 2px solid blue;
+        border-radius: 22px;
+        position: absolute;
+        padding: 11px;
+        text-decoration: none;
+        background-color: aqua;
+        color: brown
+    }
+
+        #backBtn:hover {
+            text-decoration: none;
+            background-color: black;
+            color: white
+        }
+</style>

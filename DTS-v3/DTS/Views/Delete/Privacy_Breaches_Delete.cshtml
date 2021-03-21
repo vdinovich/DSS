@@ -1,0 +1,144 @@
+﻿@model DTS.Models.Privacy_Breaches
+
+@{
+    ViewBag.Title = "Privacy_Breaches_Delete";
+}
+
+<h2 style="text-align:center">Privacy Breaches - Delete Form</h2>
+
+<h1 style="text-align:center;color:white;background-color:black">Are you sure you want to delete this?</h1>
+<div id="center">
+    <h1 style="text-align:center;color:darkorange">Privacy Breaches <br /> ID - @Html.DisplayFor(id => id.Id)</h1>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Location)
+        </dt>
+
+        <dd>
+            @ViewBag.list
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date_Breach_Occurred)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date_Breach_Occurred)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description_Outcome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description_Outcome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date_Breach_Reported)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date_Breach_Reported)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date_Breach_Reported_By)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date_Breach_Reported_By)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Type_of_Breach)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Type_of_Breach)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Type_of_PHI_Involved)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Type_of_PHI_Involved)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Number_of_Individuals_Affected)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Number_of_Individuals_Affected)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Risk_Level)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Risk_Level)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div id="cent" class="form-actions no-color">
+            <input id="centBtn" type="submit" value="Delete" class="btn btn-danger" />
+        </div>
+    }
+</div>
+
+@Html.ActionLink("Back to List", "Privacy_Breaches", "Select", "", new { id = "back" })
+
+
+<style>
+    #cent, #centBtn {
+        width: 200px;
+        margin: auto;
+    }
+
+    #btn {
+        font-size: large;
+    }
+
+    #back {
+        float: left;
+        border: 2px solid blue;
+        border-radius: 22px;
+        position: absolute;
+        padding: 11px;
+        text-decoration: none;
+        background-color: aqua;
+        color: brown
+    }
+
+        #back:hover {
+            text-decoration: none;
+            background-color: black;
+            color: white
+        }
+
+    #center {
+        width: 370px;
+        margin: auto;
+        border: 1px black solid;
+        position: relative;
+        padding: 17px;
+        border-radius: 22px;
+    }
+</style>

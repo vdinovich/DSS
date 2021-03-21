@@ -1,10 +1,12 @@
 ﻿namespace DTS.Models
 {
     using System;
+    using System.ComponentModel.DataAnnotations;
 
     public class WSIB
     {
         public int Id { get; set; }
+        [Required(ErrorMessage = "This field is required. Please fill it in. ")]
         public int Location { get; set; }
         public DateTime Date_Accident { get; set; }
         public string Employee_Initials { get; set; }

@@ -1,0 +1,80 @@
+﻿@model DTS.Controllers.PdfClass
+@{
+    ViewBag.Title = "Search by Word Form";
+}
+
+
+
+<h2 style="text-align:center;color:green;font-family:'Palatino Linotype';border:1px solid green;padding:13px;border-radius:15px">@ViewBag.success_msg</h2>
+@using (Html.BeginForm())
+{
+    <div id="center">
+        <div class="form-horizontal" id="center">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+               <label class = "control-label " >Please enter any word/s you are looking for.</label>
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => new DTS.Controllers.PdfClass().Text, new { htmlAttributes = new { @class = "form-control" } })
+                    @ViewBag.err_msg
+                </div>
+            </div>
+
+
+                    <input type="submit" value="Search" class="btn btn-primary" />
+   
+        </div>
+    </div>
+}
+
+<div id="backBtn">
+    @Html.ActionLink("Show current pdf file", "Pdf_Viewer", "AdminLTE", new { id = "back" })
+</div>
+<style>
+    #btn {
+        width: 550px;
+        margin: auto;
+    }
+
+    #center {
+        width: 940px;
+        margin: auto;
+        position: relative;
+        padding: 17px;
+    }
+
+    #backBtn {
+        width: 190px;
+        margin: 0 0 0 522px;
+    }
+
+    #back {
+        border: 1px solid black;
+        border-radius: 22px;
+        /*position: absolute;*/
+        padding: 8px;
+        text-decoration: none;
+        background-color: aqua;
+        color: brown
+    }
+
+        #back:hover {
+            text-decoration: none;
+            background-color: black;
+            color: white
+        }
+
+    #select {
+        border: 2px solid darkorange;
+        position: absolute;
+        border-radius: 22px;
+        padding: 7px;
+        color: darkorange;
+        text-decoration: none;
+    }
+
+        #select:hover {
+            background-color: darkorange;
+            color: white;
+        }
+</style>

@@ -120,22 +120,9 @@ namespace DTS.Controllers
             return View();
         }
 
-        public static string text { get; set; }
         [HttpGet]
         public ActionResult Index()
         {
-            /// Temporary Test:
-            string absolPath = Path.Combine(Server.MapPath("~/Uploaded_Files/p7-1.pdf"));
-            FileStream stream = new FileStream(absolPath, FileMode.Open, FileAccess.ReadWrite);
-            using(StreamReader sr =new StreamReader(stream))
-            {
-                 text = sr.ReadToEnd();           
-            }
-            if(text != "")
-            {
-                return RedirectToAction($"../AdminLTE/Pdf_Viewer");
-            }
-            ///
             both = new List<object> { list, list2 };
             ViewBag.listing = both;
             return View();
@@ -162,7 +149,7 @@ namespace DTS.Controllers
                         both = new List<object> { list, list2 };
                         ViewBag.listing = both;
                         main.Care_Community_Centre = list.Where(p => p.Value == main.Care_Community_Centre).First().Text;
-                        if(main.Position == null)
+                        if (main.Position == null)
                         {
                             return RedirectToAction("../Home/WOR_Tabs");
                         }
@@ -269,12 +256,6 @@ namespace DTS.Controllers
                 names.Add(Path.GetFileName(files_names[i]));
 
             return View(names);
-        }
-
-        [HttpPost]
-        public ActionResult AllFiles(string item)
-        {
-            return View();
         }
 
         public ActionResult DeleteFile(string item)
@@ -494,16 +475,16 @@ namespace DTS.Controllers
                 //ViewBag.Empty = "All fields have to be filled.";
                 return View();
             }
-            else
+            else if((entity.Location != 0) || entity.Accident_Cause == null || entity.Date_Accident == null || entity.Date_Duties == null ||
+                entity.Date_Regular == null || entity.Employee_Initials == null || entity.Form_7 == null || 
+                entity.Lost_Days == 0 || entity.Modified_Days_Not_Shadowed == 0 || entity.Modified_Days_Shadowed == 0)
             {
                 db.WSIBs.Add(entity);
                 db.SaveChanges();
                 return RedirectToAction("../Select/Select_WSIB");
             }
 
-            db.SaveChanges();
-
-
+            return View();
         }
 
         [HttpGet]
@@ -517,19 +498,22 @@ namespace DTS.Controllers
         public ActionResult Not_WSIB(Not_WSIBs entity)
         {
             ViewBag.locations = list;
-            if (entity.Date_of_Incident == DateTime.MinValue && entity.Details_of_Incident == null && entity.Employee_Initials == null &&
+            if (entity.Location == 0 && entity.Date_of_Incident == DateTime.MinValue && entity.Details_of_Incident == null && entity.Employee_Initials == null &&
                 entity.Home_Area == null && entity.Injury_Related == null && entity.Location == 0 && entity.Position == null &&
                 entity.Shift == null && entity.Time_of_Incident == null && entity.Type_of_Injury == null)
             {
                 //ViewBag.Empty = "All fields have to be filled.";
                 return View();
             }
-            else
+            else if((entity.Location != 0) && entity.Date_of_Incident == DateTime.MinValue || entity.Details_of_Incident == null || entity.Employee_Initials == null ||
+                entity.Home_Area == null || entity.Injury_Related == null || entity.Location == 0 || entity.Position == null ||
+                entity.Shift == null || entity.Time_of_Incident == null || entity.Type_of_Injury == null)
             {
                 db.Not_WSIBs.Add(entity);
                 db.SaveChanges();
                 return RedirectToAction("../Select/Select_Not_WSIB");
             }
+            return View();
         }
 
         [HttpGet]
@@ -656,17 +640,40 @@ namespace DTS.Controllers
                 //ViewBag.Empty = "All fields have to be filled.";
                 return View();
             }
-            else
+            else if((entity.Location != 0) && entity.CI_Report_Submitted == null || entity.Credit_for_Lost_Days == 0 || entity.Date_Concluded == null ||
+                entity.Date_Declared == null || entity.Deaths_Due == 0 || entity.Docs_Submitted_Finance == null ||  
+                entity.Notify_MOL == null || entity.Strain_Identified == null || entity.Total_Days_Closed == 0 ||
+                entity.Total_Residents_Affected == 0 || entity.Total_Staff_Affected == 0 || entity.Tracking_Sheet_Completed == null ||
+                entity.Type_of_Outbreak == null)
             {
+                entity.Date_Concluded = entity.Date_Declared = DateTime.MinValue;
                 db.Outbreaks.Add(entity);
                 db.SaveChanges();
                 return RedirectToAction("../Select/Outbreaks");
             }
+            return View();
         }
 
         public ActionResult Immunization_Insert()
         {
             ViewBag.locations = list;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Immunization_Insert(Immunization entity)
+        {
+            ViewBag.locations = list;
+            if (entity.Location == 0 && entity.Numb_Res_Comm == null && entity.Numb_Res_Immun == null && entity.Numb_Res_Not_Immun == null && 
+                entity.Per_Res_Immun == null && entity.Per_Res_Not_Immun == null)
+                return View();
+            else if((entity.Location != 0) && entity.Numb_Res_Comm == null || entity.Numb_Res_Immun == null || entity.Numb_Res_Not_Immun == null ||
+                entity.Per_Res_Immun == null || entity.Per_Res_Not_Immun == null)
+            {
+                db.Immunizations.Add(entity);
+                db.SaveChanges();
+                return RedirectToAction("../Select/Select_Immunization");
+            }
             return View();
         }
 
@@ -693,13 +700,13 @@ namespace DTS.Controllers
                 entity.Description_Outcome == null
                 ) return View();
             else if ((entity.Location != 0 && entity.Date_Breach_Occurred != DateTime.MinValue) &&
-                      entity.Number_of_Individuals_Affected == 0 &&
-                entity.Risk_Level == null &&
-                entity.Status == null &&
-                entity.Type_of_Breach == null &&
-                entity.Type_of_PHI_Involved == null &&
-                entity.Date_Breach_Occurred == DateTime.MinValue &&
-                entity.Date_Breach_Reported_By == null &&
+                      entity.Number_of_Individuals_Affected == 0 ||
+                entity.Risk_Level == null ||
+                entity.Status == null ||
+                entity.Type_of_Breach == null ||
+                entity.Type_of_PHI_Involved == null ||
+                entity.Date_Breach_Occurred == DateTime.MinValue ||
+                entity.Date_Breach_Reported_By == null ||
                 entity.Description_Outcome == null)
             {
                 db.Privacy_Breaches.Add(entity);

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace DTS.Models
+﻿namespace DTS.Models
 {
+    using System;
+    using System.ComponentModel.DataAnnotations;
+
     public class Outbreaks
     {
         public int Id { get; set; }
@@ -12,6 +10,7 @@ namespace DTS.Models
         public DateTime Date_Concluded { get; set; }
         public string Type_of_Outbreak { get; set; }
         public int Total_Days_Closed { get; set; }
+        [Required(ErrorMessage = "This field is required! Please try to fill it in!")]
         public int Location { get; set; }
         public int Total_Residents_Affected { get; set; }
         public int Total_Staff_Affected { get; set; }

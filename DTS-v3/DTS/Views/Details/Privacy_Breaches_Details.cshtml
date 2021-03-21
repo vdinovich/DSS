@@ -1,0 +1,125 @@
+﻿@model DTS.Models.Privacy_Breaches
+
+@{
+    ViewBag.Title = "Privacy_Breaches_Details";
+}
+
+<div>
+    <h1 style="text-align:center;font-size:x-large;color:darkorange">Privacy Breaches Records - Details Id  @Html.DisplayFor(model => model.Id):</h1>
+    <hr />
+    <div id="center">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Location)
+            </dt>
+
+            <dd>
+                @ViewBag.list
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Status)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Status)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Date_Breach_Occurred)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Date_Breach_Occurred)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Description_Outcome)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Description_Outcome)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Date_Breach_Reported)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Date_Breach_Reported)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Date_Breach_Reported_By)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Date_Breach_Reported_By)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Type_of_Breach)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Type_of_Breach)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Type_of_PHI_Involved)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Type_of_PHI_Involved)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Number_of_Individuals_Affected)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Number_of_Individuals_Affected)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Risk_Level)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Risk_Level)
+            </dd>
+
+        </dl>
+    </div>
+
+    <p>
+        @Html.ActionLink("Back to List", "Privacy_Breaches", "Select", "", new { id = "backBtn" })
+    </p>
+</div>
+<style>
+    #center {
+        width: 370px;
+        margin: auto;
+        border: 1px black solid;
+        position: relative;
+        padding: 17px;
+        border-radius: 22px;
+    }
+
+    #backBtn {
+        float: left;
+        border: 2px solid blue;
+        border-radius: 22px;
+        position: absolute;
+        padding: 11px;
+        text-decoration: none;
+        background-color: aqua;
+        color: brown
+    }
+
+        #backBtn:hover {
+            text-decoration: none;
+            background-color: black;
+            color: white
+        }
+</style>

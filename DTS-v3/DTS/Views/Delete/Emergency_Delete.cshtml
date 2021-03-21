@@ -1,0 +1,172 @@
+﻿@model DTS.Models.Emergency_Prep
+
+@{
+    ViewBag.Title = "Emergency_Delete";
+}
+
+<h2 style="text-align:center">Emergency Prep - Form Delete</h2>
+
+<h1 style="text-align:center;color:white;background-color:black">Are you sure you want to delete this?</h1>
+<div id="center">
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Location)
+        </dt>
+
+        <dd>
+            @ViewBag.list
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Jan)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Jan)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Feb)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Feb)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Mar)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Mar)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Apr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Apr)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.May)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.May)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Jun)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Jun)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Jul)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Jul)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Aug)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Aug)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sep)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sep)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Oct)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Oct)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nov)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nov)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Dec)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Dec)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div id="cent" class="form-actions no-color">
+            <input id="centBtn" type="submit" value="Delete" class="btn btn-danger" />
+        </div>
+    }
+</div>
+@Html.ActionLink("Back to List", "Select_Emergency_Prep", "Select", "", new { id = "back" })
+<style>
+    #cent, #centBtn {
+        width: 200px;
+        margin: auto;
+    }
+
+    #btn {
+        font-size: large;
+    }
+
+    #back {
+        float: left;
+        border: 2px solid blue;
+        border-radius: 22px;
+        position: absolute;
+        padding: 11px;
+        text-decoration: none;
+        background-color: aqua;
+        color: brown
+    }
+
+        #back:hover {
+            text-decoration: none;
+            background-color: black;
+            color: white
+        }
+
+    #center {
+        width: 370px;
+        margin: auto;
+        border: 1px black solid;
+        position: relative;
+        padding: 17px;
+        border-radius: 22px;
+    }
+</style>

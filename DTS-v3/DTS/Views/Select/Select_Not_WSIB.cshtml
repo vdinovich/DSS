@@ -5,7 +5,7 @@
 }
 
 
-<h1 style="text-align:center;color:darkorange"> All Records Not_WSIB </h1>
+<h1 style="text-align:center;color:darkorange"> Not WSIB - All Records</h1>
 
 @Html.ActionLink("<-- Back", "Not_WSIB", "Home", "", new { id = "back" })
 <br />
@@ -13,7 +13,7 @@
 <br />
 @if (ViewBag.err)
 {
-    <table class="table">
+    <table class="table table-bordered">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Id)
@@ -58,7 +58,7 @@
             @Html.DisplayFor(modelItem => item.Id)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Location)
+            @ViewBag.list
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Date_of_Incident)
@@ -88,9 +88,10 @@
             @Html.DisplayFor(modelItem => item.Details_of_Incident)
         </td>
         <td>
-            <div id="btn">@Html.ActionLink("Edit", "Edit_Not_WSIB", "Edit", new { id = item.Id }, "")</div>
-            <div id="btn">@Html.ActionLink("Details", "Not_WSIB_Details", "Details", new { id = item.Id }, "")</div>
-            <div id="btn">@Html.ActionLink("Delete", "Not_WSIB_Delete", "Delete", new { id = item.Id }, "")</div>
+            <div style="width:160px;margin-top:15px">
+            @Html.ActionLink("Edit", "Edit_Not_WSIB", "Edit", new { id = item.Id }, new { id = "b" })
+            @Html.ActionLink("Details", "Not_WSIB_Details", "Details", new { id = item.Id }, new { id = "b" })
+            @Html.ActionLink("Delete", "Not_WSIB_Delete", "Delete", new { id = item.Id }, new { id = "b" })</div>
         </td>
     </tr>
         }
@@ -103,12 +104,26 @@ else
 }
 
 <style>
+   #b {
+        border-radius: 6px;
+        color: blue;
+        text-decoration: none;
+        border: 1px solid blue;
+        padding: 6px;
+    }
+
+        #b:hover {
+            color: red;
+            text-decoration: none;
+            background-color: blue;
+        }
+
     #back {
         text-decoration: none;
         border: 2px solid darkorange;
+        color: darkorange;
         border-radius: 25px;
         padding: 14px;
-        color: darkorange;
     }
 
         #back:hover {
@@ -116,8 +131,18 @@ else
             color: white;
         }
 
-    #btn {
-        padding: 1px;
-        text-align: center;
+    .btnn {
+        text-decoration: none;
     }
+
+    #btn {
+        border: 1px solid blue;
+        padding: 5px;
+        text-align: center;
+        border-radius: 12px;
+    }
+
+        #btn:hover {
+            background-color: blue;
+        }
 </style>

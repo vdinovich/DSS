@@ -75,9 +75,11 @@
                     @Html.DisplayFor(modelItem => item.Lessons_Learned)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit_Labour", "Edit", new { id = item.Id }, "") |
-                    @Html.ActionLink("Details", "Labour_Details", "Details", new { id = item.Id }, "") |
-                    @Html.ActionLink("Delete", "Labour_Delete", "Delete", new { id = item.Id }, "")
+                    <div style="width:160px;margin-top:1px">
+                        @Html.ActionLink("Edit", "Edit_Labour", "Edit", new { id = item.Id }, new { @class = "b" })
+                        @Html.ActionLink("Details", "Labour_Details", "Details", new { id = item.Id }, new { @class = "b" })
+                        @Html.ActionLink("Delete", "Labour_Delete", "Delete", new { id = item.Id }, new { @class = "b" })
+                    </div>
                 </td>
             </tr>
         }
@@ -89,7 +91,20 @@ else
     <h4 style="text-align:center;color:red;border:2px solid red;border-radius:9px;padding:12px">@ViewBag.emptyMsg</h4>
 }
 
-<style>
+<style>  
+    .b {
+        border-radius: 6px;
+        color: blue;
+        text-decoration: none;
+        border: 1px solid blue;
+        padding: 6px;
+    }
+
+        .b:hover {
+            color: red;
+            text-decoration: none;
+            background-color: blue;
+        }
     #back {
         text-decoration: none;
         border: 2px solid darkorange;

@@ -237,8 +237,9 @@ namespace DTS.Controllers
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-
             var delete = db.Outbreaks.SingleOrDefault(e => e.Id == id);
+            Care_Community n = db.Care_Communities.Find(delete.Location);
+            ViewBag.list = n.Name;
             if (delete == null) return HttpNotFound();
 
             return View(delete);
@@ -260,8 +261,9 @@ namespace DTS.Controllers
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-
             var delete = db.Privacy_Breaches.SingleOrDefault(e => e.Id == id);
+            Care_Community n = db.Care_Communities.Find(delete.Location);
+            ViewBag.list = n.Name;
             if (delete == null) return HttpNotFound();
 
             return View(delete);
@@ -270,11 +272,11 @@ namespace DTS.Controllers
         [HttpPost]
         public ActionResult Privacy_Breaches_Delete(int id)
         {
-            Outbreaks delete = db.Outbreaks.SingleOrDefault(l => l.Id == id);
-            db.Outbreaks.Remove(delete ?? throw new InvalidOperationException());
+            var delete = db.Privacy_Breaches.SingleOrDefault(l => l.Id == id);
+            db.Privacy_Breaches.Remove(delete ?? throw new InvalidOperationException());
             db.SaveChanges();
 
-            return RedirectToAction("../Select/Outbreaks");
+            return RedirectToAction("../Select/Privacy_Breaches");
         }
 
         [HttpGet]
@@ -282,8 +284,9 @@ namespace DTS.Controllers
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-
             var delete = db.Emergency_Prep.SingleOrDefault(e => e.Id == id);
+            Care_Community n = db.Care_Communities.Find(delete.Location);
+            ViewBag.list = n.Name;
             if (delete == null) return HttpNotFound();
 
             return View(delete);
@@ -346,6 +349,77 @@ namespace DTS.Controllers
             db.SaveChanges();
 
             return RedirectToAction("../Select/Privacy_Complaints");
+        }
+
+        [HttpGet]
+        public ActionResult Emergency_Delete(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var delete = db.Emergency_Prep.SingleOrDefault(e => e.Id == id);
+            Care_Community name = db.Care_Communities.Find(delete.Location);
+            ViewBag.list = name.Name;
+            if (delete == null) return HttpNotFound();
+
+            return View(delete);
+        }
+
+        [HttpPost]
+        public ActionResult Emergency_Delete(int id)
+        {
+            var delete = db.Emergency_Prep.SingleOrDefault(l => l.Id == id);
+            db.Emergency_Prep.Remove(delete ?? throw new InvalidOperationException());
+            db.SaveChanges();
+
+            return RedirectToAction("../Select/Select_Emergency_Prep");
+        }
+
+        [HttpGet]
+        public ActionResult Immun_Delete(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var delete = db.Immunizations.SingleOrDefault(e => e.Id == id);
+            Care_Community name = db.Care_Communities.Find(delete.Location);
+            ViewBag.list = name.Name;
+            if (delete == null) return HttpNotFound();
+
+            return View(delete);
+        }
+
+        [HttpPost]
+        public ActionResult Immun_Delete(int id)
+        {
+            var delete = db.Immunizations.SingleOrDefault(l => l.Id == id);
+            db.Immunizations.Remove(delete ?? throw new InvalidOperationException());
+            db.SaveChanges();
+
+            return RedirectToAction("../Select/Select_Immunization");
+        }
+
+        public ActionResult Not_WSIB_Delete(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var delete = db.Not_WSIBs.SingleOrDefault(e => e.Id == id);
+            Care_Community name = db.Care_Communities.Find(delete.Location);
+            ViewBag.list = name.Name;
+            if (delete == null) return HttpNotFound();
+
+            return View(delete);
+        }
+
+        [HttpPost]
+        public ActionResult Not_WSIB_Delete(int id)
+        {
+            var delete = db.Not_WSIBs.SingleOrDefault(l => l.Id == id);
+            db.Not_WSIBs.Remove(delete ?? throw new InvalidOperationException());
+            db.SaveChanges();
+
+            return RedirectToAction("../Select/Select_Not_WSIB");
         }
     }
 }
