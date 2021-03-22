@@ -14,21 +14,15 @@ namespace DTS.Controllers
         static string notsel;
         public static string path { get; set; }
         public static string msg_infos { get; set; }
-        public static int id_care_center { get; set; }
-        public static int id_labor_relation { get; set; }
-        public static int id_community_risk { get; set; }
-        public static int id_complaints { get; set; }
-        public static int id_goodNews { get; set; }
+        public static int Id_Location { get; set; }
         public static string success_nsg = string.Empty;
-        public static int id_visit_order { get; set; }
-        public static int id_outbrakes { get; set; }
-        public static int id_wsib { get; set; }
         List<CI_Category_Type> categories;
         List<Care_Community> communities;
         List<Position> positions;
-        public static SelectList list2, list, list3;
+        public static SelectList list2, list, list3; //needed for front end drop down list
         List<object> both;
 
+        
         public HomeController()
         {
             communities = db.Care_Communities.ToList();
@@ -71,7 +65,7 @@ namespace DTS.Controllers
 
                 try
                 {
-                    id_complaints = entity.Location;
+                    Id_Location = entity.Location;
                     db.Complaints.Add(entity);
                     db.SaveChanges();
 
@@ -85,7 +79,7 @@ namespace DTS.Controllers
             {
                 try
                 {
-                    id_complaints = entity.Location;
+                    Id_Location = entity.Location;
                     db.Complaints.Add(entity);
                     db.SaveChanges();
 
@@ -135,7 +129,7 @@ namespace DTS.Controllers
             {
                 if (main.User_Name == null || main.Position == null || main.Week == 0 || main.Current_Date == DateTime.MinValue)
                 {
-                    if (main.Care_Community_Centre == null)
+                    if (main.Care_Community_Centre == null) // if nothing was selected in a Location drop-down list
                     {
                         notsel = "You have to choose a Location from a drop-down list to move forward.";
                         both = new List<object> { list, list2 };
@@ -144,15 +138,12 @@ namespace DTS.Controllers
                     }
                     else//if(main.User_Name == null || main.Position == null || main.Week == 0 || main.Current_Date == DateTime.MinValue)
                     {
-                        id_care_center = id_complaints =
-                     id_visit_order = id_outbrakes = id_wsib = int.Parse(main.Care_Community_Centre);
+                        Id_Location = int.Parse(main.Care_Community_Centre);
                         both = new List<object> { list, list2 };
                         ViewBag.listing = both;
                         main.Care_Community_Centre = list.Where(p => p.Value == main.Care_Community_Centre).First().Text;
                         if (main.Position == null)
-                        {
                             return RedirectToAction("../Home/WOR_Tabs");
-                        }
                         else
                         {
                             main.Position = list2.Where(p => p.Value == main.Position).First().Text;
@@ -172,8 +163,7 @@ namespace DTS.Controllers
                 }
                 else
                 {
-                    id_care_center = id_complaints =
-                    id_visit_order = id_outbrakes = id_wsib = int.Parse(main.Care_Community_Centre);
+                    Id_Location = int.Parse(main.Care_Community_Centre);
                     both = new List<object> { list, list2 };
                     ViewBag.listing = both;
                     main.Care_Community_Centre = list.Where(p => p.Value == main.Care_Community_Centre).First().Text;
@@ -273,8 +263,8 @@ namespace DTS.Controllers
 
         public ActionResult WOR_Tabs()
         {
-            ViewBag.id = id_care_center;
-            ViewBag.idComplaints = id_complaints;
+            ViewBag.id = Id_Location;
+            ViewBag.idComplaints = Id_Location;
             return View();
         }
 
@@ -410,7 +400,7 @@ namespace DTS.Controllers
             }
             else
             {
-                id_goodNews = entity.Location;
+                Id_Location = entity.Location;
                 db.Good_News.Add(entity);
                 int res = db.SaveChanges();
                 if (res == 1)

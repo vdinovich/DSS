@@ -4,8 +4,16 @@
 }
 
 
+@if (ViewBag.Check == false)
+{
+    <h4 style="text-align:center;color:red;font-family:'Palatino Linotype';border:1px solid red;padding:13px;border-radius:15px">@ViewBag.EmptyText</h4>
+}
+else
+{
+    <h4 style="text-align:center;color:green;font-family:'Palatino Linotype';padding:13px;border-radius:15px">@ViewBag.FoundedText</h4>
+}
 
-<h2 style="text-align:center;color:green;font-family:'Palatino Linotype';border:1px solid green;padding:13px;border-radius:15px">@ViewBag.success_msg</h2>
+
 @using (Html.BeginForm())
 {
     <div id="center">
@@ -13,7 +21,7 @@
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
-               <label class = "control-label " >Please enter any word/s you are looking for.</label>
+                <label class="control-label ">Please enter any word/s you are looking for.</label>
                 <div class="col-md-10">
                     @Html.TextBoxFor(model => new DTS.Controllers.PdfClass().Text, new { htmlAttributes = new { @class = "form-control" } })
                     @ViewBag.err_msg
@@ -21,8 +29,8 @@
             </div>
 
 
-                    <input type="submit" value="Search" class="btn btn-primary" />
-   
+            <input type="submit" value="Search" class="btn btn-primary" />
+
         </div>
     </div>
 }

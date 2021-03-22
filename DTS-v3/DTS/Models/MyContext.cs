@@ -2,7 +2,8 @@ namespace DTS.Models
 {
     using System.Data.Entity;
 
-    public partial class MyContext : DbContext  
+    // codefirst approach - entity framework(DbContext is a part of EntityFramework library)
+    public class MyContext : DbContext  
     {
         public MyContext() : base("dssConnectionString") { }
 

@@ -13,7 +13,7 @@ namespace DTS.Controllers
         {
             string info = HomeController.msg_infos, msg2 =  HomeController.success_nsg;
             bool flag;
-            int id_loc = HomeController.id_care_center;
+            int id_loc = HomeController.Id_Location;
             IEnumerable<Critical_Incidents> list = db.Critical_Incidents.Where(l => l.Location == id_loc);
             IEnumerable<CI_Category_Type> ll = db.CI_Category_Types;
             if(list.Count() == 0)
@@ -53,7 +53,7 @@ namespace DTS.Controllers
         {
             string info = HomeController.success_nsg;
             bool flag;
-            int id_loc = HomeController.id_complaints;
+            int id_loc = HomeController.Id_Location;
             IEnumerable<Complaint> list = db.Complaints.Where(l => l.Location == id_loc);
             if (list.Count() == 0)
             {
@@ -82,7 +82,7 @@ namespace DTS.Controllers
         {
             string info = HomeController.msg_infos, msg2 = HomeController.success_nsg;
             bool flag;
-            int id_loc = HomeController.id_outbrakes;
+            int id_loc = HomeController.Id_Location;
             IEnumerable<Labour_Relations> list = db.Relations.Where(l => l.Location == id_loc);
             if (list.Count() == 0)
             {
@@ -112,7 +112,7 @@ namespace DTS.Controllers
         {
             string info = HomeController.msg_infos, msg2 = HomeController.success_nsg;
             bool flag;
-            int id_loc = HomeController.id_outbrakes;
+            int id_loc = HomeController.Id_Location;
             IEnumerable<Community_Risks> list = db.Community_Risks.Where(l => l.Location == id_loc);
             if (list.Count() == 0)
             {
@@ -163,7 +163,7 @@ namespace DTS.Controllers
         {
             string  msg2 = HomeController.success_nsg;
             bool flag;
-            int id_loc = HomeController.id_care_center;
+            int id_loc = HomeController.Id_Location;
             IEnumerable<Good_News> list = db.Good_News.Where(l => l.Location == id_loc);
             if (list.Count() == 0)
             {
@@ -197,7 +197,7 @@ namespace DTS.Controllers
         {
             string info = HomeController.msg_infos, msg2 = HomeController.success_nsg;
             bool flag;
-            int id_loc = HomeController.id_wsib;
+            int id_loc = HomeController.Id_Location;
             var list = db.WSIBs.Where(l => l.Location == id_loc).ToList();
             if (list.Count() == 0)
             {
@@ -227,7 +227,7 @@ namespace DTS.Controllers
         {
             string info = HomeController.msg_infos, msg2 = HomeController.success_nsg;
             bool flag;
-            int id_loc = HomeController.id_wsib;
+            int id_loc = HomeController.Id_Location;
             IEnumerable<Not_WSIBs> list = db.Not_WSIBs.Where(l => l.Location == id_loc);
             if (list.Count() == 0)
             {
@@ -257,7 +257,7 @@ namespace DTS.Controllers
         {
             string info = HomeController.msg_infos, msg2 = HomeController.success_nsg;
             bool flag;
-            int id_loc = HomeController.id_visit_order;
+            int id_loc = HomeController.Id_Location;
             IEnumerable<Visits_Others> list = db.Visits_Others.Where(l => l.Location == id_loc);
             if (list.Count() == 0)
             {
@@ -287,7 +287,7 @@ namespace DTS.Controllers
         {
             string info = HomeController.msg_infos, msg2 = HomeController.success_nsg;
             bool flag;
-            int id_loc = HomeController.id_outbrakes;
+            int id_loc = HomeController.Id_Location;
             IEnumerable<Outbreaks> list = db.Outbreaks.Where(l => l.Location == id_loc);
             if (list.Count() == 0)
             {
@@ -317,7 +317,7 @@ namespace DTS.Controllers
         {
             string info = HomeController.msg_infos, msg2 = HomeController.success_nsg;
             bool flag;
-            int id_loc = HomeController.id_outbrakes;
+            int id_loc = HomeController.Id_Location;
             IEnumerable<Immunization> list = db.Immunizations.Where(l => l.Location == id_loc);
             if (list.Count() == 0)
             {
@@ -346,7 +346,7 @@ namespace DTS.Controllers
         {
             string info = HomeController.msg_infos, msg2 = HomeController.success_nsg;
             bool flag;
-            int id_loc = HomeController.id_outbrakes;
+            int id_loc = HomeController.Id_Location;
             IEnumerable<Privacy_Breaches> list = db.Privacy_Breaches.Where(l => l.Location == id_loc);
             if (list.Count() == 0)
             {
@@ -376,7 +376,7 @@ namespace DTS.Controllers
         {
             string info = HomeController.msg_infos, msg2 = HomeController.success_nsg;
             bool flag;
-            int id_loc = HomeController.id_outbrakes;
+            int id_loc = HomeController.Id_Location;
             List<Privacy_Complaints> list = db.Privacy_Complaints.Where(l => l.Location == id_loc).ToList();
             if (list.Count() == 0)
             {
@@ -406,7 +406,7 @@ namespace DTS.Controllers
         {
             string info = HomeController.msg_infos, msg2 = HomeController.success_nsg;
             bool flag;
-            int id_loc = HomeController.id_outbrakes;
+            int id_loc = HomeController.Id_Location;
             IEnumerable<Education> list = db.Educations.Where(l => l.Location == id_loc);
             if (list.Count() == 0)
             {
@@ -435,7 +435,7 @@ namespace DTS.Controllers
         {
             string info = HomeController.msg_infos, msg2 = HomeController.success_nsg;
             bool flag;
-            int id_loc = HomeController.id_outbrakes;
+            int id_loc = HomeController.Id_Location;
             IEnumerable<Emergency_Prep> list = db.Emergency_Prep.Where(l => l.Location == id_loc);
             if (list.Count() == 0)
             {
