@@ -30,7 +30,7 @@
                     <br />
                     <div class="form-group">
                         <div class="col-md-10">
-                            <br />   
+                            <br />
                             <label for="exampleInputPassword1" class="text-uppercase">Password</label>
                             @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
@@ -39,17 +39,17 @@
 
 
                     @*<div class="form-check">
-                <label class="form-check-label">
-                    @*<input type="checkbox" class="form-check-input">
-            <small>Remember Me</small>
-                </label>
-                </div>*@
-     
+                            <label class="form-check-label">
+                                @*<input type="checkbox" class="form-check-input">
+                        <small>Remember Me</small>
+                            </label>
+                            </div>*@
+
                     <div style="">
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
                 }
-             <div id="dddd">Don't have an account? @Html.ActionLink("Sign-Up", "Register_New_User", "Register", "", new { id="reg"})</div>
+                <div id="dddd">Don't have an account? @Html.ActionLink("Sign-Up", "Register_New_User", "Register", "", new { id = "reg" })</div>
                 <div class="copy-text">Created with <i class="fa fa-heart"></i> by Me</div>
             </div>
             <div class="col-md-8 banner-sec">
@@ -88,26 +88,28 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
+    </div>
 </section>
 
 
 <style>
-    #dddd{
-        width:200px;
-        margin:auto;
+    #dddd {
+        width: 200px;
+        margin: auto;
     }
-    #reg{
-        text-decoration:none;
-        font-size:larger;
-    }
-     #reg:hover{
-       color:greenyellow;
 
+    #reg {
+        text-decoration: none;
+        font-size: larger;
     }
+
+        #reg:hover {
+            color: greenyellow;
+        }
+
     .login-block {
         background: #DE6262; /* fallback for old browsers */
         background: -webkit-linear-gradient(to bottom, #FFB88C, #DE6262); /* Chrome 10-25, Safari 5.1-6 */

@@ -10,33 +10,33 @@ namespace DTS.Controllers
 {
     public class DeleteController : Controller
     {
-        MyContext db = new MyContext();
+        MyContext db = new MyContext();   // Open database connection via EF code first
 
         [HttpGet]
-        public ActionResult Incident_Delete(int? id)
+        public ActionResult Incident_Delete(int? id) //can check if null by using int; won't work w/o ?
         {
-            if (id == null)
+            if (id == null) 
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            var delete = db.Critical_Incidents.SingleOrDefault(e => e.id == id);
-            Care_Community name1 = db.Care_Communities.Find(delete.Location);
-            CI_Category_Type name2 = db.CI_Category_Types.Find(delete.CI_Category_Type);
-            var arr = new string[] { name1.Name, name2.Name };
-            ViewBag.list = arr;
-            if (delete == null) return HttpNotFound();
+            var delete = db.Critical_Incidents.SingleOrDefault(e => e.id == id);   // get CriticalIncident object by id using lamda expression
+            Care_Community name1 = db.Care_Communities.Find(delete.Location);      // get Care_Community(Location) object by id location  CriticalIncident foreign key
+            CI_Category_Type name2 = db.CI_Category_Types.Find(delete.CI_Category_Type);  // get CI_Category_Type object by id CI_Category_Type  CriticalIncident foreign key
+            var arr = new string[] { name1.Name, name2.Name };        // create string array and put two elements - Location.Name & CI_Category_Type.Name both model
+            ViewBag.list = arr;   // add array to ViewBag
+            if (delete == null) return HttpNotFound(); 
 
-            return View(delete);
+            return View(delete);  
         }
 
 
         [HttpPost]
         public ActionResult Incident_Delete(int id)
         {
-            var delete = db.Critical_Incidents.SingleOrDefault(l => l.id == id);
-            db.Critical_Incidents.Remove(delete ?? throw new InvalidOperationException());
-            db.SaveChanges();
+            var delete = db.Critical_Incidents.SingleOrDefault(l => l.id == id);   // get Critical_Incidents of model by id if it already exist, and null if there doesn't have
+            db.Critical_Incidents.Remove(delete ?? throw new InvalidOperationException());      // remove found entity from DbSet collection EF
+            db.SaveChanges();            // remove found entity from table
 
-            return RedirectToAction("../Select/Select_Incidents");
+            return RedirectToAction("../Select/Select_Incidents");  /// Redirect on the List Select_Incidents
         }
 
         [HttpGet]

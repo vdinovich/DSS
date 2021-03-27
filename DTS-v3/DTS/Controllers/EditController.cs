@@ -18,27 +18,27 @@ namespace DTS.Controllers
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            Critical_Incidents incident = db.Critical_Incidents.Find( id);
-            object[] objs = new object[] { HomeController.list, HomeController.list3 };
-            ViewBag.locations = objs;
+            Critical_Incidents incident = db.Critical_Incidents.Find(id);       // get Critical_Incidents object by id
+            object[] objs = new object[] { HomeController.list, HomeController.list3 };    // using thwo list (Location & CI_Category_Type) from a static fields of HomeController class'
+            ViewBag.locations = objs;        // add object of array on ViewBag
             if (incident == null) return HttpNotFound();
-            ViewBag.id = id;
+            //ViewBag.id = id;     // add 
             return View(incident);
         }
 
 
         [HttpPost]
-        public ActionResult Edit_Incidents(Critical_Incidents incident)
+        public ActionResult Edit_Incidents(Critical_Incidents incident)   // get updated Critical_Incidents object
         {
             if (ModelState.IsValid)
             {
-                db = new MyContext();
-                db.Entry(incident).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("../Select/Select_Incidents");
+                db = new MyContext();   // open connection
+                db.Entry(incident).State = EntityState.Modified;    // Set property  updated object to 
+                db.SaveChanges();    // Press Execute in C#
+                return RedirectToAction("../Select/Select_Incidents"); // redirect to view List
             }
 
-            return View(incident);
+            return View(incident);   // else if our model state false(or something went wrong)
         }
 
         [HttpGet]

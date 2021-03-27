@@ -170,6 +170,7 @@
     <Compile Include="Models\Position.cs" />
     <Compile Include="Models\Privacy_Breaches.cs" />
     <Compile Include="Models\Privacy_Complaints.cs" />
+    <Compile Include="Models\Search_Word.cs" />
     <Compile Include="Models\Sign_in_Main.cs" />
     <Compile Include="Models\Users.cs" />
     <Compile Include="Models\Visits_Agency.cs" />

@@ -1,4 +1,4 @@
-﻿@model DTS.Controllers.PdfClass
+﻿@model DTS.Models.Search_Word
 @{
     ViewBag.Title = "Search by Word Form";
 }
@@ -10,34 +10,42 @@
 }
 else
 {
-    <h4 style="text-align:center;color:green;font-family:'Palatino Linotype';padding:13px;border-radius:15px">@ViewBag.FoundedText</h4>
+    <h4 style="text-align:center;color:green;font-family:'Palatino Linotype';padding:13px;border-radius:15px">@ViewBag.FoundText</h4>
 }
 
 
 @using (Html.BeginForm())
 {
+
     <div id="center">
-        <div class="form-horizontal" id="center">
+        <div class="form-horizontal" id="">
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
-                <label class="control-label ">Please enter any word/s you are looking for.</label>
+                <label class="control-label ">Please enter any word/s you are looking for</label>
                 <div class="col-md-10">
-                    @Html.TextBoxFor(model => new DTS.Controllers.PdfClass().Text, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.TextBoxFor(model => model.CustomersWord, new { htmlAttributes = new { @class = "form-control" } })
                     @ViewBag.err_msg
                 </div>
             </div>
 
-
-            <input type="submit" value="Search" class="btn btn-primary" />
-
+            <label>
+                Select searching name:
+                @Html.DropDownListFor(model => model.Word, ViewBag.DropDown[1] as SelectList, "", new { @class = "form-control" })
+            </label>
+            <br />  <br />
+            <label>
+                Select File name:
+                @Html.DropDownListFor(model => model.FileName, ViewBag.DropDown[0] as SelectList, "", new { @class = "form-control" })
+            </label>
         </div>
-    </div>
-}
+   </div>
 
-<div id="backBtn">
-    @Html.ActionLink("Show current pdf file", "Pdf_Viewer", "AdminLTE", new { id = "back" })
-</div>
+
+    <div id="backBtn">
+        <input type="submit" value="Search" class="btn btn-primary" />
+        @* @Html.ActionLink("Show the current pdf file", "Pdf_Viewer", "AdminLTE", new { id = "back" })*@
+    </div>}
 <style>
     #btn {
         width: 550px;
@@ -48,12 +56,14 @@ else
         width: 940px;
         margin: auto;
         position: relative;
-        padding: 17px;
+        padding:27px;
+        border:2px solid blue;
+        border-radius:12px;
     }
 
     #backBtn {
         width: 190px;
-        margin: 0 0 0 522px;
+        margin: 10px 0 0 522px;
     }
 
     #back {

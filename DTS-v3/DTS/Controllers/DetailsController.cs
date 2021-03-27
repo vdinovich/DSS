@@ -18,11 +18,11 @@ namespace DTS.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Critical_Incidents entity = db.Critical_Incidents.SingleOrDefault(rel => rel.id == id);
-            Care_Community name1 = db.Care_Communities.Find(entity.Location);
-            CI_Category_Type name2 = db.CI_Category_Types.Find(entity.CI_Category_Type);
-            var arr = new string[] { name1.Name, name2.Name };
-            ViewBag.list = arr;
+            Critical_Incidents entity = db.Critical_Incidents.SingleOrDefault(rel => rel.id == id);   // get Critical_Incidents by id
+            Care_Community name1 = db.Care_Communities.Find(entity.Location);                         // get Location.Name
+            CI_Category_Type name2 = db.CI_Category_Types.Find(entity.CI_Category_Type);              // get CI_Category_Type.Name
+            var arr = new string[] { name1.Name, name2.Name };                                        // create string array and put two elements - Location.Name & CI_Category_Type.Name both model
+            ViewBag.list = arr;                                                                        // add array to ViewBag
             if (entity == null)
                 return HttpNotFound();
             return View(entity);

@@ -802,3 +802,4 @@ C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - C
 C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\BouncyCastle.Crypto.dll
 C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\itextsharp.dll
 C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\itextsharp.xml
+C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\obj\Debug\DTS.csproj.CoreCompileInputs.cache

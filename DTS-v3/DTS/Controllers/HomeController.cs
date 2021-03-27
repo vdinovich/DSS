@@ -13,16 +13,14 @@ namespace DTS.Controllers
         MyContext db = new MyContext();
         static string notsel;
         public static string path { get; set; }
-        public static string msg_infos { get; set; }
         public static int Id_Location { get; set; }
-        public static string success_nsg = string.Empty;
         List<CI_Category_Type> categories;
         List<Care_Community> communities;
         List<Position> positions;
         public static SelectList list2, list, list3; //needed for front end drop down list
         List<object> both;
 
-        
+
         public HomeController()
         {
             communities = db.Care_Communities.ToList();
@@ -100,7 +98,7 @@ namespace DTS.Controllers
         {
             string login = user.Login;
             string password = user.Password;
-            List<Users> users = db.Users.ToList();
+            List<Users> users = db.Users.ToList(); //takes all users from users table in a db and packs it into list users
             bool flag = false;
             for (int i = 0; i < users.Count(); i++)
             {
@@ -110,7 +108,7 @@ namespace DTS.Controllers
                     return RedirectToAction("../Home/Index");
                 }
             }
-            if (!flag) { ViewBag.incorrect = "Incorrect Login or Password...Please try again!"; }
+            if (!flag) ViewBag.incorrect = "Incorrect Login or Password...Please try again!";
             return View();
         }
 
@@ -119,7 +117,8 @@ namespace DTS.Controllers
         {
             both = new List<object> { list, list2 };
             ViewBag.listing = both;
-            return View();
+            var mainModel = new Sign_in_Main();
+            return View(mainModel);
         }
 
         [HttpPost]
@@ -129,36 +128,32 @@ namespace DTS.Controllers
             {
                 if (main.User_Name == null || main.Position == null || main.Week == 0 || main.Current_Date == DateTime.MinValue)
                 {
-                    if (main.Care_Community_Centre == null) // if nothing was selected in a Location drop-down list
+                    if (main.Care_Community_Centre == null ||
+                        main.Position == null || main.User_Name == null) // if nothing was selected in a Location drop-down list
                     {
-                        notsel = "You have to choose a Location from a drop-down list to move forward.";
+                        notsel = "This field is required. Please fill it in.";
                         both = new List<object> { list, list2 };
                         ViewBag.listing = both;
                         ViewBag.EmptyRequired = notsel;
                     }
                     else//if(main.User_Name == null || main.Position == null || main.Week == 0 || main.Current_Date == DateTime.MinValue)
                     {
-                        Id_Location = int.Parse(main.Care_Community_Centre);
-                        both = new List<object> { list, list2 };
+                        Id_Location = int.Parse(main.Care_Community_Centre); //we get an id (converted into int) from the list
+                        both = new List<object> { list, list2 }; //prepare two lists for viewbag for later use in drop-down lists
                         ViewBag.listing = both;
-                        main.Care_Community_Centre = list.Where(p => p.Value == main.Care_Community_Centre).First().Text;
-                        if (main.Position == null)
-                            return RedirectToAction("../Home/WOR_Tabs");
-                        else
-                        {
-                            main.Position = list2.Where(p => p.Value == main.Position).First().Text;
-                            main.Date_Entred = DateTime.Now;
-                            db.Sign_in_Mains.Add(main);
-                            db.SaveChanges();
+                        main.Care_Community_Centre = list.Where(p => p.Value == main.Care_Community_Centre).First().Text; //retrieves value from the list
 
-                            main.Care_Community_Centre = null;
-                            main.Position = null;
-                            main.Week = 0;
-                            main.User_Name = null;
-                            //ViewBag.listing = both;
-                            ViewBag.ResultMsg = "Your record was added successfuly!";
-                            return RedirectToAction("../Home/WOR_Tabs");
-                        }
+                        main.Position = list2.Where(p => p.Value == main.Position).First().Text;
+                        main.Date_Entred = DateTime.Now;
+                        db.Sign_in_Mains.Add(main);
+                        db.SaveChanges();
+
+                        main.Care_Community_Centre = null;
+                        main.Position = null;
+                        main.Week = 0;
+                        main.User_Name = null;
+                        ViewBag.ResultMsg = "Your record was added successfuly!";
+                        return RedirectToAction("../Home/WOR_Tabs");
                     }
                 }
                 else
@@ -403,10 +398,6 @@ namespace DTS.Controllers
                 Id_Location = entity.Location;
                 db.Good_News.Add(entity);
                 int res = db.SaveChanges();
-                if (res == 1)
-                    success_nsg = "Your record was successfully saved!";
-                else
-                    success_nsg = "Somthing went wrong...";
                 return RedirectToAction("../Select/Select_GoodNews");
             }
             //if (entity != null)
@@ -465,8 +456,8 @@ namespace DTS.Controllers
                 //ViewBag.Empty = "All fields have to be filled.";
                 return View();
             }
-            else if((entity.Location != 0) || entity.Accident_Cause == null || entity.Date_Accident == null || entity.Date_Duties == null ||
-                entity.Date_Regular == null || entity.Employee_Initials == null || entity.Form_7 == null || 
+            else if ((entity.Location != 0) || entity.Accident_Cause == null || entity.Date_Accident == null || entity.Date_Duties == null ||
+                entity.Date_Regular == null || entity.Employee_Initials == null || entity.Form_7 == null ||
                 entity.Lost_Days == 0 || entity.Modified_Days_Not_Shadowed == 0 || entity.Modified_Days_Shadowed == 0)
             {
                 db.WSIBs.Add(entity);
@@ -495,7 +486,7 @@ namespace DTS.Controllers
                 //ViewBag.Empty = "All fields have to be filled.";
                 return View();
             }
-            else if((entity.Location != 0) && entity.Date_of_Incident == DateTime.MinValue || entity.Details_of_Incident == null || entity.Employee_Initials == null ||
+            else if ((entity.Location != 0) && entity.Date_of_Incident == DateTime.MinValue || entity.Details_of_Incident == null || entity.Employee_Initials == null ||
                 entity.Home_Area == null || entity.Injury_Related == null || entity.Location == 0 || entity.Position == null ||
                 entity.Shift == null || entity.Time_of_Incident == null || entity.Type_of_Injury == null)
             {
@@ -630,8 +621,8 @@ namespace DTS.Controllers
                 //ViewBag.Empty = "All fields have to be filled.";
                 return View();
             }
-            else if((entity.Location != 0) && entity.CI_Report_Submitted == null || entity.Credit_for_Lost_Days == 0 || entity.Date_Concluded == null ||
-                entity.Date_Declared == null || entity.Deaths_Due == 0 || entity.Docs_Submitted_Finance == null ||  
+            else if ((entity.Location != 0) && entity.CI_Report_Submitted == null || entity.Credit_for_Lost_Days == 0 || entity.Date_Concluded == null ||
+                entity.Date_Declared == null || entity.Deaths_Due == 0 || entity.Docs_Submitted_Finance == null ||
                 entity.Notify_MOL == null || entity.Strain_Identified == null || entity.Total_Days_Closed == 0 ||
                 entity.Total_Residents_Affected == 0 || entity.Total_Staff_Affected == 0 || entity.Tracking_Sheet_Completed == null ||
                 entity.Type_of_Outbreak == null)
@@ -654,10 +645,10 @@ namespace DTS.Controllers
         public ActionResult Immunization_Insert(Immunization entity)
         {
             ViewBag.locations = list;
-            if (entity.Location == 0 && entity.Numb_Res_Comm == null && entity.Numb_Res_Immun == null && entity.Numb_Res_Not_Immun == null && 
+            if (entity.Location == 0 && entity.Numb_Res_Comm == null && entity.Numb_Res_Immun == null && entity.Numb_Res_Not_Immun == null &&
                 entity.Per_Res_Immun == null && entity.Per_Res_Not_Immun == null)
                 return View();
-            else if((entity.Location != 0) && entity.Numb_Res_Comm == null || entity.Numb_Res_Immun == null || entity.Numb_Res_Not_Immun == null ||
+            else if ((entity.Location != 0) && entity.Numb_Res_Comm == null || entity.Numb_Res_Immun == null || entity.Numb_Res_Not_Immun == null ||
                 entity.Per_Res_Immun == null || entity.Per_Res_Not_Immun == null)
             {
                 db.Immunizations.Add(entity);
