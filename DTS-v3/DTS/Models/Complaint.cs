@@ -6,6 +6,7 @@ namespace DTS.Models
     {
         public int Id { get; set; }
         [Required(ErrorMessage = "This field is required! Please fill it in.")]
+        [DataType(DataType.Date)]
         public System.DateTime? DateReceived { get; set; }
         [Required(ErrorMessage = "This field is required! Please fill it in.")]
         public int Location { get; set; }

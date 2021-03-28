@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Mvc;
 using System.Collections.Generic;
+using System;
 
 namespace DTS.Controllers
 {
@@ -267,12 +268,26 @@ namespace DTS.Controllers
                 Care_Community cc = db.Care_Communities.Find(id_loc);
 
                 ViewBag.list = cc.Name;
+           
+                foreach(var it in list)
+                {
+                    if(it.Date_Concluded == DateTime.MinValue || it.Date_Declared == DateTime.MinValue)
+                    {
+                        if (it.Date_Concluded == DateTime.MinValue)
+                            it.Date_Concluded = null;
+                        else if(it.Date_Declared == DateTime.MinValue) it.Date_Declared = null;
+                    }
+                    else if(it.Date_Concluded == DateTime.MinValue && it.Date_Declared == DateTime.MinValue)
+                    {
+                        it.Date_Concluded = null;
+                        it.Date_Declared = null;
+                    }
+                }
                 return View(list);
-
-                Care_Community c = db.Care_Communities.Find(id_loc);
-                ViewBag.list = c.Name;
-                ViewBag.err = flag = true;
-                return View(list);
+            //    Care_Community c = db.Care_Communities.Find(id_loc);
+            //    ViewBag.list = c.Name;
+            //    ViewBag.err = flag = true;
+            //    return View(list);
             }
         }
 

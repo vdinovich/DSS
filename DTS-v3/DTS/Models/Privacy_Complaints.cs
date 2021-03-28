@@ -8,6 +8,7 @@ namespace DTS.Models
         [Required(ErrorMessage = "This field is required! Please fill it in.")]
         public int Location { get; set; }
         public string Status { get; set; }
+        [DataType(DataType.Date)]
         public System.DateTime Date_Complain_Received { get; set; }
         public string Complain_Filed_By { get; set; }
         public string Type_of_Complaint { get; set; }

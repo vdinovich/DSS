@@ -7,7 +7,8 @@
         public int Id { get; set; }
         [Required(ErrorMessage = "This field is required! Please fill it in.")]
         public int Location { get; set; }
-        public string DateNews { get; set; }
+        [DataType(DataType.Date)]
+        public System.DateTime DateNews { get; set; }
         public string Category { get; set; }
         public string Department { get; set; }
         public string SourceCompliment { get; set; }

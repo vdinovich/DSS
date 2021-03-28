@@ -72,8 +72,8 @@
             {
                 if(obj.Word != null)
                 {
-                    var found = db.Search_Words.Find(obj.Word);
-                    string selWord = found.FileName;
+                    var found = db.Search_Words.Find(int.Parse(obj.Word));
+                    string selWord = found.Word;
                     if (obj.FileName != null)
                     {
                         text = GetPDFText(obj.FileName);
@@ -168,5 +168,10 @@
         //    }
         //    return strText;
         //}
+
+        public ActionResult ShowFileContent(string fname)
+        {
+            return RedirectToAction("../AdminLTE/SearchByWord");
+        }
     }
 }

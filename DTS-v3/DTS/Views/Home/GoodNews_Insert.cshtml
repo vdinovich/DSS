@@ -22,14 +22,14 @@
                        </label>
                        <div class="col-md-10">
                            @Html.EditorFor(model => model.DateNews, new { htmlAttributes = new { @class = "form-control" } })
-                           @Html.ValidationMessageFor(model => model.DateNews, "", new { @class = "text-danger" })
+                
                        </div>
                    </div>
 
                    <div class="form-group">
                        @Html.LabelFor(model => model.Location, htmlAttributes: new { @class = "control-label col-md-2" })
                        <div class="col-md-10">
-                           @Html.DropDownListFor(model => model.Location, ViewBag.locations as SelectList, "", new { @class = "form-control" })
+                           @Html.DropDownListFor(model => model.Location, ViewBag.locations[0] as SelectList, "", new { @class = "form-control" })
                            @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
                        </div>
                    </div>
@@ -39,16 +39,14 @@
                            Category (Good News/Compliment)
                        </label>
                        <div class="col-md-10">
-                           @Html.EditorFor(model => model.Category, new { htmlAttributes = new { @class = "form-control" } })
-                           @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
+                           @Html.DropDownListFor(model => model.Category, ViewBag.locations[1] as SelectList, "", new { @class = "form-control" })
                        </div>
                    </div>
 
                    <div class="form-group">
                        @Html.LabelFor(model => model.Department, htmlAttributes: new { @class = "control-label col-md-2" })
                        <div class="col-md-10">
-                           @Html.EditorFor(model => model.Department, new { htmlAttributes = new { @class = "form-control" } })
-                           @Html.ValidationMessageFor(model => model.Department, "", new { @class = "text-danger" })
+                           @Html.DropDownListFor(model => model.Department, ViewBag.locations[2] as SelectList, "", new { @class = "form-control" })
                        </div>
                    </div>
 
@@ -57,8 +55,7 @@
                            Source of Compliment
                        </label>
                        <div class="col-md-10">
-                           @Html.EditorFor(model => model.SourceCompliment, new { htmlAttributes = new { @class = "form-control" } })
-                           @Html.ValidationMessageFor(model => model.SourceCompliment, "", new { @class = "text-danger" })
+                           @Html.DropDownListFor(model => model.SourceCompliment, ViewBag.locations[3] as SelectList, "", new { @class = "form-control" })
                        </div>
                    </div>
 
@@ -67,8 +64,7 @@
                            Received From
                        </label>
                        <div class="col-md-10">
-                           @Html.EditorFor(model => model.ReceivedFrom, new { htmlAttributes = new { @class = "form-control" } })
-                           @Html.ValidationMessageFor(model => model.ReceivedFrom, "", new { @class = "text-danger" })
+                           @Html.DropDownListFor(model => model.ReceivedFrom, ViewBag.locations[4] as SelectList, "", new { @class = "form-control" })
                        </div>
                    </div>
 
@@ -147,7 +143,7 @@
                            Compliment / Picture Communicated to SSO Marketing?
                        </label>
                        <div class="col-md-10">
-                           @Html.EditorFor(model => model.Compliment, new { htmlAttributes = new { @class = "form-control" } })
+                           @Html.DropDownListFor(model => model.Department, ViewBag.locations[5] as SelectList, "", new { @class = "form-control" })
                            @Html.ValidationMessageFor(model => model.Compliment, "", new { @class = "text-danger" })
                        </div>
                    </div>
@@ -157,7 +153,7 @@
                            Spot Awards
                        </label>
                        <div class="col-md-10">
-                           @Html.EditorFor(model => model.Spot_Awards, new { htmlAttributes = new { @class = "form-control" } })
+                           @Html.DropDownListFor(model => model.Spot_Awards, ViewBag.locations[5] as SelectList, "", new { @class = "form-control" })
                            @Html.ValidationMessageFor(model => model.Spot_Awards, "", new { @class = "text-danger" })
                        </div>
                    </div>
@@ -167,7 +163,7 @@
                            Spot Awards Details
                        </label>
                        <div class="col-md-10">
-                           @Html.EditorFor(model => model.Awards_Details, new { htmlAttributes = new { @class = "form-control" } })
+                           @Html.DropDownListFor(model => model.Awards_Details, ViewBag.locations[5] as SelectList, "", new { @class = "form-control" })
                            @Html.ValidationMessageFor(model => model.Awards_Details, "", new { @class = "text-danger" })
                        </div>
                    </div>
@@ -187,7 +183,7 @@
                            Awards Received (Yes / No)
                        </label>
                        <div class="col-md-10">
-                           @Html.EditorFor(model => model.Awards_Received, new { htmlAttributes = new { @class = "form-control" } })
+                           @Html.DropDownListFor(model => model.Awards_Received, ViewBag.locations[5] as SelectList, "", new { @class = "form-control" })
                            @Html.ValidationMessageFor(model => model.Awards_Received, "", new { @class = "text-danger" })
                        </div>
                    </div>

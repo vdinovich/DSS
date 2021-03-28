@@ -6,8 +6,10 @@
     public class Outbreaks
     {
         public int Id { get; set; }
-        public DateTime Date_Declared { get; set; }
-        public DateTime Date_Concluded { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime? Date_Declared { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime? Date_Concluded { get; set; }
         public string Type_of_Outbreak { get; set; }
         public int Total_Days_Closed { get; set; }
         [Required(ErrorMessage = "This field is required! Please try to fill it in!")]

@@ -19,7 +19,14 @@ namespace DTS.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             Critical_Incidents incident = db.Critical_Incidents.Find(id);       // get Critical_Incidents object by id
-            object[] objs = new object[] { HomeController.list, HomeController.list3 };    // using thwo list (Location & CI_Category_Type) from a static fields of HomeController class'
+                                                                                // using thwo list (Location & CI_Category_Type) from a static fields of HomeController class':
+            object[] objs = new object[]
+            {
+                HomeController.list,
+                HomeController.list3,
+                HomeController.list4,
+                HomeController.list5
+            };
             ViewBag.locations = objs;        // add object of array on ViewBag
             if (incident == null) return HttpNotFound();
             //ViewBag.id = id;     // add 
@@ -158,7 +165,8 @@ namespace DTS.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             var founded = db.Good_News.Find(id);
-            ViewBag.locations = HomeController.list;
+            ViewBag.locations = new object[] 
+            { HomeController.list, HomeController.list12, HomeController.list13, HomeController.list14, HomeController.list15, HomeController.list16 };
             if (founded == null) return HttpNotFound();
             return View(founded);
         }
@@ -188,7 +196,7 @@ namespace DTS.Controllers
 
             return View(risk);
         }
-        
+
         [HttpPost]
         public ActionResult Edit_Agency(Visits_Agency agency)
         {
@@ -334,7 +342,16 @@ namespace DTS.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             var founded = db.Complaints.Find(id);
-            ViewBag.locations = HomeController.list;
+            ViewBag.locations = new object[]
+                {
+                HomeController.list,
+                HomeController.list6,
+                HomeController.list7,
+                HomeController.list8,
+                HomeController.list9,
+                HomeController.list10,
+                HomeController.list11
+                };
             if (founded == null) return HttpNotFound();
             return View(founded);
         }

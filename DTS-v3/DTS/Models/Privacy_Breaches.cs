@@ -9,9 +9,11 @@ namespace DTS.Models
         [DataType(DataType.Text)]
         public int Location { get; set; }
         public string Status { get; set; }
+        [DataType(DataType.Date)]
         [Required(ErrorMessage = "This field is required! Please fill it in.")]
         public System.DateTime Date_Breach_Occurred { get; set; }
         public string Description_Outcome { get; set; }
+        [DataType(DataType.Date)]
         public System.DateTime Date_Breach_Reported { get; set; }
         public string Date_Breach_Reported_By { get; set; }
         public string Type_of_Breach { get; set; }

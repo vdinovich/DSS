@@ -17,10 +17,22 @@ namespace DTS.Controllers
         List<CI_Category_Type> categories;
         List<Care_Community> communities;
         List<Position> positions;
-        public static SelectList list2, list, list3; //needed for front end drop down list
+        public static SelectList list2, list, list3, list4, list5, list6, list7, list8, list9, list10,list11, list12,list13,list14,list15,list16; //needed for front end drop down list
         List<object> both;
-
-
+        string[] SelectYesNo = new string[] { "Yes", "No" },
+                 visit = new string[] { "Visit", "Phone Call" },
+                 written = new string[] { "Verbal", "Written" },
+                 direct = new string[] { "Direct", "Corporate", "Both" },
+                 resident = new string[] { "Resident", "Family", "Visitor", "Stuff", "Other" },
+                 department = new string[] { "Nursing", "Nursing Admin", "Admin", "Programs", "Food Service", "Maintainence", "Housekeeping", "Laundry", "Other" },
+                 resolved = new string[] { "Yes", "No", "Ongoing" },
+                 ministry = new string[] { "Yes", "No" },
+                 category = new string[] { "GoodNews", "Compliments" },
+                 department2 = new string[] {"All","Nursing","Housekeeping","Laundry","Maintenance","Dietary","Recriation","Administration","Individual(s)",
+                                            "Physio", "Hairdresser", "Physician","Foot care", "Dental", "Other", "Yes", "No"},
+                 source = new string[] { "Let's Connect", "Card", "Email", "Letter", "Verbal", "Other" },
+                 receiveFrom = new string[] { "Resident", "Family", "Supplier", "SSO", "Manager", "Leadership", "Tour", "Other" },
+                 picture = new string[] { "Yes", "No" };
         public HomeController()
         {
             communities = db.Care_Communities.ToList();
@@ -31,18 +43,38 @@ namespace DTS.Controllers
 
             categories = db.CI_Category_Types.ToList();
             list3 = new SelectList(categories, "Id", "Name");
+
+            list4 = new SelectList(SelectYesNo);  // For some attributes table Clritical Incident
+            list5 = new SelectList(visit);        // for one attribute MOHLTC_Follow_Up the same table
+
+            // for the Complaints table:
+            list6 = new SelectList(written);
+            list7 = new SelectList(direct);
+            list8 = new SelectList(resident);
+            list9 = new SelectList(department);
+            list10 = new SelectList(resolved);
+            list11 = new SelectList(ministry);
+
+            // for GoodNews table:
+            list12 = new SelectList(category);
+            list13 = new SelectList(department2);
+            list14 = new SelectList(source);
+            list15 = new SelectList(receiveFrom);
+            list16 = new SelectList(picture);
         }
 
         public ActionResult Complaint_Insert()
         {
-            ViewBag.locations = list;
+            object[] objs = new object[] { list, list3, list4, list5, list6, list7, list8, list9, list10, list11 };
+            ViewBag.locations = objs;
             return View();
         }
 
         [HttpPost]
         public ActionResult Complaint_Insert(Complaint entity)
         {
-            ViewBag.locations = list;
+            object[] objs = new object[] { list, list3, list4, list5, list6, list7, list8, list9, list10, list11 };
+            ViewBag.locations = objs;
             if (entity.DateReceived == null && entity.Location == 0 && entity.WritenOrVerbal == null && entity.Receive_Directly == null &&
                entity.FromResident == null && entity.ResidentName == null && entity.Department == null && entity.BriefDescription == null &&
                entity.IsAdministration == false && entity.CareServices == false && entity.PalliativeCare == false && entity.Dietary == false && entity.Housekeeping == false &&
@@ -266,7 +298,7 @@ namespace DTS.Controllers
         [HttpGet]
         public ActionResult Insert()
         {
-            object[] objs = new object[] { list, list3 };
+            object[] objs = new object[] { list, list3, list4, list5 };
             ViewBag.locations = objs;
             return View();
         }
@@ -274,7 +306,7 @@ namespace DTS.Controllers
         [HttpPost]
         public ActionResult Insert(Critical_Incidents entity)
         {
-            object[] objs = new object[] { list, list3 };
+            object[] objs = new object[] { list, list3, list4, list5 };
             ViewBag.locations = objs;
             if (entity.Brief_Description == null && entity.Care_Plan_Updated == null && entity.CIS_Initiated == null && entity.CI_Category_Type == 0 &&
                entity.CI_Form_Number == null && entity.Date == null && entity.File_Complete == null && entity.Follow_Up_Amendments == null &&
@@ -376,16 +408,16 @@ namespace DTS.Controllers
         [HttpGet]
         public ActionResult GoodNews_Insert()
         {
-            ViewBag.locations = list;
+            ViewBag.locations = new object[] { list, list12, list13, list14, list15, list16 };
             return View();
         }
 
         [HttpPost]
         public ActionResult GoodNews_Insert(Good_News entity)
         {
-            ViewBag.locations = list;
+            ViewBag.locations = new object[] { list, list12, list13, list14, list15, list16 };
             if (entity.Awards_Details == null && entity.Awards_Received == null && entity.Category == null && entity.Community_Inititives == null &&
-                entity.Compliment == null && entity.DateNews == null && entity.Department == null && entity.Location == 0 &&
+                entity.Compliment == null && entity.DateNews == DateTime.MinValue && entity.Department == null && entity.Location == 0 &&
                 entity.Description_Complim == null && entity.Growth == false && entity.NameAwards == null && entity.Passion == false &&
                 entity.ReceivedFrom == null && entity.Respect == false && entity.Responsibility == false && entity.SourceCompliment == null &&
                 entity.Spot_Awards == null && entity.Teamwork == false)
@@ -393,7 +425,11 @@ namespace DTS.Controllers
                 //ViewBag.Empty = "All fields have to be filled.";
                 return View();
             }
-            else
+            else if((entity.Location != 0)&& entity.Awards_Details == null|| entity.Awards_Received == null|| entity.Category == null|| entity.Community_Inititives == null||
+                entity.Compliment == null|| entity.DateNews == null|| entity.Department == null|| 
+                entity.Description_Complim == null|| entity.Growth == false|| entity.NameAwards == null|| entity.Passion == false||
+                entity.ReceivedFrom == null|| entity.Respect == false|| entity.Responsibility == false|| entity.SourceCompliment == null ||
+                entity.Spot_Awards == null || entity.Teamwork == false)
             {
                 Id_Location = entity.Location;
                 db.Good_News.Add(entity);
@@ -411,7 +447,8 @@ namespace DTS.Controllers
             //        success_nsg = "Somthing went wrong...";
             //    return RedirectToAction("../Select/Select_GoodNews");
             //}
-            //return View();
+            else
+            return View();
         }
 
         [HttpGet]
@@ -627,7 +664,7 @@ namespace DTS.Controllers
                 entity.Total_Residents_Affected == 0 || entity.Total_Staff_Affected == 0 || entity.Tracking_Sheet_Completed == null ||
                 entity.Type_of_Outbreak == null)
             {
-                entity.Date_Concluded = entity.Date_Declared = DateTime.MinValue;
+                //entity.Date_Concluded = entity.Date_Declared = DateTime.MinValue;
                 db.Outbreaks.Add(entity);
                 db.SaveChanges();
                 return RedirectToAction("../Select/Outbreaks");

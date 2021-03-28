@@ -7,6 +7,7 @@
         public int Id { get; set; }
         [Required(ErrorMessage = "This field is required! Please fill it in.")]
         public int Location { get; set; }
+        [DataType(DataType.Date)]
         [Required(ErrorMessage = "This field is required! Please fill it in.")]
         public System.DateTime Date { get; set; }
         public string Union { get; set; }

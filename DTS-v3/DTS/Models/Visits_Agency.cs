@@ -7,6 +7,7 @@ namespace DTS.Models
     public class Visits_Agency
     {
         public int Id { get; set; }
+        [DataType(DataType.Date)]
         [Required(ErrorMessage = "This field is required! Please fill it in.")]
         public DateTime Date_of_Visit { get; set; }
         public string Agency { get; set; }

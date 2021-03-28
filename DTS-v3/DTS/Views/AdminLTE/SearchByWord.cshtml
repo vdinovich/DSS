@@ -31,13 +31,16 @@ else
 
             <label>
                 Select searching name:
-                @Html.DropDownListFor(model => model.Word, ViewBag.DropDown[1] as SelectList, "", new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.Word, ViewBag.DropDown[1] as SelectList, "", new { @class = "form-control" })            
             </label>
             <br />  <br />
-            <label>
-                Select File name:
-                @Html.DropDownListFor(model => model.FileName, ViewBag.DropDown[0] as SelectList, "", new { @class = "form-control" })
-            </label>
+                    <label>
+                        Select File name:
+                        @Html.DropDownListFor(model => model.FileName, ViewBag.DropDown[0] as SelectList, "", new { @class = "form-control" })
+                       
+                         @Html.ActionLink("Show Content", "ShowFileContent", "AdminLTE", new { fname = ViewBag.DropDown[0] as SelectList }, new { style = "border-radius:22px" })
+                   
+                    </label>
         </div>
    </div>
 
