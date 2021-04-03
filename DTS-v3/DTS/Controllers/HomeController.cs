@@ -1,6 +1,8 @@
 ﻿using DTS.Models;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -17,7 +19,7 @@ namespace DTS.Controllers
         List<CI_Category_Type> categories;
         List<Care_Community> communities;
         List<Position> positions;
-        public static SelectList list2, list, list3, list4, list5, list6, list7, list8, list9, list10,list11, list12,list13,list14,list15,list16; //needed for front end drop down list
+        public static SelectList list2, list, list3, list4, list5, list6, list7, list8, list9, list10, list11, list12, list13, list14, list15, list16, list17, list18, list19; //needed for front end drop down list
         List<object> both;
         string[] SelectYesNo = new string[] { "Yes", "No" },
                  visit = new string[] { "Visit", "Phone Call" },
@@ -32,7 +34,11 @@ namespace DTS.Controllers
                                             "Physio", "Hairdresser", "Physician","Foot care", "Dental", "Other", "Yes", "No"},
                  source = new string[] { "Let's Connect", "Card", "Email", "Letter", "Verbal", "Other" },
                  receiveFrom = new string[] { "Resident", "Family", "Supplier", "SSO", "Manager", "Leadership", "Tour", "Other" },
-                 picture = new string[] { "Yes", "No" };
+                 picture = new string[] { "Yes", "No" },
+                 risk_list = new string[] { "Adverse Event", "Environmental", "Infortmation Technology", "Insurance", "Legal", "Near Miss", "Serious Adverse Event",
+                     "Vendor", "Workplace Harrasement", "Other" },
+                 visitAgency = new string[] { "MOH", "Fire", "TSSA", "Public Health", "PCQO", "QR Health Authority", "CNS", "Public Health - MHO", "Public Health - EHO", "Other" },
+                 visitnumbers = new string[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" };
         public HomeController()
         {
             communities = db.Care_Communities.ToList();
@@ -61,6 +67,13 @@ namespace DTS.Controllers
             list14 = new SelectList(source);
             list15 = new SelectList(receiveFrom);
             list16 = new SelectList(picture);
+
+            // for Community Risks:
+            list17 = new SelectList(risk_list);
+
+            // for Visit Agency:
+            list18 = new SelectList(visitAgency);
+            list19 = new SelectList(visitnumbers);
         }
 
         public ActionResult Complaint_Insert()
@@ -290,9 +303,294 @@ namespace DTS.Controllers
 
         public ActionResult WOR_Tabs()
         {
-            ViewBag.id = Id_Location;
-            ViewBag.idComplaints = Id_Location;
-            return View();
+            WorTabs tabs = new WorTabs();
+            tabs.ListForms = GetFormNames();
+
+            return View(tabs);
+        }
+
+        [HttpPost]
+        public ActionResult WOR_Tabs(WorTabs Value)
+        {
+            if (Value != null && Value.Name != null)
+            {
+                string btnName = Request.Params
+                      .Cast<string>()
+                      .Where(p => p.StartsWith("btn"))
+                      .Select(p => p.Substring("btn".Length))
+                      .First();
+
+                if (btnName.Equals("-list"))
+                {
+                    string name = Value.Name;
+                    return GoToSelectFormList($"../Home/GoToSelectFormList/{name}");
+                }
+                else if(btnName.Equals("-insert"))
+                {
+                    int id = int.Parse(Value.Name);
+                    return RedirectToAction($"../Home/GoToSelectForm/{id}");
+                }
+                else // if btn-summary
+                {
+                    DateTime start = Value.Start, end = Value.End;
+                    int id = int.Parse(Value.Name);
+                    var tbl_list = GetTableById(id).ToArray().ToList();
+                    Type type = tbl_list[1].GetType();
+                    string entity = type.Name;
+                    if (!entity.Equals(string.Empty))
+                    {
+                        ViewBag.TableName = entity;
+                    }
+                    
+                    switch (entity)
+                    {
+                        case "Critical_Incidents":
+                            TablesContainer.list1 = (from ent in db.Critical_Incidents where ent.Date >= start && ent.Date <= end select ent).ToList();
+                            foreach (var i in TablesContainer.list1)
+                            {
+                                if (i.Brief_Description != null) TablesContainer.c1++;
+                                if (i.Care_Plan_Updated != null) TablesContainer.c2++;
+                                if (i.CIS_Initiated != null) TablesContainer.c3++;
+                                if (i.CI_Category_Type != 0) TablesContainer.c4++;
+                                if (i.CI_Form_Number != null) TablesContainer.c5++;
+                                if (i.Date != DateTime.MinValue) TablesContainer.c6++;
+                                if (i.File_Complete != null) TablesContainer.c7++;
+                                if (i.Follow_Up_Amendments != null) TablesContainer.c8++;
+                                if (i.Location != 0) TablesContainer.c9++;
+                                if (i.MOHLTC_Follow_Up != null) TablesContainer.c10++;
+                                if (i.MOH_Notified != null) TablesContainer.c11++;
+                                if (i.POAS_Notified != null) TablesContainer.c12++;
+                                if (i.Police_Notified != null) TablesContainer.c13++;
+                                if (i.Quality_Improvement_Actions != null) TablesContainer.c14++;
+                                if (i.Risk_Locked != null) TablesContainer.c15++;
+                            }
+                            TablesContainer.count_arr.AddRange(new int[] {
+                            TablesContainer.c1++,TablesContainer.c2++,TablesContainer.c3++,TablesContainer.c4++,TablesContainer.c5++,
+                            TablesContainer.c6++,TablesContainer.c7++,TablesContainer.c8++,TablesContainer.c9++,TablesContainer.c10++,
+                            TablesContainer.c11++,TablesContainer.c12++,TablesContainer.c13++,TablesContainer.c14++,TablesContainer.c15++
+                            });
+                            return RedirectToAction($"../Statistics/{entity}");                  
+                        case "Complaint":
+                            List<Complaint> list2 = (from ent in db.Complaints where ent.DateReceived >= start && ent.DateReceived <= end select ent).ToList();
+                            return RedirectToAction($"../Statistics/{entity}"); 
+                        case "Good_News":
+                            TablesContainer.list3 = (from ent in db.Good_News where ent.DateNews >= start && ent.DateNews <= end select ent).ToList();
+                            return RedirectToAction($"../Statistics/{entity}");
+                        case "Emergency_Prep":
+                            //TablesContainer.list4 = (from ent in db.Emergency_Prep where ent.D >= start && ent.DateNews <= end select ent).ToList();
+                            return RedirectToAction($"../Statistics/{entity}");
+                        case "Community_Risks":
+                            TablesContainer.list5 = (from ent in db.Community_Risks where ent.Date >= start && ent.Date <= end select ent).ToList();
+                            return RedirectToAction($"../Statistics/{entity}");
+                        case "Visits_Others":
+                            TablesContainer.list6 = (from ent in db.Visits_Others where ent.Date_of_Visit >= start && ent.Date_of_Visit <= end select ent).ToList();
+                            return RedirectToAction($"../Statistics/{entity}");
+                        case "Privacy_Breaches":
+                            TablesContainer.list7 = (from ent in db.Privacy_Breaches where ent.Date_Breach_Reported >= start && ent.Date_Breach_Reported <= end select ent).ToList();
+                            return RedirectToAction($"../Statistics/{entity}");
+                        case "Privacy_Complaints":
+                            TablesContainer.list8 = (from ent in db.Privacy_Complaints where ent.Date_Complain_Received >= start && ent.Date_Complain_Received <= end select ent).ToList();
+                            return RedirectToAction($"../Statistics/{entity}");
+                        case "Education":
+                            //TablesContainer.list9 = (from ent in db.Educations where ent. >= start && ent.DateNews <= end select ent).ToList();
+                            return RedirectToAction($"../Statistics/{entity}");
+                        case "Labour_Relations":
+                            TablesContainer.list10 = (from ent in db.Relations where ent.Date >= start && ent.Date <= end select ent).ToList();
+                            return RedirectToAction($"../Statistics/{entity}");
+                        case "Immunization":
+                            //TablesContainer.list11 = (from ent in db.Immunizations where ent. >= start && ent.DateNews <= end select ent).ToList();
+                            return RedirectToAction($"../Statistics/{entity}");
+                        case "Outbreaks":
+                            TablesContainer.list12 = (from ent in db.Outbreaks where ent.Date_Declared >= start && ent.Date_Declared <= end select ent).ToList();
+                            return RedirectToAction($"../Statistics/{entity}");
+                        case "WSIB":
+                            TablesContainer.list13 = (from ent in db.WSIBs where ent.Date_Accident >= start && ent.Date_Accident <= end select ent).ToList();
+                            return RedirectToAction($"../Statistics/{entity}");
+                        case "Not_WSIBs":
+                            TablesContainer.list14 = (from ent in db.Not_WSIBs where ent.Date_of_Incident >= start && ent.Date_of_Incident <= end select ent).ToList();
+                            return RedirectToAction($"../Statistics/{entity}");
+                    }
+                }
+            }
+
+            return RedirectToAction("../Home/WOR_Tabs");
+        }
+
+        #region All Forms:
+        SelectList GetFormNames()
+        {
+            List<WorTabs> forms = new List<WorTabs>()
+            {
+                new WorTabs{Id=1, Name = "1. Critical Incidents"},
+                new WorTabs{Id=2,Name ="2. Complaints"},
+                new WorTabs { Id=3,Name = "3. Good News" },
+                new WorTabs {Id=4, Name = "4. Emergency Prep" },
+                new WorTabs {Id=5, Name = "5. Community Risks or Legal" },
+                new WorTabs {Id=6, Name = "6. Visits by Other Agencies" },
+                new WorTabs {Id=7, Name = "7a. Privacy Breaches" },
+                new WorTabs {Id=8, Name = "7b. Privacy Complaints" },
+                new WorTabs {Id=9, Name = "8. Education" },
+                new WorTabs {Id=10, Name = "9. Labour Relations" },
+                new WorTabs {Id=11, Name = "10. Immunization" },
+                new WorTabs {Id=12, Name = "11. Outbreak" },
+                new WorTabs {Id=13, Name = "12a. WSIB" },
+                new WorTabs {Id=14, Name = "12b. Not WSIB" },
+            };
+            return new SelectList(forms, "Id", "Name");
+        }
+        #endregion
+
+        /// <summary>
+        /// For Summary handler
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        ArrayList GetTableById(int id)
+        {
+            ArrayList tableList = new ArrayList();
+            if (id != 0)
+            {
+                switch (id)
+                {
+                    case 1:
+                        var tbl1 = db.Critical_Incidents.ToList();
+                        tableList.AddRange(tbl1);
+                        break;
+                    case 2:
+                        var tbl2 = db.Complaints.ToList();
+                        tableList.AddRange(tbl2);
+                        break;
+                    case 3:
+                        var tbl3 = db.Good_News.ToList();
+                        tableList.AddRange(tbl3);
+                        break;
+                    case 4:
+                        var tbl4 = db.Emergency_Prep.ToList();
+                        tableList.AddRange(tbl4);
+                        break;
+                    case 5:
+                        var tbl5 = db.Community_Risks.ToList();
+                        tableList.AddRange(tbl5);
+                        break;
+                    case 6:
+                        var tbl6 = db.Visits_Others.ToList();
+                        tableList.AddRange(tbl6);
+                        break;
+                    case 7:
+                        var tbl7 = db.Privacy_Breaches.ToList();
+                        tableList.AddRange(tbl7);
+                        break;
+                    case 8:
+                        var tbl8 = db.Privacy_Complaints.ToList();
+                        tableList.AddRange(tbl8);
+                        break;
+                    case 9:
+                        var tbl9 = db.Educations.ToList();
+                        tableList.AddRange(tbl9);
+                        break;
+                    case 10:
+                        var tbl10 = db.Relations.ToList();
+                        tableList.AddRange(tbl10);
+                        break;
+                    case 11:
+                        var tbl11 = db.Immunizations.ToList();
+                        tableList.AddRange(tbl11);
+                        break;
+                    case 12:
+                        var tbl12 = db.Outbreaks.ToList();
+                        tableList.AddRange(tbl12);
+                        break;
+                    case 13:
+                        var tbl13 = db.WSIBs.ToList();
+                        tableList.AddRange(tbl13);
+                        break;
+                    case 14:
+                        var tbl14 = db.Not_WSIBs.ToList();
+                        tableList.AddRange(tbl14);
+                        break;
+                }
+            }
+            return tableList;
+        }
+
+        public ActionResult GoToSelectFormList(string name)
+        {
+            var arr = name.Split(new char[] { '/' });
+            string last = arr.Last();
+            if (last != null)
+            {
+                switch (last)
+                {
+                    case "1":
+                        return RedirectToAction("../Select/Select_Incidents");
+                    case "2":
+                        return RedirectToAction("../Select/Select_Complaints");
+                    case "3":
+                        return RedirectToAction("../Select/Select_GoodNews");
+                    case "4":
+                        return RedirectToAction("../Select/Select_Emergency_Prep");
+                    case "5":
+                        return RedirectToAction("../Select/Select_Community");
+                    case "6":
+                        return RedirectToAction("../Select/Select_Visits_Others");
+                    case "7":
+                        return RedirectToAction("../Select/Privacy_Breaches");
+                    case "8":
+                        return RedirectToAction("../Select/Privacy_Complaints");
+                    case "9":
+                        return RedirectToAction("../Select/Education_Select");
+                    case "10":
+                        return RedirectToAction("../Select/Select_Labour");
+                    case "11":
+                        return RedirectToAction("../Select/Select_Immunization");
+                    case "12":
+                        return RedirectToAction("../Select/Outbreaks");
+                    case "13":
+                        return RedirectToAction("../Select/Select_WSIB");
+                    case "14":
+                        return RedirectToAction("../Select/Select_Not_WSIB");
+                }
+            }
+            return RedirectToAction("../Home/WOR_Tabs");
+        }
+
+        public ActionResult GoToSelectForm(int id)
+        {
+            if(id != 0)
+            {
+                switch (id)
+                {
+                    case 1:
+                        return RedirectToAction("../Home/Insert");
+                    case 2:
+                        return RedirectToAction("../Home/Complaint_Insert");
+                    case 3:
+                        return RedirectToAction("../Home/GoodNews_Insert");
+                    case 4:
+                        return RedirectToAction("../Home/Emergency_Prep_Insert");
+                    case 5:
+                        return RedirectToAction("../Home/Community_Insert");
+                    case 6:
+                        return RedirectToAction("../Home/Visits_Others");
+                    case 7:
+                        return RedirectToAction("../Home/Privacy_Breaches");
+                    case 8:
+                        return RedirectToAction("../Home/Privacy_Complaints");
+                    case 9:
+                        return RedirectToAction("../Home/Education_Insert");
+                    case 10:
+                        return RedirectToAction("../Home/Labour_Insert");
+                    case 11:
+                        return RedirectToAction("../Home/Immunization_Insert");
+                    case 12:
+                        return RedirectToAction("../Home/Outbreaks");
+                    case 13:
+                        return RedirectToAction("../Home/WSIB");
+                    case 14:
+                        return RedirectToAction("../Home/Not_WSIB");
+                }
+            }
+            return RedirectToAction("../Home/WOR_Tabs");
         }
 
         [HttpGet]
@@ -382,14 +680,14 @@ namespace DTS.Controllers
         [HttpGet]
         public ActionResult Community_Insert()
         {
-            ViewBag.locations = list;
+            ViewBag.locations = new object[] { list, list17, list4 };
             return View();
         }
 
         [HttpPost]
         public ActionResult Community_Insert(Community_Risks entity)
         {
-            ViewBag.locations = list;
+            ViewBag.locations = new object[] { list, list17, list4 };
             if (entity.Date == DateTime.MinValue && entity.Descriptions == null && entity.Hot_Alert == null &&
                 entity.Location == 0 && entity.MOH_Visit == null && entity.Potential_Risk == null && entity.Resolved == null &&
                 entity.Risk_Legal_Action == null && entity.Status_Update == null && entity.Type_Of_Risk == null)
@@ -425,10 +723,10 @@ namespace DTS.Controllers
                 //ViewBag.Empty = "All fields have to be filled.";
                 return View();
             }
-            else if((entity.Location != 0)&& entity.Awards_Details == null|| entity.Awards_Received == null|| entity.Category == null|| entity.Community_Inititives == null||
-                entity.Compliment == null|| entity.DateNews == null|| entity.Department == null|| 
-                entity.Description_Complim == null|| entity.Growth == false|| entity.NameAwards == null|| entity.Passion == false||
-                entity.ReceivedFrom == null|| entity.Respect == false|| entity.Responsibility == false|| entity.SourceCompliment == null ||
+            else if ((entity.Location != 0) && entity.Awards_Details == null || entity.Awards_Received == null || entity.Category == null || entity.Community_Inititives == null ||
+                entity.Compliment == null || entity.DateNews == null || entity.Department == null ||
+                entity.Description_Complim == null || entity.Growth == false || entity.NameAwards == null || entity.Passion == false ||
+                entity.ReceivedFrom == null || entity.Respect == false || entity.Responsibility == false || entity.SourceCompliment == null ||
                 entity.Spot_Awards == null || entity.Teamwork == false)
             {
                 Id_Location = entity.Location;
@@ -448,21 +746,22 @@ namespace DTS.Controllers
             //    return RedirectToAction("../Select/Select_GoodNews");
             //}
             else
-            return View();
+                return View();
         }
 
         [HttpGet]
         public ActionResult Agency_Insert()
         {
+            ViewBag.locations = new object[] { list, list18, list19, list4 };
             return View();
         }
 
         [HttpPost]
         public ActionResult Agency_Insert(Visits_Agency entity)
         {
-            ViewBag.locations = list;
-            if (entity.Agency == null && entity.Corrective_Actions == null && entity.Date_of_Visit == DateTime.Now &&
-                entity.Findings_Details == null && entity.Findings_number == 0 && entity.Report_Posted == null)
+            ViewBag.locations = new object[] { list, list18, list19, list4 };
+            if (entity.Location == 0 && entity.Agency == null && entity.Corrective_Actions == null && entity.Date_of_Visit == DateTime.Now &&
+                entity.Findings_Details == null && entity.Findings_number == null && entity.Report_Posted == null)
             {
                 //ViewBag.Empty = "All fields have to be filled.";
                 return View();
@@ -583,25 +882,26 @@ namespace DTS.Controllers
         [HttpGet]
         public ActionResult Visits_Others()
         {
-            ViewBag.locations = list;
+            ViewBag.locations = new object[] { list, list18, list19, list4 };
             return View();
         }
 
         [HttpPost]
         public ActionResult Visits_Others(Visits_Others entity)
         {
-            ViewBag.locations = list;
+            ViewBag.locations = new object[] { list, list18, list19, list4 };
             if (entity.Agency == null && entity.Corrective_Actions == null && entity.Date_of_Visit == DateTime.MinValue &&
                 entity.Details_of_Findings == null && entity.LHIN_Letter_Received == null && entity.Location == 0 &&
-                entity.Number_of_Findings == 0 && entity.PH_Letter_Received == null && entity.Report_Posted == null)
+                entity.Number_of_Findings == null && entity.PH_Letter_Received == null && entity.Report_Posted == null)
             {
                 //ViewBag.Empty = "All fields have to be filled.";
                 return View();
             }
             else if ((entity.Date_of_Visit != DateTime.MinValue &&
                       entity.Details_of_Findings != null && entity.Location != 0 &&
-                      entity.Number_of_Findings != 0) && entity.Agency == null || entity.Corrective_Actions == null || entity.LHIN_Letter_Received == null ||
-                      entity.PH_Letter_Received == null || entity.Report_Posted == null)
+                      entity.Number_of_Findings != null)
+                      && (entity.Agency == null || entity.Corrective_Actions == null || entity.LHIN_Letter_Received == null ||
+                      entity.PH_Letter_Received == null || entity.Report_Posted == null))
             {
                 db.Visits_Others.Add(entity);
                 db.SaveChanges();
@@ -814,5 +1114,18 @@ namespace DTS.Controllers
                 return RedirectToAction("../Select/Select_Emergency_Prep");
             }
         }
+    }
+
+    public class WorTabs
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        [Required(ErrorMessage = "This field is required! Please fill it in.")]
+        [DataType(DataType.Date)]
+        public DateTime Start { get; set; }
+        [Required(ErrorMessage = "This field is required! Please fill it in.")]
+        [DataType(DataType.Date)]
+        public DateTime End { get; set; }
+        public SelectList ListForms { get; set; }
     }
 }

@@ -93,10 +93,9 @@ namespace DTS.Controllers
 
         public ActionResult Select_Community()
         {
-
             bool flag;
             int id_loc = HomeController.Id_Location;
-            IEnumerable<Community_Risks> list = db.Community_Risks.Where(l => l.Location == id_loc);
+            var list = db.Community_Risks.Where(l => l.Location == id_loc).ToList();
             if (list.Count() == 0)
             {
                 ViewBag.err = flag = false;
@@ -109,11 +108,6 @@ namespace DTS.Controllers
                 Care_Community cc = db.Care_Communities.Find(id_loc);
 
                 ViewBag.list = cc.Name;
-                return View(list);
-
-                Care_Community c = db.Care_Communities.Find(id_loc);
-                ViewBag.list = c.Name;
-                ViewBag.err = flag = true;
                 return View(list);
             }
         }
@@ -144,23 +138,20 @@ namespace DTS.Controllers
             bool flag;
             int id_loc = HomeController.Id_Location;
             IEnumerable<Good_News> list = db.Good_News.Where(l => l.Location == id_loc);
-            if (list.Count() == 0)
-            {
-                ViewBag.err = flag = false;
-                ViewBag.emptyMsg = "The form - Good News is empty.. Please fill it out!";
-                return View();
-            }
-            else
-            {
-                ViewBag.err = flag = true;
-                Care_Community cc = db.Care_Communities.Find(id_loc);
-                ViewBag.list = cc.Name;
-                return View(list);
-
-                Care_Community c = db.Care_Communities.Find(id_loc);
-                ViewBag.list = c.Name;
-            }
-            return View();
+            return View(list);
+            //if (list.Count() == 0)
+            //{
+            //    ViewBag.err = flag = false;
+            //    ViewBag.emptyMsg = "The form - Good News is empty.. Please fill it out!";
+            //    return View();
+            //}
+            //else
+            //{
+            //    ViewBag.err = flag = true;
+            //    Care_Community cc = db.Care_Communities.Find(id_loc);
+            //    ViewBag.list = cc.Name;
+            //    return View(list);
+            //}
         }
 
         public ActionResult Select_Agencies()
@@ -228,7 +219,7 @@ namespace DTS.Controllers
 
             bool flag;
             int id_loc = HomeController.Id_Location;
-            IEnumerable<Visits_Others> list = db.Visits_Others.Where(l => l.Location == id_loc);
+            var list = db.Visits_Others.Where(l => l.Location == id_loc).ToList();
             if (list.Count() == 0)
             {
                 ViewBag.err = flag = false;

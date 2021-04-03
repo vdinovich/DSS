@@ -18,6 +18,7 @@
         List<Search_Word> listWords;
         MyContext db;
         List<Search_Word> fnames;
+        static string path;
 
         public AdminLTEController()
         {
@@ -68,6 +69,12 @@
             bool check = false;
             string word = obj.CustomersWord; //the variable takes in the searched word/s
 
+            if((obj.FileName != null) && obj.Word == null && obj.CustomersWord == null)
+            {
+                path = obj.FileName;
+                return RedirectToAction("../AdminLTE/Pdf_Viewer");
+            }
+
             if (word == null) // if drop-down list doesn't selected
             {
                 if(obj.Word != null)
@@ -83,7 +90,7 @@
                     }
                     else // if file name doesnt selected
                     {
-                        ViewBag.FoundText = $"First You should selected file name!";
+                        ViewBag.FoundText = $"Please select a file from a menu!";
                     }
                 }
                 else // if custumer word & drop-down word wont selected
@@ -109,9 +116,13 @@
             return null; //permanently
         }
 
+        /// <summary>
+        /// View shown pdf content
+        /// </summary>
+        /// <returns> Action </returns>
         public ActionResult Pdf_Viewer() //shows the whole pdf file on one page
         {
-            text = GetPDFText(); //text grabs all file contents via GetPDFText method
+            text = GetPDFText(path); //text grabs all file contents via GetPDFText method
             ViewBag.Text = text; //renders the file contents on the page
             return View();
         }
@@ -168,10 +179,5 @@
         //    }
         //    return strText;
         //}
-
-        public ActionResult ShowFileContent(string fname)
-        {
-            return RedirectToAction("../AdminLTE/SearchByWord");
-        }
     }
 }

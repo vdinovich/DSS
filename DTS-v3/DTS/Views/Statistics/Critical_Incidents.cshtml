@@ -1,0 +1,68 @@
+﻿@model IEnumerable<int>
+
+@{
+    ViewBag.Title = "Critical_Incidents";
+}
+
+<h2 style="text-align:center;color:darkorchid">Critical Incidents (Found Statictic)</h2>
+
+<table class="table table-bordered">
+    <tr style="font-weight:bold;font-family:'Palatino Linotype'">
+        <th>
+            @Html.Label("Date dd-mth-yyyy:", htmlAttributes: new { @class = "control-label col-md-2" })
+        </th>
+        <th>
+            @Html.Label("CI Form Number:", htmlAttributes: new { @class = "control-label col-md-2" })
+        </th>
+        <th>
+            @Html.Label("CI Category / Type:", htmlAttributes: new { @class = "control-label col-md-2" })
+        </th>
+        <th>
+            @Html.Label("Location:", htmlAttributes: new { @class = "control-label col-md-2" })
+        </th>
+        <th>
+            @Html.Label("Brief Description:", htmlAttributes: new { @class = "control-label col-md-2" })
+        </th>
+        <th>
+            @Html.Label("MOH Notified:", htmlAttributes: new { @class = "control-label col-md-2" })
+        </th>
+        <th>
+            @Html.Label("Police Notified:", htmlAttributes: new { @class = "control-label col-md-2" })
+        </th>
+        <th>
+            @Html.Label("POA's Notified:", htmlAttributes: new { @class = "control-label col-md-2" })
+        </th>
+        <th>
+            @Html.Label("CarePlan Updated:", htmlAttributes: new { @class = "control-label col-md-2" })
+        </th>
+        <th>
+            @Html.Label("Brief Description of Quality Improvement Actions/Measures:", htmlAttributes: new { @class = "control-label col-md-2" })
+        </th>
+        <th>
+            @Html.Label("MOHLTC Follow-up:", htmlAttributes: new { @class = "control-label col-md-2" })
+        </th>
+        <th>
+            @Html.Label("Was CIS Initiated on Time:", htmlAttributes: new { @class = "control-label col-md-2" })
+        </th>
+        <th>
+            @Html.Label("All Follow-ups and Amendments:", htmlAttributes: new { @class = "control-label col-md-2" })
+        </th>
+        <th>
+            @Html.Label("Risk Locked:", htmlAttributes: new { @class = "control-label col-md-2" })
+        </th>
+        <th>
+            @Html.Label("File Complete Ready for MOH:", htmlAttributes: new { @class = "control-label col-md-2" })
+        </th>
+    </tr>
+
+
+    <tr>
+        @foreach (var it in Model)
+        {
+            <td>
+               @it
+            </td>
+        }
+        </tr>
+
+</table>

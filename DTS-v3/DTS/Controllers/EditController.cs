@@ -104,7 +104,7 @@ namespace DTS.Controllers
         {
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             Community_Risks edit = db.Community_Risks.Find(id);
-            ViewBag.locations = HomeController.list;
+            ViewBag.locations = new object[] { HomeController.list, HomeController.list17, HomeController.list4 };
 
             if (edit == null) return HttpNotFound();
 
@@ -269,7 +269,7 @@ namespace DTS.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             var visit = db.Visits_Others.Find(id);
-            ViewBag.locations = HomeController.list;
+            ViewBag.locations = new object[] { HomeController.list, HomeController.list18, HomeController.list19, HomeController.list4 };
             if (visit == null) return HttpNotFound();
 
             return View(visit);

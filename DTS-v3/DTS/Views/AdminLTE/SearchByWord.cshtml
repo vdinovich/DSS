@@ -31,18 +31,27 @@ else
 
             <label>
                 Select searching name:
-                @Html.DropDownListFor(model => model.Word, ViewBag.DropDown[1] as SelectList, "", new { @class = "form-control" })            
+                @Html.DropDownListFor(model => model.Word, ViewBag.DropDown[1] as SelectList, "", new { @class = "form-control" })
             </label>
             <br />  <br />
-                    <label>
-                        Select File name:
-                        @Html.DropDownListFor(model => model.FileName, ViewBag.DropDown[0] as SelectList, "", new { @class = "form-control" })
-                       
-                         @Html.ActionLink("Show Content", "ShowFileContent", "AdminLTE", new { fname = ViewBag.DropDown[0] as SelectList }, new { style = "border-radius:22px" })
-                   
-                    </label>
+            <label>
+                Select File name:
+                @Html.DropDownListFor(model => model.FileName, ViewBag.DropDown[0] as SelectList, "", new { @class = "form-control" })
+
+                @Html.ActionLink("Show Content", "ShowFileContent", "AdminLTE", null, new { id = "Link" })
+            </label>
         </div>
-   </div>
+    </div>
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#Link").click(function () {
+                document.forms[0].submit();
+                return false;
+            });
+        });
+    </script>
 
 
     <div id="backBtn">
@@ -59,9 +68,9 @@ else
         width: 940px;
         margin: auto;
         position: relative;
-        padding:27px;
-        border:2px solid blue;
-        border-radius:12px;
+        padding: 27px;
+        border: 2px solid blue;
+        border-radius: 12px;
     }
 
     #backBtn {

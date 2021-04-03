@@ -27,7 +27,7 @@
             <div class="form-group">
                 <label class="control-label col-md-2">Location</label>
                 <div class="col-md-10">
-                    @Html.DropDownListFor(model => model.Location, ViewBag.locations as SelectList, "", new { @class = "form-control" })
+                    @Html.DropDownListFor(model => model.Location, ViewBag.locations[0] as SelectList, "", new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -35,7 +35,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Type_Of_Risk, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Type_Of_Risk, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.DropDownListFor(model => model.Type_Of_Risk, ViewBag.locations[1] as SelectList, "", new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.Type_Of_Risk, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -51,7 +51,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Potential_Risk, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Potential_Risk, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.DropDownListFor(model => model.Potential_Risk, ViewBag.locations[2] as SelectList, "", new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.Potential_Risk, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -59,7 +59,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.MOH_Visit, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.MOH_Visit, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.DropDownListFor(model => model.MOH_Visit, ViewBag.locations[2] as SelectList, "", new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.MOH_Visit, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -67,7 +67,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Risk_Legal_Action, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Risk_Legal_Action, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.DropDownListFor(model => model.Risk_Legal_Action, ViewBag.locations[2] as SelectList, "", new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.Risk_Legal_Action, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -75,7 +75,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Hot_Alert, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Hot_Alert, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.DropDownListFor(model => model.Hot_Alert, ViewBag.locations[2] as SelectList, "", new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.Hot_Alert, "", new { @class = "text-danger" })
                 </div>
             </div>

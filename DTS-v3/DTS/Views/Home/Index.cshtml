@@ -27,7 +27,7 @@
                 @Html.DropDownListFor(model => model.Care_Community_Centre, ViewBag.listing[0] as SelectList, "", new { id = "drop1" })
             </label>
             @Html.ActionLink("ADD", "Care_Community", "Home", "", new { @class = "btnCommunity" })<br />
-            <span style="font-family:'Palatino Linotype';color:red;margin:0 0 0 180px">@ViewBag.EmptyRequired</span>
+            <span style="color:brown;margin:0 0 0 180px">@ViewBag.EmptyRequired</span>
         </label>
         <br />
         <label class="contact" for="user">
