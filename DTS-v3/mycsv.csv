@@ -1,0 +1,15 @@
+Id,Date,CI_Form_Number,CI_Category_Type,Location,Brief_Description,MOH_Notified,Police_Notified,POAS_Notified,Care_Plan_Updated,Quality_Improvement_Actions,MOHLTC_Follow_Up,CIS_Initiated,Follow_Up_Amendments,Risk_Locked,File_Complete
+10,3/2/2021 12:00:00 AM,231123TEST2021,4,Bearbrook Retirement Residence
+,something,yes,yes,no ,yes,n/a,yes,no,yes,yes,no
+22,3/3/2021 12:00:00 AM,231123TEST,13,Bearbrook Retirement Residence
+,n/a,No,Yes,,Yes,,Phone Call,,,,
+12,3/11/2021 12:00:00 AM,231123TEST,14,Astoria Retirement Residence
+,nana,yes,no ,yes,no ,yes,yes,yes,yes,yes,yes
+13,3/3/2021 12:00:00 AM,231123TEST,3,Astoria Retirement Residence
+,nanananan,,,,,,,,,,
+24,3/19/2021 12:00:00 AM,231123TEST,1,Bradford Valley Care Community
+,testing,Yes,,No,,,,,,,
+27,3/10/2021 12:00:00 AM,231123TEST,4,Altamont Care Community
+,fdsfasdf,,,,,,,,,Yes,Yes
+26,3/9/2021 12:00:00 AM,testing this,15,Bloomington Cove Care Community
+,something happened,,No,,,,,,,Yes,No

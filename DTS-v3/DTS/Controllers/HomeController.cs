@@ -14,6 +14,8 @@ namespace DTS.Controllers
     {
         MyContext db = new MyContext();
         static string notsel;
+        public static int[] counts;
+        public static List<string> strs;
         public static string path { get; set; }
         public static int Id_Location { get; set; }
         List<CI_Category_Type> categories;
@@ -312,6 +314,8 @@ namespace DTS.Controllers
         [HttpPost]
         public ActionResult WOR_Tabs(WorTabs Value)
         {
+            DateTime start = DateTime.MinValue, end = DateTime.MinValue;
+            string errorMsg = string.Empty;
             if (Value != null && Value.Name != null)
             {
                 string btnName = Request.Params
@@ -330,9 +334,37 @@ namespace DTS.Controllers
                     int id = int.Parse(Value.Name);
                     return RedirectToAction($"../Home/GoToSelectForm/{id}");
                 }
-                else // if btn-summary
+                else if (btnName.Equals("-export"))
                 {
-                    DateTime start = Value.Start, end = Value.End;
+                    start = Value.Start;
+                    end = Value.End;
+                    if (start != DateTime.MinValue && end != DateTime.MinValue)
+                    {
+                        TablesContainer.list1 = (from ent in db.Critical_Incidents where ent.Date >= start && ent.Date <= end select ent).ToList();
+                        if (TablesContainer.list1.Count != 0)
+                        {
+                            string msg = new STREAM().WriteTo_CSV(TablesContainer.list1);
+                        }
+                        else 
+                        { 
+                            ViewBag.ErrorMsg = errorMsg = "Nothing found to your choice dates..";
+                            WorTabs tabs = new WorTabs();
+                            tabs.ListForms = GetFormNames();
+                            return View(tabs);
+                        }
+                    }
+                    else
+                    {
+                        ViewBag.ErrorMsg = errorMsg = "Please choose the dates from the list";
+                        WorTabs tabs = new WorTabs();
+                        tabs.ListForms = GetFormNames();
+                        return View(tabs);
+                    }
+                }
+                else if(btnName.Equals("-summary"))
+                {
+                    start = Value.Start;
+                    end = Value.End;
                     int id = int.Parse(Value.Name);
                     var tbl_list = GetTableById(id).ToArray().ToList();
                     Type type = tbl_list[1].GetType();
@@ -341,11 +373,30 @@ namespace DTS.Controllers
                     {
                         ViewBag.TableName = entity;
                     }
-                    
+
                     switch (entity)
                     {
                         case "Critical_Incidents":
                             TablesContainer.list1 = (from ent in db.Critical_Incidents where ent.Date >= start && ent.Date <= end select ent).ToList();
+                            var ci = db.CI_Category_Types.ToList();
+
+                            var names = new List<string>();
+                            foreach (var n in ci)
+                                names.Add(n.Name);
+
+                            counts = new int[ci.Count]; // for each parameter CI_Category_Type set up count
+
+                            for(int i = 0; i < counts.Length; i++)
+                                counts[i] = 0;
+                            var g = TablesContainer.list1.GroupBy(i => i.CI_Category_Type);
+
+                            strs = new List<string>();
+                            foreach (var group in g)
+                            {
+                                strs.Add($"{names[group.Key - 1]}\t-\t{group.Count()}" );
+                            }
+
+                            #region Count of all found records:
                             foreach (var i in TablesContainer.list1)
                             {
                                 if (i.Brief_Description != null) TablesContainer.c1++;
@@ -364,11 +415,14 @@ namespace DTS.Controllers
                                 if (i.Quality_Improvement_Actions != null) TablesContainer.c14++;
                                 if (i.Risk_Locked != null) TablesContainer.c15++;
                             }
+
                             TablesContainer.count_arr.AddRange(new int[] {
                             TablesContainer.c1++,TablesContainer.c2++,TablesContainer.c3++,TablesContainer.c4++,TablesContainer.c5++,
                             TablesContainer.c6++,TablesContainer.c7++,TablesContainer.c8++,TablesContainer.c9++,TablesContainer.c10++,
                             TablesContainer.c11++,TablesContainer.c12++,TablesContainer.c13++,TablesContainer.c14++,TablesContainer.c15++
                             });
+                            #endregion
+
                             return RedirectToAction($"../Statistics/{entity}");                  
                         case "Complaint":
                             List<Complaint> list2 = (from ent in db.Complaints where ent.DateReceived >= start && ent.DateReceived <= end select ent).ToList();
@@ -411,6 +465,13 @@ namespace DTS.Controllers
                             return RedirectToAction($"../Statistics/{entity}");
                     }
                 }
+            }
+            else  //  if you don't selected anything from list
+            {
+                ViewBag.ErrorMsg = errorMsg = "Please select something from the list on the left side";
+                WorTabs tabs = new WorTabs();
+                tabs.ListForms = GetFormNames();
+                return View(tabs);
             }
 
             return RedirectToAction("../Home/WOR_Tabs");

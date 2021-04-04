@@ -3,7 +3,7 @@
     ViewBag.Title = "WOR Tabs Forms";
 }
 
-@*<h1 style="text-align:center;font-weight:bold;color:darkorange">WOR Tabs Forms</h1>*@
+<h4 style="text-align:center;font-weight:bold;color:red">@ViewBag.ErrorMsg</h4>
 <br />
 <br />
 @using (Html.BeginForm("WOR_Tabs", "Home", FormMethod.Post))
@@ -17,8 +17,8 @@
     <div id="rightBox">
         <ul style="font-size: xx-large;margin-right:2px" class="nav nav-justified badge">
             <li><button class="btn add-on" style="color:darkgoldenrod;font-size:medium;font-weight:bold" name="btn-summary" type="submit">SUMMARY</button></li>
-            <li><button class="nav nav badge" name="btn-insert" style="color: darkorange; font-size: medium; font-weight: bold" type="submit">NEW COMPLIENCE</button></li>
-            <li><button class="btn btn-dropbox" name="btn-insert" style="color: darkgoldenrod; font-size: medium; font-weight: bold" type="submit">EXPORT DATA</button></li>
+            <li><button class="btn btn-dropbox" name="btn-insert" style="width:220px; color:darkgoldenrod;font-size:medium;font-weight:bold"type="submit">NEW COMPLIENCE</button></li>
+            <li><button class="btn btn-dropbox" name="btn-export" style="color: darkgoldenrod; font-size: medium; font-weight: bold" type="submit">EXPORT DATA</button></li>
         </ul>
         <ul class="nav nav-justified" id="btns">
       @*<li><button hidden type="submit"></button></li>

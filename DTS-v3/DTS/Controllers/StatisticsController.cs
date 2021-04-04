@@ -1,16 +1,35 @@
 ﻿namespace DTS.Controllers
 {
     using DTS.Models;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Web.Mvc;
 
     public class StatisticsController : Controller
     {
+        MyContext db;
+
+        public StatisticsController() => db = new MyContext();
+
         public ActionResult Critical_Incidents()
         {
-            var arr = TablesContainer.count_arr;
-            TablesContainer.c1 = TablesContainer.c2 = TablesContainer.c3 = TablesContainer.c4 = TablesContainer.c5 = TablesContainer.c6 = TablesContainer.c7 = TablesContainer.c8 =
-                TablesContainer.c9 = TablesContainer.c10 = TablesContainer.c11 = TablesContainer.c12 = TablesContainer.c13 = TablesContainer.c14 = TablesContainer.c15 = 0;
-            return View(arr);
+            var arr = TablesContainer.list1.Count;
+
+            {
+               ViewBag.Count = arr; 
+            }
+
+            {
+                ViewBag.CI_Found = HomeController.strs;
+            }
+            //TablesContainer.c1 = TablesContainer.c2 = TablesContainer.c3 = TablesContainer.c4 = TablesContainer.c5 = TablesContainer.c6 = TablesContainer.c7 = TablesContainer.c8 =
+            //    TablesContainer.c9 = TablesContainer.c10 = TablesContainer.c11 = TablesContainer.c12 = TablesContainer.c13 = TablesContainer.c14 = TablesContainer.c15 = 0;
+            //var list = db.CI_Category_Types.ToList();
+            //var arrNames = new List<string>();
+            //foreach (var name in list)
+            //    arrNames.Add(name.Name);
+            //ViewBag.CI = arrNames;
+            return View();
         }
 
         public ActionResult Complaint()
