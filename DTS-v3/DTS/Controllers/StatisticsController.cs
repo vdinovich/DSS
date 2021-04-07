@@ -39,6 +39,14 @@
 
         public ActionResult Good_News()
         {
+            var arr = TablesContainer.list3.Count;
+            {
+                ViewBag.Count = arr;
+            }
+
+            {
+                ViewBag.GN_Found = HomeController.strN;
+            }
             return View();
         }
 

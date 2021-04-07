@@ -4834,6 +4834,7 @@
     <Content Include="Views\Delete\Not_WSIB_Delete.cshtml" />
     <Content Include="Views\AdminLTE\SearchByWord.cshtml" />
     <Content Include="Views\Statistics\Critical_Incidents.cshtml" />
+    <Content Include="Views\Statistics\Good_News.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="PrintTables\" />

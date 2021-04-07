@@ -15,7 +15,7 @@ namespace DTS.Controllers
         MyContext db = new MyContext();
         static string notsel;
         public static int[] counts;
-        public static List<string> strs;
+        public static List<string> strs, strN;
         public static string path { get; set; }
         public static int Id_Location { get; set; }
         List<CI_Category_Type> categories;
@@ -28,13 +28,13 @@ namespace DTS.Controllers
                  written = new string[] { "Verbal", "Written" },
                  direct = new string[] { "Direct", "Corporate", "Both" },
                  resident = new string[] { "Resident", "Family", "Visitor", "Stuff", "Other" },
-                 department = new string[] { "Nursing", "Nursing Admin", "Admin", "Programs", "Food Service", "Maintainence", "Housekeeping", "Laundry", "Other" },
                  resolved = new string[] { "Yes", "No", "Ongoing" },
                  ministry = new string[] { "Yes", "No" },
-                 category = new string[] { "GoodNews", "Compliments" },
+                 categoryGoodNews = new string[] { "GoodNews", "Compliments" },
+                 departmentGoodNews = new string[] { "Nursing", "Nursing Admin", "Admin", "Programs", "Food Service", "Maintainence", "Housekeeping", "Laundry", "Other" },
+                 sourceGoodNews = new string[] { "Let's Connect", "Card", "Email", "Letter", "Verbal", "Other" },
                  department2 = new string[] {"All","Nursing","Housekeeping","Laundry","Maintenance","Dietary","Recriation","Administration","Individual(s)",
                                             "Physio", "Hairdresser", "Physician","Foot care", "Dental", "Other", "Yes", "No"},
-                 source = new string[] { "Let's Connect", "Card", "Email", "Letter", "Verbal", "Other" },
                  receiveFrom = new string[] { "Resident", "Family", "Supplier", "SSO", "Manager", "Leadership", "Tour", "Other" },
                  picture = new string[] { "Yes", "No" },
                  risk_list = new string[] { "Adverse Event", "Environmental", "Infortmation Technology", "Insurance", "Legal", "Near Miss", "Serious Adverse Event",
@@ -59,14 +59,14 @@ namespace DTS.Controllers
             list6 = new SelectList(written);
             list7 = new SelectList(direct);
             list8 = new SelectList(resident);
-            list9 = new SelectList(department);
+            list9 = new SelectList(departmentGoodNews);
             list10 = new SelectList(resolved);
             list11 = new SelectList(ministry);
 
             // for GoodNews table:
-            list12 = new SelectList(category);
+            list12 = new SelectList(categoryGoodNews);
             list13 = new SelectList(department2);
-            list14 = new SelectList(source);
+            list14 = new SelectList(sourceGoodNews);
             list15 = new SelectList(receiveFrom);
             list16 = new SelectList(picture);
 
@@ -429,6 +429,34 @@ namespace DTS.Controllers
                             return RedirectToAction($"../Statistics/{entity}"); 
                         case "Good_News":
                             TablesContainer.list3 = (from ent in db.Good_News where ent.DateNews >= start && ent.DateNews <= end select ent).ToList();
+                            if (TablesContainer.list3.Count() == 0)
+                            {
+                                ViewBag.ErrorMsg = errorMsg = "Please select a date range.";
+                                WorTabs tabs = new WorTabs();
+                                tabs.ListForms = GetFormNames();
+                                return View(tabs);
+                            }
+                            var news = db.Good_News.ToList();
+
+                            strN = new List<string>();
+                            var categ = TablesContainer.list3.GroupBy(i => i.Category);
+                            strN.Add("Category: ");
+                            if (categ != null)
+                                foreach (var e in categ)
+                                    strN.Add($"{e.Key}\t - \t{e.Count()}");
+
+                            strN.Add("Department: ");
+                            var depart = TablesContainer.list3.GroupBy(i => i.Department);
+                            if (depart != null)
+                                foreach (var d in depart)
+                                    strN.Add($"{d.Key}\t - \t{d.Count()}");
+
+                            strN.Add("Source of Compliment: ");
+                            var compl = TablesContainer.list3.GroupBy(i => i.SourceCompliment);
+                            if (compl != null)
+                                foreach (var cc in compl)
+                                    strN.Add($"{cc.Key}\t - \t{cc.Count()}");
+
                             return RedirectToAction($"../Statistics/{entity}");
                         case "Emergency_Prep":
                             //TablesContainer.list4 = (from ent in db.Emergency_Prep where ent.D >= start && ent.DateNews <= end select ent).ToList();
