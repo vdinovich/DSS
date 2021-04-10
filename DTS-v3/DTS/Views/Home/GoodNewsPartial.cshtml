@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "Good News";
+}
+
+<h2 style="text-align:center;color:darkorchid">Good News (Records Found - <span style="color:black">@ViewBag.Count</span>)</h2>
+
+@foreach (var ci in ViewBag.GN_Found)
+{
+    if (ci.Contains("Category"))
+    {
+        <br />
+        <p style="color:red">@ci</p>
+    }
+    else if (ci.Contains("Department"))
+    {
+        <br />
+        <p style="color:red">@ci</p>
+    }
+    else if (ci.Contains("Source of Compliment: "))
+    {
+        <br />
+        <p style="color:red">@ci</p>
+    }
+    else
+    {
+        <p style="color:black">
+            @ci
+        </p>
+    }
+}
+

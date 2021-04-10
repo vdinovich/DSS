@@ -4835,8 +4835,10 @@
     <Content Include="Views\AdminLTE\SearchByWord.cshtml" />
     <Content Include="Views\Statistics\Critical_Incidents.cshtml" />
     <Content Include="Views\Statistics\Good_News.cshtml" />
+    <Content Include="Views\Home\GoodNewsPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="DownloadedFiles\" />
     <Folder Include="PrintTables\" />
     <Folder Include="Views\WSIB\" />
   </ItemGroup>

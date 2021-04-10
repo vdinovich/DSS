@@ -16,7 +16,7 @@ namespace DTS.Controllers
         static string notsel;
         public static int[] counts;
         public static List<string> strs, strN;
-        public static string path { get; set; }
+        public static string path;
         public static int Id_Location { get; set; }
         List<CI_Category_Type> categories;
         List<Care_Community> communities;
@@ -256,7 +256,7 @@ namespace DTS.Controllers
                         }
 
                         // Get the complete folder path and store the file inside it.  
-                        fname = Path.Combine(Server.MapPath("~/Uploaded_Files/"), fname);
+                    
                         file.SaveAs(fname);
                     }
                     // Returns message that successfully uploaded  
@@ -299,12 +299,27 @@ namespace DTS.Controllers
                 string path = Path.Combine(Server.MapPath($"~/Uploaded_Files/{item}"));
                 System.IO.File.Delete(path);
             }
-            if (!flag) return Json("There is nothing to delete...Please upload any file!");
+            if (!flag) return Json("There is nothing to delete...Please upload a file first.");
             else return RedirectToAction("../Home/AllFiles");
         }
 
+        static string checkView = "none";
+        static bool b = false;
         public ActionResult WOR_Tabs()
         {
+            if (b)
+            {
+                var arr = TablesContainer.list3.Count;
+
+                {
+                    ViewBag.Count = arr;
+                }
+
+                {
+                    ViewBag.GN_Found = strN;
+                }
+            }
+            ViewBag.Check = checkView;
             WorTabs tabs = new WorTabs();
             tabs.ListForms = GetFormNames();
 
@@ -314,6 +329,7 @@ namespace DTS.Controllers
         [HttpPost]
         public ActionResult WOR_Tabs(WorTabs Value)
         {
+            //ViewBag.Check = checkView;
             DateTime start = DateTime.MinValue, end = DateTime.MinValue;
             string errorMsg = string.Empty;
             if (Value != null && Value.Name != null)
@@ -326,11 +342,15 @@ namespace DTS.Controllers
 
                 if (btnName.Equals("-list"))
                 {
+                    checkView = "list";
+                    ViewBag.Check = checkView;
                     string name = Value.Name;
                     return GoToSelectFormList($"../Home/GoToSelectFormList/{name}");
                 }
                 else if(btnName.Equals("-insert"))
                 {
+                    checkView = "insert";
+                    ViewBag.Check = checkView;
                     int id = int.Parse(Value.Name);
                     return RedirectToAction($"../Home/GoToSelectForm/{id}");
                 }
@@ -341,13 +361,20 @@ namespace DTS.Controllers
                     if (start != DateTime.MinValue && end != DateTime.MinValue)
                     {
                         TablesContainer.list1 = (from ent in db.Critical_Incidents where ent.Date >= start && ent.Date <= end select ent).ToList();
+                        var query1 = (from ent in db.Good_News where ent.DateNews >= start && ent.DateNews <= end select ent).ToList();
                         if (TablesContainer.list1.Count != 0)
                         {
+                            // new STREAM().WriteToCSV(query1); // to be continue..
                             string msg = new STREAM().WriteTo_CSV(TablesContainer.list1);
+                            string msg1 = new STREAM().WriteTo2_CSV(query1);
+                            ViewBag.SuccessExport = "Data for Good News form was exported successfully to a .csv file!";
+                            WorTabs tabs = new WorTabs();
+                            tabs.ListForms = GetFormNames();
+                            return View(tabs);
                         }
                         else 
                         { 
-                            ViewBag.ErrorMsg = errorMsg = "Nothing found to your choice dates..";
+                            ViewBag.ErrorMsg = errorMsg = "There was nothing found within the date range that was chosen.";
                             WorTabs tabs = new WorTabs();
                             tabs.ListForms = GetFormNames();
                             return View(tabs);
@@ -363,6 +390,8 @@ namespace DTS.Controllers
                 }
                 else if(btnName.Equals("-summary"))
                 {
+                    checkView = "summary";
+                    ViewBag.Check = checkView;
                     start = Value.Start;
                     end = Value.End;
                     int id = int.Parse(Value.Name);
@@ -396,6 +425,7 @@ namespace DTS.Controllers
                                 strs.Add($"{names[group.Key - 1]}\t-\t{group.Count()}" );
                             }
 
+                            ViewBag.Entity = entity;
                             #region Count of all found records:
                             foreach (var i in TablesContainer.list1)
                             {
@@ -422,8 +452,8 @@ namespace DTS.Controllers
                             TablesContainer.c11++,TablesContainer.c12++,TablesContainer.c13++,TablesContainer.c14++,TablesContainer.c15++
                             });
                             #endregion
-
-                            return RedirectToAction($"../Statistics/{entity}");                  
+                            break;
+                            //return RedirectToAction($"../Statistics/{entity}");                  
                         case "Complaint":
                             List<Complaint> list2 = (from ent in db.Complaints where ent.DateReceived >= start && ent.DateReceived <= end select ent).ToList();
                             return RedirectToAction($"../Statistics/{entity}"); 
@@ -456,8 +486,23 @@ namespace DTS.Controllers
                             if (compl != null)
                                 foreach (var cc in compl)
                                     strN.Add($"{cc.Key}\t - \t{cc.Count()}");
+                            ViewBag.Entity = entity;
 
-                            return RedirectToAction($"../Statistics/{entity}");
+                            ///
+                            b = true;
+                            var arr = TablesContainer.list3.Count;
+
+                            {
+                                ViewBag.Count = arr;
+                            }
+
+                            {
+                                ViewBag.GN_Found = HomeController.strN;
+                            }
+
+                            ///
+                            break;
+                            //return RedirectToAction($"../Statistics/{entity}");
                         case "Emergency_Prep":
                             //TablesContainer.list4 = (from ent in db.Emergency_Prep where ent.D >= start && ent.DateNews <= end select ent).ToList();
                             return RedirectToAction($"../Statistics/{entity}");
@@ -494,9 +539,9 @@ namespace DTS.Controllers
                     }
                 }
             }
-            else  //  if you don't selected anything from list
+            else  //  if you didn't select anything from the list on the left
             {
-                ViewBag.ErrorMsg = errorMsg = "Please select something from the list on the left side";
+                ViewBag.ErrorMsg = errorMsg = "Please select a form the list on the left.";
                 WorTabs tabs = new WorTabs();
                 tabs.ListForms = GetFormNames();
                 return View(tabs);
@@ -504,6 +549,11 @@ namespace DTS.Controllers
 
             return RedirectToAction("../Home/WOR_Tabs");
         }
+
+        //public ActionResult GoodNewsPartial()
+        //{
+        //    return View();
+        //}
 
         #region All Forms:
         SelectList GetFormNames()

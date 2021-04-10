@@ -4,6 +4,7 @@
 }
 
 <h4 style="text-align:center;font-weight:bold;color:red">@ViewBag.ErrorMsg</h4>
+<h4 style="text-align:center;font-weight:bold;color:green">@ViewBag.SuccessExport</h4>
 <br />
 <br />
 @using (Html.BeginForm("WOR_Tabs", "Home", FormMethod.Post))
@@ -17,7 +18,7 @@
     <div id="rightBox">
         <ul style="font-size: xx-large;margin-right:2px" class="nav nav-justified badge">
             <li><button class="btn add-on" style="color:darkgoldenrod;font-size:medium;font-weight:bold" name="btn-summary" type="submit">SUMMARY</button></li>
-            <li><p  class="btn btn-dropbox" name="btn-insert" style="width:220px;background-color:whitesmoke; color:darkgoldenrod;font-size:medium;font-weight:bold" id="hiddenShow">NEW COMPLIENCE</p></li>
+            <li><p class="btn btn-dropbox" name="btn-insert" style="width:220px;background-color:whitesmoke; color:darkgoldenrod;font-size:medium;font-weight:bold" id="hiddenShow">NEW COMPLIENCE</p></li>
             <li><button class="btn btn-dropbox" name="btn-export" style="color: darkgoldenrod; font-size: medium; font-weight: bold" type="submit">EXPORT DATA</button></li>
         </ul>
         <ul class="nav nav-justified" id="btns">
@@ -32,6 +33,32 @@
             <li style="color: darkorange;font-size: medium">Start:&nbsp; @Html.EditorFor(model => model.Start, new { htmlAttributes = new { @class = "", @id = "start" } })</li>
             <li style="color: darkorange;font-size: medium">End:&nbsp;   @Html.EditorFor(model => model.End, new { htmlAttributes = new { @class = "", @id = "end" } })</li>
         </ul>
+
+        @if (ViewBag.Check == "none")
+        {
+
+        }
+        else if (ViewBag.Check == "insert")
+        {
+            @*<br /><br />
+            <ul style="list-style-type:none" class="table table-bordered">
+                <li>@Html.Partial("")</li>
+            </ul>*@
+        }
+        else if (ViewBag.Check == "list")
+        {
+            @*<br /><br />
+            <ul style="list-style-type:none" class="table table-bordered">
+                <li>@Html.Partial("")</li>
+            </ul>*@
+        }
+        else if (ViewBag.Check == "summary")
+        {
+            <br /><br />
+            <ul style="list-style-type:none" class="">
+                <li>@{Html.RenderPartial("GoodNewsPartial", (List<string>)ViewBag.GN_Found);}</li>
+            </ul>
+        }
     </div>
 }
 
@@ -42,8 +69,8 @@
         $("#hiddenShow").click(function () {
             var sel = document.getElementById("ll").style;
             if (sel.display == "none")
-            $("#ll").show("slow");
-             else $("#ll").hide("slow");
+                $("#ll").show("slow");
+            else $("#ll").hide("slow");
         });
     });
 
@@ -76,7 +103,7 @@
         margin: 0 0 0 370px;
         width: 900px;
         padding: 22px;
-        height: 550px
+        height: 1050px
     }
 
     #container {
