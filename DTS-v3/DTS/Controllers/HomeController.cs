@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -326,6 +327,7 @@ namespace DTS.Controllers
             return View(tabs);
         }
 
+        static string model_name;
         [HttpPost]
         public ActionResult WOR_Tabs(WorTabs Value)
         {
@@ -360,17 +362,31 @@ namespace DTS.Controllers
                     end = Value.End;
                     if (start != DateTime.MinValue && end != DateTime.MinValue)
                     {
-                        TablesContainer.list1 = (from ent in db.Critical_Incidents where ent.Date >= start && ent.Date <= end select ent).ToList();
-                        var query1 = (from ent in db.Good_News where ent.DateNews >= start && ent.DateNews <= end select ent).ToList();
-                        if (TablesContainer.list1.Count != 0)
+                      
+                        //var query1 = (from ent in db.Good_News where ent.DateNews >= start && ent.DateNews <= end select ent).ToList();
+                        int id = int.Parse(Value.Name);
+                        var tbl_list = GetTableById(id).ToArray().ToList();
+                        Type type = tbl_list[1].GetType();
+                        string entity = type.Name;
+                        object model = Searcher.FindObjByName(entity);
+                        if (model.GetType() == typeof(Critical_Incidents))
                         {
+                            model_name = model.GetType().Name;
+                            TablesContainer.list1 = (from ent in db.Critical_Incidents where ent.Date >= start && ent.Date <= end select ent).ToList();
                             // new STREAM().WriteToCSV(query1); // to be continue..
-                            string msg = new STREAM().WriteTo_CSV(TablesContainer.list1);
-                            string msg1 = new STREAM().WriteTo2_CSV(query1);
-                            ViewBag.SuccessExport = "Data for Good News form was exported successfully to a .csv file!";
-                            WorTabs tabs = new WorTabs();
-                            tabs.ListForms = GetFormNames();
-                            return View(tabs);
+                            return RedirectToAction("../Home/ExportToCSV");
+                            //string msg = new STREAM().WriteTo_CSV(TablesContainer.list1);
+                            //string msg1 = new STREAM().WriteTo2_CSV(query1);
+                            //ViewBag.SuccessExport = "Data for Good News form was exported successfully to a .csv file!";
+                            //WorTabs tabs = new WorTabs();
+                            //tabs.ListForms = GetFormNames();
+                            //return View(tabs);
+                        }
+                        else if (model.GetType() == typeof(Good_News))
+                        {
+                            model_name = model.GetType().Name;
+                            TablesContainer.list3 = (from ent in db.Good_News where ent.DateNews >= start && ent.DateNews <= end select ent).ToList();
+                            return RedirectToAction("../Home/ExportToCSV");
                         }
                         else 
                         { 
@@ -403,6 +419,7 @@ namespace DTS.Controllers
                         ViewBag.TableName = entity;
                     }
 
+                    #region Switch to show all object's Statistic:
                     switch (entity)
                     {
                         case "Critical_Incidents":
@@ -537,6 +554,7 @@ namespace DTS.Controllers
                             TablesContainer.list14 = (from ent in db.Not_WSIBs where ent.Date_of_Incident >= start && ent.Date_of_Incident <= end select ent).ToList();
                             return RedirectToAction($"../Statistics/{entity}");
                     }
+                    #endregion
                 }
             }
             else  //  if you didn't select anything from the list on the left
@@ -548,6 +566,88 @@ namespace DTS.Controllers
             }
 
             return RedirectToAction("../Home/WOR_Tabs");
+        }
+
+        [HttpGet]
+        public FileResult ExportToCSV()
+        {
+            if (model_name.Equals("Critical_Incidents"))
+            {
+                var lst = TablesContainer.list1.ToList<object>();
+
+                string[] names = typeof(Critical_Incidents).GetProperties().Select(property => property.Name).ToArray();
+
+                lst.Insert(0, names.Where(x => x != names[0]).ToArray());
+
+                #region Generate CSV
+
+                StringBuilder sb = new StringBuilder();
+                for (var i = 0; i < lst.Count; i++)
+                {
+                    if (i == 0)
+                    {
+                        string[] arrStudents = (string[])lst[0];
+                        foreach (var data in arrStudents)
+                        {
+                            //Append data with comma(,) separator.
+                            sb.Append(data + ',');
+                        }
+                    }
+                    else
+                    {
+                        sb.Append(lst[i]);
+                    }
+                    //Append new line character.
+                    sb.Append("\r\n");
+                }
+
+                #endregion
+
+                #region Download CSV
+
+                return File(Encoding.ASCII.GetBytes(sb.ToString()), "text/csv", "Critical_Incidents_NEW.csv");
+
+                #endregion
+            }
+            else if (model_name.Equals("Good_News"))
+            {
+                var lst = TablesContainer.list3.ToList<object>();
+
+                string[] names = typeof(Good_News).GetProperties().Select(property => property.Name).ToArray();
+
+                lst.Insert(0, names.Where(x => x != names[0]).ToArray());
+
+                #region Generate CSV
+
+                StringBuilder sb = new StringBuilder();
+                for (var i = 0; i < lst.Count; i++)
+                {
+                    if (i == 0)
+                    {
+                        string[] arrStudents = (string[])lst[0];
+                        foreach (var data in arrStudents)
+                        {
+                            //Append data with comma(,) separator.
+                            sb.Append(data + ',');
+                        }
+                    }
+                    else
+                    {
+                        sb.Append(lst[i]);
+                    }
+                    //Append new line character.
+                    sb.Append("\r\n");
+                }
+
+                #endregion
+
+                #region Download CSV
+
+                return File(Encoding.ASCII.GetBytes(sb.ToString()), "text/csv", "GoodNews_NEW.csv");
+
+                #endregion
+            }
+            return null;
         }
 
         //public ActionResult GoodNewsPartial()
