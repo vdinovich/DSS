@@ -13,6 +13,7 @@ namespace DTS.Controllers
 {
     public class HomeController : Controller
     {
+        #region Fields:
         MyContext db = new MyContext();
         static string notsel;
         public static int[] counts;
@@ -42,6 +43,9 @@ namespace DTS.Controllers
                      "Vendor", "Workplace Harrasement", "Other" },
                  visitAgency = new string[] { "MOH", "Fire", "TSSA", "Public Health", "PCQO", "QR Health Authority", "CNS", "Public Health - MHO", "Public Health - EHO", "Other" },
                  visitnumbers = new string[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" };
+        #endregion
+
+        #region Controller:
         public HomeController()
         {
             communities = db.Care_Communities.ToList();
@@ -78,6 +82,7 @@ namespace DTS.Controllers
             list18 = new SelectList(visitAgency);
             list19 = new SelectList(visitnumbers);
         }
+        #endregion
 
         public ActionResult Complaint_Insert()
         {
@@ -86,6 +91,7 @@ namespace DTS.Controllers
             return View();
         }
 
+        #region Complaints(Insert):
         [HttpPost]
         public ActionResult Complaint_Insert(Complaint entity)
         {
@@ -134,6 +140,7 @@ namespace DTS.Controllers
                 catch (Exception ex) { return HttpNotFound(ex.Message); }
             }
         }
+        #endregion
 
         [HttpGet]
         public ActionResult SignIN()
@@ -308,6 +315,10 @@ namespace DTS.Controllers
         static bool b = false;
         public ActionResult WOR_Tabs()
         {
+            if(Id_Location == 0)
+            ViewBag.List = TablesContainer.list3;
+            else
+                ViewBag.List = TablesContainer.list3 = db.Good_News.Where(l => l.Location == Id_Location).ToList();
             if (b)
             {
                 var arr = TablesContainer.list3.Count;
@@ -347,7 +358,42 @@ namespace DTS.Controllers
                     checkView = "list";
                     ViewBag.Check = checkView;
                     string name = Value.Name;
-                    return GoToSelectFormList($"../Home/GoToSelectFormList/{name}");
+
+                    start = Value.Start;
+                    end = Value.End;
+                    if (start != DateTime.MinValue && end != DateTime.MinValue)
+                    {
+                        TablesContainer.list3 = (from ent in db.Good_News where ent.DateNews >= start && ent.DateNews <= end select ent).ToList();
+
+                        if (TablesContainer.list3.Count != 0 || TablesContainer.list3 != null)
+                        {
+                            ViewBag.List = TablesContainer.list3;
+                            return RedirectToAction("../Home/WOR_Tabs");
+                        }
+                        ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
+                        WorTabs tabs = new WorTabs();
+                        tabs.ListForms = GetFormNames();
+                        return View(tabs);
+                    }
+                    else
+                    {
+                        if (Id_Location == 0)
+                        {
+                            ViewBag.ErrorMsg = "Location was not selected!";
+                            WorTabs tabs = new WorTabs();
+                            tabs.ListForms = GetFormNames();
+                            return View(tabs);
+                        }
+                        else
+                        {
+                            ViewBag.List = TablesContainer.list3 = db.Good_News.Where(l => l.Location == Id_Location).ToList();
+                            ViewBag.ErrorMsg = errorMsg = "Please select a date range.";
+                            WorTabs tabs = new WorTabs();
+                            tabs.ListForms = GetFormNames();
+                            return View(tabs);
+                        }
+                    }
+                    //return GoToSelectFormList($"../Home/GoToSelectFormList/{name}");
                 }
                 else if(btnName.Equals("-insert"))
                 {
@@ -443,6 +489,7 @@ namespace DTS.Controllers
                             }
 
                             ViewBag.Entity = entity;
+
                             #region Count of all found records:
                             foreach (var i in TablesContainer.list1)
                             {
@@ -559,13 +606,19 @@ namespace DTS.Controllers
             }
             else  //  if you didn't select anything from the list on the left
             {
-                ViewBag.ErrorMsg = errorMsg = "Please select a form the list on the left.";
+                ViewBag.ErrorMsg = errorMsg = "Please select a form from the list on the left.";
                 WorTabs tabs = new WorTabs();
                 tabs.ListForms = GetFormNames();
                 return View(tabs);
             }
 
             return RedirectToAction("../Home/WOR_Tabs");
+        }
+
+        public ActionResult GoToListForm(object name)
+        {
+            var list = TablesContainer.list3;
+            return View(list);
         }
 
         [HttpGet]
@@ -577,6 +630,7 @@ namespace DTS.Controllers
 
                 string[] names = typeof(Critical_Incidents).GetProperties().Select(property => property.Name).ToArray();
 
+
                 lst.Insert(0, names.Where(x => x != names[0]).ToArray());
 
                 #region Generate CSV
@@ -586,11 +640,17 @@ namespace DTS.Controllers
                 {
                     if (i == 0)
                     {
-                        string[] arrStudents = (string[])lst[0];
-                        foreach (var data in arrStudents)
+                        string[] titles = (string[])lst[0];
+                        foreach (string data in titles)
                         {
                             //Append data with comma(,) separator.
-                            sb.Append(data + ',');
+                            if (data == "Location")
+                            {
+                                string loc = "Location                   ";
+                                sb.Append(loc + ',');
+                            }
+                            else 
+                                sb.Append(data + ',');
                         }
                     }
                     else

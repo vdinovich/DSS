@@ -1,9 +1,13 @@
 ﻿namespace DTS.Models
 {
+    using System.Linq;
     using System.ComponentModel.DataAnnotations;
 
     public class Good_News
     {
+        string[] locNames;
+        public Good_News() => locNames = STREAM.GetLocNames().ToArray();
+
         public int Id { get; set; }
         [Required(ErrorMessage = "This field is required! Please fill it in.")]
         public int Location { get; set; }
@@ -27,5 +31,12 @@
         public string NameAwards { get; set; }
         public string Awards_Received { get; set; }
         public string Community_Inititives { get; set; }
+        public override string ToString()
+        {
+            return $"{locNames[Location - 1]},{DateNews},{Category},{Department},{SourceCompliment}," +
+                        $"{ReceivedFrom},{Description_Complim},{Respect},{Passion},{Teamwork},{Responsibility}," +
+                        $"{Growth},{Compliment},{Spot_Awards},{Awards_Details},{NameAwards},{Awards_Received}," +
+                        $"{Community_Inititives}";
+        }
     }
 }

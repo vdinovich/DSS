@@ -1,9 +1,17 @@
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace DTS.Models
 {
     public partial class Critical_Incidents
     {
+        string[] locNames, ciNames;
+        public Critical_Incidents()
+        {
+            locNames = STREAM.GetLocNames().ToArray();
+            ciNames = STREAM.GetCINames().ToArray();
+        }
+
         public int id { get; set; }
         [Required(ErrorMessage = "This field is required! Please fill it in.")]
         [DataType(DataType.Date)]
@@ -25,6 +33,13 @@ namespace DTS.Models
         public string CIS_Initiated { get; set; }
         public string Follow_Up_Amendments { get; set; }
         public string Risk_Locked { get; set; }
-        public string File_Complete { get; set; }    
+        public string File_Complete { get; set; }
+        public override string ToString()
+        {
+            return $"{Date},{CI_Form_Number},{ciNames[CI_Category_Type - 1]},{locNames[Location - 1]},{Brief_Description},{MOH_Notified}," +
+                        $"{Police_Notified},{POAS_Notified},{Care_Plan_Updated}," +
+                        $"{Quality_Improvement_Actions},{MOHLTC_Follow_Up}," +
+                        $"{CIS_Initiated},{Follow_Up_Amendments},{Risk_Locked},{File_Complete}";
+        }
     }
 }

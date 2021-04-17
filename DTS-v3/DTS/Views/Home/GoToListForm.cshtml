@@ -1,0 +1,122 @@
+﻿<table style="font-size:larger;font-family:'Palatino Linotype'" class="table">
+    <tr>
+        <th>
+            Location
+        </th>
+        <th>
+            DateNews
+        </th>
+        <th>
+            Category
+        </th>
+        <th>
+            Department
+        </th>
+        <th>
+            Source Compliment
+        </th>
+        <th>
+            Received From
+        </th>
+        <th>
+            Description Complim
+        </th>
+        <th>
+            Respect
+        </th>
+        <th>
+            Passion)
+        </th>
+        <th>
+            Teamwork
+        </th>
+        <th>
+            Responsibility
+        </th>
+        <th>
+            Growth
+        </th>
+        <th>
+            Compliment
+        </th>
+        <th>
+            Spot Awards
+        </th>
+        <th>
+            Awards Details
+        </th>
+        <th>
+            Name Awards
+        </th>
+        <th>
+            Awards Received)
+        </th>
+        <th>
+            Community Inititives
+        </th>
+        <th></th>
+    </tr>
+    @{
+        var list = (List<DTS.Models.Good_News>)ViewBag.List;
+        foreach (var item in list)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Location)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateNews)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Department)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SourceCompliment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReceivedFrom)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description_Complim)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Respect)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Passion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Teamwork)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Responsibility)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Growth)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Compliment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Spot_Awards)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Awards_Details)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NameAwards)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Awards_Received)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Community_Inititives)
+                </td>
+            </tr>
+        }
+    }
+
+</table>

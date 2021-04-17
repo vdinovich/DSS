@@ -4837,6 +4837,7 @@
     <Content Include="Views\Statistics\Critical_Incidents.cshtml" />
     <Content Include="Views\Statistics\Good_News.cshtml" />
     <Content Include="Views\Home\GoodNewsPartial.cshtml" />
+    <Content Include="Views\Home\GoToListForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DownloadedFiles\" />

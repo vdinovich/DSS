@@ -1,11 +1,9 @@
 ﻿namespace DTS.Models
 {
-    using DTS.Controllers;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Web;
-    using System.Web.Mvc;
 
     public class STREAM
     {
@@ -62,6 +60,7 @@
             return msg;
         }
 
+        #region Test method:
         public void WriteToCSV(List<Good_News> doc)
         {
             var locNames = new List<string>();
@@ -124,5 +123,26 @@
             tw.Close();
             context.Response.End();
         }
+        #endregion
+
+        #region Methods get Names of Location, CI_Category_Type:
+        public static IEnumerable<string> GetLocNames()
+        {
+            var locNames = new List<string>();
+            var list = new MyContext().Care_Communities.ToList();
+            foreach (var it in list)
+                locNames.Add(it.Name.Replace('\r', '\0').Replace('\n', '\0'));
+            return locNames;
+        }
+
+        public static IEnumerable<string> GetCINames()
+        {
+            var ciNames = new List<string>();
+            var list = new MyContext().CI_Category_Types.ToList();
+            foreach (var it in list)
+                ciNames.Add(it.Name.Replace('\r', '\0').Replace('\n', '\0'));
+            return ciNames;
+        }
+        #endregion
     }
 }
