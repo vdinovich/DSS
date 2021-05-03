@@ -1,0 +1,87 @@
+﻿b
+<table style="font-size:medium;font-family:'Palatino Linotype'" class="table table-bordered">
+    <tr>
+        <th>
+            Date of Visit
+        </th>
+        <th>
+            Location
+        </th>
+        <th>
+            Agency
+        </th>
+        <th>
+            Number of Findings
+        </th>
+        <th>
+            Details of Findings
+        </th>
+        <th>
+            Corrective Actions
+        </th>
+        <th>
+            Report Posted
+        </th>
+    </tr>
+    @{
+        string[] names = ViewBag.Names;
+        var list = (List<DTS.Models.Visits_Others>)ViewBag.List;
+        foreach (var item in list)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date_of_Visit)
+            </td>
+            <td>
+                @names[item.Location - 1]
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Agency)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Number_of_Findings)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Details_of_Findings)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Corrective_Actions)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Report_Posted)
+            </td>
+            <td id="btns">
+                @Html.ActionLink("Edit", "Edit_Visits_Others", "Edit", new { id = item.Id }, new { @class = "b" })
+                @Html.ActionLink("Details", "Visits_Others_Details", "Details", new { id = item.Id }, new { @class = "b" })
+                @Html.ActionLink("Delete", "Visits_Others_Delete", "Delete", new { id = item.Id }, new { @class = "b" })
+            </td>
+        </tr>
+        }
+    }
+
+</table>
+<style>
+    #btns {
+        width: 300px;
+    }
+
+    .b {
+        border: 1px solid blue;
+        border-radius: 6px;
+        color: darkred;
+        text-decoration: none;
+        padding: 6px;
+        font-size:medium;
+    }
+
+        .b:hover {
+            color: red;
+            text-decoration: none;
+            background-color: blue;
+        }
+</style>
+
+
+
+
+

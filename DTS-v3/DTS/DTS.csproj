@@ -4838,6 +4838,20 @@
     <Content Include="Views\Statistics\Good_News.cshtml" />
     <Content Include="Views\Home\GoodNewsPartial.cshtml" />
     <Content Include="Views\Home\GoToListForm.cshtml" />
+    <Content Include="Views\Home\IncidentPartial.cshtml" />
+    <Content Include="Views\Home\ComplaintsPartial.cshtml" />
+    <Content Include="Views\Home\RelationPartial.cshtml" />
+    <Content Include="Views\RiskLegalPartial.cshtml" />
+    <Content Include="Views\Home\RiskLegalPartial.cshtml" />
+    <Content Include="Views\Home\EmergencyPrepPartial.cshtml" />
+    <Content Include="Views\Home\VisitOtherPartial.cshtml" />
+    <Content Include="Views\Home\PrivacyBreachPartial.cshtml" />
+    <Content Include="Views\Home\PrivacyComplaintsPartial.cshtml" />
+    <Content Include="Views\Home\EducationPartial.cshtml" />
+    <Content Include="Views\Home\ImmunPartial.cshtml" />
+    <Content Include="Views\Home\OutbrakePartial.cshtml" />
+    <Content Include="Views\Home\WSIBPartial.cshtml" />
+    <Content Include="Views\Home\NoWSIBPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DownloadedFiles\" />

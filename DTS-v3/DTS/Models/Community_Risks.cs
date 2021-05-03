@@ -1,9 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace DTS.Models
+﻿namespace DTS.Models
 {
+    using System.ComponentModel.DataAnnotations;
+    using System.Linq;
+
     public class Community_Risks
     {
+        string[] locNames;
+        public Community_Risks() => locNames = STREAM.GetLocNames().ToArray();
         public int Id { get; set;}
         [Required(ErrorMessage = "This field is required! Please fill it in.")]
         [DataType(DataType.Date)]
@@ -20,5 +23,10 @@ namespace DTS.Models
         public string Hot_Alert { get; set; }
         public string Status_Update { get; set; }
         public string Resolved { get; set; }
+        public override string ToString()
+        {
+            return $"{Date},{locNames[Location - 1]},{Type_Of_Risk},{Descriptions},{Potential_Risk}," +
+                        $"{MOH_Visit},{Risk_Legal_Action},{Hot_Alert},{Status_Update},{Resolved}";
+        }
     }
 }

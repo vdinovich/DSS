@@ -1,9 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace DTS.Models
 {
     public class Privacy_Breaches
     {
+        string[] locNames;
+        public Privacy_Breaches() => locNames = STREAM.GetLocNames().ToArray();
         public int Id { get; set; }
         [Required(ErrorMessage = "This field is required! Please fill it in.")]   
         [DataType(DataType.Text)]
@@ -20,5 +23,10 @@ namespace DTS.Models
         public string Type_of_PHI_Involved { get; set; }
         public int Number_of_Individuals_Affected { get; set; }
         public string Risk_Level { get; set; }
+        public override string ToString()
+        {
+            return $"{locNames[Location - 1]},{Status},{Date_Breach_Occurred},{Description_Outcome},{Date_Breach_Reported},{Date_Breach_Reported_By},{Type_of_Breach},{Type_of_PHI_Involved},{Number_of_Individuals_Affected}" +
+                $",{Risk_Level}";
+        }
     }
 }

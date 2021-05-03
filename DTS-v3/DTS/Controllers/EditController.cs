@@ -305,8 +305,9 @@ namespace DTS.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(entity).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("../Select/Outbreaks");
+                int res = db.SaveChanges();
+                var listUpd = db.Outbreaks.ToList();
+                return RedirectToAction("../Home/WOR_Tabs"); 
             }
 
             return View();

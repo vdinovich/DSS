@@ -36,7 +36,7 @@ namespace DTS.Controllers
             db.Critical_Incidents.Remove(delete ?? throw new InvalidOperationException());      // remove found entity from DbSet collection EF
             db.SaveChanges();            // remove found entity from table
 
-            return RedirectToAction("../Select/Select_Incidents");  /// Redirect on the List Select_Incidents
+            return RedirectToAction("../Home/WOR_Tabs");  /// Redirect on the List Select_Incidents
         }
 
         [HttpGet]
@@ -61,7 +61,7 @@ namespace DTS.Controllers
             db.Relations.Remove(delete ?? throw new InvalidOperationException());
             db.SaveChanges();
 
-            return RedirectToAction("../Select/Select_Labour");
+            return RedirectToAction("../Home/WOR_Tabs");
         }
 
         [HttpGet]
@@ -85,7 +85,7 @@ namespace DTS.Controllers
             db.Educations.Remove(delete ?? throw new InvalidOperationException());
             db.SaveChanges();
 
-            return RedirectToAction("../Select/Education_Select");
+            return RedirectToAction("../Home/WOR_Tabs");
         }
 
         [HttpGet]
@@ -110,7 +110,7 @@ namespace DTS.Controllers
             db.Community_Risks.Remove(delete ?? throw new InvalidOperationException());
             db.SaveChanges();
 
-            return RedirectToAction("../Select/Select_Community");
+            return RedirectToAction("../Home/WOR_Tabs");
         }
 
         [HttpGet]
@@ -133,7 +133,7 @@ namespace DTS.Controllers
             db.Users.Remove(delete ?? throw new InvalidOperationException());
             db.SaveChanges();
 
-            return RedirectToAction("../Select/Select_Users");
+            return RedirectToAction("../Home/WOR_Tabs");
         }
 
         [HttpGet]
@@ -158,7 +158,7 @@ namespace DTS.Controllers
             db.Good_News.Remove(delete ?? throw new InvalidOperationException());
             db.SaveChanges();
 
-            return RedirectToAction("../Select/Select_GoodNews");
+            return RedirectToAction("../Home/WOR_Tabs");
         }
 
         [HttpGet]
@@ -181,7 +181,7 @@ namespace DTS.Controllers
             db.Visits_Agencies.Remove(delete ?? throw new InvalidOperationException());
             db.SaveChanges();
 
-            return RedirectToAction("../Select/Select_Agencies");
+            return RedirectToAction("../Home/WOR_Tabs");
         }
 
         [HttpGet]
@@ -204,7 +204,7 @@ namespace DTS.Controllers
             db.WSIBs.Remove(delete ?? throw new InvalidOperationException());
             db.SaveChanges();
 
-            return RedirectToAction("../Select/Select_WSIB");
+            return RedirectToAction("../Home/WOR_Tabs");
         }
 
         [HttpGet]
@@ -229,7 +229,7 @@ namespace DTS.Controllers
             db.Visits_Others.Remove(delete ?? throw new InvalidOperationException());
             db.SaveChanges();
 
-            return RedirectToAction("../Select/Select_Visits_Others");
+            return RedirectToAction("../Home/WOR_Tabs");
         }
 
         [HttpGet]
@@ -253,7 +253,7 @@ namespace DTS.Controllers
             db.Outbreaks.Remove(delete ?? throw new InvalidOperationException());
             db.SaveChanges();
 
-            return RedirectToAction("../Select/Outbreaks");
+            return RedirectToAction("../Home/WOR_Tabs");
         }
 
         [HttpGet]
@@ -276,7 +276,7 @@ namespace DTS.Controllers
             db.Privacy_Breaches.Remove(delete ?? throw new InvalidOperationException());
             db.SaveChanges();
 
-            return RedirectToAction("../Select/Privacy_Breaches");
+            return RedirectToAction("../Home/WOR_Tabs");
         }
 
         [HttpGet]
@@ -299,7 +299,7 @@ namespace DTS.Controllers
             db.Outbreaks.Remove(delete ?? throw new InvalidOperationException());
             db.SaveChanges();
 
-            return RedirectToAction("../Select/Emergency_Prep");
+            return RedirectToAction("../Home/WOR_Tabs");
         }
 
         [HttpGet]
@@ -323,7 +323,7 @@ namespace DTS.Controllers
             db.Complaints.Remove(delete ?? throw new InvalidOperationException());
             db.SaveChanges();
 
-            return RedirectToAction("../Select/Select_Complaints");
+            return RedirectToAction("../Home/WOR_Tabs");
         }
 
         [HttpGet]
@@ -348,7 +348,7 @@ namespace DTS.Controllers
             db.Privacy_Complaints.Remove(delete ?? throw new InvalidOperationException());
             db.SaveChanges();
 
-            return RedirectToAction("../Select/Privacy_Complaints");
+            return RedirectToAction("../Home/WOR_Tabs");
         }
 
         [HttpGet]
@@ -372,7 +372,7 @@ namespace DTS.Controllers
             db.Emergency_Prep.Remove(delete ?? throw new InvalidOperationException());
             db.SaveChanges();
 
-            return RedirectToAction("../Select/Select_Emergency_Prep");
+            return RedirectToAction("../Home/WOR_Tabs");
         }
 
         [HttpGet]
@@ -396,7 +396,7 @@ namespace DTS.Controllers
             db.Immunizations.Remove(delete ?? throw new InvalidOperationException());
             db.SaveChanges();
 
-            return RedirectToAction("../Select/Select_Immunization");
+            return RedirectToAction("../Home/WOR_Tabs");
         }
 
         public ActionResult Not_WSIB_Delete(int? id)
@@ -419,7 +419,7 @@ namespace DTS.Controllers
             db.Not_WSIBs.Remove(delete ?? throw new InvalidOperationException());
             db.SaveChanges();
 
-            return RedirectToAction("../Select/Select_Not_WSIB");
-        }
+            return RedirectToAction("../Home/WOR_Tabs");
+         }
     }
 }

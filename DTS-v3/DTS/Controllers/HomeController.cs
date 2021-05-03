@@ -227,7 +227,7 @@ namespace DTS.Controllers
                     main.Week = 0;
                     main.User_Name = null;
                     //ViewBag.listing = both;
-                    ViewBag.ResultMsg = "Your record was added successfuly!";
+                    ViewBag.ResultMsg = "Your record was successfuly added!";
 
                     return View();
                 }
@@ -311,41 +311,101 @@ namespace DTS.Controllers
             else return RedirectToAction("../Home/AllFiles");
         }
 
+        static int num_tbl;
         static string checkView = "none";
         static bool b = false;
         public ActionResult WOR_Tabs()
         {
-            if(Id_Location == 0)
-            ViewBag.List = TablesContainer.list3;
+            WorTabs tabs = null;
+            { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
+            if (Id_Location == 0)
+            {
+                { ViewBag.List = TablesContainer.list1; }
+                { ViewBag.List = TablesContainer.list2; }
+                { ViewBag.List = TablesContainer.list3; }
+            }
             else
-                ViewBag.List = TablesContainer.list3 = db.Good_News.Where(l => l.Location == Id_Location).ToList();
+            {
+                { ViewBag.List = TablesContainer.list1 = db.Critical_Incidents.Where(l => l.Location == Id_Location).ToList(); }
+                { ViewBag.List = TablesContainer.list2 = db.Complaints.Where(l => l.Location == Id_Location).ToList(); }
+                { ViewBag.List = TablesContainer.list3 = db.Good_News.Where(l => l.Location == Id_Location).ToList(); }
+            }
             if (b)
             {
-                var arr = TablesContainer.list3.Count;
-
+                switch (num_tbl)
                 {
-                    ViewBag.Count = arr;
-                }
+                    case 1:
+                        var arr1 = TablesContainer.list1.Count;
 
-                {
-                    ViewBag.GN_Found = strN;
+                        {
+                            ViewBag.Count = arr1;
+                        }
+
+                        {
+                            ViewBag.GN_Found = strN;
+                        }
+
+                        {
+                            ViewBag.ObjName = "Critical Incidents";
+                        }
+                        ViewBag.Check = checkView;
+                        tabs = new WorTabs();
+                        tabs.ListForms = GetFormNames();
+
+                        return View(tabs);
+                    case 2:
+                        var arr2 = TablesContainer.list2.Count;
+
+                        {
+                            ViewBag.Count = arr2;
+                        }
+
+                        {
+                            ViewBag.GN_Found = strN;
+                        }
+
+                        {
+                            ViewBag.ObjName = "Complaints";
+                        }
+                        ViewBag.Check = checkView;
+                        tabs = new WorTabs();
+                        tabs.ListForms = GetFormNames();
+
+                        return View(tabs);
+                    case 3:
+                        var arr = TablesContainer.list3.Count;
+
+                        {
+                            ViewBag.Count = arr;
+                        }
+
+                        {
+                            ViewBag.GN_Found = strN;
+                        }
+
+                        {
+                            ViewBag.ObjName = "Good News";
+                        }
+                        ViewBag.Check = checkView;
+                        tabs = new WorTabs();
+                        tabs.ListForms = GetFormNames();
+
+                        return View(tabs);
                 }
             }
-            ViewBag.Check = checkView;
-            WorTabs tabs = new WorTabs();
-            tabs.ListForms = GetFormNames();
 
-            return View(tabs);
+                tabs = new WorTabs();
+                tabs.ListForms = GetFormNames();
+                return View(tabs);
         }
 
         static string model_name;
         [HttpPost]
         public ActionResult WOR_Tabs(WorTabs Value)
         {
-            //ViewBag.Check = checkView;
             DateTime start = DateTime.MinValue, end = DateTime.MinValue;
             string errorMsg = string.Empty;
-            if (Value != null && Value.Name != null)
+            if (Value != null && Value.Name != null)  // If we select anythng from the listbox
             {
                 string btnName = Request.Params
                       .Cast<string>()
@@ -353,9 +413,21 @@ namespace DTS.Controllers
                       .Select(p => p.Substring("btn".Length))
                       .First();
 
+                #region For Showing List:
                 if (btnName.Equals("-list"))
                 {
+                    {
+                        ViewBag.Check = "list";
+                        //ViewBag.Tbl = Value.Name;
+                        //ViewBag.List = db.Complaints.ToList();
+                        //WorTabs tabs = new WorTabs();
+                        //tabs.ListForms = GetFormNames();
+                        //return View(tabs);
+                    }
                     checkView = "list";
+                    {
+                        ViewBag.Tbl = Value.Name;
+                    }
                     ViewBag.Check = checkView;
                     string name = Value.Name;
 
@@ -363,86 +435,519 @@ namespace DTS.Controllers
                     end = Value.End;
                     if (start != DateTime.MinValue && end != DateTime.MinValue)
                     {
-                        TablesContainer.list3 = (from ent in db.Good_News where ent.DateNews >= start && ent.DateNews <= end select ent).ToList();
-
-                        if (TablesContainer.list3.Count != 0 || TablesContainer.list3 != null)
+                        switch (Value.Name)
                         {
-                            ViewBag.List = TablesContainer.list3;
-                            return RedirectToAction("../Home/WOR_Tabs");
+                            case "1":
+                                var lst1 = db.Critical_Incidents.Where(i => i.Location == Id_Location);
+                                TablesContainer.list1 = (from ent in lst1 where ent.Date >= start && ent.Date <= end select ent).ToList();
+                                if (TablesContainer.list1.Count != 0 || TablesContainer.list1 != null)
+                                {
+                                    { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
+                                    ViewBag.List = TablesContainer.list1;
+                                    WorTabs tabs = new WorTabs();
+                                    tabs.ListForms = GetFormNames();
+                                    return View(tabs);
+                                }
+                                else
+                                {
+                                    ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
+                                    WorTabs tabs = new WorTabs();
+                                    tabs.ListForms = GetFormNames();
+                                    return View(tabs);
+                                }
+                            case "2":
+                                var lst2 = db.Complaints.Where(i => i.Location == Id_Location);
+                                TablesContainer.list2 = (from ent in lst2 where ent.DateReceived >= start && ent.DateReceived <= end select ent).ToList();
+                                if (TablesContainer.list2.Count != 0 || TablesContainer.list2 != null)
+                                {
+                                    { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
+                                    ViewBag.List = TablesContainer.list2;
+                                    WorTabs tabs = new WorTabs();
+                                    tabs.ListForms = GetFormNames();
+                                    return View(tabs);
+                                }
+                                else
+                                {
+                                    ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
+                                    WorTabs tabs = new WorTabs();
+                                    tabs.ListForms = GetFormNames();
+                                    return View(tabs);
+                                }
+                            case "3":  // Good_News table\
+                                var lst3 = db.Good_News.Where(i => i.Location == Id_Location).ToList();
+                                TablesContainer.list3 = (from ent in lst3 where ent.DateNews >= start && ent.DateNews <= end select ent).ToList();
+                                if (TablesContainer.list3.Count != 0 || TablesContainer.list3 != null)
+                                {
+                                    { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
+                                    ViewBag.List = TablesContainer.list3;
+                                    WorTabs tabs = new WorTabs();
+                                    tabs.ListForms = GetFormNames();
+                                    return View(tabs);
+                                }
+                                else
+                                {
+                                    ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
+                                    WorTabs tabs = new WorTabs();
+                                    tabs.ListForms = GetFormNames();
+                                    return View(tabs);
+                                }
+                            case "4":
+                                var lst4 = db.Emergency_Prep.Where(i => i.Location == Id_Location).ToList();
+                                
+                                if (TablesContainer.list3.Count != 0 || TablesContainer.list3 != null)
+                                {
+                                    { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
+                                    ViewBag.List = lst4;
+                                    WorTabs tabs = new WorTabs();
+                                    tabs.ListForms = GetFormNames();
+                                    return View(tabs);
+                                }
+                                else
+                                {
+                                    ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
+                                    WorTabs tabs = new WorTabs();
+                                    tabs.ListForms = GetFormNames();
+                                    return View(tabs);
+                                }
+                            case "5":
+                                var lst5 = db.Community_Risks.Where(i => i.Location == Id_Location).ToList();
+                                TablesContainer.list5 = (from ent in lst5 where ent.Date >= start && ent.Date <= end select ent).ToList();
+                                if (TablesContainer.list5.Count != 0 || TablesContainer.list5 != null)
+                                {
+                                    { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
+                                    ViewBag.List = TablesContainer.list5;
+                                    WorTabs tabs = new WorTabs();
+                                    tabs.ListForms = GetFormNames();
+                                    return View(tabs);
+                                }
+                                else
+                                {
+                                    ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
+                                    WorTabs tabs = new WorTabs();
+                                    tabs.ListForms = GetFormNames();
+                                    return View(tabs);
+                                }
+                            case "6":
+                                var lst6 = db.Visits_Others.Where(i => i.Location == Id_Location).ToList();
+                                TablesContainer.list6 = (from ent in lst6 where ent.Date_of_Visit >= start && ent.Date_of_Visit <= end select ent).ToList();
+                                if (TablesContainer.list6.Count != 0 || TablesContainer.list6 != null)
+                                {
+                                    { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
+                                    ViewBag.List = TablesContainer.list6;
+                                    WorTabs tabs = new WorTabs();
+                                    tabs.ListForms = GetFormNames();
+                                    return View(tabs);
+                                }
+                                else
+                                {
+                                    ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
+                                    WorTabs tabs = new WorTabs();
+                                    tabs.ListForms = GetFormNames();
+                                    return View(tabs);
+                                }
+                            case "7":
+                                var lst7 = db.Privacy_Breaches.Where(i => i.Location == Id_Location).ToList();
+                                TablesContainer.list7 = (from ent in lst7 where ent.Date_Breach_Occurred >= start && ent.Date_Breach_Occurred <= end select ent).ToList();
+                                if (TablesContainer.list7.Count != 0 || TablesContainer.list7 != null)
+                                {
+                                    { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
+                                    ViewBag.List = TablesContainer.list7;
+                                    WorTabs tabs = new WorTabs();
+                                    tabs.ListForms = GetFormNames();
+                                    return View(tabs);
+                                }
+                                else
+                                {
+                                    ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
+                                    WorTabs tabs = new WorTabs();
+                                    tabs.ListForms = GetFormNames();
+                                    return View(tabs);
+                                }
+                            case "8":
+                                var lst8 = db.Privacy_Complaints.Where(i => i.Location == Id_Location).ToList();
+                                TablesContainer.list8 = (from ent in lst8 where ent.Date_Complain_Received >= start && ent.Date_Complain_Received <= end select ent).ToList();
+                                if (TablesContainer.list8.Count != 0 || TablesContainer.list8 != null)
+                                {
+                                    { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
+                                    ViewBag.List = TablesContainer.list8;
+                                    WorTabs tabs = new WorTabs();
+                                    tabs.ListForms = GetFormNames();
+                                    return View(tabs);
+                                }
+                                else
+                                {
+                                    ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
+                                    WorTabs tabs = new WorTabs();
+                                    tabs.ListForms = GetFormNames();
+                                    return View(tabs);
+                                }
+                            case "9":
+                                TablesContainer.list9 = db.Educations.Where(i => i.Location == Id_Location).ToList();
+                                if (TablesContainer.list9.Count != 0 || TablesContainer.list9 != null)
+                                {
+                                    { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
+                                    ViewBag.List = TablesContainer.list9;
+                                    WorTabs tabs = new WorTabs();
+                                    tabs.ListForms = GetFormNames();
+                                    return View(tabs);
+                                }
+                                else
+                                {
+                                    ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
+                                    WorTabs tabs = new WorTabs();
+                                    tabs.ListForms = GetFormNames();
+                                    return View(tabs);
+                                }
+                            case "10":
+                                var lst10 = db.Relations.Where(i => i.Location == Id_Location).ToList();
+                                TablesContainer.list10 = (from ent in lst10 where ent.Date >= start && ent.Date <= end select ent).ToList();
+                                if (TablesContainer.list10.Count != 0 || TablesContainer.list11 != null)
+                                {
+                                    { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
+                                    ViewBag.List = TablesContainer.list10;
+                                    WorTabs tabs = new WorTabs();
+                                    tabs.ListForms = GetFormNames();
+                                    return View(tabs);
+                                }
+                                else
+                                {
+                                    ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
+                                    WorTabs tabs = new WorTabs();
+                                    tabs.ListForms = GetFormNames();
+                                    return View(tabs);
+                                }
+                            case "11":
+                                TablesContainer.list11 = db.Immunizations.Where(i => i.Location == Id_Location).ToList();
+                                if (TablesContainer.list11.Count != 0 || TablesContainer.list11 != null)
+                                {
+                                    { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
+                                    ViewBag.List = TablesContainer.list11;
+                                    WorTabs tabs = new WorTabs();
+                                    tabs.ListForms = GetFormNames();
+                                    return View(tabs);
+                                }
+                                else
+                                {
+                                    ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
+                                    WorTabs tabs = new WorTabs();
+                                    tabs.ListForms = GetFormNames();
+                                    return View(tabs);
+                                }
+                            case "12":
+                                TablesContainer.list12 = db.Outbreaks.Where(i => i.Location == Id_Location).ToList();
+                                if (TablesContainer.list12.Count != 0 || TablesContainer.list12 != null)
+                                {
+                                    { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
+                                    ViewBag.List = TablesContainer.list12;
+                                    WorTabs tabs = new WorTabs();
+                                    tabs.ListForms = GetFormNames();
+                                    return View(tabs);
+                                }
+                                else
+                                {
+                                    ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
+                                    WorTabs tabs = new WorTabs();
+                                    tabs.ListForms = GetFormNames();
+                                    return View(tabs);
+                                }
+                            case "13":
+                                TablesContainer.list13 = db.WSIBs.Where(i => i.Location == Id_Location).ToList();
+                                if (TablesContainer.list13.Count != 0 || TablesContainer.list13 != null)
+                                {
+                                    { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
+                                    ViewBag.List = TablesContainer.list13;
+                                    WorTabs tabs = new WorTabs();
+                                    tabs.ListForms = GetFormNames();
+                                    return View(tabs);
+                                }
+                                else
+                                {
+                                    ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
+                                    WorTabs tabs = new WorTabs();
+                                    tabs.ListForms = GetFormNames();
+                                    return View(tabs);
+                                }
+                            case "14":
+                                TablesContainer.list14 = db.Not_WSIBs.Where(i => i.Location == Id_Location).ToList();
+                                if (TablesContainer.list14.Count != 0 || TablesContainer.list14 != null)
+                                {
+                                    { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
+                                    ViewBag.List = TablesContainer.list14;
+                                    WorTabs tabs = new WorTabs();
+                                    tabs.ListForms = GetFormNames();
+                                    return View(tabs);
+                                }
+                                else
+                                {
+                                    ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
+                                    WorTabs tabs = new WorTabs();
+                                    tabs.ListForms = GetFormNames();
+                                    return View(tabs);
+                                }
                         }
-                        ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
-                        WorTabs tabs = new WorTabs();
-                        tabs.ListForms = GetFormNames();
-                        return View(tabs);
                     }
                     else
                     {
                         if (Id_Location == 0)
                         {
-                            ViewBag.ErrorMsg = "Location was not selected!";
-                            WorTabs tabs = new WorTabs();
-                            tabs.ListForms = GetFormNames();
-                            return View(tabs);
+                            switch (Value.Name)
+                            {
+                                case "1":
+                                    var lst = db.Critical_Incidents.Where(i => i.Location == Id_Location);
+                                    TablesContainer.list1 = (from ent in lst where ent.Date >= start && ent.Date <= end select ent).ToList();
+                                    if (TablesContainer.list1.Count != 0 || TablesContainer.list1 != null)
+                                    {
+                                        { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
+                                        ViewBag.List = TablesContainer.list1;
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                    else
+                                    {
+                                        ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                case "2":
+                                    var lst2 = db.Complaints.Where(i => i.Location == Id_Location);
+                                    var var = TablesContainer.list2 = (from ent in lst2 where ent.DateReceived >= start && ent.DateReceived <= end select ent).ToList();
+                                    if(var == null)
+                                    {
+                                        ViewBag.List = "The table is EMPTY!";
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                    if (TablesContainer.list2.Count != 0 || TablesContainer.list2 != null)
+                                    {
+                                        { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
+                                        ViewBag.List = TablesContainer.list2;
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                    else
+                                    {
+                                        ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                case "3":  // Good_News table
+                                    var lst3 = db.Good_News.Where(i => i.Location == Id_Location);
+                                    TablesContainer.list3 = (from ent in lst3 where ent.DateNews >= start && ent.DateNews <= end select ent).ToList();
+                                    if (TablesContainer.list3.Count != 0 || TablesContainer.list3 != null)
+                                    {
+                                        { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
+                                        ViewBag.List = TablesContainer.list3;
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                    else
+                                    {
+                                        ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                            }
                         }
                         else
                         {
-                            ViewBag.List = TablesContainer.list3 = db.Good_News.Where(l => l.Location == Id_Location).ToList();
-                            ViewBag.ErrorMsg = errorMsg = "Please select a date range.";
-                            WorTabs tabs = new WorTabs();
-                            tabs.ListForms = GetFormNames();
-                            return View(tabs);
+                            switch (Value.Name)
+                            {
+                                case "1": // CriticalIncidents tbl
+                                    var lst1 = db.Critical_Incidents.Where(i => i.Location == Id_Location);
+                                    TablesContainer.list1 = (from ent in lst1 where ent.Date >= start && ent.Date <= end select ent).ToList();
+                                    if (TablesContainer.list1.Count != 0 || TablesContainer.list1 != null)
+                                    {
+                                        { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
+                                        ViewBag.List = TablesContainer.list1;
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                    else
+                                    {
+                                        ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                case "2": // Complients tbl
+                                    var lst2 = db.Complaints.Where(i => i.Location == Id_Location);
+                                    TablesContainer.list2 = (from ent in lst2 where ent.DateReceived >= start && ent.DateReceived <= end select ent).ToList();
+                                    if (TablesContainer.list2.Count != 0)
+                                    {
+                                        { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
+                                        ViewBag.List = TablesContainer.list2;
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                    else
+                                    {
+                                        ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                case "3":  // Good_News table
+                                    var lst3 = db.Good_News.Where(i => i.Location == Id_Location);
+                                    TablesContainer.list3 = (from ent in lst3 where ent.DateNews >= start && ent.DateNews <= end select ent).ToList();
+                                    if (TablesContainer.list3.Count != 0 || TablesContainer.list3 != null)
+                                    {
+                                        { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
+                                        ViewBag.List = TablesContainer.list3;
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                    else
+                                    {
+                                        ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                            }
                         }
                     }
                     //return GoToSelectFormList($"../Home/GoToSelectFormList/{name}");
                 }
-                else if(btnName.Equals("-insert"))
+                #endregion
+
+                #region For Inserted:
+                else if (btnName.Equals("-insert"))
                 {
                     checkView = "insert";
                     ViewBag.Check = checkView;
                     int id = int.Parse(Value.Name);
                     return RedirectToAction($"../Home/GoToSelectForm/{id}");
                 }
+                #endregion
+
+                #region For Export to .csv file
                 else if (btnName.Equals("-export"))
-                {
+                 {
                     start = Value.Start;
                     end = Value.End;
                     if (start != DateTime.MinValue && end != DateTime.MinValue)
                     {
-                      
                         //var query1 = (from ent in db.Good_News where ent.DateNews >= start && ent.DateNews <= end select ent).ToList();
                         int id = int.Parse(Value.Name);
                         var tbl_list = GetTableById(id).ToArray().ToList();
-                        Type type = tbl_list[1].GetType();
+                        Type type = tbl_list[0].GetType();
                         string entity = type.Name;
                         object model = Searcher.FindObjByName(entity);
                         if (model.GetType() == typeof(Critical_Incidents))
                         {
                             model_name = model.GetType().Name;
-                            TablesContainer.list1 = (from ent in db.Critical_Incidents where ent.Date >= start && ent.Date <= end select ent).ToList();
+                            var lst1 = db.Critical_Incidents.Where(i => i.Location == Id_Location);
+                            TablesContainer.list1 = (from ent in lst1 where ent.Date >= start && ent.Date <= end select ent).ToList();
                             // new STREAM().WriteToCSV(query1); // to be continue..
                             return RedirectToAction("../Home/ExportToCSV");
-                            //string msg = new STREAM().WriteTo_CSV(TablesContainer.list1);
-                            //string msg1 = new STREAM().WriteTo2_CSV(query1);
-                            //ViewBag.SuccessExport = "Data for Good News form was exported successfully to a .csv file!";
-                            //WorTabs tabs = new WorTabs();
-                            //tabs.ListForms = GetFormNames();
-                            //return View(tabs);
                         }
                         else if (model.GetType() == typeof(Good_News))
                         {
                             model_name = model.GetType().Name;
-                            TablesContainer.list3 = (from ent in db.Good_News where ent.DateNews >= start && ent.DateNews <= end select ent).ToList();
+                            var lst3 = db.Good_News.Where(i => i.Location == Id_Location);
+                            TablesContainer.list3 = (from ent in lst3 where ent.DateNews >= start && ent.DateNews <= end select ent).ToList();
+                            return RedirectToAction("../Home/ExportToCSV");
+                        }
+                        else if (model.GetType() == typeof(Complaint))
+                        {
+                            model_name = model.GetType().Name;
+                            var lst1 = db.Complaints.Where(i => i.Location == Id_Location);
+                            TablesContainer.list2 = (from ent in lst1 where ent.DateReceived >= start && ent.DateReceived <= end select ent).ToList();
+                            return RedirectToAction("../Home/ExportToCSV");
+                        }
+                        else if (model.GetType() == typeof(Community_Risks))
+                        {
+                            model_name = model.GetType().Name;
+                            var lst1 = db.Community_Risks.Where(i => i.Location == Id_Location);
+                            TablesContainer.list5 = (from ent in lst1 where ent.Date >= start && ent.Date <= end select ent).ToList();
+                            return RedirectToAction("../Home/ExportToCSV");
+                        }
+                        else if (model.GetType() == typeof(Labour_Relations))
+                        {
+                            model_name = model.GetType().Name;
+                            var lst1 = db.Relations.Where(i => i.Location == Id_Location);
+                            TablesContainer.list10 = (from ent in lst1 where ent.Date >= start && ent.Date <= end select ent).ToList();
+                            return RedirectToAction("../Home/ExportToCSV");
+                        }
+                        else if (model.GetType() == typeof(Emergency_Prep))
+                        {
+                            model_name = model.GetType().Name;
+                            TablesContainer.list4 = db.Emergency_Prep.Where(i => i.Location == Id_Location).ToList();
+                            return RedirectToAction("../Home/ExportToCSV");
+                        }
+                        else if (model.GetType() == typeof(Visits_Others))
+                        {
+                            model_name = model.GetType().Name;
+                            TablesContainer.list6 = db.Visits_Others.Where(i => i.Location == Id_Location).ToList();
+                            return RedirectToAction("../Home/ExportToCSV");
+                        }
+                        else if (model.GetType() == typeof(Privacy_Breaches))
+                        {
+                            model_name = model.GetType().Name;
+                            TablesContainer.list7 = db.Privacy_Breaches.Where(i => i.Location == Id_Location).ToList();
+                            return RedirectToAction("../Home/ExportToCSV");
+                        }
+                        else if (model.GetType() == typeof(Privacy_Complaints))
+                        {
+                            model_name = model.GetType().Name;
+                            TablesContainer.list8 = db.Privacy_Complaints.Where(i => i.Location == Id_Location).ToList();
+                            return RedirectToAction("../Home/ExportToCSV");
+                        }
+                        else if (model.GetType() == typeof(Education))
+                        {
+                            model_name = model.GetType().Name;
+                            TablesContainer.list9 = db.Educations.Where(i => i.Location == Id_Location).ToList();
+                            return RedirectToAction("../Home/ExportToCSV");
+                        }
+                        else if (model.GetType() == typeof(Labour_Relations))
+                        {
+                            model_name = model.GetType().Name;
+                            TablesContainer.list10 = db.Relations.Where(i => i.Location == Id_Location).ToList();
+                            return RedirectToAction("../Home/ExportToCSV");
+                        }
+                        else if (model.GetType() == typeof(Immunization))
+                        {
+                            model_name = model.GetType().Name;
+                            TablesContainer.list11 = db.Immunizations.Where(i => i.Location == Id_Location).ToList();
+                            return RedirectToAction("../Home/ExportToCSV");
+                        }
+                        else if (model.GetType() == typeof(Outbreaks))
+                        {
+                            model_name = model.GetType().Name;
+                            TablesContainer.list12 = db.Outbreaks.Where(i => i.Location == Id_Location).ToList();
+                            return RedirectToAction("../Home/ExportToCSV");
+                        }
+                        else if (model.GetType() == typeof(WSIB))
+                        {
+                            model_name = model.GetType().Name;
+                            TablesContainer.list13 = db.WSIBs.Where(i => i.Location == Id_Location).ToList();
+                            return RedirectToAction("../Home/ExportToCSV");
+                        }
+                        else if (model.GetType() == typeof(Not_WSIBs))
+                        {
+                            model_name = model.GetType().Name;
+                            TablesContainer.list14 = db.Not_WSIBs.Where(i => i.Location == Id_Location).ToList();
                             return RedirectToAction("../Home/ExportToCSV");
                         }
                         else 
                         { 
                             ViewBag.ErrorMsg = errorMsg = "There was nothing found within the date range that was chosen.";
                             WorTabs tabs = new WorTabs();
-                            tabs.ListForms = GetFormNames();
+                           tabs.ListForms = GetFormNames();
                             return View(tabs);
                         }
                     }
-                    else
+                   else
                     {
                         ViewBag.ErrorMsg = errorMsg = "Please choose the dates from the list";
                         WorTabs tabs = new WorTabs();
@@ -450,15 +955,18 @@ namespace DTS.Controllers
                         return View(tabs);
                     }
                 }
-                else if(btnName.Equals("-summary"))
+                #endregion
+
+                #region For Summary:
+                else if (btnName.Equals("-summary"))
                 {
                     checkView = "summary";
                     ViewBag.Check = checkView;
                     start = Value.Start;
                     end = Value.End;
-                    int id = int.Parse(Value.Name);
+                    int id = num_tbl = int.Parse(Value.Name);
                     var tbl_list = GetTableById(id).ToArray().ToList();
-                    Type type = tbl_list[1].GetType();
+                    Type type = tbl_list[0].GetType();
                     string entity = type.Name;
                     if (!entity.Equals(string.Empty))
                     {
@@ -469,6 +977,7 @@ namespace DTS.Controllers
                     switch (entity)
                     {
                         case "Critical_Incidents":
+                            { ViewBag.ObjName = "Critical_Incidents"; }
                             TablesContainer.list1 = (from ent in db.Critical_Incidents where ent.Date >= start && ent.Date <= end select ent).ToList();
                             var ci = db.CI_Category_Types.ToList();
 
@@ -519,9 +1028,65 @@ namespace DTS.Controllers
                             break;
                             //return RedirectToAction($"../Statistics/{entity}");                  
                         case "Complaint":
-                            List<Complaint> list2 = (from ent in db.Complaints where ent.DateReceived >= start && ent.DateReceived <= end select ent).ToList();
-                            return RedirectToAction($"../Statistics/{entity}"); 
+                            TablesContainer.list2 = (from ent in db.Complaints where ent.DateReceived >= start && ent.DateReceived <= end select ent).ToList();
+                            if (TablesContainer.list2.Count() == 0)
+                            {
+                                { ViewBag.ObjName = "Complaint"; }
+                                ViewBag.ErrorMsg = errorMsg = "Please select a date range.";
+                                WorTabs tabs = new WorTabs();
+                                tabs.ListForms = GetFormNames();
+                                return View(tabs);
+                            }
+                            var cm = db.Complaints.ToList();
+
+                            strN = new List<string>();
+                            var compl = TablesContainer.list2.GroupBy(i => i.Dietary);
+                            strN.Add("Dietary: ");
+                            if (compl != null)
+                                foreach (var e in compl)
+                                    strN.Add($"{e.Key}\t - \t{e.Count()}");
+
+                            strN.Add("Department: ");
+                            var depart0 = TablesContainer.list2.GroupBy(i => i.Department);
+                            if (depart0 != null)
+                                foreach (var d in depart0)
+                                    strN.Add($"{d.Key}\t - \t{d.Count()}");
+
+                            strN.Add("FromResident: ");
+                            var res = TablesContainer.list2.GroupBy(i => i.FromResident);
+                            if (compl != null)
+                                foreach (var cc in compl)
+                                    strN.Add($"{cc.Key}\t - \t{cc.Count()}");
+                            ViewBag.Entity = entity;
+
+                            strN.Add("FootCare: ");
+                            var foot = TablesContainer.list2.GroupBy(i => i.FootCare);
+                            if (foot != null)
+                                foreach (var cc in foot)
+                                    strN.Add($"{cc.Key}\t - \t{cc.Count()}");
+                            ViewBag.Entity = entity;
+
+                            strN.Add("IsAdministration: ");
+                            var adm = TablesContainer.list2.GroupBy(i => i.IsAdministration);
+                            if (adm != null)
+                                foreach (var cc in adm)
+                                    strN.Add($"{cc.Key}\t - \t{cc.Count()}");
+                            ViewBag.Entity = entity;
+
+                            ///
+                            b = true;
+                            var arr = TablesContainer.list2.Count;
+
+                            {
+                                ViewBag.Count = arr;
+                            }
+
+                            {
+                                ViewBag.GN_Found = HomeController.strN;
+                            }
+                            break;
                         case "Good_News":
+                            { ViewBag.ObjName = "Good_News"; }
                             TablesContainer.list3 = (from ent in db.Good_News where ent.DateNews >= start && ent.DateNews <= end select ent).ToList();
                             if (TablesContainer.list3.Count() == 0)
                             {
@@ -546,18 +1111,18 @@ namespace DTS.Controllers
                                     strN.Add($"{d.Key}\t - \t{d.Count()}");
 
                             strN.Add("Source of Compliment: ");
-                            var compl = TablesContainer.list3.GroupBy(i => i.SourceCompliment);
-                            if (compl != null)
-                                foreach (var cc in compl)
+                            var compl1 = TablesContainer.list3.GroupBy(i => i.SourceCompliment);
+                            if (compl1 != null)
+                                foreach (var cc in compl1)
                                     strN.Add($"{cc.Key}\t - \t{cc.Count()}");
                             ViewBag.Entity = entity;
 
                             ///
                             b = true;
-                            var arr = TablesContainer.list3.Count;
+                            var arr1 = TablesContainer.list3.Count;
 
                             {
-                                ViewBag.Count = arr;
+                                ViewBag.Count = arr1;
                             }
 
                             {
@@ -603,14 +1168,18 @@ namespace DTS.Controllers
                     }
                     #endregion
                 }
+                #endregion
             }
-            else  //  if you didn't select anything from the list on the left
+
+            #region if you didn't select anything from the list on the left
+            else
             {
                 ViewBag.ErrorMsg = errorMsg = "Please select a form from the list on the left.";
                 WorTabs tabs = new WorTabs();
                 tabs.ListForms = GetFormNames();
                 return View(tabs);
             }
+            #endregion
 
             return RedirectToAction("../Home/WOR_Tabs");
         }
@@ -707,13 +1276,502 @@ namespace DTS.Controllers
 
                 #endregion
             }
+            else if (model_name.Equals("Complaint"))
+            {
+                var lst = TablesContainer.list2.ToList<object>();
+
+                string[] names = typeof(Complaint).GetProperties().Select(property => property.Name).ToArray();
+
+                lst.Insert(0, names.Where(x => x != names[0]).ToArray());
+
+                #region Generate CSV
+
+                StringBuilder sb = new StringBuilder();
+                for (var i = 0; i < lst.Count; i++)
+                {
+                    if (i == 0)
+                    {
+                        string[] arrStudents = (string[])lst[0];
+                        foreach (var data in arrStudents)
+                        {
+                            //Append data with comma(,) separator.
+                            sb.Append(data + ',');
+                        }
+                    }
+                    else
+                    {
+                        sb.Append(lst[i]);
+                    }
+                    //Append new line character.
+                    sb.Append("\r\n");
+                }
+
+                #endregion
+
+                #region Download CSV
+
+                return File(Encoding.ASCII.GetBytes(sb.ToString()), "text/csv", "Complaint.csv");
+
+                #endregion
+            }
+            else if (model_name.Equals("Community_Risks"))
+            {
+                var lst = TablesContainer.list5.ToList<object>();
+
+                string[] names = typeof(Community_Risks).GetProperties().Select(property => property.Name).ToArray();
+
+                lst.Insert(0, names.Where(x => x != names[0]).ToArray());
+
+                #region Generate CSV
+
+                StringBuilder sb = new StringBuilder();
+                for (var i = 0; i < lst.Count; i++)
+                {
+                    if (i == 0)
+                    {
+                        string[] arrStudents = (string[])lst[0];
+                        foreach (var data in arrStudents)
+                        {
+                            //Append data with comma(,) separator.
+                            sb.Append(data + ',');
+                        }
+                    }
+                    else
+                    {
+                        sb.Append(lst[i]);
+                    }
+                    //Append new line character.
+                    sb.Append("\r\n");
+                }
+
+                #endregion
+
+                #region Download CSV
+
+                return File(Encoding.ASCII.GetBytes(sb.ToString()), "text/csv", "Community_Risks.csv");
+
+                #endregion
+            }
+            else if (model_name.Equals("Labour_Relations"))
+            {
+                var lst = TablesContainer.list10.ToList<object>();
+
+                string[] names = typeof(Labour_Relations).GetProperties().Select(property => property.Name).ToArray();
+
+                lst.Insert(0, names.Where(x => x != names[0]).ToArray());
+
+                #region Generate CSV
+
+                StringBuilder sb = new StringBuilder();
+                for (var i = 0; i < lst.Count; i++)
+                {
+                    if (i == 0)
+                    {
+                        string[] arrStudents = (string[])lst[0];
+                        foreach (var data in arrStudents)
+                        {
+                            //Append data with comma(,) separator.
+                            sb.Append(data + ',');
+                        }
+                    }
+                    else
+                    {
+                        sb.Append(lst[i]);
+                    }
+                    //Append new line character.
+                    sb.Append("\r\n");
+                }
+
+                #endregion
+
+                #region Download CSV
+
+                return File(Encoding.ASCII.GetBytes(sb.ToString()), "text/csv", "Labour_Relations.csv");
+
+                #endregion
+            }
+            else if (model_name.Equals("Emergency_Prep"))
+            {
+                var lst = TablesContainer.list4.ToList<object>();
+
+                string[] names = typeof(Emergency_Prep).GetProperties().Select(property => property.Name).ToArray();
+
+                lst.Insert(0, names.Where(x => x != names[0]).ToArray());
+
+            #region Generate CSV
+
+                StringBuilder sb = new StringBuilder();
+                for (var i = 0; i < lst.Count; i++)
+                {
+                    if (i == 0)
+                    {
+                        string[] arrStudents = (string[])lst[0];
+                        foreach (var data in arrStudents)
+                        {
+                            //Append data with comma(,) separator.
+                            sb.Append(data + ',');
+                        }
+                    }
+                    else
+                    {
+                        sb.Append(lst[i]);
+                    }
+                    //Append new line character.
+                    sb.Append("\r\n");
+                }
+
+                #endregion
+
+                #region Download CSV
+
+                return File(Encoding.ASCII.GetBytes(sb.ToString()), "text/csv", "Emergency_Prep.csv");
+
+                #endregion
+            }
+            else if (model_name.Equals("Visits_Others"))
+            {
+                var lst = TablesContainer.list6.ToList<object>();
+
+                string[] names = typeof(Visits_Others).GetProperties().Select(property => property.Name).ToArray();
+
+                lst.Insert(0, names.Where(x => x != names[0]).ToArray());
+                       
+                #region Generate CSV
+
+                StringBuilder sb = new StringBuilder();
+                for (var i = 0; i < lst.Count; i++)
+                {
+                    if (i == 0)
+                    {
+                        string[] arrStudents = (string[])lst[0];
+                        foreach (var data in arrStudents)
+                        {
+                            //Append data with comma(,) separator.
+                            sb.Append(data + ',');
+                        }
+                    }
+                    else
+                    {
+                        sb.Append(lst[i]);
+                    }
+                    //Append new line character.
+                    sb.Append("\r\n");
+                }
+
+                #endregion
+
+                #region Download CSV
+
+                return File(Encoding.ASCII.GetBytes(sb.ToString()), "text/csv", "Visits_Others.csv");
+
+                #endregion
+            }
+            else if (model_name.Equals("Privacy_Breaches"))
+            {
+                var lst = TablesContainer.list7.ToList<object>();
+
+                string[] names = typeof(Privacy_Breaches).GetProperties().Select(property => property.Name).ToArray();
+
+                lst.Insert(0, names.Where(x => x != names[0]).ToArray());
+
+                #region Generate CSV
+
+                StringBuilder sb = new StringBuilder();
+                for (var i = 0; i < lst.Count; i++)
+                {
+                    if (i == 0)
+                    {
+                        string[] arrStudents = (string[])lst[0];
+                        foreach (var data in arrStudents)
+                        {
+                            //Append data with comma(,) separator.
+                            sb.Append(data + ',');
+                        }
+                    }
+                    else
+                    {
+                        sb.Append(lst[i]);
+                    }
+                    //Append new line character.
+                    sb.Append("\r\n");
+                }
+
+                #endregion
+
+                #region Download CSV
+
+                return File(Encoding.ASCII.GetBytes(sb.ToString()), "text/csv", "Privacy_Breaches.csv");
+
+                #endregion
+            }
+            else if (model_name.Equals("Privacy_Complaints"))
+            {
+                var lst = TablesContainer.list8.ToList<object>();
+
+                string[] names = typeof(Privacy_Complaints).GetProperties().Select(property => property.Name).ToArray();
+
+                lst.Insert(0, names.Where(x => x != names[0]).ToArray());
+
+                #region Generate CSV
+
+                StringBuilder sb = new StringBuilder();
+                for (var i = 0; i < lst.Count; i++)
+                {
+                    if (i == 0)
+                    {
+                        string[] arrStudents = (string[])lst[0];
+                        foreach (var data in arrStudents)
+                        {
+                            //Append data with comma(,) separator.
+                            sb.Append(data + ',');
+                        }
+                    }
+                    else
+                    {
+                        sb.Append(lst[i]);
+                    }
+                    //Append new line character.
+                    sb.Append("\r\n");
+                }
+
+                #endregion
+
+                #region Download CSV
+
+                return File(Encoding.ASCII.GetBytes(sb.ToString()), "text/csv", "Privacy_Complaints.csv");
+
+                #endregion
+            }
+            else if (model_name.Equals("Education"))
+            {
+                var lst = TablesContainer.list9.ToList<object>();
+
+                string[] names = typeof(Education).GetProperties().Select(property => property.Name).ToArray();
+
+                lst.Insert(0, names.Where(x => x != names[0]).ToArray());
+
+                #region Generate CSV
+
+                StringBuilder sb = new StringBuilder();
+                for (var i = 0; i < lst.Count; i++)
+                {
+                    if (i == 0)
+                    {
+                        string[] arrStudents = (string[])lst[0];
+                        foreach (var data in arrStudents)
+                        {
+                            //Append data with comma(,) separator.
+                            sb.Append(data + ',');
+                        }
+                    }
+                    else
+                    {
+                        sb.Append(lst[i]);
+                    }
+                    //Append new line character.
+                    sb.Append("\r\n");
+                }
+
+                #endregion
+
+                #region Download CSV
+
+                return File(Encoding.ASCII.GetBytes(sb.ToString()), "text/csv", "Educations.csv");
+
+                #endregion
+            }
+            else if (model_name.Equals("Labour_Relations"))
+            {
+                var lst = TablesContainer.list10.ToList<object>();
+
+                string[] names = typeof(Labour_Relations).GetProperties().Select(property => property.Name).ToArray();
+
+                lst.Insert(0, names.Where(x => x != names[0]).ToArray());
+
+                #region Generate CSV
+
+                StringBuilder sb = new StringBuilder();
+                for (var i = 0; i < lst.Count; i++)
+                {
+                    if (i == 0)
+                    {
+                        string[] arrStudents = (string[])lst[0];
+                        foreach (var data in arrStudents)
+                        {
+                            //Append data with comma(,) separator.
+                            sb.Append(data + ',');
+                        }
+                    }
+                    else
+                    {
+                        sb.Append(lst[i]);
+                    }
+                    //Append new line character.
+                    sb.Append("\r\n");
+                }
+
+                #endregion
+
+                #region Download CSV
+
+                return File(Encoding.ASCII.GetBytes(sb.ToString()), "text/csv", "Labour_Relations.csv");
+
+                #endregion
+            }
+            else if (model_name.Equals("Immunization"))
+            {
+                var lst = TablesContainer.list11.ToList<object>();
+
+                string[] names = typeof(Immunization).GetProperties().Select(property => property.Name).ToArray();
+
+                lst.Insert(0, names.Where(x => x != names[0]).ToArray());
+
+                #region Generate CSV
+
+                StringBuilder sb = new StringBuilder();
+                for (var i = 0; i < lst.Count; i++)
+                {
+                    if (i == 0)
+                    {
+                        string[] arrStudents = (string[])lst[0];
+                        foreach (var data in arrStudents)
+                        {
+                            //Append data with comma(,) separator.
+                            sb.Append(data + ',');
+                        }
+                    }
+                    else
+                    {
+                        sb.Append(lst[i]);
+                    }
+                    //Append new line character.
+                    sb.Append("\r\n");
+                }
+
+                #endregion
+
+                #region Download CSV
+
+                return File(Encoding.ASCII.GetBytes(sb.ToString()), "text/csv", "Immunizationbb.csv");
+
+                #endregion
+            }
+            else if (model_name.Equals("Outbreaks"))
+            {
+                var lst = TablesContainer.list12.ToList<object>();
+
+                string[] names = typeof(Outbreaks).GetProperties().Select(property => property.Name).ToArray();
+
+                lst.Insert(0, names.Where(x => x != names[0]).ToArray());
+
+                #region Generate CSV
+
+                StringBuilder sb = new StringBuilder();
+                for (var i = 0; i < lst.Count; i++)
+                {
+                    if (i == 0)
+                    {
+                        string[] arrStudents = (string[])lst[0];
+                        foreach (var data in arrStudents)
+                        {
+                            //Append data with comma(,) separator.
+                            sb.Append(data + ',');
+                        }
+                    }
+                    else
+                    {
+                        sb.Append(lst[i]);
+                    }
+                    //Append new line character.
+                    sb.Append("\r\n");
+                }
+
+                #endregion
+
+                #region Download CSV
+
+                return File(Encoding.ASCII.GetBytes(sb.ToString()), "text/csv", "Outbreaks.csv");
+
+                #endregion
+            }
+            else if (model_name.Equals("WSIB"))
+            {
+                var lst = TablesContainer.list13.ToList<object>();
+
+                string[] names = typeof(WSIB).GetProperties().Select(property => property.Name).ToArray();
+
+                lst.Insert(0, names.Where(x => x != names[0]).ToArray());
+
+                #region Generate CSV
+
+                StringBuilder sb = new StringBuilder();
+                for (var i = 0; i < lst.Count; i++)
+                {
+                    if (i == 0)
+                    {
+                        string[] arrStudents = (string[])lst[0];
+                        foreach (var data in arrStudents)
+                        {
+                            //Append data with comma(,) separator.
+                            sb.Append(data + ',');
+                        }
+                    }
+                    else
+                    {
+                        sb.Append(lst[i]);
+                    }
+                    //Append new line character.
+                    sb.Append("\r\n");
+                }
+
+                #endregion
+
+                #region Download CSV
+
+                return File(Encoding.ASCII.GetBytes(sb.ToString()), "text/csv", "WSIBs.csv");
+
+                #endregion
+            }
+            else if (model_name.Equals("Not_WSIBs"))
+            {
+                var lst = TablesContainer.list14.ToList<object>();
+
+                string[] names = typeof(Not_WSIBs).GetProperties().Select(property => property.Name).ToArray();
+
+                lst.Insert(0, names.Where(x => x != names[0]).ToArray());
+
+                #region Generate CSV
+
+                StringBuilder sb = new StringBuilder();
+                for (var i = 0; i < lst.Count; i++)
+                {
+                    if (i == 0)
+                    {
+                        string[] arrStudents = (string[])lst[0];
+                        foreach (var data in arrStudents)
+                        {
+                            //Append data with comma(,) separator.
+                            sb.Append(data + ',');
+                        }
+                    }
+                    else
+                    {
+                        sb.Append(lst[i]);
+                    }
+                    //Append new line character.
+                    sb.Append("\r\n");
+                }
+
+                #endregion
+
+               #region Download CSV
+
+                return File(Encoding.ASCII.GetBytes(sb.ToString()), "text/csv", "Not_WSIBs.csv");
+
+                #endregion
+            }
             return null;
         }
-
-        //public ActionResult GoodNewsPartial()
-        //{
-        //    return View();
-        //}
 
         #region All Forms:
         SelectList GetFormNames()
@@ -752,59 +1810,59 @@ namespace DTS.Controllers
                 switch (id)
                 {
                     case 1:
-                        var tbl1 = db.Critical_Incidents.ToList();
+                        var tbl1 = db.Critical_Incidents.Where(i => i.Location == Id_Location).ToList();
                         tableList.AddRange(tbl1);
                         break;
                     case 2:
-                        var tbl2 = db.Complaints.ToList();
+                        var tbl2 = db.Complaints.Where(i => i.Location == Id_Location).ToList();
                         tableList.AddRange(tbl2);
                         break;
                     case 3:
-                        var tbl3 = db.Good_News.ToList();
+                        var tbl3 = db.Good_News.Where(i => i.Location == Id_Location).ToList();
                         tableList.AddRange(tbl3);
                         break;
                     case 4:
-                        var tbl4 = db.Emergency_Prep.ToList();
+                        var tbl4 = db.Emergency_Prep.Where(i => i.Location == Id_Location).ToList();
                         tableList.AddRange(tbl4);
                         break;
                     case 5:
-                        var tbl5 = db.Community_Risks.ToList();
+                        var tbl5 = db.Community_Risks.Where(i => i.Location == Id_Location).ToList();
                         tableList.AddRange(tbl5);
                         break;
                     case 6:
-                        var tbl6 = db.Visits_Others.ToList();
+                        var tbl6 = db.Visits_Others.Where(i => i.Location == Id_Location).ToList();
                         tableList.AddRange(tbl6);
                         break;
                     case 7:
-                        var tbl7 = db.Privacy_Breaches.ToList();
+                        var tbl7 = db.Privacy_Breaches.Where(i => i.Location == Id_Location).ToList();
                         tableList.AddRange(tbl7);
                         break;
                     case 8:
-                        var tbl8 = db.Privacy_Complaints.ToList();
+                        var tbl8 = db.Privacy_Complaints.Where(i => i.Location == Id_Location).ToList();
                         tableList.AddRange(tbl8);
                         break;
                     case 9:
-                        var tbl9 = db.Educations.ToList();
+                        var tbl9 = db.Educations.Where(i => i.Location == Id_Location).ToList();
                         tableList.AddRange(tbl9);
                         break;
                     case 10:
-                        var tbl10 = db.Relations.ToList();
+                        var tbl10 = db.Relations.Where(i => i.Location == Id_Location).ToList();
                         tableList.AddRange(tbl10);
                         break;
                     case 11:
-                        var tbl11 = db.Immunizations.ToList();
+                        var tbl11 = db.Immunizations.Where(i => i.Location == Id_Location).ToList();
                         tableList.AddRange(tbl11);
                         break;
                     case 12:
-                        var tbl12 = db.Outbreaks.ToList();
+                        var tbl12 = db.Outbreaks.Where(i => i.Location == Id_Location).ToList();
                         tableList.AddRange(tbl12);
                         break;
                     case 13:
-                        var tbl13 = db.WSIBs.ToList();
+                        var tbl13 = db.WSIBs.Where(i => i.Location == Id_Location).ToList();
                         tableList.AddRange(tbl13);
                         break;
                     case 14:
-                        var tbl14 = db.Not_WSIBs.ToList();
+                        var tbl14 = db.Not_WSIBs.Where(i => i.Location == Id_Location).ToList();
                         tableList.AddRange(tbl14);
                         break;
                 }
@@ -1022,12 +2080,21 @@ namespace DTS.Controllers
                 //ViewBag.Empty = "All fields have to be filled.";
                 return View();
             }
-            else if ((entity.Location != 0) && entity.Awards_Details == null || entity.Awards_Received == null || entity.Category == null || entity.Community_Inititives == null ||
-                entity.Compliment == null || entity.DateNews == null || entity.Department == null ||
+            else if ((entity.DateNews == DateTime.MinValue) && entity.Awards_Details == null || entity.Awards_Received == null || entity.Category == null || entity.Community_Inititives == null ||
+                entity.Compliment == null || entity.Location != 0|| entity.Department == null ||
                 entity.Description_Complim == null || entity.Growth == false || entity.NameAwards == null || entity.Passion == false ||
                 entity.ReceivedFrom == null || entity.Respect == false || entity.Responsibility == false || entity.SourceCompliment == null ||
                 entity.Spot_Awards == null || entity.Teamwork == false)
             {
+                return View();
+            }
+            else if ((entity.Location != 0) && entity.Awards_Details == null || entity.Awards_Received == null || entity.Category == null || entity.Community_Inititives == null ||
+                entity.Compliment == null || entity.DateNews == DateTime.MinValue || entity.Department == null ||
+                entity.Description_Complim == null || entity.Growth == false || entity.NameAwards == null || entity.Passion == false ||
+                entity.ReceivedFrom == null || entity.Respect == false || entity.Responsibility == false || entity.SourceCompliment == null ||
+                entity.Spot_Awards == null || entity.Teamwork == false)
+            {
+                //if(entity.DateNews == DateTime.MinValue) { entity.DateNews = DateTime.Now; }
                 Id_Location = entity.Location;
                 db.Good_News.Add(entity);
                 int res = db.SaveChanges();

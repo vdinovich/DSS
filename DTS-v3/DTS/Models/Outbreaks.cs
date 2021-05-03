@@ -2,9 +2,12 @@
 {
     using System;
     using System.ComponentModel.DataAnnotations;
+    using System.Linq;
 
     public class Outbreaks
     {
+        string[] locNames;
+        public Outbreaks() => locNames = STREAM.GetLocNames().ToArray();
         public int Id { get; set; }
         [DataType(DataType.Date)]
         public DateTime? Date_Declared { get; set; }
@@ -23,5 +26,11 @@
         public int Credit_for_Lost_Days { get; set; }
         public string Tracking_Sheet_Completed { get; set; }
         public string Docs_Submitted_Finance { get; set; }
+        public override string ToString()
+        {
+            return $"{Date_Declared},{Date_Concluded},{Type_of_Outbreak},{Total_Days_Closed},{locNames[Location - 1]},{Total_Residents_Affected},{Total_Residents_Affected}," +
+                $"{Strain_Identified},{Deaths_Due}," +
+                $"{CI_Report_Submitted},{Notify_MOL},{Credit_for_Lost_Days},{Tracking_Sheet_Completed},{Docs_Submitted_Finance}";
+        }
     }
 }

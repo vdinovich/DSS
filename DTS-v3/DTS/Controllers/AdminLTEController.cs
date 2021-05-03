@@ -75,7 +75,7 @@
                 return RedirectToAction("../AdminLTE/Pdf_Viewer");
             }
 
-            if (word == null) // if drop-down list doesn't selected
+            if (word == null) // if a drop-down list is not selected
             {
                 if(obj.Word != null)
                 {
@@ -88,12 +88,12 @@
                         if (count == 0) ViewBag.FoundText = "The search has resulted in no word/s mataches.";
                         ViewBag.FoundText = $"The search found word/s: '{selWord}' and it is present in the text {count} time/s.";
                     }
-                    else // if file name doesnt selected
+                    else // if file name is not selected
                     {
                         ViewBag.FoundText = $"Please select a file from a menu!";
                     }
                 }
-                else // if custumer word & drop-down word wont selected
+                else // if custumer word & drop-down word are not selected
                 {
                     if (word == null) ViewBag.Check = check;
                     ViewBag.EmptyText = "Please input any word/s into the textbox and try again!";

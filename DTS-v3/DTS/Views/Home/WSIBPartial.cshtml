@@ -1,0 +1,106 @@
+﻿
+
+<table style="font-size:medium;font-family:'Palatino Linotype'" class="table table-bordered">
+    <tr style="width:200px">
+        <th>
+          Date Accident
+        </th>
+        <th>
+          Location
+        </th>
+        <th>
+          Employee Initials
+        </th>
+        <th>
+          Accident Cause
+        </th>
+        <th>
+          Date Duties
+        </th>
+        <th>
+          Date Regular
+        </th>
+        <th>
+          Lost Days
+        </th>
+        <th>
+          Modified Days Not Shadowed
+        </th>
+        <th>
+          Modified Days Shadowed
+        </th>
+        <th>
+          Form 7
+        </th>
+    </tr>
+    @{
+        string[] names = ViewBag.Names;
+        var list = (List<DTS.Models.WSIB>)ViewBag.List;
+        foreach (var item in list)
+        {
+        <tr style="width:200px">
+            <td>
+                @Html.DisplayFor(modelItem => item.Date_Accident)
+            </td>
+            <td>
+                @names[item.Location - 1]
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Employee_Initials)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Accident_Cause)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date_Duties)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date_Regular)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lost_Days)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Modified_Days_Not_Shadowed)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Modified_Days_Shadowed)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Form_7)
+            </td>
+            <td>
+                <div style="width:300px;margin-top:10px">
+                    @Html.ActionLink("Edit", "Edit_WSIB", "Edit", new { id = item.Id }, new { @class = "b" })
+                    @Html.ActionLink("Details", "WSIB_Details", "Details", new { id = item.Id }, new { @class = "b" })
+                    @Html.ActionLink("Delete", "WSIB_Delete", "Delete", new { id = item.Id }, new { @class = "b" })
+                </div>
+            </td>
+        </tr>
+        }
+    }
+
+</table>
+<style>
+    .b {
+        border: 1px solid blue;
+        border-radius: 6px;
+        color: darkred;
+        text-decoration: none;
+        padding: 6px;
+        font-size:medium;
+    }
+
+        .b:hover {
+            color: red;
+            text-decoration: none;
+            background-color: blue;
+        }
+</style>
+
+
+
+
+
+
+

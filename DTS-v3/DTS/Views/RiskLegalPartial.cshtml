@@ -1,0 +1,97 @@
+﻿
+<table style="font-size:smaller;font-family:'Palatino Linotype'" class="table table-bordered">
+    <tr>
+        <th>
+            Date
+        <th>
+            Location
+        </th>
+        <th>
+            Type Of Risk
+        </th>
+        <th>
+            Descriptions
+        </th>
+        <th>
+            Potential Risk
+        </th>
+        <th>
+            MOH Visit
+        </th>
+        <th>
+            Risk Legal Action
+        </th>
+        <th>
+            Hot Alert
+        </th>
+        <th>
+            Status Update
+        </th>
+        <th>
+            Resolved
+        </th>
+    </tr>
+    @{
+        string[] names = ViewBag.Names;
+        var list = (List<DTS.Models.Community_Risks>)ViewBag.List;
+        foreach (var item in list)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @names[item.Location - 1];
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type_Of_Risk)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descriptions)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Potential_Risk)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MOH_Visit)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Risk_Legal_Action)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Hot_Alert)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status_Update)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem=>item.Resolved)
+                </td>
+                <td>
+                <td id="btns">
+                    @Html.ActionLink("Edit", "Edit_Community", "Edit", new { id = item.Id }, new { @class = "b" })
+                    @Html.ActionLink("Details", "Community_Details", "Details", new { id = item.Id }, new { @class = "b" })
+                    @Html.ActionLink("Delete", "Community_Delete", "Delete", new { id = item.Id }, new { @class = "b" })
+                </td>
+            </tr>
+        }
+    }
+
+</table>
+<style>
+    .b {
+        border: 1px solid blue;
+        border-radius: 6px;
+        color: darkred;
+        text-decoration: none;
+        padding: 6px;
+    }
+
+        .b:hover {
+            color: red;
+            text-decoration: none;
+            background-color: blue;
+        }
+</style>
+
+

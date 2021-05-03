@@ -1,8 +1,7 @@
 ﻿@model DTS.Models.Good_News
-
 @{
     ViewBag.Title = "GoodNews_Insert";
-}
+}b
 
 <h1 style="color:darkorange;font-weight:bold;text-align:center">Good News - Entry Form</h1>
 <br />
@@ -22,7 +21,7 @@
                        </label>
                        <div class="col-md-10">
                            @Html.EditorFor(model => model.DateNews, new { htmlAttributes = new { @class = "form-control" } })
-                
+                           @Html.ValidationMessageFor(model => model.DateNews, "", new { @class = "text-danger" })
                        </div>
                    </div>
 

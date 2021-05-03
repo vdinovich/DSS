@@ -2,9 +2,12 @@
 {
     using System;
     using System.ComponentModel.DataAnnotations;
+    using System.Linq;
 
     public class WSIB
     {
+        string[] locNames;
+        public WSIB() => locNames = STREAM.GetLocNames().ToArray();
         public int Id { get; set; }
         [Required(ErrorMessage = "This field is required. Please fill it in. ")]
         public int Location { get; set; }
@@ -20,5 +23,10 @@
         public int Modified_Days_Not_Shadowed { get; set; }
         public int Modified_Days_Shadowed { get; set; }
         public string Form_7 { get; set; }
+        public override string ToString()
+        {
+            return $"{locNames[Location - 1]},{Date_Accident},{Employee_Initials},{Accident_Cause},{Date_Duties},{Date_Regular},{Lost_Days},{Modified_Days_Not_Shadowed}," +
+                $"{Modified_Days_Shadowed},{Form_7}";
+        }
     }
 }

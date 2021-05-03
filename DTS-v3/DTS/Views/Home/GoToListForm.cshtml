@@ -1,4 +1,5 @@
-﻿<table style="font-size:larger;font-family:'Palatino Linotype'" class="table">
+﻿
+<table style="font-size:medium;font-family:'Palatino Linotype'" class="table table-bordered">
     <tr>
         <th>
             Location
@@ -57,12 +58,13 @@
         <th></th>
     </tr>
     @{
+        string[] names = ViewBag.Names;
         var list = (List<DTS.Models.Good_News>)ViewBag.List;
         foreach (var item in list)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Location)
+                    @names[item.Location - 1];
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.DateNews)
@@ -115,8 +117,28 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Community_Inititives)
                 </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit_GoodNews", "Edit", new { id = item.Id }, new { @class = "b" })
+                    @Html.ActionLink("Details", "GoodNews_Details", "Details", new { id = item.Id }, new { @class = "b" })
+                    @Html.ActionLink("Delete", "GoodNews_Delete", "Delete", new { id = item.Id }, new { @class = "b" })
+                </td>
             </tr>
         }
     }
 
 </table>
+<style>
+    .b {
+        font-size: medium;
+        border-radius: 6px;
+        color: darkred;
+        text-decoration: none;
+        padding: 6px;
+    }
+
+        .b:hover {
+            color: red;
+            text-decoration: none;
+            background-color: blue;
+        }
+</style>

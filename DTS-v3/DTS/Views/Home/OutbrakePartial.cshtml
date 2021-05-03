@@ -1,0 +1,129 @@
+﻿
+
+<table style="font-size:medium;font-family:'Palatino Linotype'" class="table table-bordered">
+    <tr style="width:200px"> 
+        <th>
+           Date_Declared
+        </th>
+        <th>
+           Location
+        </th>
+        <th>
+           Date_Concluded
+        </th>
+        <th>
+           Type_of_Outbreak
+        </th>
+        <th>
+           Total_Days_Closed
+        </th>
+        <th>
+           Total_Residents_Affected
+        </th>
+        <th>
+           Total_Staff_Affected
+        </th>
+        <th>
+           Strain_Identified
+        </th>
+        <th>
+           Deaths_Due
+        </th>
+        <th>
+           CI_Report_Submitted
+        </th>
+        <th>
+           Notify_MOL
+        </th>
+        <th>
+           Credit_for_Lost_Days
+        </th>
+        <th>
+           Tracking_Sheet_Completed
+        </th>
+        <th>
+           Docs_Submitted_Finance
+        </th>
+    </tr>
+    @{
+        string[] names = ViewBag.Names;
+        var list = (List<DTS.Models.Outbreaks>)ViewBag.List;
+        foreach (var item in list)
+        {
+        <tr style="width:200px">
+            <td>
+                @Html.DisplayFor(modelItem => item.Date_Declared)
+            </td>
+            <td >
+                @names[item.Location - 1]
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date_Concluded)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type_of_Outbreak)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Total_Days_Closed)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Total_Residents_Affected)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Total_Staff_Affected)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Strain_Identified)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Deaths_Due)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CI_Report_Submitted)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Notify_MOL)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Credit_for_Lost_Days)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tracking_Sheet_Completed)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Docs_Submitted_Finance)
+            </td>
+            <td>
+                <div style="width:200px">
+                @Html.ActionLink("Edit", "Edit_Outbreaks", "Edit", new { id = item.Id }, new { @class = "b" })
+                @Html.ActionLink("Details", "Outbreaks", "Details", new { id = item.Id }, new { @class = "b" })
+                @Html.ActionLink("Delete", "Outbreaks_Delete", "Delete", new { id = item.Id }, new { @class = "b" })
+                </div>
+            </td>
+        </tr>
+        }
+    }
+
+</table>
+<style>
+    .b {
+        border: 1px solid blue;
+        border-radius: 6px;
+        color: darkred;
+        text-decoration: none;
+        padding: 6px;
+        font-size:medium;
+    }
+
+        .b:hover {
+            color: red;
+            text-decoration: none;
+            background-color: blue;
+        }
+</style>
+
+
+
+
+
+

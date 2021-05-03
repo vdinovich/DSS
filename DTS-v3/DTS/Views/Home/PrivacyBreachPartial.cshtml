@@ -1,0 +1,108 @@
+﻿
+<table style="font-size:medium;font-family:'Palatino Linotype'" class="table table-bordered">
+    <tr>
+        <th>
+           Location
+        </th>
+        <th>
+           Status
+        </th>
+        <th>
+            Date Breach Occurred
+        </th>
+        <th>
+            Date Breach Reported
+        </th>
+        <th>
+            Date Breach Reported By
+        </th>
+        <th>
+            Type of Breach
+        </th>
+        <th>
+            Type of PHI Involved
+        </th>
+        <th>
+            Number of Individuals Affected
+        </th>
+        <th>
+            Description Outcome
+        </th>
+        <th>
+            Risk Level
+        </th>
+    </tr>
+    @{
+        string[] names = ViewBag.Names;
+        var list = (List<DTS.Models.Privacy_Breaches>)ViewBag.List;
+        foreach (var item in list)
+        {
+        <tr>
+            <td style="width:300px">
+                @names[item.Location - 1]
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date_Breach_Occurred)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date_Breach_Reported)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date_Breach_Reported_By)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type_of_Breach)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type_of_PHI_Involved)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Number_of_Individuals_Affected)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description_Outcome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Risk_Level)
+            </td>
+            <td>
+                <div id="btns">
+                    @Html.ActionLink("Edit", "Edit_Privacy_Breaches", "Edit", new { id = item.Id }, new { @class = "b" })
+                    @Html.ActionLink("Details", "Privacy_Breaches_Details", "Details", new { id = item.Id }, new { @class = "b" })
+                    @Html.ActionLink("Delete", "Privacy_Breaches_Delete", "Delete", new { id = item.Id }, new { @class = "b" })
+                </div>
+            </td>
+        </tr>
+        }
+    }
+
+</table>
+<style>
+    #btns {
+        width: 300px;
+    }
+
+    .b {
+        border: 1px solid blue;
+        border-radius: 6px;
+        color: darkred;
+        text-decoration: none;
+        padding: 6px;
+        font-size: medium;
+    }
+
+        .b:hover {
+            color: red;
+            text-decoration: none;
+            background-color: blue;
+        }
+</style>
+
+
+
+
+
+

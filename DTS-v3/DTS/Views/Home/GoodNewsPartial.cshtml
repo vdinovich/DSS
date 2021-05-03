@@ -2,11 +2,11 @@
     ViewBag.Title = "Good News";
 }
 
-<h2 style="text-align:center;color:darkorchid">Good News (Records Found - <span style="color:black">@ViewBag.Count</span>)</h2>
+<h2 style="text-align:center;color:darkorchid">@ViewBag.ObjName (Records Found - <span style="color:black">@ViewBag.Count</span>)</h2>
 
 @foreach (var ci in ViewBag.GN_Found)
 {
-    if (ci.Contains("Category"))
+    if (ci.Contains("Dietary"))
     {
         <br />
         <p style="color:red">@ci</p>
@@ -16,7 +16,17 @@
         <br />
         <p style="color:red">@ci</p>
     }
-    else if (ci.Contains("Source of Compliment: "))
+    else if (ci.Contains("FromResident"))
+    {
+        <br />
+        <p style="color:red">@ci</p>
+    }
+    else if (ci.Contains("FootCare"))
+    {
+        <br />
+        <p style="color:red">@ci</p>
+    }
+    else if (ci.Contains("IsAdministration"))
     {
         <br />
         <p style="color:red">@ci</p>

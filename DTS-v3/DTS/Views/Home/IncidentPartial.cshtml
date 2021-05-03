@@ -1,0 +1,131 @@
+﻿
+<table style="font-size:medium;font-family:'Palatino Linotype'" class="table table-bordered">
+    <tr>
+        <th>
+            Date mm-dd-yyyy
+        </th>
+        <th>
+            CI Form Number
+        </th>
+        <th>
+            CI Category / Type
+        </th>
+        <th width="208%">
+            Location
+        </th>
+        <th>
+            Brief Description
+        </th>
+        <th>
+            MOH Notified
+        </th>
+        <th>
+            Police Notified
+        </th>
+        <th>
+            POA's Notified
+        </th>
+        <th>
+            Care Plan Updated
+        </th>
+        <th>
+            Brief Description Of Quality Improvement Action/Measures
+        </th>
+        <th>
+            MOHLTC Follow Up
+        </th>
+        <th>
+            Was CIS Initiated on Time
+        </th>
+        <th>
+            All Follow Up Amendments completed Ready for MOH Visit
+        </th>
+        <th>
+            Risk Locked
+        </th>
+        <th>
+            File Complete Ready for MOH
+        </th>
+    </tr>
+    @{
+        string[] names = ViewBag.Names;
+        var list = (List<DTS.Models.Critical_Incidents>)ViewBag.List;
+        foreach (var item in list)
+        {
+            <tr>
+               <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+               </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CI_Form_Number)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CI_Category_Type)
+                </td>
+                <td >
+                    @names[item.Location - 1];
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Brief_Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MOH_Notified)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Police_Notified)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.POAS_Notified)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Care_Plan_Updated)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quality_Improvement_Actions)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MOHLTC_Follow_Up)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CIS_Initiated)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Follow_Up_Amendments)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Risk_Locked)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.File_Complete)
+                </td>
+                <td>
+                    <div style="width:200px">
+                        @Html.ActionLink("Edit", "Edit_Incidents", "Edit", new { id = item.id }, new { @class = "b" })
+                        @Html.ActionLink("Details", "Incidents_Details", "Details", new { id = item.id }, new { @class = "b" })
+                        @Html.ActionLink("Delete", "Incident_Delete", "Delete", new { id = item.id }, new { @class = "b" })
+                    </div>
+                </td>
+            </tr>
+        }
+    }
+
+</table>
+<style>
+    .b {
+        border: 1px solid blue;
+        border-radius: 6px;
+        color: darkred;
+        text-decoration: none;
+        padding: 6px;
+        font-size: medium;
+    }
+
+        .b:hover {
+            color: red;
+            text-decoration: none;
+            background-color: blue;
+        }
+    th td {
+        width :300px;
+    }
+</style>

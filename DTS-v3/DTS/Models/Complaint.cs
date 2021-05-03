@@ -1,9 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace DTS.Models
 {
     public class Complaint
     {
+        string[] locNames;
+        public Complaint() => locNames = STREAM.GetLocNames().ToArray();
         public int Id { get; set; }
         [Required(ErrorMessage = "This field is required! Please fill it in.")]
         [DataType(DataType.Date)]
@@ -14,7 +17,7 @@ namespace DTS.Models
         public string WritenOrVerbal { get; set; }
         [Required(ErrorMessage = "This field is required! Please fill it in.")]
         public string Receive_Directly { get; set; }
-        [Required(ErrorMessage = "This field is required! Please fill it in.")]
+        //[Required(ErrorMessage = "This field is required! Please fill it in.")]
         public string FromResident { get; set; }
         public string ResidentName { get; set; }
         public string Department { get; set; }
@@ -39,5 +42,12 @@ namespace DTS.Models
         public string ActionToken { get; set; }
         public string Resolved { get; set; }
         public string MinistryVisit { get; set; }
+         public override string ToString()
+        {
+            return $"{DateReceived},{locNames[Location - 1]},{WritenOrVerbal},{Receive_Directly},{FromResident},{ResidentName},{Department},{BriefDescription}," +
+                        $"{IsAdministration},{CareServices},{PalliativeCare},{Dietary},{Housekeeping},{Laundry}," +
+                        $"{Maintenance},{Programs},{Physician},{Beautician},{FootCare},{DentalCare}," +
+                        $"{Physio},{Other},{MOHLTCNotified},{CopyToVP},{ResponseSent},{ActionToken},{Resolved},{MinistryVisit}";
+        }
     }
 }

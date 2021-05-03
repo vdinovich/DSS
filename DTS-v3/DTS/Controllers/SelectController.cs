@@ -138,6 +138,9 @@ namespace DTS.Controllers
             bool flag;
             int id_loc = HomeController.Id_Location;
             IEnumerable<Good_News> list = db.Good_News.Where(l => l.Location == id_loc);
+            ViewBag.err = flag = true;
+            Care_Community cc = db.Care_Communities.Find(id_loc);
+            ViewBag.list = cc.Name;
             return View(list);
             //if (list.Count() == 0)
             //{
@@ -189,7 +192,6 @@ namespace DTS.Controllers
 
         public ActionResult Select_Not_WSIB()
         {
-
             bool flag;
             int id_loc = HomeController.Id_Location;
             IEnumerable<Not_WSIBs> list = db.Not_WSIBs.Where(l => l.Location == id_loc);
@@ -234,19 +236,16 @@ namespace DTS.Controllers
                 ViewBag.list = cc.Name;
                 return View(list);
 
-                Care_Community c = db.Care_Communities.Find(id_loc);
-                ViewBag.list = c.Name;
-                ViewBag.err = flag = true;
-                return View(list);
+
             }
         }
 
         public ActionResult Outbreaks()
         {
-
+   
             bool flag;
-            int id_loc = HomeController.Id_Location;
-            IEnumerable<Outbreaks> list = db.Outbreaks.Where(l => l.Location == id_loc);
+         int id_loc = HomeController.Id_Location;
+            var list = db.Outbreaks.Where(l => l.Location == id_loc).ToList();
             if (list.Count() == 0)
             {
                 ViewBag.err = flag = false;
@@ -275,10 +274,6 @@ namespace DTS.Controllers
                     }
                 }
                 return View(list);
-            //    Care_Community c = db.Care_Communities.Find(id_loc);
-            //    ViewBag.list = c.Name;
-            //    ViewBag.err = flag = true;
-            //    return View(list);
             }
         }
 
@@ -301,10 +296,7 @@ namespace DTS.Controllers
                 ViewBag.list = cc.Name;
                 return View(list);
 
-                Care_Community c = db.Care_Communities.Find(id_loc);
-                ViewBag.list = c.Name;
-                ViewBag.err = flag = true;
-                return View(list);
+         
             }
         }
         public ActionResult Privacy_Breaches()
@@ -328,10 +320,7 @@ namespace DTS.Controllers
                 ViewBag.list = cc.Name;
                 return View(list);
 
-                Care_Community c = db.Care_Communities.Find(id_loc);
-                ViewBag.list = c.Name;
-                ViewBag.err = flag = true;
-                return View(list);
+             
             }
         }
 
@@ -355,10 +344,7 @@ namespace DTS.Controllers
                 ViewBag.list = cc.Name;
                 return View(list);
 
-                Care_Community c = db.Care_Communities.Find(id_loc);
-                ViewBag.list = c.Name;
-                ViewBag.err = flag = true;
-                return View(list);
+              
             }
         }
 
