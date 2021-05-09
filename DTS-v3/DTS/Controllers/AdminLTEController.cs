@@ -27,6 +27,91 @@
             selList = new SelectList(listWords, "Id", "Word");
         }
 
+        public ActionResult GridBootstrapTest()
+        {
+            WorTabs tabs = null;
+            { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
+            if (HomeController.Id_Location == 0)
+            {
+                { ViewBag.List = TablesContainer.list1; }
+                { ViewBag.List = TablesContainer.list2; }
+                { ViewBag.List = TablesContainer.list3; }
+            }
+            else
+            {
+                { ViewBag.List = TablesContainer.list1 = db.Critical_Incidents.Where(l => l.Location == HomeController.Id_Location).ToList(); }
+                { ViewBag.List = TablesContainer.list2 = db.Complaints.Where(l => l.Location == HomeController.Id_Location).ToList(); }
+                { ViewBag.List = TablesContainer.list3 = db.Good_News.Where(l => l.Location == HomeController.Id_Location).ToList(); }
+            }
+            if (HomeController.b)
+            {
+                switch (HomeController.num_tbl)
+                {
+                    case 1:
+                        var arr1 = TablesContainer.list1.Count;
+
+                        {
+                            ViewBag.Count = arr1;
+                        }
+
+                        {
+                            ViewBag.GN_Found = HomeController.strN;
+                        }
+
+                        {
+                            ViewBag.ObjName = "Critical Incidents";
+                        }
+                        ViewBag.Check = HomeController.checkView;
+                        tabs = new WorTabs();
+                        tabs.ListForms = HomeController.GetFormNames();
+
+                        return View(tabs);
+                    case 2:
+                        var arr2 = TablesContainer.list2.Count;
+
+                        {
+                            ViewBag.Count = arr2;
+                        }
+
+                        {
+                            ViewBag.GN_Found = HomeController.strN;
+                        }
+
+                        {
+                            ViewBag.ObjName = "Complaints";
+                        }
+                        ViewBag.Check = HomeController.checkView;
+                        tabs = new WorTabs();
+                        tabs.ListForms = HomeController.GetFormNames();
+
+                        return View(tabs);
+                    case 3:
+                        var arr = TablesContainer.list3.Count;
+
+                        {
+                            ViewBag.Count = arr;
+                        }
+
+                        {
+                            ViewBag.GN_Found = HomeController.strN;
+                        }
+
+                        {
+                            ViewBag.ObjName = "Good News";
+                        }
+                        ViewBag.Check = HomeController.checkView;
+                        tabs = new WorTabs();
+                        tabs.ListForms = HomeController.GetFormNames();
+
+                        return View(tabs);
+                }
+            }
+
+            tabs = new WorTabs();
+            tabs.ListForms = HomeController.GetFormNames();
+            return View(tabs);
+        }
+
         public ActionResult Index()
         {
             return View(); //review later for refactoring

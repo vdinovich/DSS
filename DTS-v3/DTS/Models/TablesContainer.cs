@@ -6,7 +6,7 @@
     /// </summary>
     public class TablesContainer
     {
-        public static int c1 = 0, c2 = 0, c3 = 0, c4 = 0, c5 = 0, c6 = 0, c7 = 0, c8 = 0, c9 = 0, c10 = 0, c11 = 0, c12 = 0, c13 = 0, c14 = 0, c15 = 0;
+        public static int c1 = 0, c2 = 0, c3 = 0, c4 = 0, c5 = 0, c6 = 0, c7 = 0, c8 = 0, c9 = 0, c10 = 0, c11 = 0, c12 = 0, c13 = 0, c14 = 0, c15 = 0, COUNT;
         public static List<int> count_arr = new List<int>();
         public static List<Critical_Incidents> list1;
         public static List<Complaint> list2;

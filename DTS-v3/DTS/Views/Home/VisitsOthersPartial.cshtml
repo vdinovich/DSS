@@ -1,0 +1,20 @@
+﻿<h2 style="text-align:center;color:darkorchid">@ViewBag.ObjName (Records Found - <span style="color:gold">@ViewBag.Count</span>)</h2>
+
+@foreach (var ci in ViewBag.GN_Found)
+{
+    if (ci.Contains("Date of Visit: ") || ci.Contains("Agency: ") || ci.Contains("Number of Findings: ") || ci.Contains("Details of Findings: ") ||
+        ci.Contains("Corrective Actions: ") || ci.Contains("Report Posted: ") || ci.Contains("LHIN Letter Received: ") || ci.Contains("PH Letter Received: "))
+    {
+        <br />
+        <p style="color:red;font-size:large;font-weight:bold">@ci</p>
+    }
+    else
+    {
+        <p style="color:black;font-size:larger">
+            @ci
+        </p>
+    }
+}
+
+
+

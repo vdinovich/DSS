@@ -4852,6 +4852,9 @@
     <Content Include="Views\Home\OutbrakePartial.cshtml" />
     <Content Include="Views\Home\WSIBPartial.cshtml" />
     <Content Include="Views\Home\NoWSIBPartial.cshtml" />
+    <Content Include="Views\AdminLTE\GridBootstrapTest.cshtml" />
+    <Content Include="Views\Home\IncidentsPartial.cshtml" />
+    <Content Include="Views\Home\VisitsOthersPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DownloadedFiles\" />

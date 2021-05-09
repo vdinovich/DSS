@@ -16,7 +16,7 @@
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
                 <label class="control-label col-md-2">
-                    Date of News
+                    Date of News :&nbsp;
                 </label>
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.DateNews, new { htmlAttributes = new { @class = "form-control" } })
@@ -25,7 +25,7 @@
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.Location, htmlAttributes: new { @class = "control-label col-md-2" })
+                <label class="control-label col-md-2">Location:&nbsp;</label>
                 <div class="col-md-10">
                     @Html.DropDownListFor(model => model.Location, ViewBag.locations[0] as SelectList, "", new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
@@ -34,7 +34,7 @@
 
             <div class="form-group">
                 <label class="control-label col-md-2">
-                    Category (Good News/Compliment)
+                    Category (Good News/Compliment):&nbsp;
                 </label>
                 <div class="col-md-10">
                     @Html.DropDownListFor(model => model.Category, ViewBag.locations[1] as SelectList, "", new { @class = "form-control" })
@@ -42,7 +42,7 @@
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.Department, htmlAttributes: new { @class = "control-label col-md-2" })
+                <label class="control-label col-md-2">Department:&nbsp;</label>
                 <div class="col-md-10">
                     @Html.DropDownListFor(model => model.Department, ViewBag.locations[2] as SelectList, "", new { @class = "form-control" })
                 </div>
@@ -50,7 +50,7 @@
 
             <div class="form-group">
                 <label class="control-label col-md-2">
-                    Source of Compliment
+                    Source of Compliment:&nbsp;
                 </label>
                 <div class="col-md-10">
                     @Html.DropDownListFor(model => model.SourceCompliment, ViewBag.locations[3] as SelectList, "", new { @class = "form-control" })
@@ -59,7 +59,7 @@
 
             <div class="form-group">
                 <label class="control-label col-md-2">
-                    Received From
+                    Received From:&nbsp;
                 </label>
                 <div class="col-md-10">
                     @Html.DropDownListFor(model => model.ReceivedFrom, ViewBag.locations[4] as SelectList, "", new { @class = "form-control" })
@@ -68,7 +68,7 @@
 
             <div class="form-group">
                 <label class="control-label col-md-2">
-                    Description of Compliment / Recognition
+                    Description of Compliment / Recognition:&nbsp;
                 </label>
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.Description_Complim, new { htmlAttributes = new { @class = "form-control" } })
@@ -78,7 +78,7 @@
 
             <div class="form-group">
                 <label class="control-label col-md-2">
-                    Respect
+                    Respect:&nbsp;
                 </label>
                 <div class="col-md-10">
                     <div class="checkbox">
@@ -90,7 +90,7 @@
 
             <div class="form-group">
                 <label class="control-label col-md-2">
-                    Passion
+                    Passion:&nbsp;
                 </label>
                 <div class="col-md-10">
                     <div class="checkbox">
@@ -102,7 +102,7 @@
 
             <div class="form-group">
                 <label class="control-label col-md-2">
-                    Teamwork
+                    Teamwork:&nbsp;
                 </label>
                 <div class="col-md-10">
                     <div class="checkbox">
@@ -114,7 +114,7 @@
 
             <div class="form-group">
                 <label class="control-label col-md-2">
-                    Responsibility
+                    Responsibility:&nbsp;
                 </label>
                 <div class="col-md-10">
                     <div class="checkbox">
@@ -126,7 +126,7 @@
 
             <div class="form-group">
                 <label class="control-label col-md-2">
-                    Growth
+                    Growth:&nbsp;
                 </label>
                 <div class="col-md-10">
                     <div class="checkbox">
@@ -138,7 +138,7 @@
 
             <div class="form-group">
                 <label class="control-label col-md-2">
-                    Compliment / Picture Communicated to SSO Marketing?
+                    Compliment / Picture Communicated to SSO Marketing?:&nbsp;
                 </label>
                 <div class="col-md-10">
                     @Html.DropDownListFor(model => model.Department, ViewBag.locations[5] as SelectList, "", new { @class = "form-control" })
@@ -148,7 +148,7 @@
 
             <div class="form-group">
                 <label class="control-label col-md-2">
-                    Spot Awards
+                    Spot Awards:&nbsp;
                 </label>
                 <div class="col-md-10">
                     @Html.DropDownListFor(model => model.Spot_Awards, ViewBag.locations[5] as SelectList, "", new { @class = "form-control" })
@@ -158,7 +158,7 @@
 
             <div class="form-group">
                 <label class="control-label col-md-2">
-                    Spot Awards Details
+                    Spot Awards Details:&nbsp;
                 </label>
                 <div class="col-md-10">
                     @Html.DropDownListFor(model => model.Awards_Details, ViewBag.locations[5] as SelectList, "", new { @class = "form-control" })
@@ -168,7 +168,7 @@
 
             <div class="form-group">
                 <label class="control-label col-md-2">
-                    Name of External Award that was Applied For
+                    Name of External Award that was Applied For:&nbsp;
                 </label>
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.NameAwards, new { htmlAttributes = new { @class = "form-control" } })
@@ -178,7 +178,7 @@
 
             <div class="form-group">
                 <label class="control-label col-md-2">
-                    Awards Received (Yes / No)
+                    Awards Received (Yes / No):&nbsp;
                 </label>
                 <div class="col-md-10">
                     @Html.DropDownListFor(model => model.Awards_Received, ViewBag.locations[5] as SelectList, "", new { @class = "form-control" })
@@ -188,7 +188,7 @@
 
             <div class="form-group">
                 <label class="control-label col-md-2">
-                    Description of Community Initiatives as per KPI
+                    Description of Community Initiatives as per KPI:&nbsp;
                 </label>
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.Community_Inititives, new { htmlAttributes = new { @class = "form-control" } })

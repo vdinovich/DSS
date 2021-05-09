@@ -1,0 +1,364 @@
+﻿@model DTS.Controllers.WorTabs
+@{ Layout = null;}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - WOR Compliants sf</title>
+    @*@Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")*@
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    @*<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">*@
+</head>
+<body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @*<a href="~/Home/Index"><img src="~/Logo/logo2.png" style="width:90px;height:35px;margin:7px 0 0 10px" /></a>*@
+                @Html.ActionLink("SIENNA", "SignIN", "Home", null, new { id = "nameApp" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("WOR Tabs", "WOR_Tabs", "Home")</li>
+                    <li>@Html.ActionLink("All Uploaded Files", "AllFiles", "Home")</li>
+                    <li>@Html.ActionLink("Register", "Register_New_User", "Register")</li>
+                    <li>@Html.ActionLink("About", "Index", "AdminLTE")</li>
+                    <li>@Html.ActionLink("PDF Viewer(Test)", "SearchByWord", "AdminLTE")</li>
+                    <li>
+                        <a href="https://siennaliving.sharepoint.com/SitePages/Home.aspx">Exit</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <h4 style="text-align:center;font-weight:bold;color:red">@ViewBag.ErrorMsg</h4>
+    <h4 style="text-align:center;font-weight:bold;color:green">@ViewBag.SuccessExport</h4>
+    <br />
+    <br />
+
+    <div style="margin-top:65px" class="@*container body-content*@">
+        <div style="width:320px;margin:auto">
+            <img src="~/Logo/logo1_sm.png" />
+        </div>
+        <div style="margin-top:15px">
+            @using (Html.BeginForm("WOR_Tabs", "Home", FormMethod.Post))
+            {
+                <div style="width:89%" class="container">
+                    <div class="row">
+
+                        <div style="height:540px;position:relative" id="div" class="col-lg-2 col-md-2">
+                            <ul style="font-weight:bold;font-family:'Palatino Linotype';font-size:larger;list-style-type: none;position:absolute">
+                                <li>
+                                    @Html.ListBoxFor(model => model.Name, new SelectList(Model.ListForms, "Value", "Text", Model.ListForms.SelectedValue), new { id = "ref" })
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div @*style="border:1px solid black"*@ class="col-lg-10 col-md-10">
+                            <ul style="" class="nav nav-justified badge">
+                                <li><button class="btn add-on" style="color:darkgoldenrod;font-size:medium;font-weight:bold" name="btn-summary" type="submit">SUMMARY</button></li>
+                                <li>
+                                    <p class="btn btn-dropbox" name="btn-insert" style="width:220px;background-color:whitesmoke; color:darkgoldenrod;font-size:medium;font-weight:bold" id="hiddenShow">
+                                        NEW COMPLIANCE
+                                    </p>
+                                </li>
+                                <li>
+                                    <button class="btn btn-dropbox" name="btn-export" style="color: darkgoldenrod; font-size: medium; font-weight: bold" type="submit">
+                                        EXPORT DATA
+                                    </button>
+                                </li>
+                            </ul>
+                            <ul class="nav nav-justified" id="btns">
+                                <li><button hidden type="submit"></button></li>
+                                <li id="ll" style="">
+                                    <button id="b1" class="btn btn-primary" name="btn-insert" style="margin: -15px 0 0 225px" type="submit">Input New Record</button>
+                                    <button id="b2" class="btn btn-primary" style="margin:-15px 0 0 3px" name="btn-list">All Records</button>
+                                </li>
+                                <li></li>
+
+                            </ul>
+                            <br />
+                            <ul class="nav nav-justified">
+                                <li id="d" style="font-family:'Palatino Linotype';font-size:medium">Date range:</li>
+                                <li style="color: darkorange;font-size: medium"> Start:&nbsp; @Html.EditorFor(model => model.Start, new { htmlAttributes = new { @class = "", @id = "start" } })</li>
+                                <li style="color: darkorange;font-size: medium"> End:&nbsp;   @Html.EditorFor(model => model.End, new { htmlAttributes = new { @class = "", @id = "end" } })</li>
+                            </ul>
+                        </div>
+
+                    </div>
+
+                </div>}
+        </div>
+
+        <div style="margin:-955px 0 0 -150px">
+            @if (ViewBag.Check == "none")
+            {
+
+            }
+            else if (ViewBag.Check == "insert")
+            {
+
+            }
+            else if (ViewBag.Check == "list")
+            {
+                if (ViewBag.Tbl == "1")
+                {
+                    <br /><br />
+                    <div style="">
+                        @Html.Partial("IncidentPartial");
+                    </div>
+                }
+                else if (ViewBag.Tbl == "2")
+                {
+                    <br /><br />
+                    <div style="">
+                        @Html.Partial("ComplaintsPartial");
+                    </div>
+                }
+                else if (ViewBag.Tbl == "3")
+                {
+                    <br /><br />
+                    <div style="">
+                        @Html.Partial("GoToListForm");
+                    </div>
+                }
+                else if (ViewBag.Tbl == "4")
+                {
+                    <br /><br />
+                    <div style="">
+                        @Html.Partial("EmergencyPrepPartial");
+                    </div>
+                }
+                else if (ViewBag.Tbl == "5")
+                {
+                    <br /><br />
+                    <div style="">
+                        @Html.Partial("RiskLegalPartial");
+                    </div>
+                }
+                else if (ViewBag.Tbl == "6")
+                {
+                    <br /><br /> <br /><br />
+                    <div style="">
+                        @Html.Partial("VisitOtherPartial");
+                    </div>
+                }
+                else if (ViewBag.Tbl == "7")
+                {
+                    <br /><br /> <br /><br />
+                    <div style="">
+                        @Html.Partial("PrivacyBreachPartial");
+                    </div>
+                }
+                else if (ViewBag.Tbl == "8")
+                {
+                    <br /><br /> <br /><br />
+                    <div style="">
+                        @Html.Partial("PrivacyComplaintsPartial");
+                    </div>
+                }
+                else if (ViewBag.Tbl == "9")
+                {
+                    <br /><br /> <br /><br />
+                    <div style="">
+                        @Html.Partial("EducationPartial");
+                    </div>
+                }
+                else if (ViewBag.Tbl == "10")
+                {
+                    <br /><br /> <br /><br />
+                    <div style="">
+                        @Html.Partial("RelationPartial");
+                    </div>
+                }
+                else if (ViewBag.Tbl == "11")
+                {
+                    <br /><br /> <br /><br />
+                    <div style="">
+                        @Html.Partial("ImmunPartial");
+                    </div>
+                }
+                else if (ViewBag.Tbl == "12")
+                {
+                    <br /><br /> <br /><br />
+                    <div style="">
+                        @Html.Partial("OutbrakePartial");
+                    </div>
+                }
+                else if (ViewBag.Tbl == "13")
+                {
+                    <br /><br /> <br /><br />
+                    <div style="">
+                        @Html.Partial("WSIBPartial");
+                    </div>
+                }
+                else if (ViewBag.Tbl == "14")
+                {
+                    <br /><br /> <br /><br />
+                    <div style="">
+                        @Html.Partial("NoWSIBPartial");
+                    </div>
+                }
+
+            }
+            else if (ViewBag.Check == "summary")
+            {
+                if (ViewBag.Entity == "Critical_Incidents")
+                {
+                    <br /><br />
+                    <ul style="list-style-type:none" class="">
+                        <li>@{Html.RenderPartial("IncidentsPartial", (List<string>)ViewBag.GN_Found);}</li>
+                    </ul>
+                }
+                else if (ViewBag.Entity == "Complaints")
+                {
+                    <br /><br />
+                    <ul style="list-style-type:none" class="">
+                        <li>@{Html.RenderPartial("ComplaintsPartial", (List<string>)ViewBag.GN_Found);}</li>
+                    </ul>
+                }
+                else if (ViewBag.Entity == "Good_News")
+                {
+                    <br /><br />
+                    <ul style="list-style-type:none" class="">
+                        <li>@{Html.RenderPartial("GoodNewsPartial", (List<string>)ViewBag.GN_Found);}</li>
+                    </ul>
+                }
+                else if (ViewBag.Entity == "Visits_Others")
+                {
+                    <br /><br />
+                    <ul style="list-style-type:none" class="">
+                        <li>@{Html.RenderPartial("VisitsOthersPartial", (List<string>)ViewBag.GN_Found);}</li>
+                    </ul>
+                }
+            }
+        </div>
+
+    </div>
+
+
+    <hr />
+    <footer>
+        <p style="text-align:center;font-weight:bold">&copy; @DateTime.Now.Year - WOR Report</p>
+    </footer>
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    <style>
+        #nameApp {
+            font-family: 'Times New Roman';
+            font-weight: bold;
+            font-size: x-large;
+            float: left;
+            height: 50px;
+            padding: 15px 15px;
+            font-size: 18px;
+            line-height: 20px;
+            color: darkorange;
+        }
+
+            #nameApp:hover {
+                text-decoration: none;
+                color: navajowhite;
+            }
+    </style>
+</body>
+</html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+
+    function saveTextAsFile() {
+        $.ajax({
+            type: "POST",
+            contentType: "application/json",
+            data: myJSON,
+            url: "/Home/ExportToCSV",
+            dataType: "json"
+        });
+    }
+
+
+    $(document).ready(function () {
+        $("#ll").hide();
+        $("#hiddenShow").click(function () {
+            var sel = document.getElementById("ll").style;
+            if (sel.display == "none")
+                $("#ll").show("slow");
+            else $("#ll").hide("slow");
+        });
+    });
+
+</script>
+
+<style>
+    li #start, #end {
+        margin: -50px 0 0 0;
+    }
+
+    #b1, #b2 {
+        height: 30px;
+        width: 135px;
+    }
+
+    button {
+        width: 150px;
+        height: 40px;
+        font-size: larger;
+        font-weight: bold;
+    }
+
+    #btns {
+        padding: 10px;
+        font-size: x-large;
+    }
+
+    #rightBox {
+        margin: 0 0 0 550px;
+        width: 900px;
+        padding: 22px;
+        height: 1050px
+    }
+
+    #container {
+        text-align: left;
+        position: absolute;
+        height: 550px;
+        margin-right: 22px;
+        padding: 22px;
+        margin: 0 0 0 -50px;
+    }
+
+     #ref {
+        /*margin: 0 0 0 -55px;*/
+        padding: 23px;
+        border: 4px solid darkorange;
+        border-radius: 12px;
+        text-decoration: none;
+        color: mediumslateblue;
+              height: 540px;     
+              width:300px;
+    }
+    #div #ref {
+        position: relative;
+        /*     top: 0;
+        left: 0;*/
+        width: 100%;
+        height: 540px;
+    }
+
+    /* #ref:hover {
+            color: darkorange;
+        }*/
+</style>

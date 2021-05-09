@@ -16,7 +16,7 @@
         @*@Html.HiddenFor(model => model.id)*@
 
     <div class="form-group">
-        <label class = "control-label col-md-2" >Date mm-dd-yyyy</label>
+        <label class="control-label col-md-2">Date mm-dd-yyyy:&nbsp;</label>
         <div class="col-md-10">
             @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
@@ -24,7 +24,7 @@
     </div>
 
     <div class="form-group">
-        <label class = "control-label col-md-2">CI Form Number</label>
+        <label class="control-label col-md-2">CI Form Number:&nbsp;</label>
         <div class="col-md-10">
             @Html.EditorFor(model => model.CI_Form_Number, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.CI_Form_Number, "", new { @class = "text-danger" })
@@ -32,7 +32,7 @@
     </div>
 
     <div class="form-group">
-        <label class = "control-label col-md-2">CI Category / Type</label>
+        <label class="control-label col-md-2">CI Category / Type:&nbsp;</label>
         <div class="col-md-10">
             @Html.DropDownListFor(model => model.CI_Category_Type, ViewBag.locations[1] as SelectList, "", new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.CI_Category_Type, "", new { @class = "text-danger" })
@@ -40,7 +40,7 @@
     </div>
 
     <div class="form-group">
-        <label class = "control-label col-md-2">Location</label>
+        <label class="control-label col-md-2">Location:&nbsp;</label>
         <div class="col-md-10">
             @Html.DropDownListFor(model => model.Location, ViewBag.locations[0] as SelectList, "", new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
@@ -48,7 +48,7 @@
     </div>
 
     <div class="form-group">
-        <label class = "control-label col-md-2">Brief Description</label>
+        <label class="control-label col-md-2">Brief Description:&nbsp;</label>
         <div class="col-md-10">
             @Html.TextAreaFor(model => model.Brief_Description,  new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.Brief_Description, "", new { @class = "text-danger" })
@@ -56,7 +56,7 @@
     </div>
 
     <div class="form-group">
-        <label class = "control-label col-md-2">MOH Notified</label>
+        <label class="control-label col-md-2">MOH Notified:&nbsp;</label>
         <div class="col-md-10">
             @Html.DropDownListFor(model => model.MOH_Notified, ViewBag.locations[2] as SelectList, "", new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.MOH_Notified, "", new { @class = "text-danger" })
@@ -64,7 +64,7 @@
     </div>
 
     <div class="form-group">
-        <label class = "control-label col-md-2">Police Notified</label>
+        <label class="control-label col-md-2">Police Notified:&nbsp;</label>
         <div class="col-md-10">
             @Html.DropDownListFor(model => model.Police_Notified, ViewBag.locations[2] as SelectList, "", new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.Police_Notified, "", new { @class = "text-danger" })
@@ -72,7 +72,7 @@
     </div>
 
     <div class="form-group">
-        <label class = "control-label col-md-2">POA's Notified</label>
+        <label class="control-label col-md-2">POA's Notified:&nbsp;</label>
         <div class="col-md-10">
             @Html.DropDownListFor(model => model.POAS_Notified, ViewBag.locations[2] as SelectList, "", new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.POAS_Notified, "", new { @class = "text-danger" })
@@ -80,7 +80,7 @@
     </div>
 
     <div class="form-group">
-        <label class = "control-label col-md-2">Care Plan Updated</label>
+        <label class="control-label col-md-2">Care Plan Updated:&nbsp;</label>
         <div class="col-md-10">
             @Html.DropDownListFor(model => model.Care_Plan_Updated, ViewBag.locations[2] as SelectList, "", new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.Care_Plan_Updated, "", new { @class = "text-danger" })
@@ -88,7 +88,7 @@
     </div>
 
     <div class="form-group">
-        <label class = "control-label col-md-2">Brief Description Of Quality Improvement Action/Measures</label>
+        <label class="control-label col-md-2" style="">Brief Description Of Quality Improvement Action/Measures:&nbsp;</label>
         <div class="col-md-10">
             @Html.EditorFor(model => model.Quality_Improvement_Actions, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.Quality_Improvement_Actions, "", new { @class = "text-danger" })
@@ -96,7 +96,7 @@
     </div>
 
     <div class="form-group">
-        <label class = "control-label col-md-2">MOHLTC Follow Up</label>
+        <label class="control-label col-md-2">MOHLTC Follow Up:&nbsp;</label>
         <div class="col-md-10">
             @Html.DropDownListFor(model => model.MOHLTC_Follow_Up, ViewBag.locations[3] as SelectList, "", new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.MOHLTC_Follow_Up, "", new { @class = "text-danger" })
@@ -104,7 +104,7 @@
     </div>
 
     <div class="form-group">
-        <label class = "control-label col-md-2">Was CIS Initiated on Time</label>
+        <label class="control-label col-md-2">Was CIS Initiated on Time:&nbsp;</label>
         <div class="col-md-10">
             @Html.DropDownListFor(model => model.CIS_Initiated, ViewBag.locations[2] as SelectList, "", new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.CIS_Initiated, "", new { @class = "text-danger" })
@@ -112,7 +112,7 @@
     </div>
 
     <div class="form-group">
-        <label class = "control-label col-md-2">All Follow Up Amendments completed Ready for MOH Visit</label>
+        <label class="control-label col-md-2">All Follow Up Amendments completed Ready for MOH Visit:&nbsp;</label>
         <div class="col-md-10">
             @Html.DropDownListFor(model => model.Follow_Up_Amendments, ViewBag.locations[2] as SelectList, "", new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.Follow_Up_Amendments, "", new { @class = "text-danger" })
@@ -120,7 +120,7 @@
     </div>
 
     <div class="form-group">
-        <label class = "control-label col-md-2">Risk Locked</label>
+        <label class="control-label col-md-2">Risk Locked:&nbsp;</label>
         <div class="col-md-10">
             @Html.DropDownListFor(model => model.Risk_Locked, ViewBag.locations[2] as SelectList, "", new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.Risk_Locked, "", new { @class = "text-danger" })
@@ -128,7 +128,7 @@
     </div>
 
     <div class="form-group">
-        <label class = "control-label col-md-2">File Complete Ready for MOH</label>
+        <label class="control-label col-md-2">File Complete Ready for MOH:&nbsp;</label>
         <div class="col-md-10">
             @Html.DropDownListFor(model => model.File_Complete, ViewBag.locations[2] as SelectList, "", new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.File_Complete, "", new { @class = "text-danger" })

@@ -1,178 +1,24 @@
-﻿<table style="font-size:medium;font-family:'Palatino Linotype'" class="table table-bordered">
-    <tr>
-        <th>
-            Date Received
-        </th>
-        <th>
-            Location
-        </th>
-        <th>
-            Written Or Verbal
-        </th>
-        <th>
-            Receive Directly
-        </th>
-        <th>
-            From Resident
-        </th>
-        <th>
-            Resident Name
-        </th>
-        <th>
-            Department
-        </th>
-        <th>
-            Brief Description
-        </th>
-        <th>
-            Is Administration
-        </th>
-        <th>
-            Care Services
-        </th>
-        <th>
-            Palliative Care
-        </th>
-        <th>
-            Dietary
-        </th>
-        <th>
-            Housekeeping
-        </th>
-        <th>
-            Laundry
-        </th>
-        <th>
-            Maintenance
-        </th>
-        <th>Programs</th>
-        <th>Physician</th>
-        <th>Beautician</th>
-        <th>FootCare</th>
-        <th>Dental Care</th>
-        <th>Physio</th>
-        <th>Other</th>
-        <th>MOHLTC Notified</th>
-        <th>Copy To VP</th>
-        <th>Response Sent</th>
-        <th>Action Token</th>
-        <th>Resolved</th>
-        <th>Ministry Visit</th>
-    </tr>
-    @{
-        string[] names = ViewBag.Names;
-        var list = (List<DTS.Models.Complaint>)ViewBag.List;
-        foreach (var item in list)
+﻿    <h2 style="text-align:center;color:darkorchid">@ViewBag.ObjName (Records Found - <span style="color:gold">@ViewBag.Count</span>)</h2>
+
+    @foreach (var ci in ViewBag.GN_Found)
+    {
+        if (ci.Contains("Date Received: ") || ci.Contains("Writen Or Verbal: ") || ci.Contains("Receive Directly: ") || ci.Contains("From Resident: ") ||
+            ci.Contains("Resident Name: ") || ci.Contains("Department: ") || ci.Contains("Brief Description: ") || ci.Contains("Is Administration: ") ||
+            ci.Contains("Care Services: ") || ci.Contains("Palliative Care: ") || ci.Contains("Dietary: ") || ci.Contains("Housekeeping: ") ||
+            ci.Contains("Laundry: ") || ci.Contains("Maintenance: ") || ci.Contains("Programs: ") || ci.Contains("Physician: ") || ci.Contains("Beautician: ") || 
+            ci.Contains("FootCare: ")
+            || ci.Contains("Dental Care: ") || ci.Contains("Physio: ") || ci.Contains("Other: ") || ci.Contains("MOHLTC Notified: ") || ci.Contains("Copy To VP: ")
+            || ci.Contains("Response Sent: ") || ci.Contains("Action Token: ") || ci.Contains("Resolved: ") || ci.Contains("Ministry Visit: "))
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DateReceived)
-                </td>
-                <td>
-                    @names[item.Location - 1];
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.WritenOrVerbal)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Receive_Directly)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FromResident)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ResidentName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Department)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.BriefDescription)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IsAdministration)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CareServices)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PalliativeCare)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Dietary)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Housekeeping)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Laundry)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Maintenance)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Programs)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Physician)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Beautician)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FootCare)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DentalCare)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Physio)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Other)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MOHLTCNotified)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CopyToVP)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ResponseSent)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ActionToken)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Resolved)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MinistryVisit)
-                </td>
-                <td>
-                <td id="btns">
-                    @Html.ActionLink("Edit", "Edit_Complaints", "Edit", new { id = item.Id }, new { @class = "b" })
-                    @Html.ActionLink("Details", "Complaints_Details", "Details", new { id = item.Id }, new { @class = "b" })
-                    @Html.ActionLink("Delete", "Complaints_Delete", "Delete", new { id = item.Id }, new { @class = "b" })
-                </td>
-            </tr>
+            <br />
+            <p style="color:red;font-size:large;font-weight:bold">@ci</p>
+        }
+        else
+        {
+            <p style="color:black;font-size:larger">
+                @ci
+            </p>
         }
     }
 
-</table>
-<style>
-    .b {
-        border-radius: 6px;
-        color: darkred;
-        text-decoration: none;
-        padding: 6px;
-        font-size: medium;
-    }
-
-        .b:hover {
-            color: red;
-            text-decoration: none;
-            background-color: blue;
-        }
-</style>
 

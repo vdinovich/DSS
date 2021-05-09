@@ -1,41 +1,21 @@
-﻿@{
-    ViewBag.Title = "Good News";
-}
-
-<h2 style="text-align:center;color:darkorchid">@ViewBag.ObjName (Records Found - <span style="color:black">@ViewBag.Count</span>)</h2>
+﻿<h2 style="text-align:center;color:darkorchid">@ViewBag.ObjName (Records Found - <span style="color:gold">@ViewBag.Count</span>)</h2>
 
 @foreach (var ci in ViewBag.GN_Found)
 {
-    if (ci.Contains("Dietary"))
+    if (ci.Contains("Date News: ") || ci.Contains("Department: ") || ci.Contains("Source Compliment: ") || ci.Contains("Received From: ") ||
+        ci.Contains("Description Compliment: ") || ci.Contains("Respect: ") || ci.Contains("Passion: ") || ci.Contains("Teamwork: ") ||
+        ci.Contains("Responsibility: ") || ci.Contains("Growth: ") || ci.Contains("Compliment: ") || ci.Contains("Spot Awards: ") ||
+        ci.Contains("Awards Details: ") || ci.Contains("Name Awards: ") || ci.Contains("Awards Received: ") || ci.Contains("Awards Received: "))
     {
         <br />
-        <p style="color:red">@ci</p>
-    }
-    else if (ci.Contains("Department"))
-    {
-        <br />
-        <p style="color:red">@ci</p>
-    }
-    else if (ci.Contains("FromResident"))
-    {
-        <br />
-        <p style="color:red">@ci</p>
-    }
-    else if (ci.Contains("FootCare"))
-    {
-        <br />
-        <p style="color:red">@ci</p>
-    }
-    else if (ci.Contains("IsAdministration"))
-    {
-        <br />
-        <p style="color:red">@ci</p>
+        <p style="color:red;font-size:large;font-weight:bold">@ci</p>
     }
     else
     {
-        <p style="color:black">
+        <p style="color:black;font-size:larger">
             @ci
         </p>
     }
 }
+
 
