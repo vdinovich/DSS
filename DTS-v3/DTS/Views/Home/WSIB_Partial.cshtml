@@ -1,0 +1,26 @@
+﻿
+
+
+<h2 style="text-align:center;color:darkorchid">@ViewBag.ObjName (Records Found - <span style="color:gold">@ViewBag.Count</span>) for <span style="color:crimson">@ViewBag.LocInfo</span></h2>
+
+@foreach (var ci in ViewBag.GN_Found)
+{
+    if (ci.Contains("Date Accident: ") || ci.Contains("Employee Initials: ") || ci.Contains("Accident Cause: ") || ci.Contains("Date Duties: ") ||
+        ci.Contains("Date Regular: ") || ci.Contains("Lost Days: ") || ci.Contains("Modified Days Not Shadowed: ") || ci.Contains("Modified Days Shadowed: "))
+    {
+        <br />
+        <p style="color:red;font-size:large;font-weight:bold">@ci</p>
+    }
+    else
+    {
+        <p style="color:black;font-size:larger">
+            @ci
+        </p>
+    }
+}
+
+
+
+
+
+

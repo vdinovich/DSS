@@ -168,6 +168,7 @@
     <Compile Include="Models\Emergency_Prep.cs" />
     <Compile Include="Models\Good_News.cs" />
     <Compile Include="Models\Immunization.cs" />
+    <Compile Include="Models\InspectionInfo.cs" />
     <Compile Include="Models\Labour_Relations.cs" />
     <Compile Include="Models\MyContext.cs" />
     <Compile Include="Models\Not_WSIBs.cs" />
@@ -4855,6 +4856,12 @@
     <Content Include="Views\AdminLTE\GridBootstrapTest.cshtml" />
     <Content Include="Views\Home\IncidentsPartial.cshtml" />
     <Content Include="Views\Home\VisitsOthersPartial.cshtml" />
+    <Content Include="Views\Home\CommunityRisksPartial.cshtml" />
+    <Content Include="Views\Home\LabourRelationsPartial.cshtml" />
+    <Content Include="Views\Home\WSIB_Partial.cshtml" />
+    <Content Include="Views\Home\Not_WSIB_Partial.cshtml" />
+    <Content Include="Views\Home\InspectionTest.cshtml" />
+    <Content Include="Views\Home\Visits_OthersPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DownloadedFiles\" />

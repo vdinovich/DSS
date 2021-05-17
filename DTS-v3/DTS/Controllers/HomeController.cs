@@ -314,6 +314,7 @@ namespace DTS.Controllers
         public static int num_tbl;
         public static string checkView = "none";
         public static bool b = false;
+        [HttpGet]
         public ActionResult WOR_Tabs()
         {
             WorTabs tabs = null;
@@ -323,14 +324,24 @@ namespace DTS.Controllers
                 { ViewBag.List = TablesContainer.list1; }
                 { ViewBag.List = TablesContainer.list2; }
                 { ViewBag.List = TablesContainer.list3; }
+                { ViewBag.List = TablesContainer.list4; }
+                { ViewBag.List = TablesContainer.list5; }
                 { ViewBag.List = TablesContainer.list6; }
+                { ViewBag.List = TablesContainer.list10; }
+                { ViewBag.List = TablesContainer.list13; }
+                { ViewBag.List = TablesContainer.list14; }
             }
             else
             {
                 { ViewBag.List = TablesContainer.list1 = db.Critical_Incidents.Where(l => l.Location == Id_Location).ToList(); }
                 { ViewBag.List = TablesContainer.list2 = db.Complaints.Where(l => l.Location == Id_Location).ToList(); }
                 { ViewBag.List = TablesContainer.list3 = db.Good_News.Where(l => l.Location == Id_Location).ToList(); }
+                { ViewBag.List = TablesContainer.list4 = db.Emergency_Prep.Where(l => l.Location == Id_Location).ToList(); }
+                { ViewBag.List = TablesContainer.list5 = db.Community_Risks.Where(l => l.Location == Id_Location).ToList(); }
                 { ViewBag.List = TablesContainer.list6 = db.Visits_Others.Where(l => l.Location == Id_Location).ToList(); }
+                { ViewBag.List = TablesContainer.list10 = db.Relations.Where(l => l.Location == Id_Location).ToList(); }
+                { ViewBag.List = TablesContainer.list13 = db.WSIBs.Where(l => l.Location == Id_Location).ToList(); }
+                { ViewBag.List = TablesContainer.list14 = db.Not_WSIBs.Where(l => l.Location == Id_Location).ToList(); }
             }
             if (b)
             {
@@ -354,6 +365,10 @@ namespace DTS.Controllers
                         {
                             ViewBag.Entity = "Critical_Incidents";
                         }
+
+                        {
+                            ViewBag.LocInfo = db.Care_Communities.Find(Id_Location).Name;
+                        }
                         ViewBag.Check = checkView;
                         tabs = new WorTabs();
                         tabs.ListForms = GetFormNames();
@@ -361,7 +376,6 @@ namespace DTS.Controllers
                         return View(tabs);
                     case 2:
                         var arr2 = TablesContainer.COUNT;
-
                         {
                             ViewBag.Count = arr2;
                         }
@@ -377,10 +391,12 @@ namespace DTS.Controllers
                         {
                             ViewBag.Entity = "Complaints";
                         }
+                        {
+                            ViewBag.LocInfo = db.Care_Communities.Find(Id_Location).Name;
+                        }
                         ViewBag.Check = checkView;
                         tabs = new WorTabs();
                         tabs.ListForms = GetFormNames();
-
                         return View(tabs);
                     case 3:
 
@@ -399,11 +415,38 @@ namespace DTS.Controllers
                         {
                             ViewBag.Entity = "Good_News";
                         }
+                        {
+                            ViewBag.LocInfo = db.Care_Communities.Find(Id_Location).Name;
+                        }
                         /// for other statistic details...
                         ViewBag.Check = checkView;
                         tabs = new WorTabs();
                         tabs.ListForms = GetFormNames();
+                        return View(tabs);
+                    case 4:
 
+                        {
+                            ViewBag.Count = TablesContainer.COUNT;
+                        }
+
+                        {
+                            ViewBag.GN_Found = strN;
+                        }
+
+                        {
+                            ViewBag.ObjName = "Emergency Prep";
+                        }
+
+                        {
+                            ViewBag.Entity = "Emergency_Prep";
+                        }
+                        {
+                            ViewBag.LocInfo = db.Emergency_Prep.Find(Id_Location).Name;
+                        }
+                        /// for other statistic details...
+                        ViewBag.Check = checkView;
+                        tabs = new WorTabs();
+                        tabs.ListForms = GetFormNames();
                         return View(tabs);
                     case 6:
 
@@ -421,6 +464,105 @@ namespace DTS.Controllers
 
                         {
                             ViewBag.Entity = "Visits_Others";
+                        }
+                        {
+                            ViewBag.LocInfo = db.Care_Communities.Find(Id_Location).Name;
+                        }
+                        ViewBag.Check = checkView;
+                        tabs = new WorTabs();
+                        tabs.ListForms = GetFormNames();
+                        return View(tabs);
+                    case 5:
+
+                        {
+                            ViewBag.Count = TablesContainer.COUNT;
+                        }
+
+                        {
+                            ViewBag.GN_Found = strN;
+                        }
+
+                        {
+                            ViewBag.ObjName = "Community_Risks";
+                        }
+
+                        {
+                            ViewBag.Entity = "Community_Risks";
+                        }
+                        {
+                            ViewBag.LocInfo = db.Care_Communities.Find(Id_Location).Name;
+                        }
+                        ViewBag.Check = checkView;
+                        tabs = new WorTabs();
+                        tabs.ListForms = GetFormNames();
+                        return View(tabs);
+                    case 10:
+
+                        {
+                            ViewBag.Count = TablesContainer.COUNT;
+                        }
+
+                        {
+                            ViewBag.GN_Found = strN;
+                        }
+
+                        {
+                            ViewBag.ObjName = "Labour_Relations";
+                        }
+
+                        {
+                            ViewBag.Entity = "Labour_Relations";
+                        }
+                        {
+                            ViewBag.LocInfo = db.Care_Communities.Find(Id_Location).Name;
+                        }
+                        ViewBag.Check = checkView;
+                        tabs = new WorTabs();
+                        tabs.ListForms = GetFormNames();
+                        return View(tabs);
+                    case 13:
+
+                        {
+                            ViewBag.Count = TablesContainer.COUNT;
+                        }
+
+                        {
+                            ViewBag.GN_Found = strN;
+                        }
+
+                        {
+                            ViewBag.ObjName = "WSIB";
+                        }
+
+                        {
+                            ViewBag.Entity = "WSIB";
+                        }
+                        {
+                            ViewBag.LocInfo = db.Care_Communities.Find(Id_Location).Name;
+                        }
+                        ViewBag.Check = checkView;
+                        tabs = new WorTabs();
+                        tabs.ListForms = GetFormNames();
+                        return View(tabs);
+                    case 14:
+
+                        {
+                            ViewBag.Count = TablesContainer.COUNT;
+                        }
+
+                        {
+                            ViewBag.GN_Found = strN;
+                        }
+
+                        {
+                            ViewBag.ObjName = "Not_WSIB";
+                        }
+
+                        {
+                            ViewBag.Entity = "Not_WSIB";
+                        }
+                        {
+                            ViewBag.LocInfo = db.Care_Communities.Find(Id_Location).Name;
                         }
                         ViewBag.Check = checkView;
                         tabs = new WorTabs();
@@ -1009,938 +1151,1677 @@ namespace DTS.Controllers
                     {
                         ViewBag.TableName = entity;
                     }
-
-                    #region Switch to show all object's Statistic:
-                    switch (entity)
+                    if (start == DateTime.MinValue && end == DateTime.MinValue)
                     {
-                        #region Critical_Incident:
-                        case "Critical_Incidents":
-                            TablesContainer.list1 = (from ent in db.Critical_Incidents where ent.Date >= start && ent.Date <= end select ent).ToList();
-                            if (TablesContainer.list1.Count() == 0)
-                            {
-                                { ViewBag.ObjName = entity; }
-                                ViewBag.ErrorMsg = errorMsg = "Please select a date range.";
-                                WorTabs tabs = new WorTabs();
-                                tabs.ListForms = GetFormNames();
-                                return View(tabs);
-                            }
-                            TablesContainer.COUNT = TablesContainer.list1.Count;
-                            strN = new List<string>();
-
-                            var attr11 = TablesContainer.list1.GroupBy(i => i.Date);
-                            if (attr11 != null)
-                            {
-                                strN.Add("Date: ");
-                                foreach (var cc in attr11)
+                        ViewBag.ErrorMsg = "No date range was chosen. Please choose the date range.";
+                        WorTabs tabs = new WorTabs();
+                        tabs.ListForms = GetFormNames();
+                        return View(tabs);
+                    }
+                    else if (start == DateTime.MinValue || end == DateTime.MinValue)
+                    {
+                        if (start == DateTime.MinValue)
+                        {
+                            ViewBag.ErrorMsg = "No date 'Start' was chosen. Please choose the 'Start' date.";
+                            WorTabs tabs = new WorTabs();
+                            tabs.ListForms = GetFormNames();
+                            return View(tabs);
+                        }
+                        else
+                        {
+                            ViewBag.ErrorMsg = "No date 'End' was chosen. Please choose the 'End' date.";
+                            WorTabs tabs = new WorTabs();
+                            tabs.ListForms = GetFormNames();
+                            return View(tabs);
+                        }
+                    }
+                    else
+                    {
+                        #region Switch to show all object's Statistic:
+                        switch (entity)
+                        {
+                            #region Critical_Incident:
+                            case "Critical_Incidents":
+                                var lst_locat1 = db.Critical_Incidents.Where(i => i.Location == Id_Location).ToList();
+                                TablesContainer.list1 = (from ent in lst_locat1 where ent.Date >= start && ent.Date <= end select ent).ToList();
+                                if (TablesContainer.list1.Count() == 0)
                                 {
-                                    string key = cc.Key == null ? "NULL" : cc.Key.ToString();
-                                    if (key == "NULL") continue;
-                                    strN.Add($"{key}\t - \t{cc.Count()}");
+                                    { ViewBag.ObjName = entity; }
+                                    ViewBag.ErrorMsg = errorMsg = "Please select a date range.";
+                                    WorTabs tabs = new WorTabs();
+                                    tabs.ListForms = GetFormNames();
+                                    return View(tabs);
                                 }
-                            }
+                                TablesContainer.COUNT = TablesContainer.list1.Count;
+                                strN = new List<string>();
 
-                            var attr10 = TablesContainer.list1.GroupBy(i => i.CI_Form_Number);
-                            if (attr10 != null)
-                            {
-                                strN.Add("CI Form Number: ");
-                                foreach (var cc in attr10)
+                                var attr11 = TablesContainer.list1.GroupBy(i => i.Date);
+                                if (attr11 != null)
                                 {
-                                    string key = cc.Key == null ? "NULL" : cc.Key;
-                                    if (key == "NULL") continue;
-                                    strN.Add($"{key}\t - \t{cc.Count()}");
-                                }
-                            }
-
-                            var attr7 = TablesContainer.list1.GroupBy(i => i.Brief_Description);
-                            if (attr7 != null)
-                            {
-                                strN.Add("Brief Description: ");
-                                foreach (var cc in attr7)
-                                {
-                                    string key = cc.Key == null ? "NULL" : cc.Key;
-                                    if (key == "NULL") continue;
-                                    strN.Add($"{key}\t - \t{cc.Count()}");
-                                }
-                            }
-
-                            var attr2 = TablesContainer.list1.GroupBy(i => i.MOH_Notified);
-                            if (attr2 != null)
-                            {
-                                strN.Add("MOH Notified: ");
-                                foreach (var d in attr2)
-                                {
-                                    string key = d.Key == null ? "NULL" : d.Key;
-                                    if (key == "NULL") continue;
-                                    strN.Add($"{key}\t - \t{d.Count()}");
-                                }
-                            }
-
-                            var attr4 = TablesContainer.list1.GroupBy(i => i.Police_Notified);
-                            if (attr4 != null)
-                            {
-                                strN.Add("Police Notified: ");
-                                foreach (var cc in attr4)
-                                {
-                                    string key = cc.Key == null ? "NULL" : cc.Key;
-                                    if (key == "NULL") continue;
-                                    strN.Add($"{key}\t - \t{cc.Count()}");
-                                }
-                            }
-
-
-                            var attr3 = TablesContainer.list1.GroupBy(i => i.POAS_Notified);
-                            if (attr3 != null)
-                            {
-                                strN.Add("POAS Notified: ");
-                                foreach (var cc in attr3)
-                                {
-                                    string key = cc.Key == null ? "NULL" : cc.Key;
-                                    if (key == "NULL") continue;
-                                    strN.Add($"{key}\t - \t{cc.Count()}");
-                                }
-                            }
-
-                            var attr8 = TablesContainer.list1.GroupBy(i => i.Care_Plan_Updated);
-                            if (attr8 != null)
-                            {
-                                strN.Add("Care Plan Updated: ");
-                                foreach (var cc in attr8)
-                                {
-                                    string key = cc.Key == null ? "NULL" : cc.Key;
-                                    if (key == "NULL") continue;
-                                    strN.Add($"{key}\t - \t{cc.Count()}");
-                                }
-                            }
-
-                            var attr5 = TablesContainer.list1.GroupBy(i => i.Quality_Improvement_Actions);
-                            if (attr5 != null)
-                            {
-                                strN.Add("Quality Improvement Actions: ");
-                                foreach (var cc in attr5)
-                                {
-                                    string key = cc.Key == null ? "NULL" : cc.Key;
-                                    if (key == "NULL") continue;
-                                    strN.Add($"{key}\t - \t{cc.Count()}");
-                                }
-                            }
-
-                            var attr1 = TablesContainer.list1.GroupBy(i => i.MOHLTC_Follow_Up);
-                            if (attr1 != null)
-                            {
-                                strN.Add("MOHLTC Follow Up: ");
-                                foreach (var e in attr1)
-                                {
-                                    string key = e.Key == null ? "NULL" : e.Key;
-                                    if (key == "NULL") continue;
-                                    strN.Add($"{key}\t - \t{e.Count()}");
-                                }
-                            }
-
-                            var attr9 = TablesContainer.list1.GroupBy(i => i.CIS_Initiated);
-                            if (attr9 != null)
-                            {
-                                strN.Add("CIS Initiated: ");
-                                foreach (var cc in attr9)
-                                {
-                                    string key = cc.Key == null ? "NULL" : cc.Key;
-                                    if (key == "NULL") continue;
-                                    strN.Add($"{key}\t - \t{cc.Count()}");
-                                }
-                            }
-
-                            var attr13 = TablesContainer.list1.GroupBy(i => i.Follow_Up_Amendments);
-                            if (attr13 != null)
-                            {
-                                strN.Add("Follow Up Amendments: ");
-                                foreach (var cc in attr13)
-                                {
-                                    string key = cc.Key == null ? "NULL" : cc.Key;
-                                    if (key == "NULL") continue;
-                                    strN.Add($"{key}\t - \t{cc.Count()}");
-                                }
-                            }
-
-                            var attr6 = TablesContainer.list1.GroupBy(i => i.Risk_Locked);
-                            if (attr6 != null)
-                            {
-                                strN.Add("Risk Locked: ");
-                                foreach (var cc in attr6)
-                                {
-                                    string key = cc.Key == null ? "NULL" : cc.Key;
-                                    if (key == "NULL") continue;
-                                    strN.Add($"{key}\t - \t{cc.Count()}");
-                                }
-                            }
-                        
-                            var attr12 = TablesContainer.list1.GroupBy(i => i.File_Complete);
-                            if (attr12 != null)
-                            {
-                                strN.Add("File Complete: ");
-                                foreach (var cc in attr12)
-                                {
-                                    string key = cc.Key == null ? "NULL" : cc.Key;
-                                    if (key == "NULL") continue;
-                                    strN.Add($"{key}\t - \t{cc.Count()}");
-                                }
-                            }
-                                       
-                            b = true;
-
-                            {
-                                ViewBag.Count = TablesContainer.COUNT;
-                            }
-
-                            {
-                                ViewBag.GN_Found = HomeController.strN;
-                            }
-                            {
-                                ViewBag.Entity = "Critical_Incidents"; 
-                            }
-                            //var ci = db.CI_Category_Types.ToList();
-
-                            //var names = new List<string>();
-                            //foreach (var n in ci)
-                            //    names.Add(n.Name);
-
-                            //counts = new int[ci.Count]; // for each parameter CI_Category_Type set up count
-
-                            //for(int i = 0; i < counts.Length; i++)
-                            //    counts[i] = 0;
-
-                            //var g = TablesContainer.list1.GroupBy(i => i.CI_Category_Type);
-
-                            //strs = new List<string>();
-                            //foreach (var group in g)
-                            //{
-                            //    strs.Add($"{names[group.Key - 1]}\t-\t{group.Count()}" );
-                            //}
-
-                            //ViewBag.Entity = entity;
-
-                            #region Count of all found records:
-                            //foreach (var i in TablesContainer.list1)
-                            //{
-                            //    if (i.Brief_Description != null) TablesContainer.c1++;
-                            //    if (i.Care_Plan_Updated != null) TablesContainer.c2++;
-                            //    if (i.CIS_Initiated != null) TablesContainer.c3++;
-                            //    if (i.CI_Category_Type != 0) TablesContainer.c4++;
-                            //    if (i.CI_Form_Number != null) TablesContainer.c5++;
-                            //    if (i.Date != DateTime.MinValue) TablesContainer.c6++;
-                            //    if (i.File_Complete != null) TablesContainer.c7++;
-                            //    if (i.Follow_Up_Amendments != null) TablesContainer.c8++;
-                            //    if (i.Location != 0) TablesContainer.c9++;
-                            //    if (i.MOHLTC_Follow_Up != null) TablesContainer.c10++;
-                            //    if (i.MOH_Notified != null) TablesContainer.c11++;
-                            //    if (i.POAS_Notified != null) TablesContainer.c12++;
-                            //    if (i.Police_Notified != null) TablesContainer.c13++;
-                            //    if (i.Quality_Improvement_Actions != null) TablesContainer.c14++;
-                            //    if (i.Risk_Locked != null) TablesContainer.c15++;
-                            //}
-
-                            //TablesContainer.count_arr.AddRange(new int[] {
-                            //TablesContainer.c1++,TablesContainer.c2++,TablesContainer.c3++,TablesContainer.c4++,TablesContainer.c5++,
-                            //TablesContainer.c6++,TablesContainer.c7++,TablesContainer.c8++,TablesContainer.c9++,TablesContainer.c10++,
-                            //TablesContainer.c11++,TablesContainer.c12++,TablesContainer.c13++,TablesContainer.c14++,TablesContainer.c15++
-                            //});
-                            #endregion                
-                            break;
-                        #endregion
-
-                        #region Complaints:
-                        case "Complaint":
-                            TablesContainer.list2 = (from ent in db.Complaints where ent.DateReceived >= start && ent.DateReceived <= end select ent).ToList();
-                            if (TablesContainer.list2.Count() == 0)
-                            {
-                                { ViewBag.ObjName = "Complaint"; }
-                                ViewBag.ErrorMsg = errorMsg = "Please select a date range.";
-                                WorTabs tabs = new WorTabs();
-                                tabs.ListForms = GetFormNames();
-                                return View(tabs);
-                            }
-                            TablesContainer.COUNT = TablesContainer.list2.Count;
-                            strN = new List<string>();
-                            var att1 = TablesContainer.list2.GroupBy(i => i.DateReceived);
-                            if (att1 != null)
-                            {
-                                strN.Add("Date Received: ");
-                                foreach (var cc in att1)
-                                {
-                                    string key = cc.Key == null ? "NULL" : cc.Key.ToString();
-                                    if (key == "NULL") continue;
-                                    strN.Add($"{key}\t - \t{cc.Count()}");
-                                }
-                            }
-
-                            var att2 = TablesContainer.list2.GroupBy(i => i.WritenOrVerbal);
-                            if (att2 != null)
-                            {
-                                strN.Add("Writen Or Verbal: ");
-                                foreach (var cc in att2)
-                                {
-                                    string key = cc.Key == null ? "NULL" : cc.Key.ToString();
-                                    if (key == "NULL") continue;
-                                    strN.Add($"{key}\t - \t{cc.Count()}");
-                                }
-                            }
-
-                            var att3 = TablesContainer.list2.GroupBy(i => i.Receive_Directly);
-                            if (att3 != null)
-                            {
-                                strN.Add("Receive Directly: ");
-                                foreach (var cc in att3)
-                                {
-                                    string key = cc.Key == null ? "NULL" : cc.Key.ToString();
-                                    if (key == "NULL") continue;
-                                    strN.Add($"{key}\t - \t{cc.Count()}");
-                                }
-                            }
-
-                            var att4 = TablesContainer.list2.GroupBy(i => i.FromResident);
-                            if (att4 != null)
-                            {
-                                strN.Add("From Resident: ");
-                                foreach (var cc in att4)
-                                {
-                                    string key = cc.Key == null ? "NULL" : cc.Key.ToString();
-                                    if (key == "NULL") continue;
-                                    strN.Add($"{key}\t - \t{cc.Count()}");
-                                }
-                            }
-
-                            var att5 = TablesContainer.list2.GroupBy(i => i.ResidentName);
-                            if (att5 != null)
-                            {
-                                strN.Add("Resident Name: ");
-                                foreach (var cc in att5)
-                                {
-                                    string key = cc.Key == null ? "NULL" : cc.Key.ToString();
-                                    if (key == "NULL") continue;
-                                    strN.Add($"{key}\t - \t{cc.Count()}");
-                                }
-                            }
-
-                            var att6 = TablesContainer.list2.GroupBy(i => i.Department);
-                            if (att6 != null)
-                            {
-                                strN.Add("Department: ");
-                                foreach (var cc in att6)
-                                {
-                                    string key = cc.Key == null ? "NULL" : cc.Key.ToString();
-                                    if (key == "NULL") continue;
-                                    strN.Add($"{key}\t - \t{cc.Count()}");
-                                }
-                            }
-
-                            var att7 = TablesContainer.list2.GroupBy(i => i.BriefDescription);
-                            if (att7 != null)
-                            {
-                                strN.Add("Brief Description: ");
-                                foreach (var cc in att7)
-                                {
-                                    string key = cc.Key == null ? "NULL" : cc.Key.ToString();
-                                    if (key == "NULL") continue;
-                                    strN.Add($"{key}\t - \t{cc.Count()}");
-                                }
-                            }
-
-                            var att8 = TablesContainer.list2.GroupBy(i => i.IsAdministration);
-                            if (att8 != null)
-                            {
-                                strN.Add("Is Administration: ");
-                                foreach (var cc in att8)
-                                {
-                                    //string key = cc.Key == null ? "NULL" : cc.Key.ToString();
-                                    //if (key == "NULL") continue;
-                                    strN.Add($"{cc.Key}\t - \t{cc.Count()}");
-                                }
-                            }
-
-                            var att9 = TablesContainer.list2.GroupBy(i => i.CareServices);
-                            if (att9 != null)
-                            {
-                                strN.Add("Care Services: ");
-                                foreach (var cc in att9)
-                                {
-                                    strN.Add($"{cc.Key}\t - \t{cc.Count()}");
-                                }
-                            }
-
-                            var att10 = TablesContainer.list2.GroupBy(i => i.PalliativeCare);
-                            if (att10 != null)
-                            {
-                                strN.Add("Palliative Care: ");
-                                foreach (var cc in att10)
-                                {
-                                    strN.Add($"{cc.Key}\t - \t{cc.Count()}");
-                                }
-                            }
-
-                            var att11 = TablesContainer.list2.GroupBy(i => i.Dietary);
-                            if (att11 != null)
-                            {
-                                strN.Add("Dietary: ");
-                                foreach (var cc in att11)
-                                {
-                                    strN.Add($"{cc.Key}\t - \t{cc.Count()}");
-                                }
-                            }
-
-                            var att12 = TablesContainer.list2.GroupBy(i => i.Housekeeping);
-                            if (att12 != null)
-                            {
-                                strN.Add("Housekeeping: ");
-                                foreach (var cc in att2)
-                                {
-                                    string key = cc.Key == null ? "NULL" : cc.Key.ToString();
-                                    if (key == "NULL") continue;
-                                    strN.Add($"{key}\t - \t{cc.Count()}");
-                                }
-                            }
-
-                            var att13 = TablesContainer.list2.GroupBy(i => i.Laundry);
-                            if (att13 != null)
-                            {
-                                strN.Add("Laundry: ");
-                                foreach (var cc in att13)
-                                {
-                                    strN.Add($"{cc.Key}\t - \t{cc.Count()}");
-                                }
-                            }
-
-                            var att14 = TablesContainer.list2.GroupBy(i => i.Maintenance);
-                            if (att14 != null)
-                            {
-                                strN.Add("Maintenance: ");
-                                foreach (var cc in att14)
-                                {
-                                    strN.Add($"{cc.Key}\t - \t{cc.Count()}");
-                                }
-                            }
-
-                            var att15 = TablesContainer.list2.GroupBy(i => i.Programs);
-                            if (att15 != null)
-                            {
-                                strN.Add("Programs: ");
-                                foreach (var cc in att15)
-                                {
-                                    strN.Add($"{cc.Key}\t - \t{cc.Count()}");
-                                }
-                            }
-
-                            var att16 = TablesContainer.list2.GroupBy(i => i.Physician);
-                            if (att16 != null)
-                            {
-                                strN.Add("Physician: ");
-                                foreach (var cc in att16)
-                                {
-                                    strN.Add($"{cc.Key}\t - \t{cc.Count()}");
-                                }
-                            }
-
-                            var att17 = TablesContainer.list2.GroupBy(i => i.Beautician);
-                            if (att17 != null)
-                            {
-                                strN.Add("Beautician: ");
-                                foreach (var cc in att17)
-                                {
-                                    strN.Add($"{cc.Key}\t - \t{cc.Count()}");
-                                }
-                            }
-
-                            var att18 = TablesContainer.list2.GroupBy(i => i.FootCare);
-                            if (att18 != null)
-                            {
-                                strN.Add("Foot Care: ");
-                                foreach (var cc in att18)
-                                {
-                                    strN.Add($"{cc.Key}\t - \t{cc.Count()}");
-                                }
-                            }
-
-                            var att19 = TablesContainer.list2.GroupBy(i => i.DentalCare);
-                            if (att19 != null)
-                            {
-                                strN.Add("Dental Care: ");
-                                foreach (var cc in att19)
-                                {
-                                    strN.Add($"{cc.Key}\t - \t{cc.Count()}");
-                                }
-                            }
-
-                            var att20 = TablesContainer.list2.GroupBy(i => i.Physio);
-                            if (att20 != null)
-                            {
-                                strN.Add("Physio: ");
-                                foreach (var cc in att20)
-                                {
-                                    strN.Add($"{cc.Key}\t - \t{cc.Count()}");
-                                }
-                            }
-
-                            var att21 = TablesContainer.list2.GroupBy(i => i.Other);
-                            if (att21 != null)
-                            {
-                                strN.Add("Other: ");
-                                foreach (var cc in att21)
-                                {
-                                    strN.Add($"{cc.Key}\t - \t{cc.Count()}");
-                                }
-                            }
-
-                            var att22 = TablesContainer.list2.GroupBy(i => i.MOHLTCNotified);
-                            if (att22!= null)
-                            {
-                                strN.Add("MOHLTC Notified: ");
-                                foreach (var cc in att22)
-                                {
-                                    strN.Add($"{cc.Key}\t - \t{cc.Count()}");
-                                }
-                            }
-
-                            var att23 = TablesContainer.list2.GroupBy(i => i.CopyToVP);
-                            if (att23 != null)
-                            {
-                                strN.Add("Copy To VP: ");
-                                foreach (var cc in att23)
-                                {
-                                    strN.Add($"{cc.Key}\t - \t{cc.Count()}");
-                                }
-                            }
-
-                            var att24 = TablesContainer.list2.GroupBy(i => i.ResponseSent);
-                            if (att15 != null)
-                            {
-                                strN.Add("Response Sent: ");
-                                foreach (var cc in att15)
-                                {
-                                    strN.Add($"{cc.Key}\t - \t{cc.Count()}");
-                                }
-                            }
-
-                            var att25 = TablesContainer.list2.GroupBy(i => i.ActionToken);
-                            if (att25 != null)
-                            {
-                                strN.Add("Action Token: ");
-                                foreach (var cc in att25)
-                                {
-                                    strN.Add($"{cc.Key}\t - \t{cc.Count()}");
-                                }
-                            }
-
-                            var att26 = TablesContainer.list2.GroupBy(i => i.Resolved);
-                            if (att26 != null)
-                            {
-                                strN.Add("Resolved: ");
-                                foreach (var cc in att26)
-                                {
-                                    strN.Add($"{cc.Key}\t - \t{cc.Count()}");
-                                }
-                            }
-
-                            var att27 = TablesContainer.list2.GroupBy(i => i.MinistryVisit);
-                            if (att27 != null)
-                            {
-                                strN.Add("Ministry Visit: ");
-                                foreach (var cc in att27)
-                                {
-                                    strN.Add($"{cc.Key}\t - \t{cc.Count()}");
-                                }
-                            }
-
-                            ///
-                            b = true;
-                        
-                            {
-                                ViewBag.Count = TablesContainer.COUNT;
-                            }
-
-                            {
-                                ViewBag.GN_Found = HomeController.strN;
-                            }
-
-                            ViewBag.Entity = "Complaints";
-                            break;
-                        #endregion
-
-                        #region Good_News:
-                        case "Good_News":
-                            { ViewBag.ObjName = "Good_News"; }
-                            TablesContainer.list3 = (from ent in db.Good_News where ent.DateNews >= start && ent.DateNews <= end select ent).ToList();
-                            if (TablesContainer.list3.Count() == 0)
-                            {
-                                ViewBag.ErrorMsg = errorMsg = "Please select a date range.";
-                                WorTabs tabs = new WorTabs();
-                                tabs.ListForms = GetFormNames();
-                                return View(tabs);
-                            }
-
-                            strN = new List<string>();
-                            //var news = db.Good_News.ToList();
-                            var a1 = TablesContainer.list3.GroupBy(i => i.DateNews);
-                            if (a1 != null)
-                            {
-                                strN.Add("Date News: ");
-                                foreach (var cc in a1)
-                                {
-                                    string key = cc.Key == null ? "NULL" : cc.Key.ToString();
-                                    if (key == "NULL") continue;
-                                    strN.Add($"{key}\t - \t{cc.Count()}");
-                                }
-                            }
-
-                            var a2 = TablesContainer.list3.GroupBy(i => i.Department);
-                            if (a2 != null)
-                            {
-                                strN.Add("Department: ");
-                                foreach (var cc in a2)
-                                {
-                                    string key = cc.Key == null ? "NULL" : cc.Key.ToString();
-                                    if (key == "NULL") continue;
-                                    strN.Add($"{key}\t - \t{cc.Count()}");
-                                }
-                            }
-
-                            var a3 = TablesContainer.list3.GroupBy(i => i.SourceCompliment);
-                            if (a3 != null)
-                            {
-                                strN.Add("Source Compliment: ");
-                                foreach (var cc in a3)
-                                {
-                                    string key = cc.Key == null ? "NULL" : cc.Key.ToString();
-                                    if (key == "NULL") continue;
-                                    strN.Add($"{key}\t - \t{cc.Count()}");
-                                }
-                            }
-
-                            var a4 = TablesContainer.list3.GroupBy(i => i.ReceivedFrom);
-                            if (a4 != null)
-                            {
-                                strN.Add("Received From: ");
-                                foreach (var cc in a4)
-                                {
-                                    string key = cc.Key == null ? "NULL" : cc.Key.ToString();
-                                    if (key == "NULL") continue;
-                                    strN.Add($"{key}\t - \t{cc.Count()}");
-                                }
-                            }
-
-                            var a5 = TablesContainer.list3.GroupBy(i => i.Description_Complim);
-                            if (a5 != null)
-                            {
-                                strN.Add("Description Compliment: ");
-                                foreach (var cc in a5)
-                                {
-                                    string key = cc.Key == null ? "NULL" : cc.Key.ToString();
-                                    if (key == "NULL") continue;
-                                    strN.Add($"{key}\t - \t{cc.Count()}");
-                                }
-                            }
-
-                            var a6 = TablesContainer.list3.GroupBy(i => i.Respect);
-                            if (a6 != null)
-                            {
-                                strN.Add("Respect: ");
-                                foreach (var cc in a6)
-                                {
-                                    strN.Add($"{cc.Key}\t - \t{cc.Count()}");
-                                }
-                            }
-
-                            var a7 = TablesContainer.list3.GroupBy(i => i.Passion);
-                            if (a7 != null)
-                            {
-                                strN.Add("Passion: ");
-                                foreach (var cc in a7)
-                                {
-                                    strN.Add($"{cc.Key}\t - \t{cc.Count()}");
-                                }
-                            }
-
-                            var a8 = TablesContainer.list3.GroupBy(i => i.Teamwork);
-                            if (a8 != null)
-                            {
-                                strN.Add("Teamwork: ");
-                                foreach (var cc in a8)
-                                {
-                                    strN.Add($"{cc.Key}\t - \t{cc.Count()}");
-                                }
-                            }
-
-                            var a9 = TablesContainer.list3.GroupBy(i => i.Responsibility);
-                            if (a9 != null)
-                            {
-                                strN.Add("Responsibility: ");
-                                foreach (var cc in a9)
-                                {
-                                    strN.Add($"{cc.Key}\t - \t{cc.Count()}");
-                                }
-                            }
-
-                            var a10 = TablesContainer.list3.GroupBy(i => i.Growth);
-                            if (a10 != null)
-                            {
-                                strN.Add("Growth: ");
-                                foreach (var cc in a10)
-                                {
-                                    strN.Add($"{cc.Key}\t - \t{cc.Count()}");
-                                }
-                            }
-
-                            var a11 = TablesContainer.list3.GroupBy(i => i.Compliment);
-                            if (a11 != null)
-                            {
-                                strN.Add("Compliment: ");
-                                foreach (var cc in a11)
-                                {
-                                    string key = cc.Key == null ? "NULL" : cc.Key.ToString();
-                                    if (key == "NULL") continue;
-                                    strN.Add($"{key}\t - \t{cc.Count()}");
-                                }
-                            }
-
-                            var a12 = TablesContainer.list3.GroupBy(i => i.Spot_Awards);
-                            if (a12 != null)
-                            {
-                                strN.Add("Spot Awards: ");
-                                foreach (var cc in a12)
-                                {
-                                    string key = cc.Key == null ? "NULL" : cc.Key.ToString();
-                                    if (key == "NULL") continue;
-                                    strN.Add($"{key}\t - \t{cc.Count()}");
-                                }
-                            }
-
-                            var a13 = TablesContainer.list3.GroupBy(i => i.Awards_Details);
-                            if (a13 != null)
-                            {
-                                strN.Add("Awards Details: ");
-                                foreach (var cc in a13)
-                                {
-                                    string key = cc.Key == null ? "NULL" : cc.Key.ToString();
-                                    if (key == "NULL") continue;
-                                    strN.Add($"{key}\t - \t{cc.Count()}");
-                                }
-                            }
-
-                            var a14 = TablesContainer.list3.GroupBy(i => i.NameAwards);
-                            if (a14 != null)
-                            {
-                                strN.Add("Name Awards: ");
-                                foreach (var cc in a14)
-                                {
-                                    string key = cc.Key == null ? "NULL" : cc.Key.ToString();
-                                    if (key == "NULL") continue;
-                                    strN.Add($"{key}\t - \t{cc.Count()}");
-                                }
-                            }
-
-                            var a15 = TablesContainer.list3.GroupBy(i => i.Awards_Received);
-                            if (a15 != null)
-                            {
-                                strN.Add("Awards Received: ");
-                                foreach (var cc in a15)
-                                {
-                                    string key = cc.Key == null ? "NULL" : cc.Key.ToString();
-                                    if (key == "NULL") continue;
-                                    strN.Add($"{key}\t - \t{cc.Count()}");
-                                }
-                            }
-
-                            var a16 = TablesContainer.list3.GroupBy(i => i.Community_Inititives);
-                            if (a16 != null)
-                            {
-                                strN.Add("Awards Received: ");
-                                foreach (var cc in a16)
-                                {
-                                    string key = cc.Key == null ? "NULL" : cc.Key.ToString();
-                                    if (key == "NULL") continue;
-                                    strN.Add($"{key}\t - \t{cc.Count()}");
-                                }
-                            }
-
-                            ///
-                            b = true; TablesContainer.COUNT = TablesContainer.list3.Count;
-
-                            {
-                                ViewBag.Count = TablesContainer.COUNT;
-                            }
-
-                            {
-                                ViewBag.GN_Found = HomeController.strN;
-                            }
-
-                            {
-                                ViewBag.Entity = "Good_News";
-                            }
-                            break;
-                        #endregion
-
-                        #region Emergency_Prep:  --none
-                        case "Emergency_Prep":
-                            //TablesContainer.list4 = (from ent in db.Emergency_Prep where ent.D >= start && ent.DateNews <= end select ent).ToList();
-                            break;
-                        #endregion  
-
-                        #region Community_Risks: --none
-                        case "Community_Risks":
-                            TablesContainer.list5 = (from ent in db.Community_Risks where ent.Date >= start && ent.Date <= end select ent).ToList();
-                            break;
-                        #endregion
-
-                        #region Visits_Others:
-                        case "Visits_Others":
-                            TablesContainer.list6 = (from ent in db.Visits_Others where ent.Date_of_Visit >= start && ent.Date_of_Visit <= end select ent).ToList();
-                            { ViewBag.ObjName = "Visits_Others"; }
-                            if (TablesContainer.list6.Count() == 0)
-                            {
-                                ViewBag.ErrorMsg = errorMsg = "Please select a date range.";
-                                WorTabs tabs = new WorTabs();
-                                tabs.ListForms = GetFormNames();
-                                return View(tabs);
-                            }
-
-                            strN = new List<string>();
-                            var v1 = TablesContainer.list6.GroupBy(i => i.Date_of_Visit);
-                            if (v1 != null)
-                            {
-                                strN.Add("Date of Visit: ");
-                                foreach (var cc in v1)
-                                {
-                                    string key = cc.Key == null ? "NULL" : cc.Key.ToString();
-                                    if (key == "NULL") continue;
-                                    strN.Add($"{key}\t - \t{cc.Count()}");
-                                }
-                            }
-
-                            var v2 = TablesContainer.list6.GroupBy(i => i.Agency);
-                            if (v2 != null)
-                            {
-                                strN.Add("Agency: ");
-                                foreach (var cc in v2)
-                                {
-                                    string key = cc.Key == null ? "NULL" : cc.Key.ToString();
-                                    if (key == "NULL") continue;
-                                    strN.Add($"{key}\t - \t{cc.Count()}");
-                                }
-                            }
-
-                            var v3 = TablesContainer.list6.GroupBy(i => i.Number_of_Findings);
-                            if (v3 != null)
-                            {
-                                strN.Add("Number of Findings: ");
-                                foreach (var cc in v3)
-                                {
-                                    string key = cc.Key == null ? "NULL" : cc.Key.ToString();
-                                    if (key == "NULL") continue;
-                                    strN.Add($"{key}\t - \t{cc.Count()}");
-                                }
-                            }
-
-                            var v4 = TablesContainer.list6.GroupBy(i => i.Details_of_Findings);
-                            if (v4 != null)
-                            {
-                                strN.Add("Details of Findings: ");
-                                foreach (var cc in v4)
-                                {
-                                    string key = cc.Key == null ? "NULL" : cc.Key.ToString();
-                                    if (key == "NULL") continue;
-                                    strN.Add($"{key}\t - \t{cc.Count()}");
-                                }
-                            }
-
-                            var v5 = TablesContainer.list6.GroupBy(i => i.Corrective_Actions);
-                            if (v5 != null)
-                            {
-                                strN.Add("Corrective Actions: ");
-                                foreach (var cc in v5)
-                                {
-                                    string key = cc.Key == null ? "NULL" : cc.Key.ToString();
-                                    if (key == "NULL") continue;
-                                    strN.Add($"{key}\t - \t{cc.Count()}");
-                                }
-                            }
-
-                            var v6 = TablesContainer.list6.GroupBy(i => i.Report_Posted);
-                            if (v6 != null)
-                            {
-                                strN.Add("Report Posted: ");
-                                foreach (var cc in v6)
-                                {
-                                    string key = cc.Key == null ? "NULL" : cc.Key.ToString();
-                                    if (key == "NULL") continue;
-                                    strN.Add($"{key}\t - \t{cc.Count()}");
-                                }
-                            }
-
-                            var v7 = TablesContainer.list6.GroupBy(i => i.LHIN_Letter_Received);
-                            if (v7 != null)
-                            {
-                                strN.Add("LHIN Letter Received: ");
-                                foreach (var cc in v7)
-                                {
-                                    string key = cc.Key == null ? "NULL" : cc.Key.ToString();
-                                    if (key == "NULL") continue;
-                                    strN.Add($"{key}\t - \t{cc.Count()}");
-                                }
-                            }
-
-                            var v8 = TablesContainer.list6.GroupBy(i => i.PH_Letter_Received);
-                            if (v8 != null)
-                            {
-                                strN.Add("PH Letter Received: ");
-                                foreach (var cc in v8)
-                                {
-                                    string key = cc.Key == null ? "NULL" : cc.Key.ToString();
-                                    if (key == "NULL") continue;
-                                    else
+                                    strN.Add("Date: ");
+                                    foreach (var cc in attr11)
                                     {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
                                         strN.Add($"{key}\t - \t{cc.Count()}");
                                     }
                                 }
-                            }                                                      
-                           
-                            b = true; TablesContainer.COUNT = TablesContainer.list6.Count;
 
-                            {
-                                ViewBag.Count = TablesContainer.COUNT;
-                            }
+                                var attr10 = TablesContainer.list1.GroupBy(i => i.CI_Form_Number);
+                                if (attr10 != null)
+                                {
+                                    strN.Add("CI Form Number: ");
+                                    foreach (var cc in attr10)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
 
-                            {
-                                ViewBag.GN_Found = HomeController.strN;
-                            }
+                                var attr7 = TablesContainer.list1.GroupBy(i => i.Brief_Description);
+                                if (attr7 != null)
+                                {
+                                    strN.Add("Brief Description: ");
+                                    foreach (var cc in attr7)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
 
-                            {
-                                ViewBag.Entity = "Visits_Others";
-                            }
-                            break;
+                                var attr2 = TablesContainer.list1.GroupBy(i => i.MOH_Notified);
+                                if (attr2 != null)
+                                {
+                                    strN.Add("MOH Notified: ");
+                                    foreach (var d in attr2)
+                                    {
+                                        string key = d.Key == null ? "NULL" : d.Key;
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{d.Count()}");
+                                    }
+                                }
+
+                                var attr4 = TablesContainer.list1.GroupBy(i => i.Police_Notified);
+                                if (attr4 != null)
+                                {
+                                    strN.Add("Police Notified: ");
+                                    foreach (var cc in attr4)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+
+                                var attr3 = TablesContainer.list1.GroupBy(i => i.POAS_Notified);
+                                if (attr3 != null)
+                                {
+                                    strN.Add("POAS Notified: ");
+                                    foreach (var cc in attr3)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var attr8 = TablesContainer.list1.GroupBy(i => i.Care_Plan_Updated);
+                                if (attr8 != null)
+                                {
+                                    strN.Add("Care Plan Updated: ");
+                                    foreach (var cc in attr8)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var attr5 = TablesContainer.list1.GroupBy(i => i.Quality_Improvement_Actions);
+                                if (attr5 != null)
+                                {
+                                    strN.Add("Quality Improvement Actions: ");
+                                    foreach (var cc in attr5)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var attr1 = TablesContainer.list1.GroupBy(i => i.MOHLTC_Follow_Up);
+                                if (attr1 != null)
+                                {
+                                    strN.Add("MOHLTC Follow Up: ");
+                                    foreach (var e in attr1)
+                                    {
+                                        string key = e.Key == null ? "NULL" : e.Key;
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{e.Count()}");
+                                    }
+                                }
+
+                                var attr9 = TablesContainer.list1.GroupBy(i => i.CIS_Initiated);
+                                if (attr9 != null)
+                                {
+                                    strN.Add("CIS Initiated: ");
+                                    foreach (var cc in attr9)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var attr13 = TablesContainer.list1.GroupBy(i => i.Follow_Up_Amendments);
+                                if (attr13 != null)
+                                {
+                                    strN.Add("Follow Up Amendments: ");
+                                    foreach (var cc in attr13)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var attr6 = TablesContainer.list1.GroupBy(i => i.Risk_Locked);
+                                if (attr6 != null)
+                                {
+                                    strN.Add("Risk Locked: ");
+                                    foreach (var cc in attr6)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var attr12 = TablesContainer.list1.GroupBy(i => i.File_Complete);
+                                if (attr12 != null)
+                                {
+                                    strN.Add("File Complete: ");
+                                    foreach (var cc in attr12)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                b = true;
+
+                                {
+                                    ViewBag.Count = TablesContainer.COUNT;
+                                }
+
+                                {
+                                    ViewBag.GN_Found = HomeController.strN;
+                                }
+                                {
+                                    ViewBag.Entity = "Critical_Incidents";
+                                }
+
+                                {
+                                    ViewBag.LocInfo = db.Care_Communities.Find(Id_Location).Name;
+                                }
+                                //var ci = db.CI_Category_Types.ToList();
+
+                                //var names = new List<string>();
+                                //foreach (var n in ci)
+                                //    names.Add(n.Name);
+
+                                //counts = new int[ci.Count]; // for each parameter CI_Category_Type set up count
+
+                                //for(int i = 0; i < counts.Length; i++)
+                                //    counts[i] = 0;
+
+                                //var g = TablesContainer.list1.GroupBy(i => i.CI_Category_Type);
+
+                                //strs = new List<string>();
+                                //foreach (var group in g)
+                                //{
+                                //    strs.Add($"{names[group.Key - 1]}\t-\t{group.Count()}" );
+                                //}
+
+                                //ViewBag.Entity = entity;
+
+                                #region Count of all found records:
+                                //foreach (var i in TablesContainer.list1)
+                                //{
+                                //    if (i.Brief_Description != null) TablesContainer.c1++;
+                                //    if (i.Care_Plan_Updated != null) TablesContainer.c2++;
+                                //    if (i.CIS_Initiated != null) TablesContainer.c3++;
+                                //    if (i.CI_Category_Type != 0) TablesContainer.c4++;
+                                //    if (i.CI_Form_Number != null) TablesContainer.c5++;
+                                //    if (i.Date != DateTime.MinValue) TablesContainer.c6++;
+                                //    if (i.File_Complete != null) TablesContainer.c7++;
+                                //    if (i.Follow_Up_Amendments != null) TablesContainer.c8++;
+                                //    if (i.Location != 0) TablesContainer.c9++;
+                                //    if (i.MOHLTC_Follow_Up != null) TablesContainer.c10++;
+                                //    if (i.MOH_Notified != null) TablesContainer.c11++;
+                                //    if (i.POAS_Notified != null) TablesContainer.c12++;
+                                //    if (i.Police_Notified != null) TablesContainer.c13++;
+                                //    if (i.Quality_Improvement_Actions != null) TablesContainer.c14++;
+                                //    if (i.Risk_Locked != null) TablesContainer.c15++;
+                                //}
+
+                                //TablesContainer.count_arr.AddRange(new int[] {
+                                //TablesContainer.c1++,TablesContainer.c2++,TablesContainer.c3++,TablesContainer.c4++,TablesContainer.c5++,
+                                //TablesContainer.c6++,TablesContainer.c7++,TablesContainer.c8++,TablesContainer.c9++,TablesContainer.c10++,
+                                //TablesContainer.c11++,TablesContainer.c12++,TablesContainer.c13++,TablesContainer.c14++,TablesContainer.c15++
+                                //});
+                                #endregion
+
+                                break;
+                            #endregion
+
+                            #region Complaints:
+                            case "Complaint":
+                                var lst_locat2 = db.Complaints.Where(i => i.Location == Id_Location).ToList();
+                                TablesContainer.list2 = (from ent in lst_locat2 where ent.DateReceived >= start && ent.DateReceived <= end select ent).ToList();
+                                if (TablesContainer.list2.Count() == 0)
+                                {
+                                    { ViewBag.ObjName = "Complaint"; }
+                                    ViewBag.ErrorMsg = errorMsg = "Please select a date range.";
+                                    WorTabs tabs = new WorTabs();
+                                    tabs.ListForms = GetFormNames();
+                                    return View(tabs);
+                                }
+                                TablesContainer.COUNT = TablesContainer.list2.Count;
+                                strN = new List<string>();
+                                var att1 = TablesContainer.list2.GroupBy(i => i.DateReceived);
+                                if (att1 != null)
+                                {
+                                    strN.Add("Date Received: ");
+                                    foreach (var cc in att1)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var att2 = TablesContainer.list2.GroupBy(i => i.WritenOrVerbal);
+                                if (att2 != null)
+                                {
+                                    strN.Add("Writen Or Verbal: ");
+                                    foreach (var cc in att2)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var att3 = TablesContainer.list2.GroupBy(i => i.Receive_Directly);
+                                if (att3 != null)
+                                {
+                                    strN.Add("Receive Directly: ");
+                                    foreach (var cc in att3)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var att4 = TablesContainer.list2.GroupBy(i => i.FromResident);
+                                if (att4 != null)
+                                {
+                                    strN.Add("From Resident: ");
+                                    foreach (var cc in att4)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var att5 = TablesContainer.list2.GroupBy(i => i.ResidentName);
+                                if (att5 != null)
+                                {
+                                    strN.Add("Resident Name: ");
+                                    foreach (var cc in att5)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var att6 = TablesContainer.list2.GroupBy(i => i.Department);
+                                if (att6 != null)
+                                {
+                                    strN.Add("Department: ");
+                                    foreach (var cc in att6)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var att7 = TablesContainer.list2.GroupBy(i => i.BriefDescription);
+                                if (att7 != null)
+                                {
+                                    strN.Add("Brief Description: ");
+                                    foreach (var cc in att7)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var att8 = TablesContainer.list2.GroupBy(i => i.IsAdministration);
+                                if (att8 != null)
+                                {
+                                    strN.Add("Is Administration: ");
+                                    foreach (var cc in att8)
+                                    {
+                                        //string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        //if (key == "NULL") continue;
+                                        strN.Add($"{cc.Key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var att9 = TablesContainer.list2.GroupBy(i => i.CareServices);
+                                if (att9 != null)
+                                {
+                                    strN.Add("Care Services: ");
+                                    foreach (var cc in att9)
+                                    {
+                                        strN.Add($"{cc.Key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var att10 = TablesContainer.list2.GroupBy(i => i.PalliativeCare);
+                                if (att10 != null)
+                                {
+                                    strN.Add("Palliative Care: ");
+                                    foreach (var cc in att10)
+                                    {
+                                        strN.Add($"{cc.Key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var att11 = TablesContainer.list2.GroupBy(i => i.Dietary);
+                                if (att11 != null)
+                                {
+                                    strN.Add("Dietary: ");
+                                    foreach (var cc in att11)
+                                    {
+                                        strN.Add($"{cc.Key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var att12 = TablesContainer.list2.GroupBy(i => i.Housekeeping);
+                                if (att12 != null)
+                                {
+                                    strN.Add("Housekeeping: ");
+                                    foreach (var cc in att2)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var att13 = TablesContainer.list2.GroupBy(i => i.Laundry);
+                                if (att13 != null)
+                                {
+                                    strN.Add("Laundry: ");
+                                    foreach (var cc in att13)
+                                    {
+                                        strN.Add($"{cc.Key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var att14 = TablesContainer.list2.GroupBy(i => i.Maintenance);
+                                if (att14 != null)
+                                {
+                                    strN.Add("Maintenance: ");
+                                    foreach (var cc in att14)
+                                    {
+                                        strN.Add($"{cc.Key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var att15 = TablesContainer.list2.GroupBy(i => i.Programs);
+                                if (att15 != null)
+                                {
+                                    strN.Add("Programs: ");
+                                    foreach (var cc in att15)
+                                    {
+                                        strN.Add($"{cc.Key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var att16 = TablesContainer.list2.GroupBy(i => i.Physician);
+                                if (att16 != null)
+                                {
+                                    strN.Add("Physician: ");
+                                    foreach (var cc in att16)
+                                    {
+                                        strN.Add($"{cc.Key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var att17 = TablesContainer.list2.GroupBy(i => i.Beautician);
+                                if (att17 != null)
+                                {
+                                    strN.Add("Beautician: ");
+                                    foreach (var cc in att17)
+                                    {
+                                        strN.Add($"{cc.Key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var att18 = TablesContainer.list2.GroupBy(i => i.FootCare);
+                                if (att18 != null)
+                                {
+                                    strN.Add("Foot Care: ");
+                                    foreach (var cc in att18)
+                                    {
+                                        strN.Add($"{cc.Key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var att19 = TablesContainer.list2.GroupBy(i => i.DentalCare);
+                                if (att19 != null)
+                                {
+                                    strN.Add("Dental Care: ");
+                                    foreach (var cc in att19)
+                                    {
+                                        strN.Add($"{cc.Key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var att20 = TablesContainer.list2.GroupBy(i => i.Physio);
+                                if (att20 != null)
+                                {
+                                    strN.Add("Physio: ");
+                                    foreach (var cc in att20)
+                                    {
+                                        strN.Add($"{cc.Key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var att21 = TablesContainer.list2.GroupBy(i => i.Other);
+                                if (att21 != null)
+                                {
+                                    strN.Add("Other: ");
+                                    foreach (var cc in att21)
+                                    {
+                                        strN.Add($"{cc.Key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var att22 = TablesContainer.list2.GroupBy(i => i.MOHLTCNotified);
+                                if (att22 != null)
+                                {
+                                    strN.Add("MOHLTC Notified: ");
+                                    foreach (var cc in att22)
+                                    {
+                                        strN.Add($"{cc.Key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var att23 = TablesContainer.list2.GroupBy(i => i.CopyToVP);
+                                if (att23 != null)
+                                {
+                                    strN.Add("Copy To VP: ");
+                                    foreach (var cc in att23)
+                                    {
+                                        strN.Add($"{cc.Key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var att24 = TablesContainer.list2.GroupBy(i => i.ResponseSent);
+                                if (att15 != null)
+                                {
+                                    strN.Add("Response Sent: ");
+                                    foreach (var cc in att15)
+                                    {
+                                        strN.Add($"{cc.Key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var att25 = TablesContainer.list2.GroupBy(i => i.ActionToken);
+                                if (att25 != null)
+                                {
+                                    strN.Add("Action Token: ");
+                                    foreach (var cc in att25)
+                                    {
+                                        strN.Add($"{cc.Key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var att26 = TablesContainer.list2.GroupBy(i => i.Resolved);
+                                if (att26 != null)
+                                {
+                                    strN.Add("Resolved: ");
+                                    foreach (var cc in att26)
+                                    {
+                                        strN.Add($"{cc.Key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var att27 = TablesContainer.list2.GroupBy(i => i.MinistryVisit);
+                                if (att27 != null)
+                                {
+                                    strN.Add("Ministry Visit: ");
+                                    foreach (var cc in att27)
+                                    {
+                                        strN.Add($"{cc.Key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                ///
+                                b = true;
+
+                                {
+                                    ViewBag.Count = TablesContainer.COUNT;
+                                }
+
+                                {
+                                    ViewBag.GN_Found = HomeController.strN;
+                                }
+                                ViewBag.Entity = "Complaints";
+                                break;
+                            #endregion
+
+                            #region Good_News:
+                            case "Good_News":
+                                { ViewBag.ObjName = "Good_News"; }
+                                var lst_locat3 = db.Good_News.Where(i => i.Location == Id_Location).ToList();
+                                TablesContainer.list3 = (from ent in lst_locat3 where ent.DateNews >= start && ent.DateNews <= end select ent).ToList();
+                                if (TablesContainer.list3.Count() == 0)
+                                {
+                                    ViewBag.ErrorMsg = errorMsg = "Please select a date range.";
+                                    WorTabs tabs = new WorTabs();
+                                    tabs.ListForms = GetFormNames();
+                                    return View(tabs);
+                                }
+
+                                strN = new List<string>();
+                                //var news = db.Good_News.ToList();
+                                var a1 = TablesContainer.list3.GroupBy(i => i.DateNews);
+                                if (a1 != null)
+                                {
+                                    strN.Add("Date News: ");
+                                    foreach (var cc in a1)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var a2 = TablesContainer.list3.GroupBy(i => i.Department);
+                                if (a2 != null)
+                                {
+                                    strN.Add("Department: ");
+                                    foreach (var cc in a2)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var a3 = TablesContainer.list3.GroupBy(i => i.SourceCompliment);
+                                if (a3 != null)
+                                {
+                                    strN.Add("Source Compliment: ");
+                                    foreach (var cc in a3)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var a4 = TablesContainer.list3.GroupBy(i => i.ReceivedFrom);
+                                if (a4 != null)
+                                {
+                                    strN.Add("Received From: ");
+                                    foreach (var cc in a4)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var a5 = TablesContainer.list3.GroupBy(i => i.Description_Complim);
+                                if (a5 != null)
+                                {
+                                    strN.Add("Description Compliment: ");
+                                    foreach (var cc in a5)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var a6 = TablesContainer.list3.GroupBy(i => i.Respect);
+                                if (a6 != null)
+                                {
+                                    strN.Add("Respect: ");
+                                    foreach (var cc in a6)
+                                    {
+                                        strN.Add($"{cc.Key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var a7 = TablesContainer.list3.GroupBy(i => i.Passion);
+                                if (a7 != null)
+                                {
+                                    strN.Add("Passion: ");
+                                    foreach (var cc in a7)
+                                    {
+                                        strN.Add($"{cc.Key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var a8 = TablesContainer.list3.GroupBy(i => i.Teamwork);
+                                if (a8 != null)
+                                {
+                                    strN.Add("Teamwork: ");
+                                    foreach (var cc in a8)
+                                    {
+                                        strN.Add($"{cc.Key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var a9 = TablesContainer.list3.GroupBy(i => i.Responsibility);
+                                if (a9 != null)
+                                {
+                                    strN.Add("Responsibility: ");
+                                    foreach (var cc in a9)
+                                    {
+                                        strN.Add($"{cc.Key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var a10 = TablesContainer.list3.GroupBy(i => i.Growth);
+                                if (a10 != null)
+                                {
+                                    strN.Add("Growth: ");
+                                    foreach (var cc in a10)
+                                    {
+                                        strN.Add($"{cc.Key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var a11 = TablesContainer.list3.GroupBy(i => i.Compliment);
+                                if (a11 != null)
+                                {
+                                    strN.Add("Compliment: ");
+                                    foreach (var cc in a11)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var a12 = TablesContainer.list3.GroupBy(i => i.Spot_Awards);
+                                if (a12 != null)
+                                {
+                                    strN.Add("Spot Awards: ");
+                                    foreach (var cc in a12)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var a13 = TablesContainer.list3.GroupBy(i => i.Awards_Details);
+                                if (a13 != null)
+                                {
+                                    strN.Add("Awards Details: ");
+                                    foreach (var cc in a13)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var a14 = TablesContainer.list3.GroupBy(i => i.NameAwards);
+                                if (a14 != null)
+                                {
+                                    strN.Add("Name Awards: ");
+                                    foreach (var cc in a14)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var a15 = TablesContainer.list3.GroupBy(i => i.Awards_Received);
+                                if (a15 != null)
+                                {
+                                    strN.Add("Awards Received: ");
+                                    foreach (var cc in a15)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var a16 = TablesContainer.list3.GroupBy(i => i.Community_Inititives);
+                                if (a16 != null)
+                                {
+                                    strN.Add("Awards Received: ");
+                                    foreach (var cc in a16)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                ///
+                                b = true; TablesContainer.COUNT = TablesContainer.list3.Count;
+
+                                {
+                                    ViewBag.Count = TablesContainer.COUNT;
+                                }
+
+                                {
+                                    ViewBag.GN_Found = HomeController.strN;
+                                }
+
+                                {
+                                    ViewBag.Entity = "Good_News";
+                                }
+                                break;
+                            #endregion
+
+                            #region Emergency_Prep: 
+                            case "Emergency_Prep":
+                                { ViewBag.ObjName = "Emergency_Prep"; }
+                                var lst_locat4 = db.Emergency_Prep.Where(i => i.Location == Id_Location).ToList();
+                                TablesContainer.list4 = db.Emergency_Prep.ToList();
+                                if (TablesContainer.list4.Count() == 0)
+                                {
+                                    ViewBag.ErrorMsg = errorMsg = "Please select a date range.";
+                                    WorTabs tabs = new WorTabs();
+                                    tabs.ListForms = GetFormNames();
+                                    return View(tabs);
+                                }
+
+                                strN = new List<string>();
+                                //var news = db.Good_News.ToList();
+                                var e1 = TablesContainer.list4.GroupBy(i => i.Name);
+                                if (e1 != null)
+                                {
+                                    strN.Add("Name: ");
+                                    foreach (var cc in e1)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var e2 = TablesContainer.list4.GroupBy(i => i.Jan);
+                                if (e2 != null)
+                                {
+                                    strN.Add("Jan: ");
+                                    foreach (var cc in e2)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var e3 = TablesContainer.list4.GroupBy(i => i.Feb);
+                                if (e3 != null)
+                                {
+                                    strN.Add("Feb: ");
+                                    foreach (var cc in e3)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var e4 = TablesContainer.list4.GroupBy(i => i.Mar);
+                                if (e4 != null)
+                                {
+                                    strN.Add("Mar: ");
+                                    foreach (var cc in e4)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var e5 = TablesContainer.list4.GroupBy(i => i.Apr);
+                                if (e5 != null)
+                                {
+                                    strN.Add("Apr: ");
+                                    foreach (var cc in e5)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var e6 = TablesContainer.list4.GroupBy(i => i.May);
+                                if (e6 != null)
+                                {
+                                    strN.Add("May: ");
+                                    foreach (var cc in e6)
+                                    {
+                                        strN.Add($"{cc.Key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var e7 = TablesContainer.list4.GroupBy(i => i.Jun);
+                                if (e7 != null)
+                                {
+                                    strN.Add("Jun: ");
+                                    foreach (var cc in e7)
+                                    {
+                                        strN.Add($"{cc.Key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var e8 = TablesContainer.list4.GroupBy(i => i.Jul);
+                                if (e8 != null)
+                                {
+                                    strN.Add("Jul: ");
+                                    foreach (var cc in e8)
+                                    {
+                                        strN.Add($"{cc.Key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var e9 = TablesContainer.list4.GroupBy(i => i.Aug);
+                                if (e9 != null)
+                                {
+                                    strN.Add("Aug: ");
+                                    foreach (var cc in e9)
+                                    {
+                                        strN.Add($"{cc.Key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var e10 = TablesContainer.list4.GroupBy(i => i.Sep);
+                                if (e10 != null)
+                                {
+                                    strN.Add("Sep: ");
+                                    foreach (var cc in e10)
+                                    {
+                                        strN.Add($"{cc.Key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var e11 = TablesContainer.list4.GroupBy(i => i.Oct);
+                                if (e11 != null)
+                                {
+                                    strN.Add("Oct: ");
+                                    foreach (var cc in e11)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var e12 = TablesContainer.list4.GroupBy(i => i.Nov);
+                                if (e12 != null)
+                                {
+                                    strN.Add("Nov: ");
+                                    foreach (var cc in e12)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var e13 = TablesContainer.list4.GroupBy(i => i.Dec);
+                                if (e13 != null)
+                                {
+                                    strN.Add("Dec: ");
+                                    foreach (var cc in e13)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var e14 = TablesContainer.list4.GroupBy(i => i.Dec);
+                                if (e13 != null)
+                                {
+                                    strN.Add("Dec: ");
+                                    foreach (var cc in e13)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+                                b = true; TablesContainer.COUNT = TablesContainer.list4.Count;
+
+                                {
+                                    ViewBag.Count = TablesContainer.COUNT;
+                                }
+
+                                {
+                                    ViewBag.GN_Found = HomeController.strN;
+                                }
+
+                                {
+                                    ViewBag.Entity = "Emergency_Prep";
+                                }
+                                break;
+                            #endregion
+
+                            #region Community_Risks: 
+                            case "Community_Risks":
+                                var lst_locat5 = db.Community_Risks.Where(i => i.Location == Id_Location).ToList();
+                                TablesContainer.list5 = (from ent in lst_locat5 where ent.Date >= start && ent.Date <= end select ent).ToList();
+                                { ViewBag.ObjName = "Community_Risks"; }
+                                if (TablesContainer.list5.Count() == 0)
+                                {
+                                    ViewBag.ErrorMsg = errorMsg = "Please select a date range.";
+                                    WorTabs tabs = new WorTabs();
+                                    tabs.ListForms = GetFormNames();
+                                    return View(tabs);
+                                }
+
+                                strN = new List<string>();
+                                var c1 = TablesContainer.list5.GroupBy(i => i.Date);
+                                if (c1 != null)
+                                {
+                                    strN.Add("Date: ");
+                                    foreach (var cc in c1)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var c2 = TablesContainer.list5.GroupBy(i => i.Type_Of_Risk);
+                                if (c2 != null)
+                                {
+                                    strN.Add("Type Of Risk: ");
+                                    foreach (var cc in c2)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var c3 = TablesContainer.list5.GroupBy(i => i.Descriptions);
+                                if (c3 != null)
+                                {
+                                    strN.Add("Descriptions: ");
+                                    foreach (var cc in c3)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var c4 = TablesContainer.list5.GroupBy(i => i.Potential_Risk);
+                                if (c4 != null)
+                                {
+                                    strN.Add("Potential Risk: ");
+                                    foreach (var cc in c4)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var c5 = TablesContainer.list5.GroupBy(i => i.MOH_Visit);
+                                if (c5 != null)
+                                {
+                                    strN.Add("MOH Visit: ");
+                                    foreach (var cc in c5)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var c6 = TablesContainer.list5.GroupBy(i => i.Risk_Legal_Action);
+                                if (c6 != null)
+                                {
+                                    strN.Add("Risk Legal Action: ");
+                                    foreach (var cc in c6)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var c7 = TablesContainer.list5.GroupBy(i => i.Hot_Alert);
+                                if (c7 != null)
+                                {
+                                    strN.Add("Hot Alert: ");
+                                    foreach (var cc in c7)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var c8 = TablesContainer.list5.GroupBy(i => i.Status_Update);
+                                if (c8 != null)
+                                {
+                                    strN.Add("Status Update: ");
+                                    foreach (var cc in c8)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        else
+                                        {
+                                            strN.Add($"{key}\t - \t{cc.Count()}");
+                                        }
+                                    }
+                                }
+
+                                var c9 = TablesContainer.list5.GroupBy(i => i.Resolved);
+                                if (c9 != null)
+                                {
+                                    strN.Add("Resolved: ");
+                                    foreach (var cc in c9)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        else
+                                        {
+                                            strN.Add($"{key}\t - \t{cc.Count()}");
+                                        }
+                                    }
+                                }
+
+                                b = true; TablesContainer.COUNT = TablesContainer.list5.Count;
+
+                                {
+                                    ViewBag.Count = TablesContainer.COUNT;
+                                }
+
+                                {
+                                    ViewBag.GN_Found = HomeController.strN;
+                                }
+
+                                {
+                                    ViewBag.Entity = "Community_Risks";
+                                }
+                                break;
+                            #endregion
+
+                            #region Visits_Others:
+                            case "Visits_Others":
+                                var lst_locat6 = db.Visits_Others.Where(i => i.Location == Id_Location).ToList();
+                                TablesContainer.list6 = (from ent in lst_locat6 where ent.Date_of_Visit >= start && ent.Date_of_Visit <= end select ent).ToList();
+                                { ViewBag.ObjName = "Visits_Others"; }
+                                if (TablesContainer.list6.Count() == 0)
+                                {
+                                    ViewBag.ErrorMsg = errorMsg = "Please select a date range.";
+                                    WorTabs tabs = new WorTabs();
+                                    tabs.ListForms = GetFormNames();
+                                    return View(tabs);
+                                }
+
+                                strN = new List<string>();
+                                var v1 = TablesContainer.list6.GroupBy(i => i.Date_of_Visit);
+                                if (v1 != null)
+                                {
+                                    strN.Add("Date of Visit: ");
+                                    foreach (var cc in v1)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var v2 = TablesContainer.list6.GroupBy(i => i.Agency);
+                                if (v2 != null)
+                                {
+                                    strN.Add("Agency: ");
+                                    foreach (var cc in v2)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var v3 = TablesContainer.list6.GroupBy(i => i.Number_of_Findings);
+                                if (v3 != null)
+                                {
+                                    strN.Add("Number of Findings: ");
+                                    foreach (var cc in v3)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var v4 = TablesContainer.list6.GroupBy(i => i.Details_of_Findings);
+                                if (v4 != null)
+                                {
+                                    strN.Add("Details of Findings: ");
+                                    foreach (var cc in v4)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var v5 = TablesContainer.list6.GroupBy(i => i.Corrective_Actions);
+                                if (v5 != null)
+                                {
+                                    strN.Add("Corrective Actions: ");
+                                    foreach (var cc in v5)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var v6 = TablesContainer.list6.GroupBy(i => i.Report_Posted);
+                                if (v6 != null)
+                                {
+                                    strN.Add("Report Posted: ");
+                                    foreach (var cc in v6)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var v7 = TablesContainer.list6.GroupBy(i => i.LHIN_Letter_Received);
+                                if (v7 != null)
+                                {
+                                    strN.Add("LHIN Letter Received: ");
+                                    foreach (var cc in v7)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var v8 = TablesContainer.list6.GroupBy(i => i.PH_Letter_Received);
+                                if (v8 != null)
+                                {
+                                    strN.Add("PH Letter Received: ");
+                                    foreach (var cc in v8)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        else
+                                        {
+                                            strN.Add($"{key}\t - \t{cc.Count()}");
+                                        }
+                                    }
+                                }
+
+                                b = true; TablesContainer.COUNT = TablesContainer.list6.Count;
+
+                                {
+                                    ViewBag.Count = TablesContainer.COUNT;
+                                }
+
+                                {
+                                    ViewBag.GN_Found = HomeController.strN;
+                                }
+
+                                {
+                                    ViewBag.Entity = "Visits_Others";
+                                }
+                                break;
+                            #endregion
+
+                            #region Privacy Breaches:   --none
+                            case "Privacy_Breaches":
+                                TablesContainer.list7 = (from ent in db.Privacy_Breaches where ent.Date_Breach_Reported >= start && ent.Date_Breach_Reported <= end select ent).ToList();
+                                return RedirectToAction($"../Statistics/{entity}");
+                            #endregion
+
+                            #region Privacy Complaints  --none
+                            case "Privacy_Complaints":
+                                TablesContainer.list8 = (from ent in db.Privacy_Complaints where ent.Date_Complain_Received >= start && ent.Date_Complain_Received <= end select ent).ToList();
+                                return RedirectToAction($"../Statistics/{entity}");
+                            #endregion
+
+                            #region Education    --none
+                            case "Education":
+                                //TablesContainer.list9 = (from ent in db.Educations where ent. >= start && ent.DateNews <= end select ent).ToList();
+                                return RedirectToAction($"../Statistics/{entity}");
+                            #endregion
+
+                            #region Labour_Relations:
+                            case "Labour_Relations":
+                                var lst_locat10 = db.Relations.Where(i => i.Location == Id_Location);
+                                TablesContainer.list10 = (from ent in lst_locat10 where ent.Date >= start && ent.Date <= end select ent).ToList();
+                                { ViewBag.ObjName = "Community_Risks"; }
+                                if (TablesContainer.list10.Count() == 0)
+                                {
+                                    ViewBag.ErrorMsg = errorMsg = "Please select a date range.";
+                                    WorTabs tabs = new WorTabs();
+                                    tabs.ListForms = GetFormNames();
+                                    return View(tabs);
+                                }
+
+                                strN = new List<string>();
+                                var l1 = TablesContainer.list10.GroupBy(i => i.Date);
+                                if (l1 != null)
+                                {
+                                    strN.Add("Date: ");
+                                    foreach (var cc in l1)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var l2 = TablesContainer.list10.GroupBy(i => i.Union);
+                                if (l2 != null)
+                                {
+                                    strN.Add("Union: ");
+                                    foreach (var cc in l2)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var l3 = TablesContainer.list10.GroupBy(i => i.Category);
+                                if (l3 != null)
+                                {
+                                    strN.Add("Category: ");
+                                    foreach (var cc in l3)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var l4 = TablesContainer.list10.GroupBy(i => i.Details);
+                                if (l4 != null)
+                                {
+                                    strN.Add("Details: ");
+                                    foreach (var cc in l4)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var l5 = TablesContainer.list10.GroupBy(i => i.Status);
+                                if (l5 != null)
+                                {
+                                    strN.Add("Status: ");
+                                    foreach (var cc in l5)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var l6 = TablesContainer.list10.GroupBy(i => i.Accruals);
+                                if (l6 != null)
+                                {
+                                    strN.Add("Accruals: ");
+                                    foreach (var cc in l6)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var l7 = TablesContainer.list10.GroupBy(i => i.Outcome);
+                                if (l7 != null)
+                                {
+                                    strN.Add("Outcome: ");
+                                    foreach (var cc in l7)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var l8 = TablesContainer.list10.GroupBy(i => i.Lessons_Learned);
+                                if (l8 != null)
+                                {
+                                    strN.Add("Lessons Learned: ");
+                                    foreach (var cc in l8)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        else
+                                        {
+                                            strN.Add($"{key}\t - \t{cc.Count()}");
+                                        }
+                                    }
+                                }
+
+                                b = true; TablesContainer.COUNT = TablesContainer.list10.Count;
+
+                                {
+                                    ViewBag.Count = TablesContainer.COUNT;
+                                }
+
+                                {
+                                    ViewBag.GN_Found = HomeController.strN;
+                                }
+
+                                {
+                                    ViewBag.Entity = "Labour_Relations";
+                                }
+                                break;
+                            #endregion
+
+                            #region Immunization --none
+                            case "Immunization":
+                                //TablesContainer.list11 = (from ent in db.Immunizations where ent. >= start && ent.DateNews <= end select ent).ToList();
+                                return RedirectToAction($"../Statistics/{entity}");
+                            #endregion
+
+                            #region Outbreaks    --none  
+                            case "Outbreaks":
+                                TablesContainer.list12 = (from ent in db.Outbreaks where ent.Date_Declared >= start && ent.Date_Declared <= end select ent).ToList();
+                                return RedirectToAction($"../Statistics/{entity}");
+                            #endregion
+
+                            #region WSIB:
+                            case "WSIB":
+                                var lst_locat13 = db.WSIBs.Where(i => i.Location == Id_Location);
+                                TablesContainer.list13 = (from ent in lst_locat13 where ent.Date_Accident >= start && ent.Date_Accident <= end select ent).ToList();
+                                { ViewBag.ObjName = "WSIB"; }
+                                if (TablesContainer.list13.Count() == 0)
+                                {
+                                    ViewBag.ErrorMsg = errorMsg = "Please select a date range.";
+                                    WorTabs tabs = new WorTabs();
+                                    tabs.ListForms = GetFormNames();
+                                    return View(tabs);
+                                }
+
+                                strN = new List<string>();
+                                var w1 = TablesContainer.list13.GroupBy(i => i.Date_Accident);
+                                if (w1 != null)
+                                {
+                                    strN.Add("Date Accident: ");
+                                    foreach (var cc in w1)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var w2 = TablesContainer.list13.GroupBy(i => i.Employee_Initials);
+                                if (w2 != null)
+                                {
+                                    strN.Add("Employee Initials: ");
+                                    foreach (var cc in w2)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var w3 = TablesContainer.list13.GroupBy(i => i.Accident_Cause);
+                                if (w3 != null)
+                                {
+                                    strN.Add("Accident Cause: ");
+                                    foreach (var cc in w3)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var w4 = TablesContainer.list13.GroupBy(i => i.Date_Duties);
+                                if (w4 != null)
+                                {
+                                    strN.Add("Date Duties: ");
+                                    foreach (var cc in w4)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var w5 = TablesContainer.list13.GroupBy(i => i.Date_Regular);
+                                if (w5 != null)
+                                {
+                                    strN.Add("Date Regular: ");
+                                    foreach (var cc in w5)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var w6 = TablesContainer.list13.GroupBy(i => i.Lost_Days);
+                                if (w6 != null)
+                                {
+                                    strN.Add("Lost Days: ");
+                                    foreach (var cc in w6)
+                                    {
+                                        strN.Add($"{cc.Key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var w7 = TablesContainer.list13.GroupBy(i => i.Modified_Days_Not_Shadowed);
+                                if (w7 != null)
+                                {
+                                    strN.Add("Modified Days Not Shadowed: ");
+                                    foreach (var cc in w7)
+                                    {
+                                        strN.Add($"{cc.Key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var w8 = TablesContainer.list13.GroupBy(i => i.Modified_Days_Shadowed);
+                                if (w8 != null)
+                                {
+                                    strN.Add("Modified Days Shadowed: ");
+                                    foreach (var cc in w8)
+                                    {
+                                        strN.Add($"{cc.Key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                b = true; TablesContainer.COUNT = TablesContainer.list10.Count;
+
+                                {
+                                    ViewBag.Count = TablesContainer.COUNT;
+                                }
+
+                                {
+                                    ViewBag.GN_Found = HomeController.strN;
+                                }
+
+                                {
+                                    ViewBag.Entity = "WSIB";
+                                }
+                                break;
+                            #endregion
+
+                            #region Not WSIB    
+                            case "Not_WSIBs":
+                                var lst_locat14 = db.Not_WSIBs.Where(i => i.Location == Id_Location);
+                                TablesContainer.list14 = (from ent in lst_locat14 where ent.Date_of_Incident >= start && ent.Date_of_Incident <= end select ent).ToList();
+                     
+                                { ViewBag.ObjName = "Not_WSIB"; }
+                                if (TablesContainer.list13.Count() == 0)
+                                {
+                                    ViewBag.ErrorMsg = errorMsg = "Please select a date range.";
+                                    WorTabs tabs = new WorTabs();
+                                    tabs.ListForms = GetFormNames();
+                                    return View(tabs);
+                                }
+
+                                strN = new List<string>();
+                                var ww1 = TablesContainer.list14.GroupBy(i => i.Date_of_Incident);
+                                if (ww1 != null)
+                                {
+                                    strN.Add("Date of Incident: ");
+                                    foreach (var cc in ww1)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var ww2 = TablesContainer.list14.GroupBy(i => i.Employee_Initials);
+                                if (ww2 != null)
+                                {
+                                    strN.Add("Employee Initials: ");
+                                    foreach (var cc in ww2)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var ww3 = TablesContainer.list14.GroupBy(i => i.Position);
+                                if (ww3 != null)
+                                {
+                                    strN.Add("Position: ");
+                                    foreach (var cc in ww3)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var ww4 = TablesContainer.list14.GroupBy(i => i.Time_of_Incident);
+                                if (ww4 != null)
+                                {
+                                    strN.Add("Time of Incident: ");
+                                    foreach (var cc in ww4)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var ww5 = TablesContainer.list14.GroupBy(i => i.Shift);
+                                if (ww5 != null)
+                                {
+                                    strN.Add("Shift : ");
+                                    foreach (var cc in ww5)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        strN.Add($"{key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var ww6 = TablesContainer.list14.GroupBy(i => i.Home_Area);
+                                if (ww6 != null)
+                                {
+                                    strN.Add("Home Area: ");
+                                    foreach (var cc in ww6)
+                                    {
+                                        strN.Add($"{cc.Key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var ww7 = TablesContainer.list14.GroupBy(i => i.Injury_Related);
+                                if (ww7 != null)
+                                {
+                                    strN.Add("Injury Related: ");
+                                    foreach (var cc in ww7)
+                                    {
+                                        strN.Add($"{cc.Key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var ww8 = TablesContainer.list14.GroupBy(i => i.Type_of_Injury);
+                                if (ww8 != null)
+                                {
+                                    strN.Add("Type of Injury: ");
+                                    foreach (var cc in ww8)
+                                    {
+                                        strN.Add($"{cc.Key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                var ww9 = TablesContainer.list14.GroupBy(i => i.Details_of_Incident);
+                                if (ww9 != null)
+                                {
+                                    strN.Add("Details of Incident: ");
+                                    foreach (var cc in ww9)
+                                    {
+                                        strN.Add($"{cc.Key}\t - \t{cc.Count()}");
+                                    }
+                                }
+
+                                b = true; TablesContainer.COUNT = TablesContainer.list10.Count;
+
+                                {
+                                    ViewBag.Count = TablesContainer.COUNT;
+                                }
+
+                                {
+                                    ViewBag.GN_Found = HomeController.strN;
+                                }
+
+                                {
+                                    ViewBag.Entity = "WSIB";
+                                }
+                                break;
+                                #endregion
+                        }
                         #endregion
-
-                        case "Privacy_Breaches":
-                            TablesContainer.list7 = (from ent in db.Privacy_Breaches where ent.Date_Breach_Reported >= start && ent.Date_Breach_Reported <= end select ent).ToList();
-                            return RedirectToAction($"../Statistics/{entity}");
-                        case "Privacy_Complaints":
-                            TablesContainer.list8 = (from ent in db.Privacy_Complaints where ent.Date_Complain_Received >= start && ent.Date_Complain_Received <= end select ent).ToList();
-                            return RedirectToAction($"../Statistics/{entity}");
-                        case "Education":
-                            //TablesContainer.list9 = (from ent in db.Educations where ent. >= start && ent.DateNews <= end select ent).ToList();
-                            return RedirectToAction($"../Statistics/{entity}");
-                        case "Labour_Relations":
-                            TablesContainer.list10 = (from ent in db.Relations where ent.Date >= start && ent.Date <= end select ent).ToList();
-                            return RedirectToAction($"../Statistics/{entity}");
-                        case "Immunization":
-                            //TablesContainer.list11 = (from ent in db.Immunizations where ent. >= start && ent.DateNews <= end select ent).ToList();
-                            return RedirectToAction($"../Statistics/{entity}");
-                        case "Outbreaks":
-                            TablesContainer.list12 = (from ent in db.Outbreaks where ent.Date_Declared >= start && ent.Date_Declared <= end select ent).ToList();
-                            return RedirectToAction($"../Statistics/{entity}");
-                        case "WSIB":
-                            TablesContainer.list13 = (from ent in db.WSIBs where ent.Date_Accident >= start && ent.Date_Accident <= end select ent).ToList();
-                            return RedirectToAction($"../Statistics/{entity}");
-                        case "Not_WSIBs":
-                            TablesContainer.list14 = (from ent in db.Not_WSIBs where ent.Date_of_Incident >= start && ent.Date_of_Incident <= end select ent).ToList();
-                            return RedirectToAction($"../Statistics/{entity}");
                     }
-                    #endregion
                 }
                 #endregion
             }
@@ -1964,6 +2845,7 @@ namespace DTS.Controllers
             return View(list);
         }
 
+        #region Export to CSV:
         [HttpGet]
         public FileResult ExportToCSV()
         {
@@ -2172,7 +3054,7 @@ namespace DTS.Controllers
 
                 lst.Insert(0, names.Where(x => x != names[0]).ToArray());
 
-            #region Generate CSV
+                #region Generate CSV
 
                 StringBuilder sb = new StringBuilder();
                 for (var i = 0; i < lst.Count; i++)
@@ -2546,6 +3428,7 @@ namespace DTS.Controllers
             }
             return null;
         }
+        #endregion
 
         #region All Forms:
         public static SelectList GetFormNames()
