@@ -51,228 +51,229 @@
         <div style="">
             @using (Html.BeginForm("WOR_Tabs", "Home", FormMethod.Post))
             {
-                <div style="width:89%" class="container">
-                    <div class="row">
+            <div style="width:89%" class="container">
+                <h3 style="text-align:right;color:darkorange;font-family:'Palatino Linotype'">You Entered as - @ViewBag.Welcome</h3>
+                <div class="row">
 
-                        <div style="height:540px;position:relative" id="div" class="col-lg-2 col-md-2">
-                            <ul style="font-weight:bold;font-family:'Palatino Linotype';font-size:larger;list-style-type: none;position:absolute">
-                                <li>
-                                    @Html.ListBoxFor(model => model.Name, new SelectList(Model.ListForms, "Value", "Text", Model.ListForms.SelectedValue), new { id = "ref" })
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div @*style="border:1px solid black"*@ class="col-lg-10 col-md-10">
-                            <ul style="" class="nav nav-justified badge">
-                                <li><button class="btn add-on" style="color:darkgoldenrod;font-size:medium;font-weight:bold" name="btn-summary" type="submit">SUMMARY</button></li>
-                                <li>
-                                    <p class="btn btn-dropbox" name="btn-insert" style="width:220px;background-color:whitesmoke; color:darkgoldenrod;font-size:medium;font-weight:bold" id="hiddenShow">
-                                        NEW COMPLIANCE
-                                    </p>
-                                </li>
-                                <li>
-                                    <button class="btn btn-dropbox" name="btn-export" style="color: darkgoldenrod; font-size: medium; font-weight: bold" type="submit">
-                                        EXPORT DATA
-                                    </button>
-                                </li>
-                            </ul>
-                            <ul class="nav nav-justified" id="btns">
-                                <li><button hidden type="submit"></button></li>
-                                <li id="ll" style="">
-                                    <button id="b1" class="btn btn-primary" name="btn-insert" style="margin: -15px 0 0 225px" type="submit">Input New Record</button>
-                                    <button id="b2" class="btn btn-primary" style="margin:-15px 0 0 3px" name="btn-list">All Records</button>
-                                </li>
-                                <li></li>
-
-                            </ul>
-                            <br />
-                            <ul class="nav nav-justified">
-                                <li id="d" style="font-family:'Palatino Linotype';font-size:medium">Date range:</li>
-                                <li style="color: darkorange;font-size: medium"> Start:&nbsp; @Html.EditorFor(model => model.Start, new { htmlAttributes = new { @class = "", @id = "start" } })</li>
-                                <li style="color: darkorange;font-size: medium"> End:&nbsp;   @Html.EditorFor(model => model.End, new { htmlAttributes = new { @class = "", @id = "end" } })</li>
-                            </ul>
-                        </div>
-                        <div class="col-lg-4 col-md-4" style="width:80%">
-                            @if (ViewBag.Check == "none")
-                            {
-
-                            }
-                            else if (ViewBag.Check == "insert")
-                            {
-
-                            }
-                            else if (ViewBag.Check == "list")
-                            {
-                                if (ViewBag.Tbl == "1")
-                                {
-                                    <br /><br />
-                                    <div style="">
-                                        @Html.Partial("IncidentPartial");
-                                    </div>
-                                }
-                                else if (ViewBag.Tbl == "2")
-                                {
-                                    <br /><br />
-                                    <div style="">
-                                        @Html.Partial("ComplaintsPartial");
-                                    </div>
-                                }
-                                else if (ViewBag.Tbl == "3")
-                                {
-                                    <br /><br />
-                                    <div style="">
-                                        @Html.Partial("GoToListForm");
-                                    </div>
-                                }
-                                else if (ViewBag.Tbl == "4")
-                                {
-                                    <br /><br />
-                                    <div style="">
-                                        @Html.Partial("EmergencyPrepPartial");
-                                    </div>
-                                }
-                                else if (ViewBag.Tbl == "5")
-                                {
-                                    <br /><br />
-                                    <div style="">
-                                        @Html.Partial("RiskLegalPartial");
-                                    </div>
-                                }
-                                else if (ViewBag.Tbl == "6")
-                                {
-                                    <br /><br /> <br /><br />
-                                    <div style="">
-                                        @Html.Partial("VisitOtherPartial");
-                                    </div>
-                                }
-                                else if (ViewBag.Tbl == "7")
-                                {
-                                    <br /><br /> <br /><br />
-                                    <div style="">
-                                        @Html.Partial("PrivacyBreachPartial");
-                                    </div>
-                                }
-                                else if (ViewBag.Tbl == "8")
-                                {
-                                    <br /><br /> <br /><br />
-                                    <div style="">
-                                        @Html.Partial("PrivacyComplaintsPartial");
-                                    </div>
-                                }
-                                else if (ViewBag.Tbl == "9")
-                                {
-                                    <br /><br /> <br /><br />
-                                    <div style="">
-                                        @Html.Partial("EducationPartial");
-                                    </div>
-                                }
-                                else if (ViewBag.Tbl == "10")
-                                {
-                                    <br /><br /> <br /><br />
-                                    <div style="">
-                                        @Html.Partial("RelationPartial");
-                                    </div>
-                                }
-                                else if (ViewBag.Tbl == "11")
-                                {
-                                    <br /><br /> <br /><br />
-                                    <div style="">
-                                        @Html.Partial("ImmunPartial");
-                                    </div>
-                                }
-                                else if (ViewBag.Tbl == "12")
-                                {
-                                    <br /><br /> <br /><br />
-                                    <div style="">
-                                        @Html.Partial("OutbrakePartial");
-                                    </div>
-                                }
-                                else if (ViewBag.Tbl == "13")
-                                {
-                                    <br /><br /> <br /><br />
-                                    <div style="">
-                                        @Html.Partial("WSIBPartial");
-                                    </div>
-                                }
-                                else if (ViewBag.Tbl == "14")
-                                {
-                                    <br /><br /> <br /><br />
-                                    <div style="">
-                                        @Html.Partial("NoWSIBPartial");
-                                    </div>
-                                }
-
-                            }
-                            else if (ViewBag.Check == "summary")
-                            {
-                                if (ViewBag.Entity == "Critical_Incidents")
-                                {
-                                    <br /><br />
-                                    <ul style="list-style-type:none;position:relative;border:1px solid blue;border-radius:15px" class="">
-                                        <li>@{Html.RenderPartial("IncidentsPartial", (List<string>)ViewBag.GN_Found);}</li>
-                                    </ul>
-                                }
-                                else if (ViewBag.Entity == "Complaints")
-                                {
-                                    <br /><br />
-                                    <ul style="list-style-type: none; position: relative; border: 1px solid blue;border-radius: 15px" class="">
-                                        <li>@{Html.RenderPartial("ComplaintsPartial", (List<string>)ViewBag.GN_Found);}</li>
-                                    </ul>
-                                }
-                                else if (ViewBag.Entity == "Good_News")
-                                {
-                                    <br /><br />
-                                    <ul style="list-style-type: none; position: relative; border: 1px solid blue;border-radius: 15px" class="">
-                                        <li>@{Html.RenderPartial("GoodNewsPartial", (List<string>)ViewBag.GN_Found);}</li>
-                                    </ul>
-                                }
-                                else if (ViewBag.Entity == "Emergency_Prep")
-                                {
-                                    <br /><br />
-                                    <ul style="list-style-type: none; position: relative; border: 1px solid blue; border-radius: 15px" class="">
-                                        <li>@{Html.RenderPartial("Visits_OthersPartial", (List<string>)ViewBag.GN_Found);}</li>
-                                    </ul>
-                                }
-                                else if (ViewBag.Entity == "Visits_Others")
-                                {
-                                    <br /><br />
-                                    <ul style="list-style-type: none; position: relative; border: 1px solid blue; border-radius: 15px" class="">
-                                        <li>@{Html.RenderPartial("VisitsOthersPartial", (List<string>)ViewBag.GN_Found);}</li>
-                                    </ul>
-                                }
-                                else if (ViewBag.Entity == "Community_Risks")
-                                {
-                                    <br /><br />
-                                    <ul style="list-style-type: none; position: relative; border: 1px solid blue; border-radius: 15px" class="">
-                                        <li>@{Html.RenderPartial("CommunityRisksPartial", (List<string>)ViewBag.GN_Found);}</li>
-                                    </ul>
-                                }
-                                else if (ViewBag.Entity == "Labour_Relations")
-                                {
-                                    <br /><br />
-                                    <ul style="list-style-type: none; position: relative; border: 1px solid blue; border-radius: 15px" class="">
-                                        <li>@{Html.RenderPartial("LabourRelationsPartial", (List<string>)ViewBag.GN_Found);}</li>
-                                    </ul>
-                                }
-                                else if (ViewBag.Entity == "WSIB")
-                                {
-                                    <br /><br />
-                                    <ul style="list-style-type: none; position: relative; border: 1px solid blue; border-radius: 15px" class="">
-                                        <li>@{Html.RenderPartial("WSIB_Partial", (List<string>)ViewBag.GN_Found);}</li>
-                                    </ul>
-                                }
-                                else if (ViewBag.Entity == "Not_WSIB")
-                                {
-                                    <br /><br />
-                                    <ul style="list-style-type: none; position: relative; border: 1px solid blue; border-radius: 15px" class="">
-                                        <li>@{Html.RenderPartial("Not_WSIB_Partial", (List<string>)ViewBag.GN_Found);}</li>
-                                    </ul>
-                                }
-                            }
-                        </div>
+                    <div style="height:540px;position:relative" id="div" class="col-lg-2 col-md-2">
+                        <ul style="font-weight:bold;font-family:'Palatino Linotype';font-size:larger;list-style-type: none;position:absolute">
+                            <li>
+                                @Html.ListBoxFor(model => model.Name, new SelectList(Model.ListForms, "Value", "Text", Model.ListForms.SelectedValue), new { id = "ref" })
+                            </li>
+                        </ul>
                     </div>
 
+                    <div @*style="border:1px solid black"*@ class="col-lg-10 col-md-10">
+                        <ul style="" class="nav nav-justified badge">
+                            <li><button class="btn add-on" style="color:darkgoldenrod;font-size:medium;font-weight:bold" name="btn-summary" type="submit">SUMMARY</button></li>
+                            <li>
+                                <p class="btn btn-dropbox" name="btn-insert" style="width:220px;background-color:whitesmoke; color:darkgoldenrod;font-size:medium;font-weight:bold" id="hiddenShow">
+                                    NEW COMPLIANCE
+                                </p>
+                            </li>
+                            <li>
+                                <button class="btn btn-dropbox" name="btn-export" style="color: darkgoldenrod; font-size: medium; font-weight: bold" type="submit">
+                                    EXPORT DATA
+                                </button>
+                            </li>
+                        </ul>
+                        <ul class="nav nav-justified" id="btns">
+                            <li><button hidden type="submit"></button></li>
+                            <li id="ll" style="">
+                                <button id="b1" class="btn btn-primary" name="btn-insert" style="margin: -15px 0 0 225px" type="submit">Input New Record</button>
+                                <button id="b2" class="btn btn-primary" style="margin:-15px 0 0 3px" name="btn-list">All Records</button>
+                            </li>
+                            <li></li>
+
+                        </ul>
+                        <br />
+                        <ul class="nav nav-justified">
+                            <li id="d" style="font-family:'Palatino Linotype';font-size:medium">Date range:</li>
+                            <li style="color: darkorange;font-size: medium"> Start:&nbsp; @Html.EditorFor(model => model.Start, new { htmlAttributes = new { @class = "", @id = "start" } })</li>
+                            <li style="color: darkorange;font-size: medium"> End:&nbsp;   @Html.EditorFor(model => model.End, new { htmlAttributes = new { @class = "", @id = "end" } })</li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-4 col-md-4" style="width:80%">
+                        @if (ViewBag.Check == "none")
+                        {
+
+                        }
+                        else if (ViewBag.Check == "insert")
+                        {
+
+                        }
+                        else if (ViewBag.Check == "list")
+                        {
+                            if (ViewBag.Tbl == "1")
+                            {
+                                <br /><br />
+                                <div style="">
+                                    @Html.Partial("IncidentPartial");
+                                </div>
+                            }
+                            else if (ViewBag.Tbl == "2")
+                            {
+                                <br /><br />
+                                <div style="">
+                                    @Html.Partial("ComplaintsPartial");
+                                </div>
+                            }
+                            else if (ViewBag.Tbl == "3")
+                            {
+                                <br /><br />
+                                <div style="">
+                                    @Html.Partial("GoToListForm");
+                                </div>
+                            }
+                            else if (ViewBag.Tbl == "4")
+                            {
+                                <br /><br />
+                                <div style="">
+                                    @Html.Partial("EmergencyPrepPartial");
+                                </div>
+                            }
+                            else if (ViewBag.Tbl == "5")
+                            {
+                                <br /><br />
+                                <div style="">
+                                    @Html.Partial("RiskLegalPartial");
+                                </div>
+                            }
+                            else if (ViewBag.Tbl == "6")
+                            {
+                                <br /><br /> <br /><br />
+                                <div style="">
+                                    @Html.Partial("VisitOtherPartial");
+                                </div>
+                            }
+                            else if (ViewBag.Tbl == "7")
+                            {
+                                <br /><br /> <br /><br />
+                                <div style="">
+                                    @Html.Partial("PrivacyBreachPartial");
+                                </div>
+                            }
+                            else if (ViewBag.Tbl == "8")
+                            {
+                                <br /><br /> <br /><br />
+                                <div style="">
+                                    @Html.Partial("PrivacyComplaintsPartial");
+                                </div>
+                            }
+                            else if (ViewBag.Tbl == "9")
+                            {
+                                <br /><br /> <br /><br />
+                                <div style="">
+                                    @Html.Partial("EducationPartial");
+                                </div>
+                            }
+                            else if (ViewBag.Tbl == "10")
+                            {
+                                <br /><br /> <br /><br />
+                                <div style="">
+                                    @Html.Partial("RelationPartial");
+                                </div>
+                            }
+                            else if (ViewBag.Tbl == "11")
+                            {
+                                <br /><br /> <br /><br />
+                                <div style="">
+                                    @Html.Partial("ImmunPartial");
+                                </div>
+                            }
+                            else if (ViewBag.Tbl == "12")
+                            {
+                                <br /><br /> <br /><br />
+                                <div style="">
+                                    @Html.Partial("OutbrakePartial");
+                                </div>
+                            }
+                            else if (ViewBag.Tbl == "13")
+                            {
+                                <br /><br /> <br /><br />
+                                <div style="">
+                                    @Html.Partial("WSIBPartial");
+                                </div>
+                            }
+                            else if (ViewBag.Tbl == "14")
+                            {
+                                <br /><br /> <br /><br />
+                                <div style="">
+                                    @Html.Partial("NoWSIBPartial");
+                                </div>
+                            }
+
+                        }
+                        else if (ViewBag.Check == "summary")
+                        {
+                            if (ViewBag.Entity == "Critical_Incidents")
+                            {
+                                <br /><br />
+                                <ul style="list-style-type:none;position:relative;border:1px solid blue;border-radius:15px" class="">
+                                    <li>@{Html.RenderPartial("IncidentsPartial", (List<string>)ViewBag.GN_Found);}</li>
+                                </ul>
+                            }
+                            else if (ViewBag.Entity == "Complaints")
+                            {
+                                <br /><br />
+                                <ul style="list-style-type: none; position: relative; border: 1px solid blue;border-radius: 15px" class="">
+                                    <li>@{Html.RenderPartial("ComplaintsPartial", (List<string>)ViewBag.GN_Found);}</li>
+                                </ul>
+                            }
+                            else if (ViewBag.Entity == "Good_News")
+                            {
+                                <br /><br />
+                                <ul style="list-style-type: none; position: relative; border: 1px solid blue;border-radius: 15px" class="">
+                                    <li>@{Html.RenderPartial("GoodNewsPartial", (List<string>)ViewBag.GN_Found);}</li>
+                                </ul>
+                            }
+                            else if (ViewBag.Entity == "Emergency_Prep")
+                            {
+                                <br /><br />
+                                <ul style="list-style-type: none; position: relative; border: 1px solid blue; border-radius: 15px" class="">
+                                    <li>@{Html.RenderPartial("Visits_OthersPartial", (List<string>)ViewBag.GN_Found);}</li>
+                                </ul>
+                            }
+                            else if (ViewBag.Entity == "Visits_Others")
+                            {
+                                <br /><br />
+                                <ul style="list-style-type: none; position: relative; border: 1px solid blue; border-radius: 15px" class="">
+                                    <li>@{Html.RenderPartial("VisitsOthersPartial", (List<string>)ViewBag.GN_Found);}</li>
+                                </ul>
+                            }
+                            else if (ViewBag.Entity == "Community_Risks")
+                            {
+                                <br /><br />
+                                <ul style="list-style-type: none; position: relative; border: 1px solid blue; border-radius: 15px" class="">
+                                    <li>@{Html.RenderPartial("CommunityRisksPartial", (List<string>)ViewBag.GN_Found);}</li>
+                                </ul>
+                            }
+                            else if (ViewBag.Entity == "Labour_Relations")
+                            {
+                                <br /><br />
+                                <ul style="list-style-type: none; position: relative; border: 1px solid blue; border-radius: 15px" class="">
+                                    <li>@{Html.RenderPartial("LabourRelationsPartial", (List<string>)ViewBag.GN_Found);}</li>
+                                </ul>
+                            }
+                            else if (ViewBag.Entity == "WSIB")
+                            {
+                                <br /><br />
+                                <ul style="list-style-type: none; position: relative; border: 1px solid blue; border-radius: 15px" class="">
+                                    <li>@{Html.RenderPartial("WSIB_Partial", (List<string>)ViewBag.GN_Found);}</li>
+                                </ul>
+                            }
+                            else if (ViewBag.Entity == "Not_WSIB")
+                            {
+                                <br /><br />
+                                <ul style="list-style-type: none; position: relative; border: 1px solid blue; border-radius: 15px" class="">
+                                    <li>@{Html.RenderPartial("Not_WSIB_Partial", (List<string>)ViewBag.GN_Found);}</li>
+                                </ul>
+                            }
+                        }
+                    </div>
                 </div>
+
+            </div>
             }
 
         </div>

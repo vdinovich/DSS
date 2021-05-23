@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using DTS.Models;
 
@@ -28,6 +27,7 @@ namespace DTS.Controllers
         [HttpPost]
         public ActionResult Register_New_User(Users user)
         {
+            user.Role = Role.User.ToString();
             user.Date_Register = DateTime.Now;
             db.Users.Add(user);
             db.SaveChanges();

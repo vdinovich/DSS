@@ -11,6 +11,8 @@ using System.Web.Mvc;
 
 namespace DTS.Controllers
 {
+    public enum Role { Admin, User}
+
     public class HomeController : Controller
     {
         #region Fields:
@@ -45,7 +47,7 @@ namespace DTS.Controllers
                  visitnumbers = new string[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" };
         #endregion
 
-        #region Controller:
+        #region Constructor:
         public HomeController()
         {
             communities = db.Care_Communities.ToList();
@@ -148,6 +150,7 @@ namespace DTS.Controllers
             return View();
         }
 
+        static Role role;
         [HttpPost]
         public ActionResult SignIN(Users user)
         {
@@ -157,16 +160,24 @@ namespace DTS.Controllers
             bool flag = false;
             for (int i = 0; i < users.Count(); i++)
             {
-                if (users[i].Login == login && users[i].Password == password)
+                if (users[i].Login == login && users[i].Password == password && users[i].Role.Equals("User"))
                 {
+                    role = Role.User;
                     flag = true;
                     return RedirectToAction("../Home/Index");
+                }
+                else if (users[i].Login == login && users[i].Password == password && users[i].Role.Equals("Admin"))
+                {
+                    role = Role.Admin;
+                    flag = true;
+                    return RedirectToAction("../Home/WOR_Tabs");
                 }
             }
             if (!flag) ViewBag.incorrect = "Incorrect Login or Password...Please try again!";
             return View();
         }
 
+        #region Index:
         [HttpGet]
         public ActionResult Index()
         {
@@ -234,7 +245,9 @@ namespace DTS.Controllers
             }
             return View();
         }
+        #endregion
 
+        #region Upload files:
         [HttpPost]
         public ActionResult Uploded()
         {// Checking no of files injected in Request object  
@@ -280,6 +293,7 @@ namespace DTS.Controllers
                 return Json("There was no file selected. Please try again.");
             }
         }
+        #endregion
 
         public ActionResult AllFiles()
         {
@@ -319,6 +333,10 @@ namespace DTS.Controllers
         {
             WorTabs tabs = null;
             { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
+            if (role == Role.Admin)
+                ViewBag.Welcome = Role.Admin;
+            else if (role == Role.User)
+                ViewBag.Welcome = Role.User;
             if (Id_Location == 0)
             {
                 { ViewBag.List = TablesContainer.list1; }
@@ -614,255 +632,513 @@ namespace DTS.Controllers
                     end = Value.End;
                     if (start != DateTime.MinValue && end != DateTime.MinValue)
                     {
-                        switch (Value.Name)
+                        if (role == Role.Admin)
                         {
-                            case "1":
-                                var lst1 = db.Critical_Incidents.Where(i => i.Location == Id_Location);
-                                TablesContainer.list1 = (from ent in lst1 where ent.Date >= start && ent.Date <= end select ent).ToList();
-                                if (TablesContainer.list1.Count != 0 || TablesContainer.list1 != null)
-                                {
-                                    { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
-                                    ViewBag.List = TablesContainer.list1;
-                                    WorTabs tabs = new WorTabs();
-                                    tabs.ListForms = GetFormNames();
-                                    return View(tabs);
-                                }
-                                else
-                                {
-                                    ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
-                                    WorTabs tabs = new WorTabs();
-                                    tabs.ListForms = GetFormNames();
-                                    return View(tabs);
-                                }
-                            case "2":
-                                var lst2 = db.Complaints.Where(i => i.Location == Id_Location);
-                                TablesContainer.list2 = (from ent in lst2 where ent.DateReceived >= start && ent.DateReceived <= end select ent).ToList();
-                                if (TablesContainer.list2.Count != 0 || TablesContainer.list2 != null)
-                                {
-                                    { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
-                                    ViewBag.List = TablesContainer.list2;
-                                    WorTabs tabs = new WorTabs();
-                                    tabs.ListForms = GetFormNames();
-                                    return View(tabs);
-                                }
-                                else
-                                {
-                                    ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
-                                    WorTabs tabs = new WorTabs();
-                                    tabs.ListForms = GetFormNames();
-                                    return View(tabs);
-                                }
-                            case "3":  // Good_News table\
-                                var lst3 = db.Good_News.Where(i => i.Location == Id_Location).ToList();
-                                TablesContainer.list3 = (from ent in lst3 where ent.DateNews >= start && ent.DateNews <= end select ent).ToList();
-                                if (TablesContainer.list3.Count != 0 || TablesContainer.list3 != null)
-                                {
-                                    { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
-                                    ViewBag.List = TablesContainer.list3;
-                                    WorTabs tabs = new WorTabs();
-                                    tabs.ListForms = GetFormNames();
-                                    return View(tabs);
-                                }
-                                else
-                                {
-                                    ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
-                                    WorTabs tabs = new WorTabs();
-                                    tabs.ListForms = GetFormNames();
-                                    return View(tabs);
-                                }
-                            case "4":
-                                var lst4 = db.Emergency_Prep.Where(i => i.Location == Id_Location).ToList();
-                                
-                                if (TablesContainer.list3.Count != 0 || TablesContainer.list3 != null)
-                                {
-                                    { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
-                                    ViewBag.List = lst4;
-                                    WorTabs tabs = new WorTabs();
-                                    tabs.ListForms = GetFormNames();
-                                    return View(tabs);
-                                }
-                                else
-                                {
-                                    ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
-                                    WorTabs tabs = new WorTabs();
-                                    tabs.ListForms = GetFormNames();
-                                    return View(tabs);
-                                }
-                            case "5":
-                                var lst5 = db.Community_Risks.Where(i => i.Location == Id_Location).ToList();
-                                TablesContainer.list5 = (from ent in lst5 where ent.Date >= start && ent.Date <= end select ent).ToList();
-                                if (TablesContainer.list5.Count != 0 || TablesContainer.list5 != null)
-                                {
-                                    { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
-                                    ViewBag.List = TablesContainer.list5;
-                                    WorTabs tabs = new WorTabs();
-                                    tabs.ListForms = GetFormNames();
-                                    return View(tabs);
-                                }
-                                else
-                                {
-                                    ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
-                                    WorTabs tabs = new WorTabs();
-                                    tabs.ListForms = GetFormNames();
-                                    return View(tabs);
-                                }
-                            case "6":
-                                var lst6 = db.Visits_Others.Where(i => i.Location == Id_Location).ToList();
-                                TablesContainer.list6 = (from ent in lst6 where ent.Date_of_Visit >= start && ent.Date_of_Visit <= end select ent).ToList();
-                                if (TablesContainer.list6.Count != 0 || TablesContainer.list6 != null)
-                                {
-                                    { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
-                                    ViewBag.List = TablesContainer.list6;
-                                    WorTabs tabs = new WorTabs();
-                                    tabs.ListForms = GetFormNames();
-                                    return View(tabs);
-                                }
-                                else
-                                {
-                                    ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
-                                    WorTabs tabs = new WorTabs();
-                                    tabs.ListForms = GetFormNames();
-                                    return View(tabs);
-                                }
-                            case "7":
-                                var lst7 = db.Privacy_Breaches.Where(i => i.Location == Id_Location).ToList();
-                                TablesContainer.list7 = (from ent in lst7 where ent.Date_Breach_Occurred >= start && ent.Date_Breach_Occurred <= end select ent).ToList();
-                                if (TablesContainer.list7.Count != 0 || TablesContainer.list7 != null)
-                                {
-                                    { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
-                                    ViewBag.List = TablesContainer.list7;
-                                    WorTabs tabs = new WorTabs();
-                                    tabs.ListForms = GetFormNames();
-                                    return View(tabs);
-                                }
-                                else
-                                {
-                                    ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
-                                    WorTabs tabs = new WorTabs();
-                                    tabs.ListForms = GetFormNames();
-                                    return View(tabs);
-                                }
-                            case "8":
-                                var lst8 = db.Privacy_Complaints.Where(i => i.Location == Id_Location).ToList();
-                                TablesContainer.list8 = (from ent in lst8 where ent.Date_Complain_Received >= start && ent.Date_Complain_Received <= end select ent).ToList();
-                                if (TablesContainer.list8.Count != 0 || TablesContainer.list8 != null)
-                                {
-                                    { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
-                                    ViewBag.List = TablesContainer.list8;
-                                    WorTabs tabs = new WorTabs();
-                                    tabs.ListForms = GetFormNames();
-                                    return View(tabs);
-                                }
-                                else
-                                {
-                                    ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
-                                    WorTabs tabs = new WorTabs();
-                                    tabs.ListForms = GetFormNames();
-                                    return View(tabs);
-                                }
-                            case "9":
-                                TablesContainer.list9 = db.Educations.Where(i => i.Location == Id_Location).ToList();
-                                if (TablesContainer.list9.Count != 0 || TablesContainer.list9 != null)
-                                {
-                                    { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
-                                    ViewBag.List = TablesContainer.list9;
-                                    WorTabs tabs = new WorTabs();
-                                    tabs.ListForms = GetFormNames();
-                                    return View(tabs);
-                                }
-                                else
-                                {
-                                    ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
-                                    WorTabs tabs = new WorTabs();
-                                    tabs.ListForms = GetFormNames();
-                                    return View(tabs);
-                                }
-                            case "10":
-                                var lst10 = db.Relations.Where(i => i.Location == Id_Location).ToList();
-                                TablesContainer.list10 = (from ent in lst10 where ent.Date >= start && ent.Date <= end select ent).ToList();
-                                if (TablesContainer.list10.Count != 0 || TablesContainer.list11 != null)
-                                {
-                                    { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
-                                    ViewBag.List = TablesContainer.list10;
-                                    WorTabs tabs = new WorTabs();
-                                    tabs.ListForms = GetFormNames();
-                                    return View(tabs);
-                                }
-                                else
-                                {
-                                    ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
-                                    WorTabs tabs = new WorTabs();
-                                    tabs.ListForms = GetFormNames();
-                                    return View(tabs);
-                                }
-                            case "11":
-                                TablesContainer.list11 = db.Immunizations.Where(i => i.Location == Id_Location).ToList();
-                                if (TablesContainer.list11.Count != 0 || TablesContainer.list11 != null)
-                                {
-                                    { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
-                                    ViewBag.List = TablesContainer.list11;
-                                    WorTabs tabs = new WorTabs();
-                                    tabs.ListForms = GetFormNames();
-                                    return View(tabs);
-                                }
-                                else
-                                {
-                                    ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
-                                    WorTabs tabs = new WorTabs();
-                                    tabs.ListForms = GetFormNames();
-                                    return View(tabs);
-                                }
-                            case "12":
-                                TablesContainer.list12 = db.Outbreaks.Where(i => i.Location == Id_Location).ToList();
-                                if (TablesContainer.list12.Count != 0 || TablesContainer.list12 != null)
-                                {
-                                    { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
-                                    ViewBag.List = TablesContainer.list12;
-                                    WorTabs tabs = new WorTabs();
-                                    tabs.ListForms = GetFormNames();
-                                    return View(tabs);
-                                }
-                                else
-                                {
-                                    ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
-                                    WorTabs tabs = new WorTabs();
-                                    tabs.ListForms = GetFormNames();
-                                    return View(tabs);
-                                }
-                            case "13":
-                                TablesContainer.list13 = db.WSIBs.Where(i => i.Location == Id_Location).ToList();
-                                if (TablesContainer.list13.Count != 0 || TablesContainer.list13 != null)
-                                {
-                                    { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
-                                    ViewBag.List = TablesContainer.list13;
-                                    WorTabs tabs = new WorTabs();
-                                    tabs.ListForms = GetFormNames();
-                                    return View(tabs);
-                                }
-                                else
-                                {
-                                    ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
-                                    WorTabs tabs = new WorTabs();
-                                    tabs.ListForms = GetFormNames();
-                                    return View(tabs);
-                                }
-                            case "14":
-                                TablesContainer.list14 = db.Not_WSIBs.Where(i => i.Location == Id_Location).ToList();
-                                if (TablesContainer.list14.Count != 0 || TablesContainer.list14 != null)
-                                {
-                                    { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
-                                    ViewBag.List = TablesContainer.list14;
-                                    WorTabs tabs = new WorTabs();
-                                    tabs.ListForms = GetFormNames();
-                                    return View(tabs);
-                                }
-                                else
-                                {
-                                    ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
-                                    WorTabs tabs = new WorTabs();
-                                    tabs.ListForms = GetFormNames();
-                                    return View(tabs);
-                                }
+                            ViewBag.Welcome = Role.Admin;
+                            switch (Value.Name)
+                            {
+                                case "1":
+                                    var lst1 = db.Critical_Incidents;
+                                    TablesContainer.list1 = (from ent in lst1 where ent.Date >= start && ent.Date <= end select ent).ToList();
+                                    if (TablesContainer.list1.Count != 0 || TablesContainer.list1 != null)
+                                    {
+                                        { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
+                                        ViewBag.List = TablesContainer.list1;
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                    else
+                                    {
+                                        ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                case "2":
+                                    var lst2 = db.Complaints;
+                                    TablesContainer.list2 = (from ent in lst2 where ent.DateReceived >= start && ent.DateReceived <= end select ent).ToList();
+                                    if (TablesContainer.list2.Count != 0 || TablesContainer.list2 != null)
+                                    {
+                                        { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
+                                        ViewBag.List = TablesContainer.list2;
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                    else
+                                    {
+                                        ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                case "3":  // Good_News table\
+                                    var lst3 = db.Good_News.ToList();
+                                    TablesContainer.list3 = (from ent in lst3 where ent.DateNews >= start && ent.DateNews <= end select ent).ToList();
+                                    if (TablesContainer.list3.Count != 0 || TablesContainer.list3 != null)
+                                    {
+                                        { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
+                                        ViewBag.List = TablesContainer.list3;
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                    else
+                                    {
+                                        ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                case "4":
+                                    var lst4 = db.Emergency_Prep.ToList();
+
+                                    if (TablesContainer.list3.Count != 0 || TablesContainer.list3 != null)
+                                    {
+                                        { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
+                                        ViewBag.List = lst4;
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                    else
+                                    {
+                                        ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                case "5":
+                                    var lst5 = db.Community_Risks.ToList();
+                                    TablesContainer.list5 = (from ent in lst5 where ent.Date >= start && ent.Date <= end select ent).ToList();
+                                    if (TablesContainer.list5.Count != 0 || TablesContainer.list5 != null)
+                                    {
+                                        { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
+                                        ViewBag.List = TablesContainer.list5;
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                    else
+                                    {
+                                        ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                case "6":
+                                    var lst6 = db.Visits_Others.ToList();
+                                    TablesContainer.list6 = (from ent in lst6 where ent.Date_of_Visit >= start && ent.Date_of_Visit <= end select ent).ToList();
+                                    if (TablesContainer.list6.Count != 0 || TablesContainer.list6 != null)
+                                    {
+                                        { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
+                                        ViewBag.List = TablesContainer.list6;
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                    else
+                                    {
+                                        ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                case "7":
+                                    var lst7 = db.Privacy_Breaches.ToList();
+                                    TablesContainer.list7 = (from ent in lst7 where ent.Date_Breach_Occurred >= start && ent.Date_Breach_Occurred <= end select ent).ToList();
+                                    if (TablesContainer.list7.Count != 0 || TablesContainer.list7 != null)
+                                    {
+                                        { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
+                                        ViewBag.List = TablesContainer.list7;
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                    else
+                                    {
+                                        ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                case "8":
+                                    var lst8 = db.Privacy_Complaints.ToList();
+                                    TablesContainer.list8 = (from ent in lst8 where ent.Date_Complain_Received >= start && ent.Date_Complain_Received <= end select ent).ToList();
+                                    if (TablesContainer.list8.Count != 0 || TablesContainer.list8 != null)
+                                    {
+                                        { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
+                                        ViewBag.List = TablesContainer.list8;
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                    else
+                                    {
+                                        ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                case "9":
+                                    TablesContainer.list9 = db.Educations.ToList();
+                                    if (TablesContainer.list9.Count != 0 || TablesContainer.list9 != null)
+                                    {
+                                        { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
+                                        ViewBag.List = TablesContainer.list9;
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                    else
+                                    {
+                                        ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                case "10":
+                                    var lst10 = db.Relations.ToList();
+                                    TablesContainer.list10 = (from ent in lst10 where ent.Date >= start && ent.Date <= end select ent).ToList();
+                                    if (TablesContainer.list10.Count != 0 || TablesContainer.list11 != null)
+                                    {
+                                        { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
+                                        ViewBag.List = TablesContainer.list10;
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                    else
+                                    {
+                                        ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                case "11":
+                                    TablesContainer.list11 = db.Immunizations.ToList();
+                                    if (TablesContainer.list11.Count != 0 || TablesContainer.list11 != null)
+                                    {
+                                        { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
+                                        ViewBag.List = TablesContainer.list11;
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                    else
+                                    {
+                                        ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                case "12":
+                                    TablesContainer.list12 = db.Outbreaks.ToList();
+                                    if (TablesContainer.list12.Count != 0 || TablesContainer.list12 != null)
+                                    {
+                                        { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
+                                        ViewBag.List = TablesContainer.list12;
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                    else
+                                    {
+                                        ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                case "13":
+                                    TablesContainer.list13 = db.WSIBs.ToList();
+                                    if (TablesContainer.list13.Count != 0 || TablesContainer.list13 != null)
+                                    {
+                                        { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
+                                        ViewBag.List = TablesContainer.list13;
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                    else
+                                    {
+                                        ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                case "14":
+                                    TablesContainer.list14 = db.Not_WSIBs.ToList();
+                                    if (TablesContainer.list14.Count != 0 || TablesContainer.list14 != null)
+                                    {
+                                        { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
+                                        ViewBag.List = TablesContainer.list14;
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                    else
+                                    {
+                                        ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                            }
+                        }
+                        else if (role == Role.User)
+                        {
+                            ViewBag.Welcome = Role.User;
+                            switch (Value.Name)
+                            {
+                                case "1":
+                                    var lst1 = db.Critical_Incidents.Where(i => i.Location == Id_Location);
+                                    TablesContainer.list1 = (from ent in lst1 where ent.Date >= start && ent.Date <= end select ent).ToList();
+                                    if (TablesContainer.list1.Count != 0 || TablesContainer.list1 != null)
+                                    {
+                                        { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
+                                        ViewBag.List = TablesContainer.list1;
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                    else
+                                    {
+                                        ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                case "2":
+                                    var lst2 = db.Complaints.Where(i => i.Location == Id_Location);
+                                    TablesContainer.list2 = (from ent in lst2 where ent.DateReceived >= start && ent.DateReceived <= end select ent).ToList();
+                                    if (TablesContainer.list2.Count != 0 || TablesContainer.list2 != null)
+                                    {
+                                        { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
+                                        ViewBag.List = TablesContainer.list2;
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                    else
+                                    {
+                                        ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                case "3":  // Good_News table\
+                                    var lst3 = db.Good_News.Where(i => i.Location == Id_Location).ToList();
+                                    TablesContainer.list3 = (from ent in lst3 where ent.DateNews >= start && ent.DateNews <= end select ent).ToList();
+                                    if (TablesContainer.list3.Count != 0 || TablesContainer.list3 != null)
+                                    {
+                                        { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
+                                        ViewBag.List = TablesContainer.list3;
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                    else
+                                    {
+                                        ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                case "4":
+                                    var lst4 = db.Emergency_Prep.Where(i => i.Location == Id_Location).ToList();
+
+                                    if (TablesContainer.list3.Count != 0 || TablesContainer.list3 != null)
+                                    {
+                                        { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
+                                        ViewBag.List = lst4;
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                    else
+                                    {
+                                        ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                case "5":
+                                    var lst5 = db.Community_Risks.Where(i => i.Location == Id_Location).ToList();
+                                    TablesContainer.list5 = (from ent in lst5 where ent.Date >= start && ent.Date <= end select ent).ToList();
+                                    if (TablesContainer.list5.Count != 0 || TablesContainer.list5 != null)
+                                    {
+                                        { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
+                                        ViewBag.List = TablesContainer.list5;
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                    else
+                                    {
+                                        ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                case "6":
+                                    var lst6 = db.Visits_Others.Where(i => i.Location == Id_Location).ToList();
+                                    TablesContainer.list6 = (from ent in lst6 where ent.Date_of_Visit >= start && ent.Date_of_Visit <= end select ent).ToList();
+                                    if (TablesContainer.list6.Count != 0 || TablesContainer.list6 != null)
+                                    {
+                                        { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
+                                        ViewBag.List = TablesContainer.list6;
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                    else
+                                    {
+                                        ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                case "7":
+                                    var lst7 = db.Privacy_Breaches.Where(i => i.Location == Id_Location).ToList();
+                                    TablesContainer.list7 = (from ent in lst7 where ent.Date_Breach_Occurred >= start && ent.Date_Breach_Occurred <= end select ent).ToList();
+                                    if (TablesContainer.list7.Count != 0 || TablesContainer.list7 != null)
+                                    {
+                                        { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
+                                        ViewBag.List = TablesContainer.list7;
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                    else
+                                    {
+                                        ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                case "8":
+                                    var lst8 = db.Privacy_Complaints.Where(i => i.Location == Id_Location).ToList();
+                                    TablesContainer.list8 = (from ent in lst8 where ent.Date_Complain_Received >= start && ent.Date_Complain_Received <= end select ent).ToList();
+                                    if (TablesContainer.list8.Count != 0 || TablesContainer.list8 != null)
+                                    {
+                                        { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
+                                        ViewBag.List = TablesContainer.list8;
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                    else
+                                    {
+                                        ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                case "9":
+                                    TablesContainer.list9 = db.Educations.Where(i => i.Location == Id_Location).ToList();
+                                    if (TablesContainer.list9.Count != 0 || TablesContainer.list9 != null)
+                                    {
+                                        { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
+                                        ViewBag.List = TablesContainer.list9;
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                    else
+                                    {
+                                        ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                case "10":
+                                    var lst10 = db.Relations.Where(i => i.Location == Id_Location).ToList();
+                                    TablesContainer.list10 = (from ent in lst10 where ent.Date >= start && ent.Date <= end select ent).ToList();
+                                    if (TablesContainer.list10.Count != 0 || TablesContainer.list11 != null)
+                                    {
+                                        { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
+                                        ViewBag.List = TablesContainer.list10;
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                    else
+                                    {
+                                        ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                case "11":
+                                    TablesContainer.list11 = db.Immunizations.Where(i => i.Location == Id_Location).ToList();
+                                    if (TablesContainer.list11.Count != 0 || TablesContainer.list11 != null)
+                                    {
+                                        { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
+                                        ViewBag.List = TablesContainer.list11;
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                    else
+                                    {
+                                        ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                case "12":
+                                    TablesContainer.list12 = db.Outbreaks.Where(i => i.Location == Id_Location).ToList();
+                                    if (TablesContainer.list12.Count != 0 || TablesContainer.list12 != null)
+                                    {
+                                        { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
+                                        ViewBag.List = TablesContainer.list12;
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                    else
+                                    {
+                                        ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                case "13":
+                                    TablesContainer.list13 = db.WSIBs.Where(i => i.Location == Id_Location).ToList();
+                                    if (TablesContainer.list13.Count != 0 || TablesContainer.list13 != null)
+                                    {
+                                        { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
+                                        ViewBag.List = TablesContainer.list13;
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                    else
+                                    {
+                                        ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                case "14":
+                                    TablesContainer.list14 = db.Not_WSIBs.Where(i => i.Location == Id_Location).ToList();
+                                    if (TablesContainer.list14.Count != 0 || TablesContainer.list14 != null)
+                                    {
+                                        { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
+                                        ViewBag.List = TablesContainer.list14;
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                                    else
+                                    {
+                                        ViewBag.ErrorMsg = errorMsg = "That range doesn't contain any records.";
+                                        WorTabs tabs = new WorTabs();
+                                        tabs.ListForms = GetFormNames();
+                                        return View(tabs);
+                                    }
+                            }
                         }
                     }
                     else
