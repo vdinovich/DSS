@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace DTS.Models
 {
@@ -7,6 +8,9 @@ namespace DTS.Models
         string[] locNames;
         public Education() => locNames = STREAM.GetLocNames().ToArray();
         public int Id{ get; set; }
+        [DataType(DataType.Date)]
+        [Required(ErrorMessage = "This field is required! Please fill it in.")]
+        public System.DateTime DateStart { get; set; }
         public string Session_Name { get; set; }
         [System.ComponentModel.DataAnnotations.Required(ErrorMessage = "This field is empty. Please fill it in.")]
         public int Location { get; set; }

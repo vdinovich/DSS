@@ -20,7 +20,7 @@ namespace DTS.Models
         //[Required(ErrorMessage = "This field is required! Please fill it in.")]
         public string FromResident { get; set; }
         public string ResidentName { get; set; }
-        public string Department { get; set; }
+        public int Department { get; set; }
         public string BriefDescription { get; set; }
         public bool IsAdministration { get; set; }
         public bool CareServices { get; set; }

@@ -1,0 +1,24 @@
+﻿
+
+<h2 style="text-align:center;color:darkorchid">@ViewBag.ObjName (Records Found - <span style="color:gold">@ViewBag.Count</span>) for <span style="color:crimson">@ViewBag.LocInfo</span></h2>
+
+@foreach (var ci in ViewBag.GN_Found)
+{
+    if (ci.Contains("Date Received: ") || ci.Contains("Writen Or Verbal: ") || ci.Contains("Receive Directly: ") || ci.Contains("From Resident: ") ||
+        ci.Contains("Resident Name: ") || ci.Contains("Department: ") || ci.Contains("Brief Description: ") || ci.Contains("Is Administration: ") ||
+        ci.Contains("Care Services: ") || ci.Contains("Palliative Care: ") || ci.Contains("Dietary: ") || ci.Contains("Housekeeping: ") ||
+        ci.Contains("Laundry: ") || ci.Contains("Maintenance: ") || ci.Contains("Programs: ") || ci.Contains("Physician: ") || ci.Contains("Beautician: ") ||
+        ci.Contains("FootCare: ")
+        || ci.Contains("Dental Care: ") || ci.Contains("Physio: ") || ci.Contains("Other: ") || ci.Contains("MOHLTC Notified: ") || ci.Contains("Copy To VP: ")
+        || ci.Contains("Response Sent: ") || ci.Contains("Action Token: ") || ci.Contains("Resolved: ") || ci.Contains("Ministry Visit: "))
+    {
+        <br />
+        <p style="color:red;font-size:large;font-weight:bold">@ci</p>
+    }
+    else
+    {
+        <p style="color:black;font-size:larger">
+            @ci
+        </p>
+    }
+}

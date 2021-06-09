@@ -1,0 +1,21 @@
+﻿
+<h2 style="text-align:center;color:darkorchid">@ViewBag.ObjName (Records Found - <span style="color:gold">@ViewBag.Count</span>) for <span style="color:crimson">@ViewBag.LocInfo</span></h2>
+
+@foreach (var ci in ViewBag.GN_Found)
+{
+    if (ci.Contains("Session Name: ") || ci.Contains("Jan: ") || ci.Contains("Feb: ") || ci.Contains("Mar: ") ||
+        ci.Contains("Apr: ") || ci.Contains("May: ") || ci.Contains("Jun: ") || ci.Contains("Jul: ") ||
+        ci.Contains("Aug: ") || ci.Contains("Sep: ") || ci.Contains("Oct: ") || ci.Contains("Nov: ") ||
+        ci.Contains("Dec: ") || ci.Contains("Total Numb Educ: ") || ci.Contains("Total Numb Eligible: ") || ci.Contains("Approx Per Educated: "))
+    {
+        <br />
+        <p style="color:red;font-size:large;font-weight:bold">@ci</p>
+    }
+    else
+    {
+        <p style="color:black;font-size:larger">
+            @ci
+        </p>
+    }
+}
+

@@ -49,6 +49,7 @@
     </tr>
     @{
         string[] names = ViewBag.Names;
+        string[] ciNames = ViewBag.CiNames;
         var list = (List<DTS.Models.Critical_Incidents>)ViewBag.List;
         foreach (var item in list)
         {
@@ -60,7 +61,8 @@
                     @Html.DisplayFor(modelItem => item.CI_Form_Number)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.CI_Category_Type)
+                    @ciNames[item.Location - 1];
+                   @* @Html.DisplayFor(modelItem => item.CI_Category_Type)*@
                 </td>
                 <td >
                     @names[item.Location - 1];

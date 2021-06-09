@@ -1,0 +1,18 @@
+﻿
+<h2 style="text-align:center;color:darkorchid">@ViewBag.ObjName (Records Found - <span style="color:gold">@ViewBag.Count</span>) for <span style="color:crimson">@ViewBag.LocInfo</span></h2>
+
+@foreach (var ci in ViewBag.GN_Found)
+{
+    if (ci.Contains("Numb Res Comm: ") || ci.Contains("Numb Res Immun: ") || ci.Contains("Numb Res Not Immun: ") || 
+        ci.Contains("Per Res Immun: ") || ci.Contains("Per Res Not Immun: "))
+    {
+        <br />
+        <p style="color:red;font-size:large;font-weight:bold">@ci</p>
+    }
+    else
+    {
+        <p style="color:black;font-size:larger">
+            @ci
+        </p>
+    }
+}

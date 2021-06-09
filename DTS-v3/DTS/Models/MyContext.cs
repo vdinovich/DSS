@@ -28,5 +28,6 @@ namespace DTS.Models
         public virtual DbSet<Education> Educations { get; set; }
         public virtual DbSet<Emergency_Prep> Emergency_Prep { get; set; }
         public virtual DbSet<Search_Word> Search_Words { get; set; }
+        public virtual DbSet<Department> Departments { get; set; }
     }
 }

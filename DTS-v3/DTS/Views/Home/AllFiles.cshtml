@@ -13,17 +13,41 @@
     {
         <div id="frame">
             <a style="margin:0 0 0 40px" id="itm" href="~/Uploaded_Files/@item">@item</a>
-           @Html.ActionLink($"Delete", "DeleteFile", "Home", new { item = item }, new { id = "filename", onclick = "return confirm('Are you sure you want to delete this File?');" })
+            @Html.ActionLink($"Delete", "DeleteFile", "Home", new { item = item }, new { id = "filename", onclick = "return confirm('Are you sure you want to delete this File?');" })
             <br />
         </div>
     }
 }
 
+<br />
+<br />
+<br />
+
+<div id="back_btn">
+    @Html.ActionLink("<-- Go Back", "Index", "Home", "", new { id = "back" })
+</div>
 
 <style>
-    #itm {
-        font-size: large;
+    #back_btn {
+        width: 200px;
+        margin: auto;
     }
+
+    #back {
+        border: 1px solid blue;
+        border-radius: 15px;
+        text-decoration: none;
+        color: blue;
+        padding: 13px;
+    }
+        #back:hover {
+            background-color:blue;
+            color:white;
+            font-weight:bold;
+        }
+            #itm {
+            font-size: large;
+        }
 
     #frame {
         border: 0.5px solid blue;
