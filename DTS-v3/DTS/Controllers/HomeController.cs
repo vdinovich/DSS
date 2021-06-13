@@ -403,7 +403,8 @@ namespace DTS.Controllers
                         }
 
                         {
-                            ViewBag.LocInfo = db.Care_Communities.Find(Id_Location).Name;
+                            if(role==Role.Admin) ViewBag.LocInfo = "All";
+                            else ViewBag.LocInfo = db.Care_Communities.Find(Id_Location).Name;
                         }
                         ViewBag.Check = checkView;
                         tabs = new WorTabs();
@@ -428,7 +429,8 @@ namespace DTS.Controllers
                             ViewBag.Entity = "Complaints";
                         }
                         {
-                            ViewBag.LocInfo = db.Care_Communities.Find(Id_Location).Name;
+                            if(role ==Role.Admin) ViewBag.LocInfo = "All";
+                            else ViewBag.LocInfo = db.Care_Communities.Find(Id_Location).Name;
                         }
                         ViewBag.Check = checkView;
                         tabs = new WorTabs();
@@ -452,7 +454,8 @@ namespace DTS.Controllers
                             ViewBag.Entity = "Good_News";
                         }
                         {
-                            ViewBag.LocInfo = db.Care_Communities.Find(Id_Location).Name;
+                            if (role == Role.Admin) ViewBag.LocInfo = "All";
+                            else ViewBag.LocInfo = db.Care_Communities.Find(Id_Location).Name;
                         }
                         /// for other statistic details...
                         ViewBag.Check = checkView;
@@ -477,7 +480,8 @@ namespace DTS.Controllers
                             ViewBag.Entity = "Emergency_Prep";
                         }
                         {
-                            ViewBag.LocInfo = db.Care_Communities.Find(Id_Location).Name;
+                            if (role == Role.Admin) ViewBag.LocInfo = "All";
+                            else ViewBag.LocInfo = db.Care_Communities.Find(Id_Location).Name;
                         }
                         /// for other statistic details...
                         ViewBag.Check = checkView;
@@ -502,7 +506,8 @@ namespace DTS.Controllers
                             ViewBag.Entity = "Visits_Others";
                         }
                         {
-                            ViewBag.LocInfo = db.Care_Communities.Find(Id_Location).Name;
+                            if (role == Role.Admin) ViewBag.LocInfo = "All";
+                            else ViewBag.LocInfo = db.Care_Communities.Find(Id_Location).Name;
                         }
                         ViewBag.Check = checkView;
                         tabs = new WorTabs();
@@ -526,7 +531,8 @@ namespace DTS.Controllers
                             ViewBag.Entity = "Community_Risks";
                         }
                         {
-                            ViewBag.LocInfo = db.Care_Communities.Find(Id_Location).Name;
+                            if (role == Role.Admin) ViewBag.LocInfo = "All";
+                            else ViewBag.LocInfo = db.Care_Communities.Find(Id_Location).Name;
                         }
                         ViewBag.Check = checkView;
                         tabs = new WorTabs();
@@ -550,7 +556,8 @@ namespace DTS.Controllers
                             ViewBag.Entity = "Privacy_Breaches";
                         }
                         {
-                            ViewBag.LocInfo = db.Care_Communities.Find(Id_Location).Name;
+                            if (role == Role.Admin) ViewBag.LocInfo = "All";
+                            else ViewBag.LocInfo = db.Care_Communities.Find(Id_Location).Name;
                         }
                         ViewBag.Check = checkView;
                         tabs = new WorTabs();
@@ -574,7 +581,8 @@ namespace DTS.Controllers
                             ViewBag.Entity = "Privacy_Complaints";
                         }
                         {
-                            ViewBag.LocInfo = db.Care_Communities.Find(Id_Location).Name;
+                            if (role == Role.Admin) ViewBag.LocInfo = "All";
+                            else ViewBag.LocInfo = db.Care_Communities.Find(Id_Location).Name;
                         }
                         ViewBag.Check = checkView;
                         tabs = new WorTabs();
@@ -598,7 +606,8 @@ namespace DTS.Controllers
                             ViewBag.Entity = "Labour_Relations";
                         }
                         {
-                            ViewBag.LocInfo = db.Care_Communities.Find(Id_Location).Name;
+                            if (role == Role.Admin) ViewBag.LocInfo = "All";
+                            else ViewBag.LocInfo = db.Care_Communities.Find(Id_Location).Name;
                         }
                         ViewBag.Check = checkView;
                         tabs = new WorTabs();
@@ -622,7 +631,8 @@ namespace DTS.Controllers
                             ViewBag.Entity = "WSIB";
                         }
                         {
-                            ViewBag.LocInfo = db.Care_Communities.Find(Id_Location).Name;
+                            if (role == Role.Admin) ViewBag.LocInfo = "All";
+                            else ViewBag.LocInfo = db.Care_Communities.Find(Id_Location).Name;
                         }
                         ViewBag.Check = checkView;
                         tabs = new WorTabs();
@@ -646,7 +656,8 @@ namespace DTS.Controllers
                             ViewBag.Entity = "Not_WSIB";
                         }
                         {
-                            ViewBag.LocInfo = db.Care_Communities.Find(Id_Location).Name;
+                            if (role == Role.Admin) ViewBag.LocInfo = "All";
+                            else ViewBag.LocInfo = db.Care_Communities.Find(Id_Location).Name;
                         }
                         ViewBag.Check = checkView;
                         tabs = new WorTabs();
@@ -1353,7 +1364,6 @@ namespace DTS.Controllers
                             }
                         }
                     }
-                    //return GoToSelectFormList($"../Home/GoToSelectFormList/{name}");
                 }
                 #endregion
 
@@ -1780,8 +1790,9 @@ namespace DTS.Controllers
 
                             #region Complaints:
                             case "Complaint":
-                                var lst_locat2 = db.Complaints.Where(i => i.Location == Id_Location).ToList();
-                                TablesContainer.list2 = (from ent in lst_locat2 where ent.DateReceived >= start && ent.DateReceived <= end select ent).ToList();
+                                if(role==Role.Admin) TablesContainer.list2 = db.Complaints.ToList();
+                                else TablesContainer.list2 = db.Complaints.Where(i => i.Location == Id_Location).ToList();
+                                TablesContainer.list2 = (from ent in TablesContainer.list2 where ent.DateReceived >= start && ent.DateReceived <= end select ent).ToList();
                                 if (TablesContainer.list2.Count() == 0)
                                 {
                                     { ViewBag.ObjName = "Complaint"; }
@@ -3756,7 +3767,7 @@ namespace DTS.Controllers
                      .Select(p => p.Substring("btn".Length))
                      .First();
 
-                #region For Showing List:
+                #region For Showing List (Without Range):
                 if (btnName.Equals("-list"))
                 {
                     {
@@ -4406,7 +4417,7 @@ namespace DTS.Controllers
 
                 #endregion
 
-                #region For Export to .csv file (AL DATAS)
+                #region For Export to .csv file ((Without Range))
                 else if (btnName.Equals("-export"))
             {
                 start = Value.Start;
@@ -4584,8 +4595,7 @@ namespace DTS.Controllers
                 {
                     #region Critical_Incident:
                     case "Critical_Incidents":
-                        var lst_locat1 = db.Critical_Incidents.Where(i => i.Location == Id_Location).ToList();
-                        TablesContainer.list1 = (from ent in lst_locat1 where ent.Date >= start && ent.Date <= end select ent).ToList();
+                        TablesContainer.list1 = db.Critical_Incidents.ToList();
                         if (TablesContainer.list1.Count() == 0)
                         {
                             { ViewBag.ObjName = entity; }
@@ -4768,29 +4778,10 @@ namespace DTS.Controllers
                         }
 
                         {
-                            ViewBag.LocInfo = db.Care_Communities.Find(Id_Location).Name;
+                            if (role == Role.Admin) ViewBag.LocInfo = db.Care_Communities.Find(1).Name;
+                            else ViewBag.LocInfo = db.Care_Communities.Find(Id_Location).Name;
                         }
-                        //var ci = db.CI_Category_Types.ToList();
-
-                        //var names = new List<string>();
-                        //foreach (var n in ci)
-                        //    names.Add(n.Name);
-
-                        //counts = new int[ci.Count]; // for each parameter CI_Category_Type set up count
-
-                        //for(int i = 0; i < counts.Length; i++)
-                        //    counts[i] = 0;
-
-                        //var g = TablesContainer.list1.GroupBy(i => i.CI_Category_Type);
-
-                        //strs = new List<string>();
-                        //foreach (var group in g)
-                        //{
-                        //    strs.Add($"{names[group.Key - 1]}\t-\t{group.Count()}" );
-                        //}
-
-                        //ViewBag.Entity = entity;
-
+                      
                         #region Count of all found records:
                         //foreach (var i in TablesContainer.list1)
                         //{
@@ -4823,8 +4814,7 @@ namespace DTS.Controllers
 
                     #region Complaints:
                     case "Complaint":
-                        var lst_locat2 = db.Complaints.Where(i => i.Location == Id_Location).ToList();
-                        TablesContainer.list2 = (from ent in lst_locat2 where ent.DateReceived >= start && ent.DateReceived <= end select ent).ToList();
+                        TablesContainer.list2 = db.Complaints.ToList(); 
                         if (TablesContainer.list2.Count() == 0)
                         {
                             { ViewBag.ObjName = "Complaint"; }
@@ -4901,9 +4891,7 @@ namespace DTS.Controllers
                             strN.Add("Department: ");
                             foreach (var cc in att6)
                             {
-                                string key = cc.Key == null ? "NULL" : cc.Key.ToString();
-                                if (key == "NULL") continue;
-                                strN.Add($"{key}\t - \t{cc.Count()}");
+                                strN.Add($"{cc.Key}\t - \t{cc.Count()}");
                             }
                         }
 
@@ -5140,8 +5128,7 @@ namespace DTS.Controllers
                     #region Good_News:
                     case "Good_News":
                         { ViewBag.ObjName = "Good_News"; }
-                        var lst_locat3 = db.Good_News.Where(i => i.Location == Id_Location).ToList();
-                        TablesContainer.list3 = (from ent in lst_locat3 where ent.DateNews >= start && ent.DateNews <= end select ent).ToList();
+                        TablesContainer.list3 = db.Good_News.ToList();
                         if (TablesContainer.list3.Count() == 0)
                         {
                             ViewBag.ErrorMsg = errorMsg = "Please select a date range.";
@@ -5354,7 +5341,6 @@ namespace DTS.Controllers
                     #region Emergency_Prep: 
                     case "Emergency_Prep":
                         { ViewBag.ObjName = "Emergency_Prep"; }
-                        var lst_locat4 = db.Emergency_Prep.Where(i => i.Location == Id_Location).ToList();
                         TablesContainer.list4 = db.Emergency_Prep.ToList();
                         if (TablesContainer.list4.Count() == 0)
                         {
@@ -5541,8 +5527,7 @@ namespace DTS.Controllers
 
                     #region Community_Risks: 
                     case "Community_Risks":
-                        var lst_locat5 = db.Community_Risks.Where(i => i.Location == Id_Location).ToList();
-                        TablesContainer.list5 = (from ent in lst_locat5 where ent.Date >= start && ent.Date <= end select ent).ToList();
+                        TablesContainer.list5 = db.Community_Risks.ToList();
                         { ViewBag.ObjName = "Community_Risks"; }
                         if (TablesContainer.list5.Count() == 0)
                         {
@@ -5685,8 +5670,7 @@ namespace DTS.Controllers
 
                     #region Visits_Others:
                     case "Visits_Others":
-                        var lst_locat6 = db.Visits_Others.Where(i => i.Location == Id_Location).ToList();
-                        TablesContainer.list6 = (from ent in lst_locat6 where ent.Date_of_Visit >= start && ent.Date_of_Visit <= end select ent).ToList();
+                        TablesContainer.list6 = db.Visits_Others.ToList();
                         { ViewBag.ObjName = "Visits_Others"; }
                         if (TablesContainer.list6.Count() == 0)
                         {
@@ -5814,7 +5798,7 @@ namespace DTS.Controllers
 
                     #region Privacy Breaches:   
                     case "Privacy_Breaches":
-                        TablesContainer.list7 = (from ent in db.Privacy_Breaches where ent.Date_Breach_Reported >= start && ent.Date_Breach_Reported <= end select ent).ToList();
+                        TablesContainer.list7 = db.Privacy_Breaches.ToList();
                         { ViewBag.ObjName = "Visits_Others"; }
                         if (TablesContainer.list7.Count() == 0)
                         {
@@ -5955,7 +5939,7 @@ namespace DTS.Controllers
 
                     #region Privacy Complaints  
                     case "Privacy_Complaints":
-                        TablesContainer.list8 = (from ent in db.Privacy_Complaints where ent.Date_Complain_Received >= start && ent.Date_Complain_Received <= end select ent).ToList();
+                        TablesContainer.list8 = db.Privacy_Complaints.ToList();
                         { ViewBag.ObjName = "Privacy_Complaints"; }
                         if (TablesContainer.list8.Count() == 0)
                         {
@@ -6054,7 +6038,7 @@ namespace DTS.Controllers
 
                     #region Education   
                     case "Education":
-                        TablesContainer.list9 = (from ent in db.Educations where ent.DateStart >= start && ent.DateStart <= end select ent).ToList();
+                        TablesContainer.list9 = db.Educations.ToList();
                         { ViewBag.ObjName = "Education"; }
                         if (TablesContainer.list9.Count() == 0)
                         {
@@ -6255,8 +6239,7 @@ namespace DTS.Controllers
 
                     #region Labour_Relations:
                     case "Labour_Relations":
-                        var lst_locat10 = db.Relations.Where(i => i.Location == Id_Location);
-                        TablesContainer.list10 = (from ent in lst_locat10 where ent.Date >= start && ent.Date <= end select ent).ToList();
+                        TablesContainer.list10 = db.Relations.ToList();
                         { ViewBag.ObjName = "Community_Risks"; }
                         if (TablesContainer.list10.Count() == 0)
                         {
@@ -6384,7 +6367,6 @@ namespace DTS.Controllers
 
                     #region Immunization 
                     case "Immunization":
-                        var lst_locat11 = db.Community_Risks.Where(i => i.Location == Id_Location).ToList();
                         TablesContainer.list11 = db.Immunizations.ToList();
                         //(from ent in db.Immunizations where ent.Location == Id_Location select ent).ToList();
                         { ViewBag.ObjName = "Immunization"; }
@@ -6473,16 +6455,174 @@ namespace DTS.Controllers
                         break;
                     #endregion
 
-                    #region Outbreaks    --none  
+                    #region Outbreaks      
                     case "Outbreaks":
-                        TablesContainer.list12 = (from ent in db.Outbreaks where ent.Date_Declared >= start && ent.Date_Declared <= end select ent).ToList();
-                        return RedirectToAction($"../Statistics/{entity}");
-                    #endregion
+                        TablesContainer.list12 = db.Outbreaks.ToList();
+                            { ViewBag.ObjName = "Outbreaks"; }
+                            if (TablesContainer.list12.Count() == 0)
+                            {
+                                ViewBag.ErrorMsg = errorMsg = "Please select a date range.";
+                                WorTabs tabs = new WorTabs();
+                                tabs.ListForms = GetFormNames();
+                                return View(tabs);
+                            }
 
-                    #region WSIB:
-                    case "WSIB":
-                        var lst_locat13 = db.WSIBs.Where(i => i.Location == Id_Location);
-                        TablesContainer.list13 = (from ent in lst_locat13 where ent.Date_Accident >= start && ent.Date_Accident <= end select ent).ToList();
+                            strN = new List<string>();
+                            var w1 = TablesContainer.list12.GroupBy(i => i.CI_Report_Submitted);
+                            if (w1 != null)
+                            {
+                                strN.Add("CI Report Submitted: ");
+                                foreach (var cc in w1)
+                                {
+                                    string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                    if (key == "NULL") continue;
+                                    strN.Add($"{key}\t - \t{cc.Count()}");
+                                }
+                            }
+
+                            var w2 = TablesContainer.list12.GroupBy(i => i.Credit_for_Lost_Days);
+                            if (w2 != null)
+                            {
+                                strN.Add("Credit for Lost Days: ");
+                                foreach (var cc in w2)
+                                {
+                                    strN.Add($"{cc.Key}\t - \t{cc.Count()}");
+                                }
+                            }
+
+                            var w3 = TablesContainer.list12.GroupBy(i => i.Date_Concluded);
+                            if (w3 != null)
+                            {
+                                strN.Add("Date Concluded: ");
+                                foreach (var cc in w3)
+                                {
+                                    string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                    if (key == "NULL") continue;
+                                    strN.Add($"{key}\t - \t{cc.Count()}");
+                                }
+                            }
+
+                            var w4 = TablesContainer.list12.GroupBy(i => i.Date_Declared);
+                            if (w4 != null)
+                            {
+                                strN.Add("Date Declared: ");
+                                foreach (var cc in w4)
+                                {
+                                    string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                    if (key == "NULL") continue;
+                                    strN.Add($"{key}\t - \t{cc.Count()}");
+                                }
+                            }
+
+                            var w5 = TablesContainer.list12.GroupBy(i => i.Deaths_Due);
+                            if (w5 != null)
+                            {
+                                strN.Add("Deaths Due: ");
+                                foreach (var cc in w5)
+                                {
+                                    strN.Add($"{cc.Key}\t - \t{cc.Count()}");
+                                }
+                            }
+
+                            var w6 = TablesContainer.list12.GroupBy(i => i.Docs_Submitted_Finance);
+                            if (w6 != null)
+                            {
+                                strN.Add("Docs Submitted Finance: ");
+                                foreach (var cc in w6)
+                                {
+                                    strN.Add($"{cc.Key}\t - \t{cc.Count()}");
+                                }
+                            }
+
+                            var w7 = TablesContainer.list12.GroupBy(i => i.Notify_MOL);
+                            if (w7 != null)
+                            {
+                                strN.Add("Notify MOL: ");
+                                foreach (var cc in w7)
+                                {
+                                    strN.Add($"{cc.Key}\t - \t{cc.Count()}");
+                                }
+                            }
+
+                            var w8 = TablesContainer.list12.GroupBy(i => i.Strain_Identified);
+                            if (w8 != null)
+                            {
+                                strN.Add("Strain Identified: ");
+                                foreach (var cc in w8)
+                                {
+                                    strN.Add($"{cc.Key}\t - \t{cc.Count()}");
+                                }
+                            }
+
+                            var w9 = TablesContainer.list12.GroupBy(i => i.Total_Days_Closed);
+                            if (w9 != null)
+                            {
+                                strN.Add("Total Days Closed: ");
+                                foreach (var cc in w8)
+                                {
+                                    strN.Add($"{cc.Key}\t - \t{cc.Count()}");
+                                }
+                            }
+
+                            var w10 = TablesContainer.list12.GroupBy(i => i.Total_Residents_Affected);
+                            if (w10 != null)
+                            {
+                                strN.Add("Total Residents Affected: ");
+                                foreach (var cc in w10)
+                                {
+                                    strN.Add($"{cc.Key}\t - \t{cc.Count()}");
+                                }
+                            }
+
+                            var w11 = TablesContainer.list12.GroupBy(i => i.Total_Staff_Affected);
+                            if (w11 != null)
+                            {
+                                strN.Add("Total Staff Affected: ");
+                                foreach (var cc in w11)
+                                {
+                                    strN.Add($"{cc.Key}\t - \t{cc.Count()}");
+                                }
+                            }
+
+                            var w12 = TablesContainer.list12.GroupBy(i => i.Tracking_Sheet_Completed);
+                            if (w12 != null)
+                            {
+                                strN.Add("Tracking Sheet Completed: ");
+                                foreach (var cc in w12)
+                                {
+                                    strN.Add($"{cc.Key}\t - \t{cc.Count()}");
+                                }
+                            }
+
+                            var w13 = TablesContainer.list12.GroupBy(i => i.Type_of_Outbreak);
+                            if (w13 != null)
+                            {
+                                strN.Add("Type of Outbreak: ");
+                                foreach (var cc in w13)
+                                {
+                                    strN.Add($"{cc.Key}\t - \t{cc.Count()}");
+                                }
+                            }
+
+                            b = true; TablesContainer.COUNT = TablesContainer.list12.Count;
+
+                            {
+                                ViewBag.Count = TablesContainer.COUNT;
+                            }
+
+                            {
+                                ViewBag.GN_Found = HomeController.strN;
+                            }
+
+                            {
+                                ViewBag.Entity = "Outbreaks";
+                            }
+                            break;
+                        #endregion
+
+                        #region WSIB:
+                        case "WSIB":
+                        TablesContainer.list13 = db.WSIBs.ToList();
                         { ViewBag.ObjName = "WSIB"; }
                         if (TablesContainer.list13.Count() == 0)
                         {
@@ -6493,11 +6633,11 @@ namespace DTS.Controllers
                         }
 
                         strN = new List<string>();
-                        var w1 = TablesContainer.list13.GroupBy(i => i.Date_Accident);
-                        if (w1 != null)
+                        var ww1 = TablesContainer.list13.GroupBy(i => i.Date_Accident);
+                        if (ww1 != null)
                         {
                             strN.Add("Date Accident: ");
-                            foreach (var cc in w1)
+                            foreach (var cc in ww1)
                             {
                                 string key = cc.Key == null ? "NULL" : cc.Key.ToString();
                                 if (key == "NULL") continue;
@@ -6505,23 +6645,21 @@ namespace DTS.Controllers
                             }
                         }
 
-                        var w2 = TablesContainer.list13.GroupBy(i => i.Employee_Initials);
-                        if (w2 != null)
+                        var ww2 = TablesContainer.list13.GroupBy(i => i.Employee_Initials);
+                        if (ww2 != null)
                         {
                             strN.Add("Employee Initials: ");
-                            foreach (var cc in w2)
+                            foreach (var cc in ww2)
                             {
-                                string key = cc.Key == null ? "NULL" : cc.Key.ToString();
-                                if (key == "NULL") continue;
-                                strN.Add($"{key}\t - \t{cc.Count()}");
+                                strN.Add($"{cc.Key}\t - \t{cc.Count()}");
                             }
                         }
 
-                        var w3 = TablesContainer.list13.GroupBy(i => i.Accident_Cause);
-                        if (w3 != null)
+                        var ww3 = TablesContainer.list13.GroupBy(i => i.Accident_Cause);
+                        if (ww3 != null)
                         {
                             strN.Add("Accident Cause: ");
-                            foreach (var cc in w3)
+                            foreach (var cc in ww3)
                             {
                                 string key = cc.Key == null ? "NULL" : cc.Key.ToString();
                                 if (key == "NULL") continue;
@@ -6529,11 +6667,11 @@ namespace DTS.Controllers
                             }
                         }
 
-                        var w4 = TablesContainer.list13.GroupBy(i => i.Date_Duties);
-                        if (w4 != null)
+                        var ww4 = TablesContainer.list13.GroupBy(i => i.Date_Duties);
+                        if (ww4 != null)
                         {
                             strN.Add("Date Duties: ");
-                            foreach (var cc in w4)
+                            foreach (var cc in ww4)
                             {
                                 string key = cc.Key == null ? "NULL" : cc.Key.ToString();
                                 if (key == "NULL") continue;
@@ -6541,11 +6679,11 @@ namespace DTS.Controllers
                             }
                         }
 
-                        var w5 = TablesContainer.list13.GroupBy(i => i.Date_Regular);
-                        if (w5 != null)
+                        var ww5 = TablesContainer.list13.GroupBy(i => i.Date_Regular);
+                        if (ww5 != null)
                         {
                             strN.Add("Date Regular: ");
-                            foreach (var cc in w5)
+                            foreach (var cc in ww5)
                             {
                                 string key = cc.Key == null ? "NULL" : cc.Key.ToString();
                                 if (key == "NULL") continue;
@@ -6553,37 +6691,37 @@ namespace DTS.Controllers
                             }
                         }
 
-                        var w6 = TablesContainer.list13.GroupBy(i => i.Lost_Days);
-                        if (w6 != null)
+                        var ww6 = TablesContainer.list13.GroupBy(i => i.Lost_Days);
+                        if (ww6 != null)
                         {
                             strN.Add("Lost Days: ");
-                            foreach (var cc in w6)
+                            foreach (var cc in ww6)
                             {
                                 strN.Add($"{cc.Key}\t - \t{cc.Count()}");
                             }
                         }
 
-                        var w7 = TablesContainer.list13.GroupBy(i => i.Modified_Days_Not_Shadowed);
-                        if (w7 != null)
+                        var ww7 = TablesContainer.list13.GroupBy(i => i.Modified_Days_Not_Shadowed);
+                        if (ww7 != null)
                         {
                             strN.Add("Modified Days Not Shadowed: ");
-                            foreach (var cc in w7)
+                            foreach (var cc in ww7)
                             {
                                 strN.Add($"{cc.Key}\t - \t{cc.Count()}");
                             }
                         }
 
-                        var w8 = TablesContainer.list13.GroupBy(i => i.Modified_Days_Shadowed);
-                        if (w8 != null)
+                        var ww8 = TablesContainer.list13.GroupBy(i => i.Modified_Days_Shadowed);
+                        if (ww8 != null)
                         {
                             strN.Add("Modified Days Shadowed: ");
-                            foreach (var cc in w8)
+                            foreach (var cc in ww8)
                             {
                                 strN.Add($"{cc.Key}\t - \t{cc.Count()}");
                             }
                         }
 
-                        b = true; TablesContainer.COUNT = TablesContainer.list10.Count;
+                        b = true; TablesContainer.COUNT = TablesContainer.list13.Count;
 
                         {
                             ViewBag.Count = TablesContainer.COUNT;
@@ -6601,11 +6739,10 @@ namespace DTS.Controllers
 
                     #region Not WSIB    
                     case "Not_WSIBs":
-                        var lst_locat14 = db.Not_WSIBs.Where(i => i.Location == Id_Location);
-                        TablesContainer.list14 = (from ent in lst_locat14 where ent.Date_of_Incident >= start && ent.Date_of_Incident <= end select ent).ToList();
+                        TablesContainer.list14 = db.Not_WSIBs.ToList();
 
                         { ViewBag.ObjName = "Not_WSIB"; }
-                        if (TablesContainer.list13.Count() == 0)
+                        if (TablesContainer.list14.Count() == 0)
                         {
                             ViewBag.ErrorMsg = errorMsg = "Please select a date range.";
                             WorTabs tabs = new WorTabs();
@@ -6614,11 +6751,11 @@ namespace DTS.Controllers
                         }
 
                         strN = new List<string>();
-                        var ww1 = TablesContainer.list14.GroupBy(i => i.Date_of_Incident);
-                        if (ww1 != null)
+                        var www1 = TablesContainer.list14.GroupBy(i => i.Date_of_Incident);
+                        if (www1 != null)
                         {
                             strN.Add("Date of Incident: ");
-                            foreach (var cc in ww1)
+                            foreach (var cc in www1)
                             {
                                 string key = cc.Key == null ? "NULL" : cc.Key.ToString();
                                 if (key == "NULL") continue;
@@ -6626,11 +6763,11 @@ namespace DTS.Controllers
                             }
                         }
 
-                        var ww2 = TablesContainer.list14.GroupBy(i => i.Employee_Initials);
-                        if (ww2 != null)
+                        var www2 = TablesContainer.list14.GroupBy(i => i.Employee_Initials);
+                        if (www2 != null)
                         {
                             strN.Add("Employee Initials: ");
-                            foreach (var cc in ww2)
+                            foreach (var cc in www2)
                             {
                                 string key = cc.Key == null ? "NULL" : cc.Key.ToString();
                                 if (key == "NULL") continue;
@@ -6638,11 +6775,11 @@ namespace DTS.Controllers
                             }
                         }
 
-                        var ww3 = TablesContainer.list14.GroupBy(i => i.Position);
-                        if (ww3 != null)
+                        var www3 = TablesContainer.list14.GroupBy(i => i.Position);
+                        if (www3 != null)
                         {
                             strN.Add("Position: ");
-                            foreach (var cc in ww3)
+                            foreach (var cc in www3)
                             {
                                 string key = cc.Key == null ? "NULL" : cc.Key.ToString();
                                 if (key == "NULL") continue;
@@ -6650,11 +6787,11 @@ namespace DTS.Controllers
                             }
                         }
 
-                        var ww4 = TablesContainer.list14.GroupBy(i => i.Time_of_Incident);
-                        if (ww4 != null)
+                        var www4 = TablesContainer.list14.GroupBy(i => i.Time_of_Incident);
+                        if (www4 != null)
                         {
                             strN.Add("Time of Incident: ");
-                            foreach (var cc in ww4)
+                            foreach (var cc in www4)
                             {
                                 string key = cc.Key == null ? "NULL" : cc.Key.ToString();
                                 if (key == "NULL") continue;
@@ -6662,11 +6799,11 @@ namespace DTS.Controllers
                             }
                         }
 
-                        var ww5 = TablesContainer.list14.GroupBy(i => i.Shift);
-                        if (ww5 != null)
+                        var www5 = TablesContainer.list14.GroupBy(i => i.Shift);
+                        if (www5 != null)
                         {
                             strN.Add("Shift : ");
-                            foreach (var cc in ww5)
+                            foreach (var cc in www5)
                             {
                                 string key = cc.Key == null ? "NULL" : cc.Key.ToString();
                                 if (key == "NULL") continue;
@@ -6674,47 +6811,47 @@ namespace DTS.Controllers
                             }
                         }
 
-                        var ww6 = TablesContainer.list14.GroupBy(i => i.Home_Area);
-                        if (ww6 != null)
+                        var www6 = TablesContainer.list14.GroupBy(i => i.Home_Area);
+                        if (www6 != null)
                         {
                             strN.Add("Home Area: ");
-                            foreach (var cc in ww6)
+                            foreach (var cc in www6)
                             {
                                 strN.Add($"{cc.Key}\t - \t{cc.Count()}");
                             }
                         }
 
-                        var ww7 = TablesContainer.list14.GroupBy(i => i.Injury_Related);
-                        if (ww7 != null)
+                        var www7 = TablesContainer.list14.GroupBy(i => i.Injury_Related);
+                        if (www7 != null)
                         {
                             strN.Add("Injury Related: ");
-                            foreach (var cc in ww7)
+                            foreach (var cc in www7)
                             {
                                 strN.Add($"{cc.Key}\t - \t{cc.Count()}");
                             }
                         }
 
-                        var ww8 = TablesContainer.list14.GroupBy(i => i.Type_of_Injury);
-                        if (ww8 != null)
+                        var www8 = TablesContainer.list14.GroupBy(i => i.Type_of_Injury);
+                        if (www8 != null)
                         {
                             strN.Add("Type of Injury: ");
-                            foreach (var cc in ww8)
+                            foreach (var cc in www8)
                             {
                                 strN.Add($"{cc.Key}\t - \t{cc.Count()}");
                             }
                         }
 
-                        var ww9 = TablesContainer.list14.GroupBy(i => i.Details_of_Incident);
-                        if (ww9 != null)
+                        var www9 = TablesContainer.list14.GroupBy(i => i.Details_of_Incident);
+                        if (www9 != null)
                         {
                             strN.Add("Details of Incident: ");
-                            foreach (var cc in ww9)
+                            foreach (var cc in www9)
                             {
                                 strN.Add($"{cc.Key}\t - \t{cc.Count()}");
                             }
                         }
 
-                        b = true; TablesContainer.COUNT = TablesContainer.list10.Count;
+                        b = true; TablesContainer.COUNT = TablesContainer.list14.Count;
 
                         {
                             ViewBag.Count = TablesContainer.COUNT;
@@ -6729,11 +6866,10 @@ namespace DTS.Controllers
                         }
                         break;
                         #endregion
-                        #endregion
                 }
-            }
+                    #endregion
+                }
                 #endregion
-
 
                 #endregion
             }
@@ -7680,6 +7816,7 @@ namespace DTS.Controllers
             }
         }
 
+        #region GoodNews Insert:
         [HttpGet]
         public ActionResult GoodNews_Insert()
         {
@@ -7734,6 +7871,7 @@ namespace DTS.Controllers
             else
                 return View();
         }
+        #endregion
 
         [HttpGet]
         public ActionResult Agency_Insert()

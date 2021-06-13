@@ -4868,6 +4868,7 @@
     <Content Include="Views\Home\PrivacyComplaints_Partial.cshtml" />
     <Content Include="Views\Home\EducationSummaryPartial.cshtml" />
     <Content Include="Views\Home\ImmunizatSummaryPartial.cshtml" />
+    <Content Include="Views\Home\OutbrakSummaryPa.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DownloadedFiles\" />

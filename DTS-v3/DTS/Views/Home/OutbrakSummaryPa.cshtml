@@ -1,0 +1,21 @@
+﻿
+
+<h2 style="text-align:center;color:darkorchid">@ViewBag.ObjName (Records Found - <span style="color:gold">@ViewBag.Count</span>) for <span style="color:crimson">@ViewBag.LocInfo</span></h2>
+
+@foreach (var ci in ViewBag.GN_Found)
+{
+    if (ci.Contains("CI Report Submitted: : ") || ci.Contains("Credit for Lost Days: ") || ci.Contains("Date Concluded: ") || ci.Contains("Date Declared: ") ||
+        ci.Contains("Deaths Due: ") || ci.Contains("Docs Submitted Finance: ") || ci.Contains("Notify MOL: ") || ci.Contains("Strain Identified: ") ||
+        ci.Contains("Total Days Closed: ") || ci.Contains("Total Residents Affected: ") || ci.Contains("Total Staff Affected: ") || ci.Contains("Tracking Sheet Completed: ") ||
+        ci.Contains("Type of Outbreak: ") )
+    {
+        <br />
+        <p style="color:red;font-size:large;font-weight:bold">@ci</p>
+    }
+    else
+    {
+        <p style="color:black;font-size:larger">
+            @ci
+        </p>
+    }
+}

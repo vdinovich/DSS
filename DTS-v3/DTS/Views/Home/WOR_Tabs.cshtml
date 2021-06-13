@@ -77,7 +77,8 @@
                                     </button>
                                 </li>
                             </ul>
-                            <ul class="nav nav-justified" id="btns">
+                            <br /><br />
+                            <ul class="nav nav-justified" style="width:1600px" id="btns">
                                 <li><button hidden type="submit"></button></li>
                                 <li id="ll" style="">
                                     <button id="b1" class="btn btn-primary" name="btn-insert" style="margin: -15px 0 0 225px" type="submit">Input New Record</button>
@@ -292,7 +293,14 @@
                             }
                             else if (ViewBag.Check == "summary")
                             {
-                                if (ViewBag.Entity == "Critical_Incidents")
+                                if (ViewBag.Entity == "Outbreaks")
+                                {
+                                    <br /><br />
+                                    <ul style="list-style-type:none;position:relative;border:1px solid blue;border-radius:15px" class="">
+                                        <li>@{Html.RenderPartial("OutbrakSummaryPa", (List<string>)ViewBag.GN_Found);}</li>
+                                    </ul>
+                                }
+                                else if (ViewBag.Entity == "Critical_Incidents")
                                 {
                                     <br /><br />
                                     <ul style="list-style-type:none;position:relative;border:1px solid blue;border-radius:15px" class="">
