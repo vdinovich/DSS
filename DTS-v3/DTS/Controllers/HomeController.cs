@@ -696,7 +696,7 @@ namespace DTS.Controllers
                 ViewBag.Welcome = Role.User;
             DateTime start = DateTime.MinValue, end = DateTime.MinValue;
             string errorMsg = string.Empty;
-            if (Value != null && Value.Name != null && radioName != "-without" )  // If we select anythng from the listbox
+            if (Value != null && Value.Name != null && radioName != "-without")  // If we select anythng from the listbox
             {
                 string btnName = Request.Params
                       .Cast<string>()
@@ -3767,6 +3767,8 @@ namespace DTS.Controllers
                      .Select(p => p.Substring("btn".Length))
                      .First();
 
+                string filter = Value.Filter;
+
                 #region For Showing List (Without Range):
                 if (btnName.Equals("-list"))
                 {
@@ -3788,8 +3790,15 @@ namespace DTS.Controllers
                         switch (Value.Name)
                         {
                             case "1":
-                                var lst1 = db.Critical_Incidents;
                                 TablesContainer.list1 = db.Critical_Incidents.ToList();
+                                if (filter != null)
+                                {
+                                    if(filter.Equals("1 month back"))
+                                    {
+                                        DateTime oneBack = new DateTime(DateTime.Now.Year, DateTime.Now.Month - 1, DateTime.Now.Day);
+                                        TablesContainer.list1 = db.Critical_Incidents.Where(b => b.Date <= oneBack).ToList();
+                                    }
+                                }
                                 if (TablesContainer.list1.Count != 0 || TablesContainer.list1 != null)
                                 {
                                     { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
@@ -4040,7 +4049,7 @@ namespace DTS.Controllers
                         {
                             case "1":
                                 var lst1 = db.Critical_Incidents.Where(i => i.Location == Id_Location);
-                                TablesContainer.list1 = db.Critical_Incidents.ToList();
+                                TablesContainer.list1 = lst1.ToList();
                                 if (TablesContainer.list1.Count != 0 || TablesContainer.list1 != null)
                                 {
                                     { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
@@ -4059,6 +4068,7 @@ namespace DTS.Controllers
                                     return View(tabs);
                                 }
                             case "2":
+                                ViewBag.Department = list20;
                                 TablesContainer.list2 = db.Complaints.Where(i => i.Location == Id_Location).ToList();
                                 if (TablesContainer.list2.Count != 0 || TablesContainer.list2 != null)
                                 {
@@ -8252,5 +8262,10 @@ namespace DTS.Controllers
         [DataType(DataType.Date)]
         public DateTime End { get; set; }
         public SelectList ListForms { get; set; }
+        public string Filter { get; set; }
+        // For Radio:
+        public bool WithRadio { get; set; } = true;
+        public bool WithoutRadio { get; set; } = true;
+        public bool FilterRadio { get; set; } = true;
     }
 }
