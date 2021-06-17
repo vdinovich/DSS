@@ -94,17 +94,18 @@
                                 @Html.DropDownListFor(model => model.Filter, new SelectList(new string[] { "1 month back", "2 month back", "3 month back" }, "", ""), new { id = "filter", @class = "form-control" })
                                 <br />
                                 <label class="form-check-label">
-                                    <input type="radio" id="r1" class="form-check-input" name="range-with" />
+                                    @*<input type="radio" id="r1" class="form-check-input" name="range-with" />*@
+                                    @Html.RadioButtonFor(model => model.WithRadio, "-with", new { @Name = "range", @checked = "checked", id = "r1" })
                                     With Date Range
                                 </label>&nbsp; &nbsp;
                                 <label class="form-check-label">
-                                    <input type="radio" id="r2" class="form-check-input" name="range-without" />
-                                    @*@Html.RadioButtonFor(model => model.IsRange, "WithOutRange", new { id = "r2", @class = "form-check-input", name = "range-with" })*@
+                                    @*<input type="radio" id="r2" class="form-check-input" name="range-without" />*@
+                                    @Html.RadioButtonFor(model => model.WithoutRadio, "-without", new { @Name = "range", id = "r2"})
                                     With All Data
                                 </label>&nbsp; &nbsp;
                                 <label class="form-check-label">
-                                    <input type="radio" id="r3" class="form-check-input" name="range-filter" />
-                                    @*@Html.RadioButtonFor(model => model.IsRange, "WithOutRange", new { id = "r2", @class = "form-check-input", name = "range-with" })*@
+                                    @*<input type="radio" id="r3" class="form-check-input" name="range-filter" />*@
+                                    @Html.RadioButtonFor(model => model.FilterRadio, "-filter", new { @Name = "range", id = "r3" })
                                     Select Month Back
                                 </label>
 
@@ -187,20 +188,27 @@
                             {
                                 if (ViewBag.Tbl == "1")
                                 {
-                                    <br /><br />
-                                    <div class="row" style="">
-                                        <label style="text-align:right;font-size:large;color:brown" class="col-sm-4">Search by CI Category Number</label>
-                                        <div style="width:340px" class="col-md-1">
-                                            @Html.DropDownListFor(model => model.Id, ViewBag.ListCI as SelectList, "", new { placeholder = "Input CI Category Type", @class = "form-control", style = "width:320px" })
+                                    if (ViewBag.CheckEmpty == false)
+                                    {
+                                        <br /><br />
+                                        <div class="row" style="">
+                                            <label style="text-align:right;font-size:large;color:brown" class="col-sm-4">Search by CI Category Number</label>
+                                            <div style="width:340px" class="col-md-1">
+                                                @Html.DropDownListFor(model => model.Id, ViewBag.ListCI as SelectList, "", new { placeholder = "Input CI Category Type", @class = "form-control", style = "width:320px" })
+                                            </div>
+                                            <div style="width:200px" class="col-md-5">
+                                                <input style="width:100px;margin:auto" name="btn-search" type="submit" value="Search" class="btn btn-danger" />
+                                            </div>
                                         </div>
-                                        <div style="width:200px" class="col-md-5">
-                                            <input style="width:100px;margin:auto" name="btn-search" type="submit" value="Search" class="btn btn-danger" />
+                                        <br /><br />
+                                        <div style="">
+                                            @Html.Partial("IncidentPartial");
                                         </div>
-                                    </div>
-                                    <br /><br />
-                                    <div style="">
-                                        @Html.Partial("IncidentPartial");
-                                    </div>
+                                    }
+                                    else
+                                    {
+                                        <p style="font-size:x-large;text-align:center;margin-top:25px;color:red;font-family:'Palatino Linotype'">@ViewBag.EmptyFilter</p>
+                                    }
                                 }
                                 else if (ViewBag.Tbl == "2")
                                 {
@@ -317,8 +325,8 @@
                                 else if (ViewBag.Entity == "Critical_Incidents")
                                 {
                                     <br /><br />
-                                    <ul style="list-style-type:none;position:relative;border:1px solid blue;border-radius:15px" class="">
-                                        <li>@{Html.RenderPartial("IncidentsPartial", (List<string>)ViewBag.GN_Found);}</li>
+                                    <ul style="list-style-type:none;position:relative;border:1px solid blue;width:1500px;border-radius:15px" class="">
+                                        <li>@{Html.RenderPartial("IncidentsPartial", (List<DTS.Models.CriticalIncidentSummary>)ViewBag.GN_Found);}</li>
                                     </ul>
                                 }
                                 else if (ViewBag.Entity == "Complaints")

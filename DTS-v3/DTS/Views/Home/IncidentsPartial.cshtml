@@ -1,20 +1,83 @@
-﻿<h2 style="text-align:center;color:darkorchid">@ViewBag.ObjName (Records Found - <span style="color:gold">@ViewBag.Count</span>) for <span style="color:crimson">@ViewBag.LocInfo</span></h2>
+﻿
 
-@foreach (var ci in ViewBag.GN_Found)
+<h2 style="text-align:center;color:darkorchid">@ViewBag.ObjName (Records Found - <span style="color:gold">@ViewBag.Count</span>) for <span style="color:crimson">@ViewBag.LocInfo</span></h2>
+
+
+@if (ViewBag.Check1 == true && ViewBag.EmptLocation == true)
 {
-    if (ci.Contains("MOHLTC Follow Up: ") || ci.Contains("CIS Initialated") || ci.Contains("MOH Notified: ") || ci.Contains("POAS Notified: ") || ci.Contains("Police Notified: ") || ci.Contains("Quality Improvement Actions: ") ||
-        ci.Contains("Risk Locked: ") || ci.Contains("Brief Description: ") || ci.Contains("Care Plan Updated: ") || ci.Contains("CIS Initiated: ") || ci.Contains("CI Form Number: ") || ci.Contains("CI Form Number: ") ||
-        ci.Contains("Date: ") || ci.Contains("File Complete: ") || ci.Contains("Follow Up Amendments: "))
+    foreach (var l in ViewBag.Locations)
     {
-        <br />
-        <p style="color:red;font-size:large;font-weight:bold">@ci</p>
-    }
-    else
-    {
-        <p style="color:black;font-size:larger">
-            @ci
-        </p>
+        <h2 style="text-align:center;color:darkorange;font-family:'Times New Roman'">@l</h2>
+        <table class="table table-bordered" style="color: red">
+            <thead>
+                <tr style="font-size:small">
+                    <th scope="col">
+                        <label>MOHLTC Follow Up</label>
+                    </th>
+                    <th scope="col">
+                        <label>CIS Initialated</label>
+                    </th>
+                    <th scope="col">
+                        <label>MOH Notified</label>
+                    </th>
+                    <th scope="col">
+                        <label>POAS Notified</label>
+                    </th>
+                    <th scope="col">
+                        <label>Police Notified</label>
+                    </th>
+                    <th scope="col">
+                        <label>Quality Improvement Actions</label>
+                    </th>
+                    <th scope="col">
+                        <label>Risk Locked</label>
+                    </th>
+                    <th scope="col">
+                        <label>Brief Description</label>
+                    </th>
+                    <th scope="col">
+                        <label>Care Plan Updated</label>
+                    </th>
+                    <th scope="col">
+                        <label>CI Form Number</label>
+                    </th>
+                    <th scope="col">
+                        <label>File Complete</label>
+                    </th>
+                    <th scope="col">
+                        <label>Follow Up Amendments</label>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var ci in (List<DTS.Models.CriticalIncidentSummary>)ViewBag.GN_Found)
+                {
+                    <tr style="font-size:small;color:black">
+                        <td scope="row">@Html.DisplayFor(m => ci.MOHLTC_Follow_Up)</td>
+                        <td scope="row">@Html.DisplayFor(m => ci.CIS_Initiated)</td>
+                        <td scope="row">@Html.DisplayFor(m => ci.MOH_Notified)</td>
+                        <td scope="row">@Html.DisplayFor(m => ci.POAS_Notified)</td>
+                        <td scope="row">@Html.DisplayFor(m => ci.Police_Notified)</td>
+                        <td scope="row">@Html.DisplayFor(m => ci.Quality_Improvement_Actions)</td>
+                        <td scope="row">@Html.DisplayFor(m => ci.Risk_Locked)</td>
+                        <td scope="row">@Html.DisplayFor(m => ci.Brief_Description)</td>
+                        <td scope="row">@Html.DisplayFor(m => ci.Care_Plan_Updated)</td>
+                        <td scope="row">@Html.DisplayFor(m => ci.CI_Form_Number)</td>
+                        <td scope="row">@Html.DisplayFor(m => ci.File_Complete)</td>
+                        <td scope="row">@Html.DisplayFor(m => ci.Follow_Up_Amendments)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     }
 }
+else
+{
+    <h3 style="font-family:'Palatino Linotype';color:red">Locations or another records for summary does NOT exist in the table...</h3>
+}
+
+
+
+
 
 

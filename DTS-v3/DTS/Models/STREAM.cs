@@ -143,6 +143,13 @@
                 ciNames.Add(it.Name.Replace('\r', '\0').Replace('\n', '\0'));
             return ciNames;
         }
+
+        public static string GetLocNameById(int id)
+        {
+            if (id == 0) throw new System.ArgumentNullException();
+            else
+                return new MyContext().Care_Communities.Find(id).Name;
+        }
         #endregion
     }
 }
