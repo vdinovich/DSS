@@ -171,10 +171,13 @@
     <Compile Include="Models\Good_News.cs" />
     <Compile Include="Models\Immunization.cs" />
     <Compile Include="Models\IncidentSummaryAll.cs" />
+    <Compile Include="Models\Init.cs" />
     <Compile Include="Models\InspectionInfo.cs" />
     <Compile Include="Models\Labour_Relations.cs" />
+    <Compile Include="Models\MenuItem.cs" />
     <Compile Include="Models\MyContext.cs" />
     <Compile Include="Models\Not_WSIBs.cs" />
+    <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Outbreaks.cs" />
     <Compile Include="Models\Position.cs" />
     <Compile Include="Models\Privacy_Breaches.cs" />
@@ -4871,6 +4874,7 @@
     <Content Include="Views\Home\EducationSummaryPartial.cshtml" />
     <Content Include="Views\Home\ImmunizatSummaryPartial.cshtml" />
     <Content Include="Views\Home\OutbrakSummaryPa.cshtml" />
+    <Content Include="Views\Home\TreeViewpartialo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DownloadedFiles\" />

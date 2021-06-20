@@ -85,7 +85,6 @@
                                     <button id="b2" class="btn btn-primary" style="margin:-15px 0 0 3px" name="btn-list">All Records</button>
                                 </li>
                                 <li></li>
-
                             </ul>
 
                             <br />
@@ -103,13 +102,14 @@
                                     @Html.RadioButtonFor(model => model.WithoutRadio, "-without", new { @Name = "range", id = "r2"})
                                     With All Data
                                 </label>&nbsp; &nbsp;
-                                <label class="form-check-label">
+                                <!--<label class="form-check-label">-->
                                     @*<input type="radio" id="r3" class="form-check-input" name="range-filter" />*@
-                                    @Html.RadioButtonFor(model => model.FilterRadio, "-filter", new { @Name = "range", id = "r3" })
+                                    <!--@Html.RadioButtonFor(model => model.FilterRadio, "-filter", new { @Name = "range", id = "r3" })
                                     Select Month Back
-                                </label>
+                                </label>-->
 
                             </div>
+
                             <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
                             <script>
                                 $(document).ready(function () {

@@ -1,0 +1,35 @@
+﻿
+
+
+
+@using DTS.Models
+@model IEnumerable<MenuItem>
+
+@helper BuildMenu(IEnumerable<MenuItem> data, int? parentId = null)
+{
+    var items = data.Where(d => d.ParentId == parentId).OrderBy(i => i.Order);
+    if (items.Any())
+    {
+        <ul id="container">
+            @foreach (var item in items)
+            {
+                <li>
+                    <a id="sel" href="@item.Url">@item.Header</a>
+                    @BuildMenu(data, item.Id)
+                </li>
+            }
+        </ul>
+    }
+}
+
+<div id="cssmenu">
+    @BuildMenu(Model)
+</div>
+
+<script>
+    var ele = document.getElementById('sel');
+    if (ele) {
+        ele.style.backgroundColor = blue;
+    }
+</script>
+<script src="index.js" type="text/javascript"></script>

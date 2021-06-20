@@ -345,7 +345,12 @@ namespace DTS.Controllers
         public ActionResult WOR_Tabs()
         {
             WorTabs tabs = null;
-            { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
+
+            // This represents the newest TreeView:
+
+
+            // { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
+
             if (role == Role.Admin)
                 ViewBag.Welcome = Role.Admin;
             else if (role == Role.User)
@@ -402,6 +407,7 @@ namespace DTS.Controllers
                         {
                             ViewBag.Entity = "Critical_Incidents";
                         }
+
                         { ViewBag.TotalSummary = allSummary; }
                         { ViewBag.Check1 = isEmpty; }
                         { ViewBag.Check = checkView; }
@@ -409,12 +415,14 @@ namespace DTS.Controllers
                         {
                             ViewBag.Locations = locList;
                         }
+
                         { ViewBag.EmptLocation = b; }
 
                         {
                             if (role == Role.Admin) ViewBag.LocInfo = "All";
                             else ViewBag.LocInfo = db.Care_Communities.Find(Id_Location).Name;
                         }
+
                         tabs = new WorTabs();
                         tabs.ListForms = GetFormNames();
 
@@ -3782,6 +3790,7 @@ namespace DTS.Controllers
                      .First();
 
                 string filter = Value.Filter;
+                #endregion
 
                 #region For Showing List (Without Range):
                 if (btnName.Equals("-list"))
@@ -8571,8 +8580,6 @@ namespace DTS.Controllers
                     }
                     #endregion
                 }
-                #endregion
-
                 #endregion
             }
 

@@ -4,9 +4,9 @@
     using System.ComponentModel.DataAnnotations;
 
     public class Good_News
-    {string[] locNames;
+    {
+        string[] locNames;
         public Good_News() => locNames = STREAM.GetLocNames().ToArray();
-
         public int Id { get; set; }
         [Required(ErrorMessage = "This field is required! Please fill it in.")]
         public int Location { get; set; }
