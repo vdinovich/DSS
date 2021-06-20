@@ -148,7 +148,10 @@
         {
             if (id == 0) throw new System.ArgumentNullException();
             else
-                return new MyContext().Care_Communities.Find(id).Name;
+            { 
+                var name= new MyContext().Care_Communities.Find(id).Name;
+                return name;
+            }
         }
         #endregion
     }

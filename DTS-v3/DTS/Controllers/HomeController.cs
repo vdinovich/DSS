@@ -340,6 +340,7 @@ namespace DTS.Controllers
         public static int num_tbl;
         public static string checkView = "none";
         public static bool b = false;
+        static List<IncidentSummaryAll> allSummary = new List<IncidentSummaryAll>();
         [HttpGet]
         public ActionResult WOR_Tabs()
         {
@@ -401,9 +402,10 @@ namespace DTS.Controllers
                         {
                             ViewBag.Entity = "Critical_Incidents";
                         }
-
+                        { ViewBag.TotalSummary = allSummary; }
                         { ViewBag.Check1 = isEmpty; }
                         { ViewBag.Check = checkView; }
+                  
                         {
                             ViewBag.Locations = locList;
                         }
@@ -682,6 +684,7 @@ namespace DTS.Controllers
 
         #region WOR Tabs(Post):
         static string model_name;
+        static int p1 = 0, p2 = 0, p3 = 0, p4 = 0, p5 = 0, p6 = 0, p7 = 0, p8 = 0, p9 = 0, p10 = 0, p11 = 0, p12 = 0;
         static bool isEmpty = false;
         static List<string> locList = new List<string>();
         static List<CriticalIncidentSummary> foundSummary = new List<CriticalIncidentSummary>();
@@ -4654,7 +4657,7 @@ namespace DTS.Controllers
                     {
                         #region Critical_Incident:
                         case "Critical_Incidents":
-                            int cnt1 = 0, cnt2 = 0, cnt3 = 8, cnt4 = 0, cnt5 = 0, cnt6 = 0, cnt7 = 0, cnt8 = 0, cnt9 = 0, cnt10 = 0, cnt11 = 0;
+                            int cnt1 = 0, cnt2 = 0, cnt3 = 0, cnt4 = 0, cnt5 = 0, cnt6 = 0, cnt7 = 0, cnt8 = 0, cnt9 = 0, cnt10 = 0, cnt11 = 0;
                             TablesContainer.list1 = db.Critical_Incidents.ToList();
                             // Accounting param name for Location:
                             List<int> cnt = new List<int>();
@@ -4694,9 +4697,10 @@ namespace DTS.Controllers
                                 locDistinct.Add(cc.Name);
                                 locId.Add(cc.Id);
                             }
+
                             locList = locDistinct.ToList();
 
-                            // Fill out lists ll1,ll2,ll3...ll11 existing locations:
+                            #region Fill out lists ll1,ll2,ll3...ll11 existing locations:
                             for (var i = 0; i < locList.Count; i++)
                             {
                                 if (locList[i].Contains("Altamont Care Community"))
@@ -4734,10 +4738,11 @@ namespace DTS.Controllers
                                     ll7 = TablesContainer.list1.Where
                                    (loc => STREAM.GetLocNameById(loc.Location) == "Brookside Lodge\r\n").ToList();
                                 }
-                                else if (locList[i].Contains("Woodbridge Vista\r\n"))
+                                else if (locList[i].Contains("Woodbridge Vista"))
                                 {
+                                    string retName = STREAM.GetLocNameById(8);
                                     ll8 = TablesContainer.list1.Where
-                                    (loc => STREAM.GetLocNameById(loc.Location) == "Woodbridge Vista\r\n").ToList();
+                                    (loc => STREAM.GetLocNameById(loc.Location) == "Woodbridge Vista").ToList();
                                 }
                                 else if (locList[i].Contains("Norfinch"))
                                 {
@@ -4755,8 +4760,9 @@ namespace DTS.Controllers
                                     (loc => STREAM.GetLocNameById(loc.Location) == "Villa da Vinci\r\n").ToList();
                                 }
                             }
+                            #endregion
 
-                            // Add count location for each exist:
+                            #region Add count location for each exist:
                             for (var i = 0; i < locList.Count; i++) 
                             {
                                 if (locList[i].Contains("Altamont Care Community"))
@@ -4782,6 +4788,7 @@ namespace DTS.Controllers
                                 else if (locList[i].Contains("Villa da Vinci"))
                                     locList[i] = locList[i] + " - " + cnt11;
                             }
+                            #endregion
 
                             locList.Sort(); // Sorted by alphanumeric
 
@@ -4793,6 +4800,7 @@ namespace DTS.Controllers
                                 tabs.ListForms = GetFormNames();
                                 return View(tabs);
                             }
+
                             TablesContainer.COUNT = TablesContainer.list1.Count;
 
                             #region For the 1st Location:
@@ -4807,6 +4815,7 @@ namespace DTS.Controllers
                                         string key = cc.Key == null ? "NULL" : cc.Key.ToString();
                                         if (key == "NULL") continue;
                                         model.MOHLTC_Follow_Up += $"{key}\t - \t{cc.Count()}" + " | ";
+                                        p1 += cc.Count();
                                     }
                                 }
 
@@ -4817,7 +4826,7 @@ namespace DTS.Controllers
                                     {
                                         string key = cc.Key == null ? "NULL" : cc.Key;
                                         if (key == "NULL") continue;
-                                        model.CIS_Initiated += $"{key}\t - \t{cc.Count()}" + " | ";
+                                        model.CIS_Initiated += $"{key}\t - \t{cc.Count()}" + " | "; p2 += cc.Count();
                                     }
                                 }
 
@@ -4828,7 +4837,7 @@ namespace DTS.Controllers
                                     {
                                         string key = cc.Key == null ? "NULL" : cc.Key;
                                         if (key == "NULL") continue;
-                                        model.MOH_Notified += $"{key}\t - \t{cc.Count()}" + " | ";
+                                        model.MOH_Notified += $"{key}\t - \t{cc.Count()}" + " | "; p3 += cc.Count();
                                     }
                                 }
 
@@ -4839,7 +4848,7 @@ namespace DTS.Controllers
                                     {
                                         string key = d.Key == null ? "NULL" : d.Key;
                                         if (key == "NULL") continue;
-                                        model.POAS_Notified += $"{key}\t - \t{d.Count()}" + " | ";
+                                        model.POAS_Notified += $"{key}\t - \t{d.Count()}" + " | "; p4 += d.Count();
                                     }
                                 }
 
@@ -4850,7 +4859,7 @@ namespace DTS.Controllers
                                     {
                                         string key = cc.Key == null ? "NULL" : cc.Key;
                                         if (key == "NULL") continue;
-                                        model.Police_Notified += $"{key}\t - \t{cc.Count()}" + " | ";
+                                        model.Police_Notified += $"{key}\t - \t{cc.Count()}" + " | "; p5 += cc.Count();
                                     }
                                 }
 
@@ -4862,7 +4871,7 @@ namespace DTS.Controllers
                                     {
                                         string key = cc.Key == null ? "NULL" : cc.Key;
                                         if (key == "NULL") continue;
-                                        model.Quality_Improvement_Actions += $"{key}\t - \t{cc.Count()}" + " | ";
+                                        model.Quality_Improvement_Actions += $"{key}\t - \t{cc.Count()}" + " | "; p6 += cc.Count();
                                     }
                                 }
 
@@ -4873,7 +4882,7 @@ namespace DTS.Controllers
                                     {
                                         string key = cc.Key == null ? "NULL" : cc.Key;
                                         if (key == "NULL") continue;
-                                        model.Risk_Locked += $"{key}\t - \t{cc.Count()}" + " | ";
+                                        model.Risk_Locked += $"{key}\t - \t{cc.Count()}" + " | "; p7 += cc.Count();
                                     }
                                 }
 
@@ -4884,7 +4893,7 @@ namespace DTS.Controllers
                                     {
                                         string key = cc.Key == null ? "NULL" : cc.Key;
                                         if (key == "NULL") continue;
-                                        model.Brief_Description += $"{key}\t - \t{cc.Count()}" + " | ";
+                                        model.Brief_Description += $"{key}\t - \t{cc.Count()}" + " | "; p8 += cc.Count();
                                     }
                                 }
 
@@ -4895,7 +4904,7 @@ namespace DTS.Controllers
                                     {
                                         string key = e.Key == null ? "NULL" : e.Key;
                                         if (key == "NULL") continue;
-                                        model.Care_Plan_Updated += $"{key}\t - \t{e.Count()}" + " | ";
+                                        model.Care_Plan_Updated += $"{key}\t - \t{e.Count()}" + " | "; p9 += e.Count();
                                     }
                                 }
 
@@ -4909,7 +4918,8 @@ namespace DTS.Controllers
                                         if (key == "NULL") continue;
                                         count += cc.Count();
                                     }
-                                    model.CI_Form_Number = $"All\t - \t{count}";
+                                    model.CI_Form_Number = $"All\t - \t{count}"; 
+                                    p9 += count;
                                 }
 
                                 var attr00 = ll1.GroupBy(i => i.File_Complete);
@@ -4919,7 +4929,7 @@ namespace DTS.Controllers
                                     {
                                         string key = cc.Key == null ? "NULL" : cc.Key;
                                         if (key == "NULL") continue;
-                                        model.File_Complete += $"{key}\t - \t{cc.Count()}" + " | ";
+                                        model.File_Complete += $"{key}\t - \t{cc.Count()}" + " | "; p11 += cc.Count();
                                     }
                                 }
 
@@ -4930,7 +4940,7 @@ namespace DTS.Controllers
                                     {
                                         string key = cc.Key == null ? "NULL" : cc.Key;
                                         if (key == "NULL") continue;
-                                        model.Follow_Up_Amendments += $"{key}\t - \t{cc.Count()}" + " | ";
+                                        model.Follow_Up_Amendments += $"{key}\t - \t{cc.Count()}" + " | "; p12 += cc.Count();
                                     }
                                 }
                                 foundSummary.Add(model);
@@ -4938,1437 +4948,1514 @@ namespace DTS.Controllers
                             }
                             #endregion
 
-                            //#region 2nd Location:
-                            //if (ll2 != null)
-                            //{
-                            //    model.LocationName = locList.Find(i => i == "Astoria Retirement Residence\r\n" + " - " + cnt2);
-                            //    var attr11 = ll2.GroupBy(i => i.MOHLTC_Follow_Up);
-                            //    if (attr11 != null)
-                            //    {
-                            //        foreach (var cc in attr11)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
-                            //            if (key == "NULL") continue;
-                            //            model.MOHLTC_Follow_Up += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr10 = ll2.GroupBy(i => i.CIS_Initiated);
-                            //    if (attr10 != null)
-                            //    {
-                            //        foreach (var cc in attr10)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.CIS_Initiated += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr7 = ll2.GroupBy(i => i.MOH_Notified);
-                            //    if (attr7 != null)
-                            //    {
-                            //        foreach (var cc in attr7)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.MOH_Notified += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr2 = ll2.GroupBy(i => i.POAS_Notified);
-                            //    if (attr2 != null)
-                            //    {
-                            //        foreach (var d in attr2)
-                            //        {
-                            //            string key = d.Key == null ? "NULL" : d.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.POAS_Notified += $"{key}\t - \t{d.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr4 = ll2.GroupBy(i => i.Police_Notified);
-                            //    if (attr4 != null)
-                            //    {
-                            //        foreach (var cc in attr4)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Police_Notified += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-
-                            //    var attr3 = ll2.GroupBy(i => i.Quality_Improvement_Actions);
-                            //    if (attr3 != null)
-                            //    {
-                            //        foreach (var cc in attr3)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Quality_Improvement_Actions += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr8 = ll2.GroupBy(i => i.Risk_Locked);
-                            //    if (attr8 != null)
-                            //    {
-                            //        foreach (var cc in attr8)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Risk_Locked += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr5 = ll2.GroupBy(i => i.Brief_Description);
-                            //    if (attr5 != null)
-                            //    {
-                            //        foreach (var cc in attr5)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Brief_Description += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr1 = ll2.GroupBy(i => i.Care_Plan_Updated);
-                            //    if (attr1 != null)
-                            //    {
-                            //        foreach (var e in attr1)
-                            //        {
-                            //            string key = e.Key == null ? "NULL" : e.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Care_Plan_Updated += $"{key}\t - \t{e.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr13 = ll2.GroupBy(i => i.CI_Form_Number);
-                            //    if (attr13 != null)
-                            //    {
-                            //        int count = 0;
-                            //        foreach (var cc in attr13)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            count += cc.Count();
-                            //        }
-                            //        model.CI_Form_Number = $"All\t - \t{count}";
-                            //    }
-
-                            //    var attr00 = ll2.GroupBy(i => i.File_Complete);
-                            //    if (attr00 != null)
-                            //    {
-                            //        foreach (var cc in attr00)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.File_Complete += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr111 = ll2.GroupBy(i => i.Follow_Up_Amendments);
-                            //    if (attr111 != null)
-                            //    {
-                            //        foreach (var cc in attr111)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Follow_Up_Amendments += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-                            //    foundSummary.Add(model);
-                            //    model = new CriticalIncidentSummary();
-                            //}
-                            //#endregion
-
-                            //#region 3rd Location:
-                            //if (ll3 != null)
-                            //{
-                            //    model.LocationName = locList.Find(i => i == "Barnswallow Place Care Community\r\n" + " - " + cnt3);
-                            //    var attr11 = ll3.GroupBy(i => i.MOHLTC_Follow_Up);
-                            //    if (attr11 != null)
-                            //    {
-                            //        foreach (var cc in attr11)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
-                            //            if (key == "NULL") continue;
-                            //            model.MOHLTC_Follow_Up += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr10 = ll3.GroupBy(i => i.CIS_Initiated);
-                            //    if (attr10 != null)
-                            //    {
-                            //        foreach (var cc in attr10)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.CIS_Initiated += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr7 = ll3.GroupBy(i => i.MOH_Notified);
-                            //    if (attr7 != null)
-                            //    {
-                            //        foreach (var cc in attr7)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.MOH_Notified += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr2 = ll3.GroupBy(i => i.POAS_Notified);
-                            //    if (attr2 != null)
-                            //    {
-                            //        foreach (var d in attr2)
-                            //        {
-                            //            string key = d.Key == null ? "NULL" : d.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.POAS_Notified += $"{key}\t - \t{d.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr4 = ll3.GroupBy(i => i.Police_Notified);
-                            //    if (attr4 != null)
-                            //    {
-                            //        foreach (var cc in attr4)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Police_Notified += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-
-                            //    var attr3 = ll3.GroupBy(i => i.Quality_Improvement_Actions);
-                            //    if (attr3 != null)
-                            //    {
-                            //        foreach (var cc in attr3)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Quality_Improvement_Actions += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr8 = ll3.GroupBy(i => i.Risk_Locked);
-                            //    if (attr8 != null)
-                            //    {
-                            //        foreach (var cc in attr8)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Risk_Locked += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr5 = ll3.GroupBy(i => i.Brief_Description);
-                            //    if (attr5 != null)
-                            //    {
-                            //        foreach (var cc in attr5)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Brief_Description += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr1 = ll3.GroupBy(i => i.Care_Plan_Updated);
-                            //    if (attr1 != null)
-                            //    {
-                            //        foreach (var e in attr1)
-                            //        {
-                            //            string key = e.Key == null ? "NULL" : e.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Care_Plan_Updated += $"{key}\t - \t{e.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr13 = ll3.GroupBy(i => i.CI_Form_Number);
-                            //    if (attr13 != null)
-                            //    {
-                            //        int count = 0;
-                            //        foreach (var cc in attr13)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            count += cc.Count();
-                            //        }
-                            //        model.CI_Form_Number = $"All\t - \t{count}";
-                            //    }
-
-                            //    var attr00 = ll3.GroupBy(i => i.File_Complete);
-                            //    if (attr00 != null)
-                            //    {
-                            //        foreach (var cc in attr00)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.File_Complete += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr111 = ll3.GroupBy(i => i.Follow_Up_Amendments);
-                            //    if (attr111 != null)
-                            //    {
-                            //        foreach (var cc in attr111)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Follow_Up_Amendments += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-                            //    foundSummary.Add(model);
-                            //    model = new CriticalIncidentSummary();
-                            //}
-                            //#endregion
-
-                            //#region 4rd Location:
-                            //if (ll4 != null)
-                            //{
-                            //    model.LocationName = locList.Find(i => i == "Bearbrook Retirement Residence\r\n" + " - " + cnt4);
-                            //    var attr11 = ll4.GroupBy(i => i.MOHLTC_Follow_Up);
-                            //    if (attr11 != null)
-                            //    {
-                            //        foreach (var cc in attr11)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
-                            //            if (key == "NULL") continue;
-                            //            model.MOHLTC_Follow_Up += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr10 = ll4.GroupBy(i => i.CIS_Initiated);
-                            //    if (attr10 != null)
-                            //    {
-                            //        foreach (var cc in attr10)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.CIS_Initiated += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr7 = ll4.GroupBy(i => i.MOH_Notified);
-                            //    if (attr7 != null)
-                            //    {
-                            //        foreach (var cc in attr7)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.MOH_Notified += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr2 = ll4.GroupBy(i => i.POAS_Notified);
-                            //    if (attr2 != null)
-                            //    {
-                            //        foreach (var d in attr2)
-                            //        {
-                            //            string key = d.Key == null ? "NULL" : d.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.POAS_Notified += $"{key}\t - \t{d.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr4 = ll4.GroupBy(i => i.Police_Notified);
-                            //    if (attr4 != null)
-                            //    {
-                            //        foreach (var cc in attr4)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Police_Notified += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-
-                            //    var attr3 = ll4.GroupBy(i => i.Quality_Improvement_Actions);
-                            //    if (attr3 != null)
-                            //    {
-                            //        foreach (var cc in attr3)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Quality_Improvement_Actions += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr8 = ll4.GroupBy(i => i.Risk_Locked);
-                            //    if (attr8 != null)
-                            //    {
-                            //        foreach (var cc in attr8)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Risk_Locked += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr5 = ll4.GroupBy(i => i.Brief_Description);
-                            //    if (attr5 != null)
-                            //    {
-                            //        foreach (var cc in attr5)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Brief_Description += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr1 = ll4.GroupBy(i => i.Care_Plan_Updated);
-                            //    if (attr1 != null)
-                            //    {
-                            //        foreach (var e in attr1)
-                            //        {
-                            //            string key = e.Key == null ? "NULL" : e.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Care_Plan_Updated += $"{key}\t - \t{e.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr13 = ll4.GroupBy(i => i.CI_Form_Number);
-                            //    if (attr13 != null)
-                            //    {
-                            //        int count = 0;
-                            //        foreach (var cc in attr13)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            count += cc.Count();
-                            //        }
-                            //        model.CI_Form_Number = $"All\t - \t{count}";
-                            //    }
-
-                            //    var attr00 = ll4.GroupBy(i => i.File_Complete);
-                            //    if (attr00 != null)
-                            //    {
-                            //        foreach (var cc in attr00)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.File_Complete += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr111 = ll4.GroupBy(i => i.Follow_Up_Amendments);
-                            //    if (attr111 != null)
-                            //    {
-                            //        foreach (var cc in attr111)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Follow_Up_Amendments += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-                            //    foundSummary.Add(model);
-                            //    model = new CriticalIncidentSummary();
-                            //}
-                            //#endregion
-
-                            //#region 5th Location:
-                            //if (ll5 != null)
-                            //{
-                            //    model.LocationName = locList.Find(i => i == "Bloomington Cove Care Community\r\n" + " - " + cnt5);
-                            //    var attr11 = ll5.GroupBy(i => i.MOHLTC_Follow_Up);
-                            //    if (attr11 != null)
-                            //    {
-                            //        foreach (var cc in attr11)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
-                            //            if (key == "NULL") continue;
-                            //            model.MOHLTC_Follow_Up += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr10 = ll5.GroupBy(i => i.CIS_Initiated);
-                            //    if (attr10 != null)
-                            //    {
-                            //        foreach (var cc in attr10)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.CIS_Initiated += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr7 = ll5.GroupBy(i => i.MOH_Notified);
-                            //    if (attr7 != null)
-                            //    {
-                            //        foreach (var cc in attr7)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.MOH_Notified += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr2 = ll5.GroupBy(i => i.POAS_Notified);
-                            //    if (attr2 != null)
-                            //    {
-                            //        foreach (var d in attr2)
-                            //        {
-                            //            string key = d.Key == null ? "NULL" : d.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.POAS_Notified += $"{key}\t - \t{d.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr4 = ll5.GroupBy(i => i.Police_Notified);
-                            //    if (attr4 != null)
-                            //    {
-                            //        foreach (var cc in attr4)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Police_Notified += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-
-                            //    var attr3 = ll5.GroupBy(i => i.Quality_Improvement_Actions);
-                            //    if (attr3 != null)
-                            //    {
-                            //        foreach (var cc in attr3)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Quality_Improvement_Actions += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr8 = ll5.GroupBy(i => i.Risk_Locked);
-                            //    if (attr8 != null)
-                            //    {
-                            //        foreach (var cc in attr8)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Risk_Locked += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr5 = ll5.GroupBy(i => i.Brief_Description);
-                            //    if (attr5 != null)
-                            //    {
-                            //        foreach (var cc in attr5)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Brief_Description += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr1 = ll5.GroupBy(i => i.Care_Plan_Updated);
-                            //    if (attr1 != null)
-                            //    {
-                            //        foreach (var e in attr1)
-                            //        {
-                            //            string key = e.Key == null ? "NULL" : e.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Care_Plan_Updated += $"{key}\t - \t{e.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr13 = ll5.GroupBy(i => i.CI_Form_Number);
-                            //    if (attr13 != null)
-                            //    {
-                            //        int count = 0;
-                            //        foreach (var cc in attr13)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            count += cc.Count();
-                            //        }
-                            //        model.CI_Form_Number = $"All\t - \t{count}";
-                            //    }
-
-                            //    var attr00 = ll5.GroupBy(i => i.File_Complete);
-                            //    if (attr00 != null)
-                            //    {
-                            //        foreach (var cc in attr00)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.File_Complete += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr111 = ll5.GroupBy(i => i.Follow_Up_Amendments);
-                            //    if (attr111 != null)
-                            //    {
-                            //        foreach (var cc in attr111)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Follow_Up_Amendments += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-                            //    foundSummary.Add(model);
-                            //    model = new CriticalIncidentSummary();
-                            //}
-                            //#endregion
-
-                            //#region 6th Location:
-                            //if (ll6 != null)
-                            //{
-                            //    model.LocationName = locList.Find(i => i == "Bradford Valley Care Community\r\n" + " - " + cnt6);
-                            //    var attr11 = ll6.GroupBy(i => i.MOHLTC_Follow_Up);
-                            //    if (attr11 != null)
-                            //    {
-                            //        foreach (var cc in attr11)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
-                            //            if (key == "NULL") continue;
-                            //            model.MOHLTC_Follow_Up += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr10 = ll6.GroupBy(i => i.CIS_Initiated);
-                            //    if (attr10 != null)
-                            //    {
-                            //        foreach (var cc in attr10)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.CIS_Initiated += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr7 = ll6.GroupBy(i => i.MOH_Notified);
-                            //    if (attr7 != null)
-                            //    {
-                            //        foreach (var cc in attr7)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.MOH_Notified += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr2 = ll6.GroupBy(i => i.POAS_Notified);
-                            //    if (attr2 != null)
-                            //    {
-                            //        foreach (var d in attr2)
-                            //        {
-                            //            string key = d.Key == null ? "NULL" : d.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.POAS_Notified += $"{key}\t - \t{d.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr4 = ll6.GroupBy(i => i.Police_Notified);
-                            //    if (attr4 != null)
-                            //    {
-                            //        foreach (var cc in attr4)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Police_Notified += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-
-                            //    var attr3 = ll6.GroupBy(i => i.Quality_Improvement_Actions);
-                            //    if (attr3 != null)
-                            //    {
-                            //        foreach (var cc in attr3)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Quality_Improvement_Actions += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr8 = ll6.GroupBy(i => i.Risk_Locked);
-                            //    if (attr8 != null)
-                            //    {
-                            //        foreach (var cc in attr8)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Risk_Locked += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr5 = ll6.GroupBy(i => i.Brief_Description);
-                            //    if (attr5 != null)
-                            //    {
-                            //        foreach (var cc in attr5)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Brief_Description += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr1 = ll6.GroupBy(i => i.Care_Plan_Updated);
-                            //    if (attr1 != null)
-                            //    {
-                            //        foreach (var e in attr1)
-                            //        {
-                            //            string key = e.Key == null ? "NULL" : e.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Care_Plan_Updated += $"{key}\t - \t{e.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr13 = ll6.GroupBy(i => i.CI_Form_Number);
-                            //    if (attr13 != null)
-                            //    {
-                            //        int count = 0;
-                            //        foreach (var cc in attr13)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            count += cc.Count();
-                            //        }
-                            //        model.CI_Form_Number = $"All\t - \t{count}";
-                            //    }
-
-                            //    var attr00 = ll6.GroupBy(i => i.File_Complete);
-                            //    if (attr00 != null)
-                            //    {
-                            //        foreach (var cc in attr00)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.File_Complete += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr111 = ll6.GroupBy(i => i.Follow_Up_Amendments);
-                            //    if (attr111 != null)
-                            //    {
-                            //        foreach (var cc in attr111)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Follow_Up_Amendments += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-                            //    foundSummary.Add(model);
-                            //    model = new CriticalIncidentSummary();
-                            //}
-                            //#endregion
-
-                            //#region 7th Location:
-                            //if (ll7 != null)
-                            //{
-                            //    model.LocationName = locList.Find(i => i == "Brookside Lodge\r\n" + " - " + cnt7);
-                            //    var attr11 = ll7.GroupBy(i => i.MOHLTC_Follow_Up);
-                            //    if (attr11 != null)
-                            //    {
-                            //        foreach (var cc in attr11)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
-                            //            if (key == "NULL") continue;
-                            //            model.MOHLTC_Follow_Up += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr10 = ll7.GroupBy(i => i.CIS_Initiated);
-                            //    if (attr10 != null)
-                            //    {
-                            //        foreach (var cc in attr10)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.CIS_Initiated += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr7 = ll7.GroupBy(i => i.MOH_Notified);
-                            //    if (attr7 != null)
-                            //    {
-                            //        foreach (var cc in attr7)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.MOH_Notified += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr2 = ll7.GroupBy(i => i.POAS_Notified);
-                            //    if (attr2 != null)
-                            //    {
-                            //        foreach (var d in attr2)
-                            //        {
-                            //            string key = d.Key == null ? "NULL" : d.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.POAS_Notified += $"{key}\t - \t{d.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr4 = ll7.GroupBy(i => i.Police_Notified);
-                            //    if (attr4 != null)
-                            //    {
-                            //        foreach (var cc in attr4)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Police_Notified += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-
-                            //    var attr3 = ll7.GroupBy(i => i.Quality_Improvement_Actions);
-                            //    if (attr3 != null)
-                            //    {
-                            //        foreach (var cc in attr3)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Quality_Improvement_Actions += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr8 = ll7.GroupBy(i => i.Risk_Locked);
-                            //    if (attr8 != null)
-                            //    {
-                            //        foreach (var cc in attr8)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Risk_Locked += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr5 = ll7.GroupBy(i => i.Brief_Description);
-                            //    if (attr5 != null)
-                            //    {
-                            //        foreach (var cc in attr5)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Brief_Description += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr1 = ll7.GroupBy(i => i.Care_Plan_Updated);
-                            //    if (attr1 != null)
-                            //    {
-                            //        foreach (var e in attr1)
-                            //        {
-                            //            string key = e.Key == null ? "NULL" : e.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Care_Plan_Updated += $"{key}\t - \t{e.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr13 = ll7.GroupBy(i => i.CI_Form_Number);
-                            //    if (attr13 != null)
-                            //    {
-                            //        int count = 0;
-                            //        foreach (var cc in attr13)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            count += cc.Count();
-                            //        }
-                            //        model.CI_Form_Number = $"All\t - \t{count}";
-                            //    }
-
-                            //    var attr00 = ll7.GroupBy(i => i.File_Complete);
-                            //    if (attr00 != null)
-                            //    {
-                            //        foreach (var cc in attr00)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.File_Complete += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr111 = ll7.GroupBy(i => i.Follow_Up_Amendments);
-                            //    if (attr111 != null)
-                            //    {
-                            //        foreach (var cc in attr111)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Follow_Up_Amendments += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-                            //    foundSummary.Add(model);
-                            //    model = new CriticalIncidentSummary();
-                            //}
-                            //#endregion
-
-                            //#region 8th Location:
-                            //if (ll8 != null)
-                            //{
-                            //    model.LocationName = locList.Find(i => i == "Woodbridge Vista\r\n" + " - " + cnt8);
-                            //    var attr11 = ll8.GroupBy(i => i.MOHLTC_Follow_Up);
-                            //    if (attr11 != null)
-                            //    {
-                            //        foreach (var cc in attr11)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
-                            //            if (key == "NULL") continue;
-                            //            model.MOHLTC_Follow_Up += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr10 = ll8.GroupBy(i => i.CIS_Initiated);
-                            //    if (attr10 != null)
-                            //    {
-                            //        foreach (var cc in attr10)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.CIS_Initiated += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr7 = ll8.GroupBy(i => i.MOH_Notified);
-                            //    if (attr7 != null)
-                            //    {
-                            //        foreach (var cc in attr7)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.MOH_Notified += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr2 = ll8.GroupBy(i => i.POAS_Notified);
-                            //    if (attr2 != null)
-                            //    {
-                            //        foreach (var d in attr2)
-                            //        {
-                            //            string key = d.Key == null ? "NULL" : d.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.POAS_Notified += $"{key}\t - \t{d.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr4 = ll8.GroupBy(i => i.Police_Notified);
-                            //    if (attr4 != null)
-                            //    {
-                            //        foreach (var cc in attr4)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Police_Notified += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-
-                            //    var attr3 = ll8.GroupBy(i => i.Quality_Improvement_Actions);
-                            //    if (attr3 != null)
-                            //    {
-                            //        foreach (var cc in attr3)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Quality_Improvement_Actions += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr8 = ll8.GroupBy(i => i.Risk_Locked);
-                            //    if (attr8 != null)
-                            //    {
-                            //        foreach (var cc in attr8)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Risk_Locked += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr5 = ll8.GroupBy(i => i.Brief_Description);
-                            //    if (attr5 != null)
-                            //    {
-                            //        foreach (var cc in attr5)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Brief_Description += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr1 = ll8.GroupBy(i => i.Care_Plan_Updated);
-                            //    if (attr1 != null)
-                            //    {
-                            //        foreach (var e in attr1)
-                            //        {
-                            //            string key = e.Key == null ? "NULL" : e.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Care_Plan_Updated += $"{key}\t - \t{e.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr13 = ll8.GroupBy(i => i.CI_Form_Number);
-                            //    if (attr13 != null)
-                            //    {
-                            //        int count = 0;
-                            //        foreach (var cc in attr13)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            count += cc.Count();
-                            //        }
-                            //        model.CI_Form_Number = $"All\t - \t{count}";
-                            //    }
-
-                            //    var attr00 = ll8.GroupBy(i => i.File_Complete);
-                            //    if (attr00 != null)
-                            //    {
-                            //        foreach (var cc in attr00)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.File_Complete += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr111 = ll8.GroupBy(i => i.Follow_Up_Amendments);
-                            //    if (attr111 != null)
-                            //    {
-                            //        foreach (var cc in attr111)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Follow_Up_Amendments += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-                            //    foundSummary.Add(model);
-                            //    model = new CriticalIncidentSummary();
-                            //}
-                            //#endregion
-
-                            //#region 9th Location:
-                            //if (ll9 != null)
-                            //{
-                            //    model.LocationName = locList.Find(i => i == "Brookside Lodge\r\n" + " - " + cnt9);
-                            //    var attr11 = ll9.GroupBy(i => i.MOHLTC_Follow_Up);
-                            //    if (attr11 != null)
-                            //    {
-                            //        foreach (var cc in attr11)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
-                            //            if (key == "NULL") continue;
-                            //            model.MOHLTC_Follow_Up += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr10 = ll9.GroupBy(i => i.CIS_Initiated);
-                            //    if (attr10 != null)
-                            //    {
-                            //        foreach (var cc in attr10)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.CIS_Initiated += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr7 = ll9.GroupBy(i => i.MOH_Notified);
-                            //    if (attr7 != null)
-                            //    {
-                            //        foreach (var cc in attr7)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.MOH_Notified += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr2 = ll9.GroupBy(i => i.POAS_Notified);
-                            //    if (attr2 != null)
-                            //    {
-                            //        foreach (var d in attr2)
-                            //        {
-                            //            string key = d.Key == null ? "NULL" : d.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.POAS_Notified += $"{key}\t - \t{d.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr4 = ll9.GroupBy(i => i.Police_Notified);
-                            //    if (attr4 != null)
-                            //    {
-                            //        foreach (var cc in attr4)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Police_Notified += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-
-                            //    var attr3 = ll9.GroupBy(i => i.Quality_Improvement_Actions);
-                            //    if (attr3 != null)
-                            //    {
-                            //        foreach (var cc in attr3)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Quality_Improvement_Actions += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr8 = ll9.GroupBy(i => i.Risk_Locked);
-                            //    if (attr8 != null)
-                            //    {
-                            //        foreach (var cc in attr8)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Risk_Locked += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr5 = ll9.GroupBy(i => i.Brief_Description);
-                            //    if (attr5 != null)
-                            //    {
-                            //        foreach (var cc in attr5)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Brief_Description += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr1 = ll9.GroupBy(i => i.Care_Plan_Updated);
-                            //    if (attr1 != null)
-                            //    {
-                            //        foreach (var e in attr1)
-                            //        {
-                            //            string key = e.Key == null ? "NULL" : e.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Care_Plan_Updated += $"{key}\t - \t{e.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr13 = ll9.GroupBy(i => i.CI_Form_Number);
-                            //    if (attr13 != null)
-                            //    {
-                            //        int count = 0;
-                            //        foreach (var cc in attr13)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            count += cc.Count();
-                            //        }
-                            //        model.CI_Form_Number = $"All\t - \t{count}";
-                            //    }
-
-                            //    var attr00 = ll9.GroupBy(i => i.File_Complete);
-                            //    if (attr00 != null)
-                            //    {
-                            //        foreach (var cc in attr00)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.File_Complete += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr111 = ll9.GroupBy(i => i.Follow_Up_Amendments);
-                            //    if (attr111 != null)
-                            //    {
-                            //        foreach (var cc in attr111)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Follow_Up_Amendments += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-                            //    foundSummary.Add(model);
-                            //    model = new CriticalIncidentSummary();
-                            //}
-                            //#endregion
-
-                            //#region 10th Location:
-                            //if (ll10 != null)
-                            //{
-                            //    model.LocationName = locList.Find(i => i == "Rideau\r\n" + " - " + cnt10);
-                            //    var attr11 = ll10.GroupBy(i => i.MOHLTC_Follow_Up);
-                            //    if (attr11 != null)
-                            //    {
-                            //        foreach (var cc in attr11)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
-                            //            if (key == "NULL") continue;
-                            //            model.MOHLTC_Follow_Up += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr10 = ll10.GroupBy(i => i.CIS_Initiated);
-                            //    if (attr10 != null)
-                            //    {
-                            //        foreach (var cc in attr10)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.CIS_Initiated += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr7 = ll10.GroupBy(i => i.MOH_Notified);
-                            //    if (attr7 != null)
-                            //    {
-                            //        foreach (var cc in attr7)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.MOH_Notified += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr2 = ll10.GroupBy(i => i.POAS_Notified);
-                            //    if (attr2 != null)
-                            //    {
-                            //        foreach (var d in attr2)
-                            //        {
-                            //            string key = d.Key == null ? "NULL" : d.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.POAS_Notified += $"{key}\t - \t{d.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr4 = ll10.GroupBy(i => i.Police_Notified);
-                            //    if (attr4 != null)
-                            //    {
-                            //        foreach (var cc in attr4)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Police_Notified += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-
-                            //    var attr3 = ll10.GroupBy(i => i.Quality_Improvement_Actions);
-                            //    if (attr3 != null)
-                            //    {
-                            //        foreach (var cc in attr3)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Quality_Improvement_Actions += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr8 = ll10.GroupBy(i => i.Risk_Locked);
-                            //    if (attr8 != null)
-                            //    {
-                            //        foreach (var cc in attr8)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Risk_Locked += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr5 = ll10.GroupBy(i => i.Brief_Description);
-                            //    if (attr5 != null)
-                            //    {
-                            //        foreach (var cc in attr5)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Brief_Description += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr1 = ll10.GroupBy(i => i.Care_Plan_Updated);
-                            //    if (attr1 != null)
-                            //    {
-                            //        foreach (var e in attr1)
-                            //        {
-                            //            string key = e.Key == null ? "NULL" : e.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Care_Plan_Updated += $"{key}\t - \t{e.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr13 = ll10.GroupBy(i => i.CI_Form_Number);
-                            //    if (attr13 != null)
-                            //    {
-                            //        int count = 0;
-                            //        foreach (var cc in attr13)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            count += cc.Count();
-                            //        }
-                            //        model.CI_Form_Number = $"All\t - \t{count}";
-                            //    }
-
-                            //    var attr00 = ll10.GroupBy(i => i.File_Complete);
-                            //    if (attr00 != null)
-                            //    {
-                            //        foreach (var cc in attr00)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.File_Complete += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr111 = ll10.GroupBy(i => i.Follow_Up_Amendments);
-                            //    if (attr111 != null)
-                            //    {
-                            //        foreach (var cc in attr111)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Follow_Up_Amendments += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-                            //    foundSummary.Add(model);
-                            //    model = new CriticalIncidentSummary();
-                            //}
-                            //#endregion
-
-                            //#region 11th Location:
-                            //if (ll11 != null)
-                            //{
-                            //    model.LocationName = locList.Find(i => i == "Villa da Vinci\r\n" + " - " + cnt11);
-                            //    var attr11 = ll11.GroupBy(i => i.MOHLTC_Follow_Up);
-                            //    if (attr11 != null)
-                            //    {
-                            //        foreach (var cc in attr11)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
-                            //            if (key == "NULL") continue;
-                            //            model.MOHLTC_Follow_Up += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr10 = ll11.GroupBy(i => i.CIS_Initiated);
-                            //    if (attr10 != null)
-                            //    {
-                            //        foreach (var cc in attr10)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.CIS_Initiated += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr7 = ll11.GroupBy(i => i.MOH_Notified);
-                            //    if (attr7 != null)
-                            //    {
-                            //        foreach (var cc in attr7)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.MOH_Notified += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr2 = ll11.GroupBy(i => i.POAS_Notified);
-                            //    if (attr2 != null)
-                            //    {
-                            //        foreach (var d in attr2)
-                            //        {
-                            //            string key = d.Key == null ? "NULL" : d.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.POAS_Notified += $"{key}\t - \t{d.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr4 = ll11.GroupBy(i => i.Police_Notified);
-                            //    if (attr4 != null)
-                            //    {
-                            //        foreach (var cc in attr4)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Police_Notified += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-
-                            //    var attr3 = ll11.GroupBy(i => i.Quality_Improvement_Actions);
-                            //    if (attr3 != null)
-                            //    {
-                            //        foreach (var cc in attr3)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Quality_Improvement_Actions += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr8 = ll11.GroupBy(i => i.Risk_Locked);
-                            //    if (attr8 != null)
-                            //    {
-                            //        foreach (var cc in attr8)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Risk_Locked += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr5 = ll11.GroupBy(i => i.Brief_Description);
-                            //    if (attr5 != null)
-                            //    {
-                            //        foreach (var cc in attr5)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Brief_Description += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr1 = ll11.GroupBy(i => i.Care_Plan_Updated);
-                            //    if (attr1 != null)
-                            //    {
-                            //        foreach (var e in attr1)
-                            //        {
-                            //            string key = e.Key == null ? "NULL" : e.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Care_Plan_Updated += $"{key}\t - \t{e.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr13 = ll11.GroupBy(i => i.CI_Form_Number);
-                            //    if (attr13 != null)
-                            //    {
-                            //        int count = 0;
-                            //        foreach (var cc in attr13)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            count += cc.Count();
-                            //        }
-                            //        model.CI_Form_Number = $"All\t - \t{count}";
-                            //    }
-
-                            //    var attr00 = ll11.GroupBy(i => i.File_Complete);
-                            //    if (attr00 != null)
-                            //    {
-                            //        foreach (var cc in attr00)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.File_Complete += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-
-                            //    var attr111 = ll11.GroupBy(i => i.Follow_Up_Amendments);
-                            //    if (attr111 != null)
-                            //    {
-                            //        foreach (var cc in attr111)
-                            //        {
-                            //            string key = cc.Key == null ? "NULL" : cc.Key;
-                            //            if (key == "NULL") continue;
-                            //            model.Follow_Up_Amendments += $"{key}\t - \t{cc.Count()}" + " | ";
-                            //        }
-                            //    }
-                            //    foundSummary.Add(model);
-                            //    model = new CriticalIncidentSummary();
-                            //}
-                            //#endregion
-
-                            //foundSummary.Sort(attr=>attr.LocationName)
+                            #region 2nd Location:
+                            if (ll2 != null)
+                            {
+                                model.LocationName = locList.Find(i => i == "Astoria Retirement Residence\r\n" + " - " + cnt2);
+                                var attr11 = ll2.GroupBy(i => i.MOHLTC_Follow_Up);
+                                if (attr11 != null)
+                                {
+                                    foreach (var cc in attr11)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        model.MOHLTC_Follow_Up += $"{key}\t - \t{cc.Count()}" + " | "; p1 += cc.Count();
+                                    }
+                                }
+
+                                var attr10 = ll2.GroupBy(i => i.CIS_Initiated);
+                                if (attr10 != null)
+                                {
+                                    foreach (var cc in attr10)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.CIS_Initiated += $"{key}\t - \t{cc.Count()}" + " | "; p2 += cc.Count();
+                                    }
+                                }
+
+                                var attr7 = ll2.GroupBy(i => i.MOH_Notified);
+                                if (attr7 != null)
+                                {
+                                    foreach (var cc in attr7)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.MOH_Notified += $"{key}\t - \t{cc.Count()}" + " | "; p3 += cc.Count();
+                                    }
+                                }
+
+                                var attr2 = ll2.GroupBy(i => i.POAS_Notified);
+                                if (attr2 != null)
+                                {
+                                    foreach (var d in attr2)
+                                    {
+                                        string key = d.Key == null ? "NULL" : d.Key;
+                                        if (key == "NULL") continue;
+                                        model.POAS_Notified += $"{key}\t - \t{d.Count()}" + " | "; p4 += d.Count();
+                                    }
+                                }
+
+                                var attr4 = ll2.GroupBy(i => i.Police_Notified);
+                                if (attr4 != null)
+                                {
+                                    foreach (var cc in attr4)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.Police_Notified += $"{key}\t - \t{cc.Count()}" + " | "; p5 += cc.Count();
+                                    }
+                                }
+
+
+                                var attr3 = ll2.GroupBy(i => i.Quality_Improvement_Actions);
+                                if (attr3 != null)
+                                {
+                                    foreach (var cc in attr3)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.Quality_Improvement_Actions += $"{key}\t - \t{cc.Count()}" + " | "; p6 += cc.Count();
+                                    }
+                                }
+
+                                var attr8 = ll2.GroupBy(i => i.Risk_Locked);
+                                if (attr8 != null)
+                                {
+                                    foreach (var cc in attr8)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.Risk_Locked += $"{key}\t - \t{cc.Count()}" + " | "; p7 += cc.Count();
+                                    }
+                                }
+
+                                var attr5 = ll2.GroupBy(i => i.Brief_Description);
+                                if (attr5 != null)
+                                {
+                                    foreach (var cc in attr5)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.Brief_Description += $"{key}\t - \t{cc.Count()}" + " | "; p8 += cc.Count();
+                                    }
+                                }
+
+                                var attr1 = ll2.GroupBy(i => i.Care_Plan_Updated);
+                                if (attr1 != null)
+                                {
+                                    foreach (var e in attr1)
+                                    {
+                                        string key = e.Key == null ? "NULL" : e.Key;
+                                        if (key == "NULL") continue;
+                                        model.Care_Plan_Updated += $"{key}\t - \t{e.Count()}" + " | "; p9 += e.Count();
+                                    }
+                                }
+
+                                var attr13 = ll2.GroupBy(i => i.CI_Form_Number);
+                                if (attr13 != null)
+                                {
+                                    int count = 0;
+                                    foreach (var cc in attr13)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        count += cc.Count();
+                                    }
+                                    model.CI_Form_Number = $"All\t - \t{count}"; p10 += count;
+                                }
+
+                                var attr00 = ll2.GroupBy(i => i.File_Complete);
+                                if (attr00 != null)
+                                {
+                                    foreach (var cc in attr00)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.File_Complete += $"{key}\t - \t{cc.Count()}" + " | "; p11 += cc.Count();
+                                    }
+                                }
+
+                                var attr111 = ll2.GroupBy(i => i.Follow_Up_Amendments);
+                                if (attr111 != null)
+                                {
+                                    foreach (var cc in attr111)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.Follow_Up_Amendments += $"{key}\t - \t{cc.Count()}" + " | "; p12 += cc.Count();
+                                    }
+                                }
+                                foundSummary.Add(model);
+                                model = new CriticalIncidentSummary();
+                            }
+                            #endregion
+
+                            #region 3rd Location:
+                            if (ll3 != null)
+                            {
+                                model.LocationName = locList.Find(i => i == "Barnswallow Place Care Community\r\n" + " - " + cnt3);
+                                var attr11 = ll3.GroupBy(i => i.MOHLTC_Follow_Up);
+                                if (attr11 != null)
+                                {
+                                    foreach (var cc in attr11)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        model.MOHLTC_Follow_Up += $"{key}\t - \t{cc.Count()}" + " | "; p1 += cc.Count();
+                                    }
+                                }
+
+                                var attr10 = ll3.GroupBy(i => i.CIS_Initiated);
+                                if (attr10 != null)
+                                {
+                                    foreach (var cc in attr10)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.CIS_Initiated += $"{key}\t - \t{cc.Count()}" + " | "; p2 += cc.Count();
+                                    }
+                                }
+
+                                var attr7 = ll3.GroupBy(i => i.MOH_Notified);
+                                if (attr7 != null)
+                                {
+                                    foreach (var cc in attr7)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.MOH_Notified += $"{key}\t - \t{cc.Count()}" + " | "; p3 += cc.Count();
+                                    }
+                                }
+
+                                var attr2 = ll3.GroupBy(i => i.POAS_Notified);
+                                if (attr2 != null)
+                                {
+                                    foreach (var d in attr2)
+                                    {
+                                        string key = d.Key == null ? "NULL" : d.Key;
+                                        if (key == "NULL") continue;
+                                        model.POAS_Notified += $"{key}\t - \t{d.Count()}" + " | "; p4 += d.Count();
+                                    }
+                                }
+
+                                var attr4 = ll3.GroupBy(i => i.Police_Notified);
+                                if (attr4 != null)
+                                {
+                                    foreach (var cc in attr4)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.Police_Notified += $"{key}\t - \t{cc.Count()}" + " | "; p5 += cc.Count();
+                                    }
+                                }
+
+
+                                var attr3 = ll3.GroupBy(i => i.Quality_Improvement_Actions);
+                                if (attr3 != null)
+                                {
+                                    foreach (var cc in attr3)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.Quality_Improvement_Actions += $"{key}\t - \t{cc.Count()}" + " | "; p6 += cc.Count();
+                                    }
+                                }
+
+                                var attr8 = ll3.GroupBy(i => i.Risk_Locked);
+                                if (attr8 != null)
+                                {
+                                    foreach (var cc in attr8)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.Risk_Locked += $"{key}\t - \t{cc.Count()}" + " | "; p7 += cc.Count();
+                                    }
+                                }
+
+                                var attr5 = ll3.GroupBy(i => i.Brief_Description);
+                                if (attr5 != null)
+                                {
+                                    foreach (var cc in attr5)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.Brief_Description += $"{key}\t - \t{cc.Count()}" + " | "; p8 += cc.Count();
+                                    }
+                                }
+
+                                var attr1 = ll3.GroupBy(i => i.Care_Plan_Updated);
+                                if (attr1 != null)
+                                {
+                                    foreach (var e in attr1)
+                                    {
+                                        string key = e.Key == null ? "NULL" : e.Key;
+                                        if (key == "NULL") continue;
+                                        model.Care_Plan_Updated += $"{key}\t - \t{e.Count()}" + " | "; p9 += e.Count();
+                                    }
+                                }
+
+                                var attr13 = ll3.GroupBy(i => i.CI_Form_Number);
+                                if (attr13 != null)
+                                {
+                                    int count = 0;
+                                    foreach (var cc in attr13)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        count += cc.Count();
+                                    }
+                                    model.CI_Form_Number = $"All\t - \t{count}"; p10 += count;
+                                }
+
+                                var attr00 = ll3.GroupBy(i => i.File_Complete);
+                                if (attr00 != null)
+                                {
+                                    foreach (var cc in attr00)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.File_Complete += $"{key}\t - \t{cc.Count()}" + " | "; p11 += cc.Count();
+                                    }
+                                }
+
+                                var attr111 = ll3.GroupBy(i => i.Follow_Up_Amendments);
+                                if (attr111 != null)
+                                {
+                                    foreach (var cc in attr111)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.Follow_Up_Amendments += $"{key}\t - \t{cc.Count()}" + " | "; p12 += cc.Count();
+                                    }
+                                }
+                                foundSummary.Add(model);
+                                model = new CriticalIncidentSummary();
+                            }
+                            #endregion
+
+                            #region 4rd Location:
+                            if (ll4 != null)
+                            {
+                                model.LocationName = locList.Find(i => i == "Bearbrook Retirement Residence\r\n" + " - " + cnt4);
+                                var attr11 = ll4.GroupBy(i => i.MOHLTC_Follow_Up);
+                                if (attr11 != null)
+                                {
+                                    foreach (var cc in attr11)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        model.MOHLTC_Follow_Up += $"{key}\t - \t{cc.Count()}" + " | "; p1 += cc.Count();
+                                    }
+                                }
+
+                                var attr10 = ll4.GroupBy(i => i.CIS_Initiated);
+                                if (attr10 != null)
+                                {
+                                    foreach (var cc in attr10)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.CIS_Initiated += $"{key}\t - \t{cc.Count()}" + " | "; p2 += cc.Count();
+                                    }
+                                }
+
+                                var attr7 = ll4.GroupBy(i => i.MOH_Notified);
+                                if (attr7 != null)
+                                {
+                                    foreach (var cc in attr7)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.MOH_Notified += $"{key}\t - \t{cc.Count()}" + " | "; p3 += cc.Count();
+                                    }
+                                }
+
+                                var attr2 = ll4.GroupBy(i => i.POAS_Notified);
+                                if (attr2 != null)
+                                {
+                                    foreach (var d in attr2)
+                                    {
+                                        string key = d.Key == null ? "NULL" : d.Key;
+                                        if (key == "NULL") continue;
+                                        model.POAS_Notified += $"{key}\t - \t{d.Count()}" + " | "; p4 += d.Count();
+                                    }
+                                }
+
+                                var attr4 = ll4.GroupBy(i => i.Police_Notified);
+                                if (attr4 != null)
+                                {
+                                    foreach (var cc in attr4)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.Police_Notified += $"{key}\t - \t{cc.Count()}" + " | "; p5 += cc.Count();
+                                    }
+                                }
+
+
+                                var attr3 = ll4.GroupBy(i => i.Quality_Improvement_Actions);
+                                if (attr3 != null)
+                                {
+                                    foreach (var cc in attr3)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.Quality_Improvement_Actions += $"{key}\t - \t{cc.Count()}" + " | "; p6 += cc.Count();
+                                    }
+                                }
+
+                                var attr8 = ll4.GroupBy(i => i.Risk_Locked);
+                                if (attr8 != null)
+                                {
+                                    foreach (var cc in attr8)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.Risk_Locked += $"{key}\t - \t{cc.Count()}" + " | "; p7 += cc.Count();
+                                    }
+                                }
+
+                                var attr5 = ll4.GroupBy(i => i.Brief_Description);
+                                if (attr5 != null)
+                                {
+                                    foreach (var cc in attr5)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.Brief_Description += $"{key}\t - \t{cc.Count()}" + " | "; p8 += cc.Count();
+                                    }
+                                }
+
+                                var attr1 = ll4.GroupBy(i => i.Care_Plan_Updated);
+                                if (attr1 != null)
+                                {
+                                    foreach (var e in attr1)
+                                    {
+                                        string key = e.Key == null ? "NULL" : e.Key;
+                                        if (key == "NULL") continue;
+                                        model.Care_Plan_Updated += $"{key}\t - \t{e.Count()}" + " | "; p9 += e.Count();
+                                    }
+                                }
+
+                                var attr13 = ll4.GroupBy(i => i.CI_Form_Number);
+                                if (attr13 != null)
+                                {
+                                    int count = 0;
+                                    foreach (var cc in attr13)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        count += cc.Count();
+                                    }
+                                    model.CI_Form_Number = $"All\t - \t{count}"; p10 += count;
+                                }
+
+                                var attr00 = ll4.GroupBy(i => i.File_Complete);
+                                if (attr00 != null)
+                                {
+                                    foreach (var cc in attr00)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.File_Complete += $"{key}\t - \t{cc.Count()}" + " | "; p11 += cc.Count();
+                                    }
+                                }
+
+                                var attr111 = ll4.GroupBy(i => i.Follow_Up_Amendments);
+                                if (attr111 != null)
+                                {
+                                    foreach (var cc in attr111)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.Follow_Up_Amendments += $"{key}\t - \t{cc.Count()}" + " | "; p12 += cc.Count();
+                                    }
+                                }
+                                foundSummary.Add(model);
+                                model = new CriticalIncidentSummary();
+                            }
+                            #endregion
+
+                            #region 5th Location:
+                            if (ll5 != null)
+                            {
+                                model.LocationName = locList.Find(i => i == "Bloomington Cove Care Community\r\n" + " - " + cnt5);
+                                var attr11 = ll5.GroupBy(i => i.MOHLTC_Follow_Up);
+                                if (attr11 != null)
+                                {
+                                    foreach (var cc in attr11)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        model.MOHLTC_Follow_Up += $"{key}\t - \t{cc.Count()}" + " | "; p1 += cc.Count();
+                                    }
+                                }
+
+                                var attr10 = ll5.GroupBy(i => i.CIS_Initiated);
+                                if (attr10 != null)
+                                {
+                                    foreach (var cc in attr10)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.CIS_Initiated += $"{key}\t - \t{cc.Count()}" + " | "; p2 += cc.Count();
+                                    }
+                                }
+
+                                var attr7 = ll5.GroupBy(i => i.MOH_Notified);
+                                if (attr7 != null)
+                                {
+                                    foreach (var cc in attr7)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.MOH_Notified += $"{key}\t - \t{cc.Count()}" + " | "; p3 += cc.Count();
+                                    }
+                                }
+
+                                var attr2 = ll5.GroupBy(i => i.POAS_Notified);
+                                if (attr2 != null)
+                                {
+                                    foreach (var d in attr2)
+                                    {
+                                        string key = d.Key == null ? "NULL" : d.Key;
+                                        if (key == "NULL") continue;
+                                        model.POAS_Notified += $"{key}\t - \t{d.Count()}" + " | "; p4 += d.Count();
+                                    }
+                                }
+
+                                var attr4 = ll5.GroupBy(i => i.Police_Notified);
+                                if (attr4 != null)
+                                {
+                                    foreach (var cc in attr4)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.Police_Notified += $"{key}\t - \t{cc.Count()}" + " | "; p5 += cc.Count();
+                                    }
+                                }
+
+
+                                var attr3 = ll5.GroupBy(i => i.Quality_Improvement_Actions);
+                                if (attr3 != null)
+                                {
+                                    foreach (var cc in attr3)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.Quality_Improvement_Actions += $"{key}\t - \t{cc.Count()}" + " | "; p6 += cc.Count();
+                                    }
+                                }
+
+                                var attr8 = ll5.GroupBy(i => i.Risk_Locked);
+                                if (attr8 != null)
+                                {
+                                    foreach (var cc in attr8)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.Risk_Locked += $"{key}\t - \t{cc.Count()}" + " | "; p7 += cc.Count();
+                                    }
+                                }
+
+                                var attr5 = ll5.GroupBy(i => i.Brief_Description);
+                                if (attr5 != null)
+                                {
+                                    foreach (var cc in attr5)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.Brief_Description += $"{key}\t - \t{cc.Count()}" + " | "; p8 += cc.Count();
+                                    }
+                                }
+
+                                var attr1 = ll5.GroupBy(i => i.Care_Plan_Updated);
+                                if (attr1 != null)
+                                {
+                                    foreach (var e in attr1)
+                                    {
+                                        string key = e.Key == null ? "NULL" : e.Key;
+                                        if (key == "NULL") continue;
+                                        model.Care_Plan_Updated += $"{key}\t - \t{e.Count()}" + " | "; p9 += e.Count();
+                                    }
+                                }
+
+                                var attr13 = ll5.GroupBy(i => i.CI_Form_Number);
+                                if (attr13 != null)
+                                {
+                                    int count = 0;
+                                    foreach (var cc in attr13)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        count += cc.Count();
+                                    }
+                                    model.CI_Form_Number = $"All\t - \t{count}"; p10 += count;
+                                }
+
+                                var attr00 = ll5.GroupBy(i => i.File_Complete);
+                                if (attr00 != null)
+                                {
+                                    foreach (var cc in attr00)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.File_Complete += $"{key}\t - \t{cc.Count()}" + " | "; p11 += cc.Count();
+                                    }
+                                }
+
+                                var attr111 = ll5.GroupBy(i => i.Follow_Up_Amendments);
+                                if (attr111 != null)
+                                {
+                                    foreach (var cc in attr111)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.Follow_Up_Amendments += $"{key}\t - \t{cc.Count()}" + " | "; p12 += cc.Count();
+                                    }
+                                }
+                                foundSummary.Add(model);
+                                model = new CriticalIncidentSummary();
+                            }
+                            #endregion
+
+                            #region 6th Location:
+                            if (ll6 != null)
+                            {
+                                model.LocationName = locList.Find(i => i == "Bradford Valley Care Community\r\n" + " - " + cnt6);
+                                var attr11 = ll6.GroupBy(i => i.MOHLTC_Follow_Up);
+                                if (attr11 != null)
+                                {
+                                    foreach (var cc in attr11)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        model.MOHLTC_Follow_Up += $"{key}\t - \t{cc.Count()}" + " | "; p1 += cc.Count();
+                                    }
+                                }
+
+                                var attr10 = ll6.GroupBy(i => i.CIS_Initiated);
+                                if (attr10 != null)
+                                {
+                                    foreach (var cc in attr10)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.CIS_Initiated += $"{key}\t - \t{cc.Count()}" + " | "; p2 += cc.Count();
+                                    }
+                                }
+
+                                var attr7 = ll6.GroupBy(i => i.MOH_Notified);
+                                if (attr7 != null)
+                                {
+                                    foreach (var cc in attr7)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.MOH_Notified += $"{key}\t - \t{cc.Count()}" + " | "; p3 += cc.Count();
+                                    }
+                                }
+
+                                var attr2 = ll6.GroupBy(i => i.POAS_Notified);
+                                if (attr2 != null)
+                                {
+                                    foreach (var d in attr2)
+                                    {
+                                        string key = d.Key == null ? "NULL" : d.Key;
+                                        if (key == "NULL") continue;
+                                        model.POAS_Notified += $"{key}\t - \t{d.Count()}" + " | "; p4 += d.Count();
+                                    }
+                                }
+
+                                var attr4 = ll6.GroupBy(i => i.Police_Notified);
+                                if (attr4 != null)
+                                {
+                                    foreach (var cc in attr4)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.Police_Notified += $"{key}\t - \t{cc.Count()}" + " | "; p5 += cc.Count();
+                                    }
+                                }
+
+
+                                var attr3 = ll6.GroupBy(i => i.Quality_Improvement_Actions);
+                                if (attr3 != null)
+                                {
+                                    foreach (var cc in attr3)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.Quality_Improvement_Actions += $"{key}\t - \t{cc.Count()}" + " | "; p6 += cc.Count();
+                                    }
+                                }
+
+                                var attr8 = ll6.GroupBy(i => i.Risk_Locked);
+                                if (attr8 != null)
+                                {
+                                    foreach (var cc in attr8)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.Risk_Locked += $"{key}\t - \t{cc.Count()}" + " | "; p7 += cc.Count();
+                                    }
+                                }
+
+                                var attr5 = ll6.GroupBy(i => i.Brief_Description);
+                                if (attr5 != null)
+                                {
+                                    foreach (var cc in attr5)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.Brief_Description += $"{key}\t - \t{cc.Count()}" + " | "; p8 += cc.Count();
+                                    }
+                                }
+
+                                var attr1 = ll6.GroupBy(i => i.Care_Plan_Updated);
+                                if (attr1 != null)
+                                {
+                                    foreach (var e in attr1)
+                                    {
+                                        string key = e.Key == null ? "NULL" : e.Key;
+                                        if (key == "NULL") continue;
+                                        model.Care_Plan_Updated += $"{key}\t - \t{e.Count()}" + " | "; p9 += e.Count();
+                                    }
+                                }
+
+                                var attr13 = ll6.GroupBy(i => i.CI_Form_Number);
+                                if (attr13 != null)
+                                {
+                                    int count = 0;
+                                    foreach (var cc in attr13)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        count += cc.Count();
+                                    }
+                                    model.CI_Form_Number = $"All\t - \t{count}"; p10 += count;
+                                }
+
+                                var attr00 = ll6.GroupBy(i => i.File_Complete);
+                                if (attr00 != null)
+                                {
+                                    foreach (var cc in attr00)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.File_Complete += $"{key}\t - \t{cc.Count()}" + " | "; p11 += cc.Count();
+                                    }
+                                }
+
+                                var attr111 = ll6.GroupBy(i => i.Follow_Up_Amendments);
+                                if (attr111 != null)
+                                {
+                                    foreach (var cc in attr111)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.Follow_Up_Amendments += $"{key}\t - \t{cc.Count()}" + " | "; p12 += cc.Count();
+                                    }
+                                }
+                                foundSummary.Add(model);
+                                model = new CriticalIncidentSummary();
+                            }
+                            #endregion
+
+                            #region 7th Location:
+                            if (ll7 != null)
+                            {
+                                model.LocationName = locList.Find(i => i == "Brookside Lodge\r\n" + " - " + cnt7);
+                                var attr11 = ll7.GroupBy(i => i.MOHLTC_Follow_Up);
+                                if (attr11 != null)
+                                {
+                                    foreach (var cc in attr11)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        model.MOHLTC_Follow_Up += $"{key}\t - \t{cc.Count()}" + " | "; p1 += cc.Count();
+                                    }
+                                }
+
+                                var attr10 = ll7.GroupBy(i => i.CIS_Initiated);
+                                if (attr10 != null)
+                                {
+                                    foreach (var cc in attr10)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.CIS_Initiated += $"{key}\t - \t{cc.Count()}" + " | "; p2 += cc.Count();
+                                    }
+                                }
+
+                                var attr7 = ll7.GroupBy(i => i.MOH_Notified);
+                                if (attr7 != null)
+                                {
+                                    foreach (var cc in attr7)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.MOH_Notified += $"{key}\t - \t{cc.Count()}" + " | "; p3 += cc.Count();
+                                    }
+                                }
+
+                                var attr2 = ll7.GroupBy(i => i.POAS_Notified);
+                                if (attr2 != null)
+                                {
+                                    foreach (var d in attr2)
+                                    {
+                                        string key = d.Key == null ? "NULL" : d.Key;
+                                        if (key == "NULL") continue;
+                                        model.POAS_Notified += $"{key}\t - \t{d.Count()}" + " | "; p4 += d.Count();
+                                    }
+                                }
+
+                                var attr4 = ll7.GroupBy(i => i.Police_Notified);
+                                if (attr4 != null)
+                                {
+                                    foreach (var cc in attr4)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.Police_Notified += $"{key}\t - \t{cc.Count()}" + " | "; p5 += cc.Count();
+                                    }
+                                }
+
+
+                                var attr3 = ll7.GroupBy(i => i.Quality_Improvement_Actions);
+                                if (attr3 != null)
+                                {
+                                    foreach (var cc in attr3)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.Quality_Improvement_Actions += $"{key}\t - \t{cc.Count()}" + " | "; p6 += cc.Count();
+                                    }
+                                }
+
+                                var attr8 = ll7.GroupBy(i => i.Risk_Locked);
+                                if (attr8 != null)
+                                {
+                                    foreach (var cc in attr8)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.Risk_Locked += $"{key}\t - \t{cc.Count()}" + " | "; p7 += cc.Count();
+                                    }
+                                }
+
+                                var attr5 = ll7.GroupBy(i => i.Brief_Description);
+                                if (attr5 != null)
+                                {
+                                    foreach (var cc in attr5)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.Brief_Description += $"{key}\t - \t{cc.Count()}" + " | "; p8 += cc.Count();
+                                    }
+                                }
+
+                                var attr1 = ll7.GroupBy(i => i.Care_Plan_Updated);
+                                if (attr1 != null)
+                                {
+                                    foreach (var e in attr1)
+                                    {
+                                        string key = e.Key == null ? "NULL" : e.Key;
+                                        if (key == "NULL") continue;
+                                        model.Care_Plan_Updated += $"{key}\t - \t{e.Count()}" + " | "; p9 += e.Count();
+                                    }
+                                }
+
+                                var attr13 = ll7.GroupBy(i => i.CI_Form_Number);
+                                if (attr13 != null)
+                                {
+                                    int count = 0;
+                                    foreach (var cc in attr13)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        count += cc.Count();
+                                    }
+                                    model.CI_Form_Number = $"All\t - \t{count}"; p10 += count;
+                                }
+
+                                var attr00 = ll7.GroupBy(i => i.File_Complete);
+                                if (attr00 != null)
+                                {
+                                    foreach (var cc in attr00)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.File_Complete += $"{key}\t - \t{cc.Count()}" + " | "; p11 += cc.Count();
+                                    }
+                                }
+
+                                var attr111 = ll7.GroupBy(i => i.Follow_Up_Amendments);
+                                if (attr111 != null)
+                                {
+                                    foreach (var cc in attr111)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.Follow_Up_Amendments += $"{key}\t - \t{cc.Count()}" + " | "; p12 += cc.Count();
+                                    }
+                                }
+                                foundSummary.Add(model);
+                                model = new CriticalIncidentSummary();
+                            }
+                            #endregion
+
+                            #region 8th Location:
+                            if (ll8 != null)
+                            {                                   
+                                int c = 0;
+                                model.LocationName = locList.Find(i => i == "Woodbridge Vista" + " - " + cnt8);
+                                var attr11 = ll8.GroupBy(i => i.MOHLTC_Follow_Up);
+                                if (attr11 != null)
+                                {
+
+                                    foreach (var cc in attr11)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        if (c > 1) { 
+                                        model.MOHLTC_Follow_Up += $"{key}\t - \t{cc.Count()}" + " | "; p1 += cc.Count(); }
+                                        else { model.MOHLTC_Follow_Up += $"{key}\t - \t{cc.Count()}"; p1 += cc.Count(); }
+                                        c++;
+                                    }
+                                }
+                                c = 0;
+                                var attr10 = ll8.GroupBy(i => i.CIS_Initiated);
+                                if (attr10 != null)
+                                {
+                                    foreach (var cc in attr10)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        if (c > 1) { 
+                                        model.CIS_Initiated += $"{key}\t - \t{cc.Count()}" + " | "; p2 += cc.Count(); }
+                                        else { model.CIS_Initiated += $"{key}\t - \t{cc.Count()}"; p2 += cc.Count(); }
+                                        c++;
+                                    }
+                                }
+                                c = 0;
+                                var attr7 = ll8.GroupBy(i => i.MOH_Notified);
+                                if (attr7 != null)
+                                {
+                                    foreach (var cc in attr7)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        if (c > 1)
+                                        {
+                                            model.MOH_Notified += $"{key}\t - \t{cc.Count()}" + " | "; p3 += cc.Count();
+                                        }
+                                        else { model.MOH_Notified += $"{key}\t - \t{cc.Count()}"; p3 += cc.Count(); }
+                                        c++;
+                                    }
+                                }
+                                c = 0;
+                                var attr2 = ll8.GroupBy(i => i.POAS_Notified);
+                                if (attr2 != null)
+                                {
+                                    foreach (var d in attr2)
+                                    {
+                                        string key = d.Key == null ? "NULL" : d.Key;
+                                        if (key == "NULL") continue;
+                                        if (c > 1)
+                                        {
+                                            model.POAS_Notified += $"{key}\t - \t{d.Count()}" + " | ";
+                                            p4 += d.Count();
+                                        }
+                                        else { model.POAS_Notified += $"{key}\t - \t{d.Count()}"; p4 += d.Count(); }
+                                        c++;
+                                    }
+                                }
+                                c = 0;
+                                var attr4 = ll8.GroupBy(i => i.Police_Notified);
+                                if (attr4 != null)
+                                {
+                                    foreach (var cc in attr4)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        if (c > 1)
+                                        {
+                                            model.Police_Notified += $"{key}\t - \t{cc.Count()}" + " | "; p5 += cc.Count();
+                                        }
+                                        else { model.Police_Notified += $"{key}\t - \t{cc.Count()}"; p5 += cc.Count(); }
+                                        c++;
+                                    }
+                                }
+                                c = 0;
+                                var attr3 = ll8.GroupBy(i => i.Quality_Improvement_Actions);
+                                if (attr3 != null)
+                                {
+                                    foreach (var cc in attr3)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        if (c > 1)
+                                        {
+                                            model.Quality_Improvement_Actions += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p6 += cc.Count();
+                                        }
+                                        else { model.Quality_Improvement_Actions += $"{key}\t - \t{cc.Count()}"; p6 += cc.Count(); }
+                                        c++;
+                                    }
+                                }
+                                c = 0;
+                                var attr8 = ll8.GroupBy(i => i.Risk_Locked);
+                                if (attr8 != null)
+                                {
+                                    foreach (var cc in attr8)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        if (c > 1)
+                                        {
+                                            model.Risk_Locked += $"{key}\t - \t{cc.Count()}" + " | "; p7 += cc.Count();
+                                        }
+                                        else { model.Risk_Locked += $"{key}\t - \t{cc.Count()}"; p7 += cc.Count(); }
+                                        c++;
+                                    }
+                                }
+                                c = 0;
+                                var attr5 = ll8.GroupBy(i => i.Brief_Description);
+                                if (attr5 != null)
+                                {
+                                    foreach (var cc in attr5)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        if (c > 1)
+                                        {
+                                            model.Brief_Description += $"{key}\t - \t{cc.Count()}" + " | "; p8 += cc.Count();
+                                        }
+                                        else { model.Brief_Description += $"{key}\t - \t{cc.Count()}"; p8 += cc.Count(); }
+                                        c++;
+                                    }
+                                }
+                                c = 0;
+                                var attr1 = ll8.GroupBy(i => i.Care_Plan_Updated);
+                                if (attr1 != null)
+                                {
+                                    foreach (var e in attr1)
+                                    {
+                                        string key = e.Key == null ? "NULL" : e.Key;
+                                        if (key == "NULL") continue;
+                                        if (c > 1) { 
+                                        model.Care_Plan_Updated += $"{key}\t - \t{e.Count()}" + " | "; p9 += e.Count(); }
+                                        else { model.Care_Plan_Updated += $"{key}\t - \t{e.Count()}"; p9 += e.Count(); }
+                                        c++;
+                                    }
+                                }
+                                c = 0;
+                                var attr13 = ll8.GroupBy(i => i.CI_Form_Number);
+                                if (attr13 != null)
+                                {
+                                    int count = 0;
+                                    foreach (var cc in attr13)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        count += cc.Count();
+                                    }
+                                    if (c > 1)
+                                    {
+                                        model.CI_Form_Number += $"{count}" + " | "; p10 += count;
+                                    }
+                                    else { model.CI_Form_Number += $"{count}"; p10 += count; }
+                                        c++;
+                                }
+                                c = 0;
+                                var attr00 = ll8.GroupBy(i => i.File_Complete);
+                                if (attr00 != null)
+                                {
+                                    foreach (var cc in attr00)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        if (c > 1)
+                                        {
+                                            model.File_Complete += $"{key}\t - \t{cc.Count()}" + " | "; p11 += cc.Count();
+                                        }
+                                        else { model.File_Complete += $"{key}\t - \t{cc.Count()}"; p11 += cc.Count(); }
+                                            c++;
+                                    }
+                                }
+                                c = 0;
+                                var attr111 = ll8.GroupBy(i => i.Follow_Up_Amendments);
+                                if (attr111 != null)
+                                {
+                                    foreach (var cc in attr111)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        if (c > 1)
+                                        {
+                                            model.Follow_Up_Amendments += $"{key}\t - \t{cc.Count()}" + " | "; p12 += cc.Count();
+                                        }
+                                        else { model.Follow_Up_Amendments += $"{key}\t - \t{cc.Count()}"; p12 += cc.Count(); }
+                                            c++;
+                                    }
+                                }
+                                c = 0;
+                                foundSummary.Add(model);
+                                model = new CriticalIncidentSummary();
+                            }
+                            #endregion
+
+                            #region 9th Location:
+                            if (ll9 != null)
+                            {
+                                model.LocationName = locList.Find(i => i == "Brookside Lodge\r\n" + " - " + cnt9);
+                                var attr11 = ll9.GroupBy(i => i.MOHLTC_Follow_Up);
+                                if (attr11 != null)
+                                {
+                                    foreach (var cc in attr11)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        model.MOHLTC_Follow_Up += $"{key}\t - \t{cc.Count()}" + " | "; p1 += cc.Count();
+                                    }
+                                }
+
+                                var attr10 = ll9.GroupBy(i => i.CIS_Initiated);
+                                if (attr10 != null)
+                                {
+                                    foreach (var cc in attr10)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.CIS_Initiated += $"{key}\t - \t{cc.Count()}" + " | "; p2 += cc.Count();
+                                    }
+                                }
+
+                                var attr7 = ll9.GroupBy(i => i.MOH_Notified);
+                                if (attr7 != null)
+                                {
+                                    foreach (var cc in attr7)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.MOH_Notified += $"{key}\t - \t{cc.Count()}" + " | "; p3 += cc.Count();
+                                    }
+                                }
+
+                                var attr2 = ll9.GroupBy(i => i.POAS_Notified);
+                                if (attr2 != null)
+                                {
+                                    foreach (var d in attr2)
+                                    {
+                                        string key = d.Key == null ? "NULL" : d.Key;
+                                        if (key == "NULL") continue;
+                                        model.POAS_Notified += $"{key}\t - \t{d.Count()}" + " | "; p4 += d.Count();
+                                    }
+                                }
+
+                                var attr4 = ll9.GroupBy(i => i.Police_Notified);
+                                if (attr4 != null)
+                                {
+                                    foreach (var cc in attr4)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.Police_Notified += $"{key}\t - \t{cc.Count()}" + " | "; p5 += cc.Count();
+                                    }
+                                }
+
+
+                                var attr3 = ll9.GroupBy(i => i.Quality_Improvement_Actions);
+                                if (attr3 != null)
+                                {
+                                    foreach (var cc in attr3)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.Quality_Improvement_Actions += $"{key}\t - \t{cc.Count()}" + " | "; p6 += cc.Count();
+                                    }
+                                }
+
+                                var attr8 = ll9.GroupBy(i => i.Risk_Locked);
+                                if (attr8 != null)
+                                {
+                                    foreach (var cc in attr8)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.Risk_Locked += $"{key}\t - \t{cc.Count()}" + " | "; p7 += cc.Count();
+                                    }
+                                }
+
+                                var attr5 = ll9.GroupBy(i => i.Brief_Description);
+                                if (attr5 != null)
+                                {
+                                    foreach (var cc in attr5)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.Brief_Description += $"{key}\t - \t{cc.Count()}" + " | "; p8 += cc.Count();
+                                    }
+                                }
+
+                                var attr1 = ll9.GroupBy(i => i.Care_Plan_Updated);
+                                if (attr1 != null)
+                                {
+                                    foreach (var e in attr1)
+                                    {
+                                        string key = e.Key == null ? "NULL" : e.Key;
+                                        if (key == "NULL") continue;
+                                        model.Care_Plan_Updated += $"{key}\t - \t{e.Count()}" + " | "; p9 += e.Count();
+                                    }
+                                }
+
+                                var attr13 = ll9.GroupBy(i => i.CI_Form_Number);
+                                if (attr13 != null)
+                                {
+                                    int count = 0;
+                                    foreach (var cc in attr13)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        count += cc.Count();
+                                    }
+                                    model.CI_Form_Number = $"All\t - \t{count}"; p10 += count;
+                                }
+
+                                var attr00 = ll9.GroupBy(i => i.File_Complete);
+                                if (attr00 != null)
+                                {
+                                    foreach (var cc in attr00)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.File_Complete += $"{key}\t - \t{cc.Count()}" + " | "; p11 += cc.Count();
+                                    }
+                                }
+
+                                var attr111 = ll9.GroupBy(i => i.Follow_Up_Amendments);
+                                if (attr111 != null)
+                                {
+                                    foreach (var cc in attr111)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.Follow_Up_Amendments += $"{key}\t - \t{cc.Count()}" + " | "; p12 += cc.Count();
+                                    }
+                                }
+                                foundSummary.Add(model);
+                                model = new CriticalIncidentSummary();
+                            }
+                            #endregion
+
+                            #region 10th Location:
+                            if (ll10 != null)
+                            {
+                                model.LocationName = locList.Find(i => i == "Rideau\r\n" + " - " + cnt10);
+                                var attr11 = ll10.GroupBy(i => i.MOHLTC_Follow_Up);
+                                if (attr11 != null)
+                                {
+                                    foreach (var cc in attr11)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        model.MOHLTC_Follow_Up += $"{key}\t - \t{cc.Count()}" + " | "; p1 += cc.Count();
+                                    }
+                                }
+
+                                var attr10 = ll10.GroupBy(i => i.CIS_Initiated);
+                                if (attr10 != null)
+                                {
+                                    foreach (var cc in attr10)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.CIS_Initiated += $"{key}\t - \t{cc.Count()}" + " | "; p2 += cc.Count();
+                                    }
+                                }
+
+                                var attr7 = ll10.GroupBy(i => i.MOH_Notified);
+                                if (attr7 != null)
+                                {
+                                    foreach (var cc in attr7)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.MOH_Notified += $"{key}\t - \t{cc.Count()}" + " | "; p3 += cc.Count();
+                                    }
+                                }
+
+                                var attr2 = ll10.GroupBy(i => i.POAS_Notified);
+                                if (attr2 != null)
+                                {
+                                    foreach (var d in attr2)
+                                    {
+                                        string key = d.Key == null ? "NULL" : d.Key;
+                                        if (key == "NULL") continue;
+                                        model.POAS_Notified += $"{key}\t - \t{d.Count()}" + " | "; p4 += d.Count();
+                                    }
+                                }
+
+                                var attr4 = ll10.GroupBy(i => i.Police_Notified);
+                                if (attr4 != null)
+                                {
+                                    foreach (var cc in attr4)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.Police_Notified += $"{key}\t - \t{cc.Count()}" + " | "; p5 += cc.Count();
+                                    }
+                                }
+
+
+                                var attr3 = ll10.GroupBy(i => i.Quality_Improvement_Actions);
+                                if (attr3 != null)
+                                {
+                                    foreach (var cc in attr3)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.Quality_Improvement_Actions += $"{key}\t - \t{cc.Count()}" + " | "; p6 += cc.Count();
+                                    }
+                                }
+
+                                var attr8 = ll10.GroupBy(i => i.Risk_Locked);
+                                if (attr8 != null)
+                                {
+                                    foreach (var cc in attr8)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.Risk_Locked += $"{key}\t - \t{cc.Count()}" + " | "; p7 += cc.Count();
+                                    }
+                                }
+
+                                var attr5 = ll10.GroupBy(i => i.Brief_Description);
+                                if (attr5 != null)
+                                {
+                                    foreach (var cc in attr5)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.Brief_Description += $"{key}\t - \t{cc.Count()}" + " | "; p8 += cc.Count();
+                                    }
+                                }
+
+                                var attr1 = ll10.GroupBy(i => i.Care_Plan_Updated);
+                                if (attr1 != null)
+                                {
+                                    foreach (var e in attr1)
+                                    {
+                                        string key = e.Key == null ? "NULL" : e.Key;
+                                        if (key == "NULL") continue;
+                                        model.Care_Plan_Updated += $"{key}\t - \t{e.Count()}" + " | "; p9 += e.Count();
+                                    }
+                                }
+
+                                var attr13 = ll10.GroupBy(i => i.CI_Form_Number);
+                                if (attr13 != null)
+                                {
+                                    int count = 0;
+                                    foreach (var cc in attr13)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        count += cc.Count();
+                                    }
+                                    model.CI_Form_Number = $"All\t - \t{count}"; p10 += count;
+                                }
+
+                                var attr00 = ll10.GroupBy(i => i.File_Complete);
+                                if (attr00 != null)
+                                {
+                                    foreach (var cc in attr00)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.File_Complete += $"{key}\t - \t{cc.Count()}" + " | "; p11 += cc.Count();
+                                    }
+                                }
+
+                                var attr111 = ll10.GroupBy(i => i.Follow_Up_Amendments);
+                                if (attr111 != null)
+                                {
+                                    foreach (var cc in attr111)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.Follow_Up_Amendments += $"{key}\t - \t{cc.Count()}" + " | "; p12 += cc.Count();
+                                    }
+                                }
+                                foundSummary.Add(model);
+                                model = new CriticalIncidentSummary();
+                            }
+                            #endregion
+
+                            #region 11th Location:
+                            if (ll11 != null)
+                            {
+                                model.LocationName = locList.Find(i => i == "Villa da Vinci\r\n" + " - " + cnt11);
+                                var attr11 = ll11.GroupBy(i => i.MOHLTC_Follow_Up);
+                                if (attr11 != null)
+                                {
+                                    foreach (var cc in attr11)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                        if (key == "NULL") continue;
+                                        model.MOHLTC_Follow_Up += $"{key}\t - \t{cc.Count()}" + " | "; p1 += cc.Count();
+                                    }
+                                }
+
+                                var attr10 = ll11.GroupBy(i => i.CIS_Initiated);
+                                if (attr10 != null)
+                                {
+                                    foreach (var cc in attr10)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.CIS_Initiated += $"{key}\t - \t{cc.Count()}" + " | "; p2 += cc.Count();
+                                    }
+                                }
+
+                                var attr7 = ll11.GroupBy(i => i.MOH_Notified);
+                                if (attr7 != null)
+                                {
+                                    foreach (var cc in attr7)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.MOH_Notified += $"{key}\t - \t{cc.Count()}" + " | "; p3 += cc.Count();
+                                    }
+                                }
+
+                                var attr2 = ll11.GroupBy(i => i.POAS_Notified);
+                                if (attr2 != null)
+                                {
+                                    foreach (var d in attr2)
+                                    {
+                                        string key = d.Key == null ? "NULL" : d.Key;
+                                        if (key == "NULL") continue;
+                                        model.POAS_Notified += $"{key}\t - \t{d.Count()}" + " | "; p4 += d.Count();
+                                    }
+                                }
+
+                                var attr4 = ll11.GroupBy(i => i.Police_Notified);
+                                if (attr4 != null)
+                                {
+                                    foreach (var cc in attr4)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.Police_Notified += $"{key}\t - \t{cc.Count()}" + " | "; p5 += cc.Count();
+                                    }
+                                }
+
+
+                                var attr3 = ll11.GroupBy(i => i.Quality_Improvement_Actions);
+                                if (attr3 != null)
+                                {
+                                    foreach (var cc in attr3)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.Quality_Improvement_Actions += $"{key}\t - \t{cc.Count()}" + " | "; p6 += cc.Count();
+                                    }
+                                }
+
+                                var attr8 = ll11.GroupBy(i => i.Risk_Locked);
+                                if (attr8 != null)
+                                {
+                                    foreach (var cc in attr8)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.Risk_Locked += $"{key}\t - \t{cc.Count()}" + " | "; p7 += cc.Count();
+                                    }
+                                }
+
+                                var attr5 = ll11.GroupBy(i => i.Brief_Description);
+                                if (attr5 != null)
+                                {
+                                    foreach (var cc in attr5)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.Brief_Description += $"{key}\t - \t{cc.Count()}" + " | "; p8 += cc.Count();
+                                    }
+                                }
+
+                                var attr1 = ll11.GroupBy(i => i.Care_Plan_Updated);
+                                if (attr1 != null)
+                                {
+                                    foreach (var e in attr1)
+                                    {
+                                        string key = e.Key == null ? "NULL" : e.Key;
+                                        if (key == "NULL") continue;
+                                        model.Care_Plan_Updated += $"{key}\t - \t{e.Count()}" + " | "; p9 += e.Count();
+                                    }
+                                }
+
+                                var attr13 = ll11.GroupBy(i => i.CI_Form_Number);
+                                if (attr13 != null)
+                                {
+                                    int count = 0;
+                                    foreach (var cc in attr13)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        count += cc.Count();
+                                    }
+                                    model.CI_Form_Number = $"All\t - \t{count}"; p10 += count;
+                                }
+
+                                var attr00 = ll11.GroupBy(i => i.File_Complete);
+                                if (attr00 != null)
+                                {
+                                    foreach (var cc in attr00)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.File_Complete += $"{key}\t - \t{cc.Count()}" + " | "; p11 += cc.Count();
+                                    }
+                                }
+
+                                var attr111 = ll11.GroupBy(i => i.Follow_Up_Amendments);
+                                if (attr111 != null)
+                                {
+                                    foreach (var cc in attr111)
+                                    {
+                                        string key = cc.Key == null ? "NULL" : cc.Key;
+                                        if (key == "NULL") continue;
+                                        model.Follow_Up_Amendments += $"{key}\t - \t{cc.Count()}" + " | "; p12 += cc.Count();
+                                    }
+                                }
+                                foundSummary.Add(model);
+                                model = new CriticalIncidentSummary();
+                            }
+                            #endregion
+
+                            // foundSummary.Sort(attr => attr.LocationName)
+
+                            allSummary.Add(new IncidentSummaryAll
+                            {
+                                MOHLTC_Follow_Up = p1,
+                                CIS_Initiated = p2,
+                                MOH_Notified = p3,
+                                POAS_Notified = p4,
+                                Police_Notified = p5,
+                                Quality_Improvement_Actions = p6,
+                                Risk_Locked = p7,
+                                Brief_Description = p8,
+                                Care_Plan_Updated = p9,
+                                CI_Form_Number = p10,
+                                File_Complete = p11,
+                                Follow_Up_Amendments = p12
+                            });
+
+                            { ViewBag.TotalSummary = allSummary; }
+
                             b = true;
                             if (foundSummary.Count == 0) { b = false; ViewBag.EmptLocation = b; }
 
@@ -6379,10 +6466,13 @@ namespace DTS.Controllers
                             {
                                 ViewBag.GN_Found = foundSummary;
                             }
+
                             {
                                 ViewBag.Entity = "Critical_Incidents";
                             }
+
                             if (locList.Count != 0) isEmpty = true;
+
                             { ViewBag.Check1 = isEmpty; }
 
                             {
@@ -9369,6 +9459,7 @@ namespace DTS.Controllers
         }
         #endregion
 
+        #region Insert (Labour Insert):
         [HttpGet]
         public ActionResult Labour_Insert()
         {
@@ -9401,7 +9492,9 @@ namespace DTS.Controllers
                 return RedirectToAction("../Select/Select_Labour");
             }
         }
+        #endregion
 
+        #region Insert (Community_Insert):
         [HttpGet]
         public ActionResult Community_Insert()
         {
@@ -9427,6 +9520,7 @@ namespace DTS.Controllers
                 return RedirectToAction("../Select/Select_Community");
             }
         }
+        #endregion
 
         #region GoodNews Insert:
         [HttpGet]

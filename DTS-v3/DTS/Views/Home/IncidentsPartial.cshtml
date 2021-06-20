@@ -3,8 +3,77 @@
 <h2 style="text-align:center;color:darkorchid">@ViewBag.ObjName (Records Found - <span style="color:gold">@ViewBag.Count</span>) for <span style="color:crimson">@ViewBag.LocInfo</span></h2>
 
 
+
 @if (ViewBag.Check1 == true && ViewBag.EmptLocation == true)
 {
+    <h2 style="text-align:center;color:tomato;font-family:'Palatino Linotype';font-weight:bold">
+        Summary For All Location:
+    </h2>
+    <table class="table table-bordered" style="color: red">
+        <thead>
+            <tr style="font-size:small">
+                <th scope="col">
+                    <label>MOHLTC Follow Up</label>
+                </th>
+                <th scope="col">
+                    <label>CIS Initialated</label>
+                </th>
+                <th scope="col">
+                    <label>MOH Notified</label>
+                </th>
+                <th scope="col">
+                    <label>POAS Notified</label>
+                </th>
+                <th scope="col">
+                    <label>Police Notified</label>
+                </th>
+                <th scope="col">
+                    <label>Quality Improvement Actions</label>
+                </th>
+                <th scope="col">
+                    <label>Risk Locked</label>
+                </th>
+                <th scope="col">
+                    <label>Brief Description</label>
+                </th>
+                <th scope="col">
+                    <label>Care Plan Updated</label>
+                </th>
+                <th scope="col">
+                    <label>CI Form Number</label>
+                </th>
+                <th scope="col">
+                    <label>File Complete</label>
+                </th>
+                <th scope="col">
+                    <label>Follow Up Amendments</label>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                List<DTS.Models.IncidentSummaryAll> arr = ViewBag.TotalSummary;
+                foreach (var ci in arr)
+                {
+                        <tr style="font-size:small;color:black">
+                            <td scope="row">@ci.MOHLTC_Follow_Up</td>
+                            <td scope="row">@ci.CIS_Initiated</td>
+                            <td scope="row">@ci.MOH_Notified</td>
+                            <td scope="row">@ci.POAS_Notified</td>
+                            <td scope="row">@ci.Police_Notified</td>
+                            <td scope="row">@ci.Quality_Improvement_Actions</td>
+                            <td scope="row">@ci.Risk_Locked</td>
+                            <td scope="row">@ci.Brief_Description</td>
+                            <td scope="row">@ci.Care_Plan_Updated</td>
+                            <td scope="row">@ci.CI_Form_Number</td>
+                            <td scope="row">@ci.File_Complete</td>
+                            <td scope="row">@ci.Follow_Up_Amendments</td>
+                        </tr>
+                }
+            }
+        </tbody>
+    </table>
+
     foreach (var l in ViewBag.Locations)
     {
         <h2 style="text-align:center;color:darkorange;font-family:'Times New Roman'">@l</h2>
@@ -50,22 +119,28 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var ci in (List<DTS.Models.CriticalIncidentSummary>)ViewBag.GN_Found)
-                {
-                    <tr style="font-size:small;color:black">
-                        <td scope="row">@Html.DisplayFor(m => ci.MOHLTC_Follow_Up)</td>
-                        <td scope="row">@Html.DisplayFor(m => ci.CIS_Initiated)</td>
-                        <td scope="row">@Html.DisplayFor(m => ci.MOH_Notified)</td>
-                        <td scope="row">@Html.DisplayFor(m => ci.POAS_Notified)</td>
-                        <td scope="row">@Html.DisplayFor(m => ci.Police_Notified)</td>
-                        <td scope="row">@Html.DisplayFor(m => ci.Quality_Improvement_Actions)</td>
-                        <td scope="row">@Html.DisplayFor(m => ci.Risk_Locked)</td>
-                        <td scope="row">@Html.DisplayFor(m => ci.Brief_Description)</td>
-                        <td scope="row">@Html.DisplayFor(m => ci.Care_Plan_Updated)</td>
-                        <td scope="row">@Html.DisplayFor(m => ci.CI_Form_Number)</td>
-                        <td scope="row">@Html.DisplayFor(m => ci.File_Complete)</td>
-                        <td scope="row">@Html.DisplayFor(m => ci.Follow_Up_Amendments)</td>
-                    </tr>
+                @{
+                    List<DTS.Models.CriticalIncidentSummary> list = ViewBag.GN_Found;
+                    for (int ci = 0; ci < list.Count; ci++)
+                    {
+                        if (list[ci].LocationName == l)
+                        {
+                            <tr style="font-size:small;color:black">
+                                <td scope="row">@Html.DisplayFor(m => list[ci].MOHLTC_Follow_Up)</td>
+                                <td scope="row">@Html.DisplayFor(m => list[ci].CIS_Initiated)</td>
+                                <td scope="row">@Html.DisplayFor(m => list[ci].MOH_Notified)</td>
+                                <td scope="row">@Html.DisplayFor(m => list[ci].POAS_Notified)</td>
+                                <td scope="row">@Html.DisplayFor(m => list[ci].Police_Notified)</td>
+                                <td scope="row">@Html.DisplayFor(m => list[ci].Quality_Improvement_Actions)</td>
+                                <td scope="row">@Html.DisplayFor(m => list[ci].Risk_Locked)</td>
+                                <td scope="row">@Html.DisplayFor(m => list[ci].Brief_Description)</td>
+                                <td scope="row">@Html.DisplayFor(m => list[ci].Care_Plan_Updated)</td>
+                                <td scope="row">@Html.DisplayFor(m => list[ci].CI_Form_Number)</td>
+                                <td scope="row">@Html.DisplayFor(m => list[ci].File_Complete)</td>
+                                <td scope="row">@Html.DisplayFor(m => list[ci].Follow_Up_Amendments)</td>
+                            </tr>
+                        }
+                    }
                 }
             </tbody>
         </table>

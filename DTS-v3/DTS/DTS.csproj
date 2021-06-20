@@ -170,6 +170,7 @@
     <Compile Include="Models\Emergency_Prep.cs" />
     <Compile Include="Models\Good_News.cs" />
     <Compile Include="Models\Immunization.cs" />
+    <Compile Include="Models\IncidentSummaryAll.cs" />
     <Compile Include="Models\InspectionInfo.cs" />
     <Compile Include="Models\Labour_Relations.cs" />
     <Compile Include="Models\MyContext.cs" />
