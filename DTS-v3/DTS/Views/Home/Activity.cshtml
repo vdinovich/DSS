@@ -1,0 +1,70 @@
+﻿
+@using DTS.Helpers
+
+@section head{
+    @Styles.Render("~/Content/Tree.css")
+}
+
+@model List<DTS.Models.Activities>
+
+
+@for (var i = 0; i < Model.Count; i++)
+{
+    using (Html.BeginForm("SelectLoc", "Activities", new { val = Model[i].ActivityDescription }, FormMethod.Post))
+    {
+        if (Model[i].ChildActivities.Count > 0)
+        {
+            var ahref = "hide" + @Model[i].ActivityID;
+            <li>
+                <div class="parent">
+                    <div class="pull-right child">
+                        @Html.NoEncodeActionLink("<span class='glyphicon glyphicon-plus'></span>", "Add", "Add", "Activities", new { id = Model[i].ActivityID }, new { @class = "btn btn-primary btn-lg", style = "display:inline" })
+                    </div>
+                <a class="a-with-children" href="#@ahref" data-toggle="collapse">
+                    <div>
+                        @Html.RadioButtonFor(m => Model[i].ActivityDescription, "descript", new { @Name = "radio", @value = Model[i].ActivityID, @class = "tree-checkbox parent" })
+                    </div>                
+    @*@Html.RadioButton(@Model[i].ActivityDescription, false, new { @Name = "radio", @value = Model[i].ActivityID, @class = "tree-checkbox parent" })*@
+                    <label for=@Model[i].ActivityID>
+                        @Html.DisplayFor(list => list[i].ActivityDescription)
+                    </label>
+                </a>
+                </div>
+                <ul>
+                    <div id="@ahref" class="panel-collapse collapse in">
+                        @{ Html.RenderPartial("~/Views/Partial/Activity.cshtml", Model[i].ChildActivities); }
+                    </div>
+                </ul>
+            </li> @*<li>
+                    <input style="display:inline" type="submit" value="Submit" class="btn btn-success" />
+                </li>*@ 
+                   }
+        else
+        {
+            <li>
+                <div class="parent">
+                    <div class="pull-right child" >
+                        @Html.NoEncodeActionLink("<span class='glyphicon glyphicon-plus'></span>", "Add", "Add", "Activities", new { id = Model[i].ActivityID }, new { @class = "btn btn-primary btn-lg" })
+                    </div>
+                    @*<div style="display:inline">
+                            <input style="width:50px" type="submit" value="Select" class="btn btn-success btn-lg" />
+                        </div>*@
+                    <a href="#">
+                        @Html.RadioButtonFor(m=>Model[i].ActivityDescription, "descript", new { @Name = "radio", @value = Model[i].ActivityID, @class = "tree-checkbox parent" })
+                        <label for=@Model[i].ActivityID>
+                            @Html.DisplayFor(list => list[i].ActivityDescription)
+                        </label>
+                    </a>
+                </div>
+            </li>
+        } @*@Html.ActionLink("Select", "SelectLoc", "Activities", new { val = Model[i].ActivityID }, new { @class = "btn btn-success" })*@
+        @*<div style="display:inline">
+            <input style="display:inline" type="submit" value="Select" class="btn btn-success btn-lg" />
+        </div>*@
+    }
+}
+
+@section scripts{
+    @Scripts.Render("~/Scripts/tree.js")
+}
+

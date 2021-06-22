@@ -1,69 +1,51 @@
 ﻿@model DTS.Controllers.WorTabs
-@{ Layout = null;}
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - WOR Compliants sf</title>
-    @*@Styles.Render("~/Content/css")
-        @Scripts.Render("~/bundles/modernizr")*@
-    <link href="~/Content/bootstrap.css" rel="stylesheet" />
-    @*<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">*@
-</head>
-<body>
+@{ ViewBag.Title = "WOR Tabs"; }
 
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @*<a href="~/Home/Index"><img src="~/Logo/logo2.png" style="width:90px;height:35px;margin:7px 0 0 10px" /></a>*@
-                @Html.ActionLink("SIENNA", "SignIN", "Home", null, new { id = "nameApp" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("WOR Tabs", "WOR_Tabs", "Home")</li>
-                    <li>@Html.ActionLink("All Uploaded Files", "AllFiles", "Home")</li>
-                    <li>@Html.ActionLink("Register", "Register_New_User", "Register")</li>
-                    <li>@Html.ActionLink("About", "Index", "AdminLTE")</li>
-                    <li>@Html.ActionLink("PDF Viewer(Test)", "SearchByWord", "AdminLTE")</li>
-                    <li>
-                        <a href="https://siennaliving.sharepoint.com/SitePages/Home.aspx">Exit</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
+@section head
+    {
+        @Styles.Render("~/Content/Tree.css")
+    }
 
-    <div style="margin-top:55px" @*class="container body-content"*@>
-        <div style="width:320px;margin:auto">
-            <img src="~/Logo/logo1_sm.png" />
-        </div>
+    @section scripts
+        {
+        @Scripts.Render("~/Scripts/tree.js")
+    }
+
+    <div>
         <h4 style="text-align:center;font-weight:bold;color:red">@ViewBag.ErrorMsg</h4>
         <h4 style="text-align:center;font-weight:bold;color:green">@ViewBag.SuccessExport</h4>
         <br />
         <div style="">
             @using (Html.BeginForm("WOR_Tabs", "Home", FormMethod.Post))
             {
-                <div style="width:89%" class="container">
                     <h3 style="text-align:right;color:darkorange;font-family:'Palatino Linotype'">You Entered as - @ViewBag.Welcome</h3>
                     <div class="row">
 
-                        <div style="height:540px;position:relative" id="div" class="col-lg-2 col-md-2">
+                        <div style="height:540px;position:relative;width:450px" id="div" class="col-lg-1 col-md-1">
                             <ul style="font-weight:bold;font-family:'Palatino Linotype';font-size:larger;list-style-type: none;position:absolute">
                                 <li>
-                                    @Html.ListBoxFor(model => model.Name, new SelectList(Model.ListForms, "Value", "Text", Model.ListForms.SelectedValue), new { id = "ref" })
+
+                                    <!-- Add treeWiew: -->
+
+                                    <script type="text/javascript" src="~/Scripts/jquery-1.10.2.js"></script>
+                                    @{ Html.RenderPartial("Activity", (List<DTS.Models.Activities>)ViewBag.Activities); }
+
+                                    <!--
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading panel-head">Activities</div>
+                                        <div id="frm-author" class="panel-body">
+                                            <div class="tree">
+                                                { Html.RenderPartial("Activity", (List<DTS.Models.Activities>)ViewBag.Activities[0]); }
+                                            </div>
+                                        </div>
+                                    </div>-->
+                                    @*@Html.ListBoxFor(model => model.Name, new SelectList(Model.ListForms, "Value", "Text", Model.ListForms.SelectedValue), new { id = "ref" })*@
                                 </li>
                             </ul>
                         </div>
 
-                        <div @*style="border:1px solid black"*@ class="col-lg-10 col-md-10">
+                        <div style="border:1px solid black" class="col-lg-9 col-md-9">
                             <ul style="" class="nav nav-justified badge">
                                 <li><button class="btn add-on" style="color:darkgoldenrod;font-size:medium;font-weight:bold" name="btn-summary" type="submit">SUMMARY</button></li>
                                 <li>
@@ -99,12 +81,12 @@
                                 </label>&nbsp; &nbsp;
                                 <label class="form-check-label">
                                     @*<input type="radio" id="r2" class="form-check-input" name="range-without" />*@
-                                    @Html.RadioButtonFor(model => model.WithoutRadio, "-without", new { @Name = "range", id = "r2"})
+                                    @Html.RadioButtonFor(model => model.WithoutRadio, "-without", new { @Name = "range", id = "r2" })
                                     With All Data
                                 </label>&nbsp; &nbsp;
                                 <!--<label class="form-check-label">-->
-                                    @*<input type="radio" id="r3" class="form-check-input" name="range-filter" />*@
-                                    <!--@Html.RadioButtonFor(model => model.FilterRadio, "-filter", new { @Name = "range", id = "r3" })
+                                @*<input type="radio" id="r3" class="form-check-input" name="range-filter" />*@
+                                <!--@Html.RadioButtonFor(model => model.FilterRadio, "-filter", new { @Name = "range", id = "r3" })
                                     Select Month Back
                                 </label>-->
 
@@ -127,7 +109,7 @@
                                         $("#filter").show("slow");
                                     });
                                 });
-                            </script>         
+                            </script>
                             <br />
                             <div id="rangePart">
                                 <ul class="nav nav-justified">
@@ -416,21 +398,10 @@
                             }
                         </div>
                     </div>
-                </div>
             }
-
         </div>
     </div>
-
-
     <hr />
-    <footer>
-        <p style="text-align:center;font-weight:bold">&copy; @DateTime.Now.Year - WOR Report</p>
-    </footer>
-
-
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
 
     <style>
         #nameApp {
@@ -450,8 +421,7 @@
                 color: navajowhite;
             }
     </style>
-</body>
-</html>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 
@@ -539,3 +509,5 @@
             color: darkorange;
         }*/
 </style>
+
+

@@ -1,13 +1,16 @@
 ﻿using DTS.Models;
 using System;
 using System.Collections;
+using static System.String;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using DTS.Helpers;
 
 namespace DTS.Controllers
 {
@@ -341,6 +344,7 @@ namespace DTS.Controllers
         public static string checkView = "none";
         public static bool b = false;
         static List<IncidentSummaryAll> allSummary = new List<IncidentSummaryAll>();
+        public static List<Activities> formList = default;
         [HttpGet]
         public ActionResult WOR_Tabs()
         {
@@ -348,8 +352,15 @@ namespace DTS.Controllers
 
             // This represents the newest TreeView:
 
-
             // { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
+            
+            try
+            {
+                formList = db.Activities.ToList();
+            }
+            catch { throw new Exception(); }
+
+            { ViewBag.Activities = formList; }
 
             if (role == Role.Admin)
                 ViewBag.Welcome = Role.Admin;
@@ -9953,7 +9964,7 @@ namespace DTS.Controllers
         }
     }
 
-    public class WorTabs
+    public class WorTabs 
     {
         public int Id { get; set; }
         public string SearchBy { get; set; }
@@ -9969,6 +9980,6 @@ namespace DTS.Controllers
         // For Radio:
         public string WithRadio { get; set; }
         public string WithoutRadio { get; set; }
-        public string FilterRadio { get; set; }
+        public string FilterRadio { get; set; }     
     }
 }

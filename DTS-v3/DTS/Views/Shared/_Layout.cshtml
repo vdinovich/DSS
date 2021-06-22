@@ -34,10 +34,13 @@
             </div>
         </div>
     </div>
-    <div class="container body-content">
-        <div style="width:320px;margin:auto">
-            <img src="~/Logo/logo1_sm.png" />
-        </div>
+
+    <div style="margin:auto;width:200px">
+        <img src="~/Logo/logo1_sm.png" />
+    </div>
+
+    <div style="width: 1850px" class="container body-content">
+
         @RenderBody()
         <hr />
         <footer>
@@ -48,6 +51,7 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    @RenderSection("head", required: false)
 
     <style>
         #nameApp {

@@ -142,6 +142,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ActivitiesController.cs" />
     <Compile Include="Controllers\AdminLTEController.cs" />
     <Compile Include="Controllers\DeleteController.cs" />
     <Compile Include="Controllers\DetailsController.cs" />
@@ -158,6 +159,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Helper.cs" />
+    <Compile Include="Models\Activities.cs" />
     <Compile Include="Models\ADO_NET_CRUD.cs" />
     <Compile Include="Models\Care_Community.cs" />
     <Compile Include="Models\CI_Category_Type.cs" />
@@ -166,6 +169,7 @@
     <Compile Include="Models\CriticalIncidentSummary.cs" />
     <Compile Include="Models\Critical_Incidents.cs" />
     <Compile Include="Models\Department.cs" />
+    <Compile Include="Models\EditViewModel.cs" />
     <Compile Include="Models\Education.cs" />
     <Compile Include="Models\Emergency_Prep.cs" />
     <Compile Include="Models\Good_News.cs" />
@@ -185,6 +189,7 @@
     <Compile Include="Models\Searcher.cs" />
     <Compile Include="Models\Search_Word.cs" />
     <Compile Include="Models\Sign_in_Main.cs" />
+    <Compile Include="Models\SortType.cs" />
     <Compile Include="Models\STREAM.cs" />
     <Compile Include="Models\TablesContainer.cs" />
     <Compile Include="Models\Users.cs" />
@@ -322,6 +327,7 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Content\Tree.css" />
     <Content Include="DATA\dss1.mdf" />
     <Content Include="DATA\dss1_log.ldf">
       <DependentUpon>dss1.mdf</DependentUpon>
@@ -344,8 +350,16 @@
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="admin-lte\css\adminlte.min.css.map" />
     <Content Include="admin-lte\css\adminlte.css.map" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\tree.js" />
+    <None Include="Scripts\_references.js" />
     <Content Include="wwwroot\bower_components\bootstrap-colorpicker\dist\css\bootstrap-colorpicker.css" />
     <Content Include="wwwroot\bower_components\bootstrap-colorpicker\dist\css\bootstrap-colorpicker.min.css" />
     <Content Include="wwwroot\bower_components\bootstrap-colorpicker\dist\img\bootstrap-colorpicker\alpha-horizontal.png" />
@@ -4267,6 +4281,7 @@
       <DependentUpon>DataSet1.xsd</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -4875,10 +4890,13 @@
     <Content Include="Views\Home\ImmunizatSummaryPartial.cshtml" />
     <Content Include="Views\Home\OutbrakSummaryPa.cshtml" />
     <Content Include="Views\Home\TreeViewpartialo.cshtml" />
+    <Content Include="Views\Home\Activity.cshtml" />
+    <Content Include="Views\Activities\Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DownloadedFiles\" />
     <Folder Include="PrintTables\" />
+    <Folder Include="Views\Partial\" />
     <Folder Include="Views\WSIB\" />
   </ItemGroup>
   <ItemGroup>
