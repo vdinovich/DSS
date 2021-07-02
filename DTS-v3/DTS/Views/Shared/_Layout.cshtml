@@ -8,7 +8,7 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-inverse navbar-fixed-top" style="font-size:medium">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -30,6 +30,7 @@
                     <li>
                         <a href="https://siennaliving.sharepoint.com/SitePages/Home.aspx">Exit</a>
                     </li>
+                    <li>@Html.ActionLink("Logout", "Logout", "Home", "", new { @style="color:red"})</li>
                 </ul>
             </div>
         </div>
@@ -39,7 +40,7 @@
         <img src="~/Logo/logo1_sm.png" />
     </div>
 
-    <div style="width: 1850px" class="container body-content">
+    <div style="" class="container body-content">
 
         @RenderBody()
         <hr />

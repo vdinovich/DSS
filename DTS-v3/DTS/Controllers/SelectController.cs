@@ -13,9 +13,19 @@ namespace DTS.Controllers
         public ActionResult Select_Incidents()
         {
             bool flag;
-            int id_loc = HomeController.Id_Location;  /// Get id location from Sign_In_Main page HomeControllers'
-            IEnumerable<Critical_Incidents> list = db.Critical_Incidents.Where(l => l.Location == id_loc); // get list of records from Critical_Incidents(Location) 
+            int id_loc = 0;
+            IEnumerable<Critical_Incidents> list = default;
             IEnumerable<CI_Category_Type> ll = db.CI_Category_Types;
+            if (!HomeController.isAdmin) // if user role
+            {
+                id_loc = HomeController.Id_Location;  /// Get id location from Sign_In_Main page HomeControllers'
+                list = db.Critical_Incidents.Where(l => l.Location == id_loc); // get list of records from Critical_Incidents(Location) 
+            }
+            else // admin
+            {
+                list = db.Critical_Incidents.ToList();
+            }
+
             if (list.Count() == 0)
             {
                 ViewBag.err = flag = false;
@@ -24,24 +34,28 @@ namespace DTS.Controllers
             }
             else
             {
-                ViewBag.err = flag = true;
-                Care_Community cc = db.Care_Communities.Find(id_loc);
-                List<string> nms = new List<string>();
-                List<Critical_Incidents> kk = list.ToList();
-                for (int i = 0; i < kk.Count; i++)
+                if (!HomeController.isAdmin) // if user role
                 {
-                    int id = kk[i].CI_Category_Type;
-                    string name = db.CI_Category_Types.Find(id).Name;
-                    nms.Add(name);
-                    ViewBag.List1 = nms;
+                    ViewBag.err = flag = true;
+                    Care_Community cc = db.Care_Communities.Find(id_loc);                  
+                    { ViewBag.List1 = STREAM.GetCINames().ToArray(); }
+                    { ViewBag.list = cc.Name; }
+                    return View(list);
                 }
-
-                ViewBag.list = cc.Name;
-                return View(list);
-                Care_Community c = db.Care_Communities.Find(id_loc);
-                ViewBag.list = c.Name;
-                ViewBag.err = flag = true;
-                return View(list);
+                else // admin
+                {
+                    ViewBag.err = flag = true;
+                    List<Critical_Incidents> kk = list.ToList();
+                    for (int i = 0; i < kk.Count; i++)
+                    {
+                        int id = kk[i].CI_Category_Type;
+                        string name = db.CI_Category_Types.Find(id).Name;
+                    }
+                    { ViewBag.IsAdmin = HomeController.isAdmin; }
+                    { ViewBag.List1 = STREAM.GetCINames().ToArray(); }
+                    { ViewBag.list = STREAM.GetLocNames().ToArray(); }
+                    return View(list);
+                }
             }
         }
 

@@ -80,64 +80,74 @@
                 int i = 0;
                 foreach (var item in Model)
                 {
-                    <tr style="font-size:small">
-                        <td scope="row" style="color:red">
-                            @Html.DisplayFor(modelItem => item.id)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Date)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CI_Form_Number)
-                        </td>
-                        <td>
-                            @ViewBag.List1[0]
-                            @* @Html.DisplayFor(modelItem => item.CI_Category_Type)*@
-                        </td>
-                        <td>
-                            @ViewBag.list
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Brief_Description)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.MOH_Notified)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Police_Notified)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.POAS_Notified)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Care_Plan_Updated)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Quality_Improvement_Actions)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.MOHLTC_Follow_Up)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CIS_Initiated)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Follow_Up_Amendments)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Risk_Locked)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.File_Complete)
-                        </td>
-                        <td>
-                            <div style="width:160px;margin-top:10px">
-                                @Html.ActionLink("Edit", "Edit_Incidents", "Edit", new { id = item.id }, new { @class = "b" })
-                                @Html.ActionLink("Details", "Incidents_Details", "Details", new { id = item.id }, new { @class = "b" })
-                                @Html.ActionLink("Delete", "Incident_Delete", "Delete", new { id = item.id }, new { @class = "b" })
-                            </div>
-                        </td>
-                    </tr>
+                        <tr style="font-size:small">
+                            <td scope="row" style="color:red">
+                                @Html.DisplayFor(modelItem => item.id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Date)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CI_Form_Number)
+                            </td>
+                            <td>
+                                @if (ViewBag.IsAdmin == true)
+                                {
+                                    @ViewBag.List1[item.CI_Category_Type - 1];
+                                }
+                                else { @ViewBag.List1[item.CI_Category_Type -1]; };
+                            </td>
+                            <td>
+                                @if (ViewBag.IsAdmin == true)
+                                {
+                                    @ViewBag.list[item.Location - 1];
+                                }
+                                else
+                                {
+                                    @ViewBag.list;
+                                }
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Brief_Description)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MOH_Notified)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Police_Notified)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.POAS_Notified)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Care_Plan_Updated)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Quality_Improvement_Actions)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MOHLTC_Follow_Up)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CIS_Initiated)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Follow_Up_Amendments)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Risk_Locked)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.File_Complete)
+                            </td>
+                            <td>
+                                <div style="width:160px;margin-top:10px">
+                                    @Html.ActionLink("Edit", "Edit_Incidents", "Edit", new { id = item.id }, new { @class = "b" })
+                                    @Html.ActionLink("Details", "Incidents_Details", "Details", new { id = item.id }, new { @class = "b" })
+                                    @Html.ActionLink("Delete", "Incident_Delete", "Delete", new { id = item.id }, new { @class = "b" })
+                                </div>
+                            </td>
+                        </tr>
                 } }
         </tbody>
     </table>

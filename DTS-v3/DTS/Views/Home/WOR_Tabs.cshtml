@@ -2,425 +2,585 @@
 
 @{ ViewBag.Title = "WOR Tabs"; }
 
-@section head
-    {
-        @Styles.Render("~/Content/Tree.css")
-    }
 
-    @section scripts
+<div>
+    <h4 style="text-align:center;font-weight:bold;color:red">@ViewBag.ErrorMsg</h4>
+    <h4 style="text-align:center;font-weight:bold;color:green">@ViewBag.SuccessExport</h4>
+    <br />
+    <div style="">
+        @using (Html.BeginForm("WOR_Tabs", "Home", FormMethod.Post))
         {
-        @Scripts.Render("~/Scripts/tree.js")
-    }
+            <h3 style="text-align:right;color:darkorange;font-family:'Palatino Linotype'">You Entered as - @ViewBag.Welcome</h3>
+            <div class="row">
 
-    <div>
-        <h4 style="text-align:center;font-weight:bold;color:red">@ViewBag.ErrorMsg</h4>
-        <h4 style="text-align:center;font-weight:bold;color:green">@ViewBag.SuccessExport</h4>
-        <br />
-        <div style="">
-            @using (Html.BeginForm("WOR_Tabs", "Home", FormMethod.Post))
-            {
-                    <h3 style="text-align:right;color:darkorange;font-family:'Palatino Linotype'">You Entered as - @ViewBag.Welcome</h3>
-                    <div class="row">
+                <div style="height:540px;position:relative;width:350px;margin:0 0 0 -60px" id="div" class="col-lg-1 col-md-1">
+                    <ul class="main" id="list" style="font-size:medium;
+                               font-family:'Palatino Linotype';
+                               font-size:medium;
+                               list-style-type: none">
+                        <li>
+                            @Html.RadioButtonFor(model => model.Param1, "1", new { @Name = "formRadio", id = "p1" })
+                            <label class="form-check-label" for="p1">Critical Incidents</label>
+                        </li>
+                        <li>
+                            @Html.RadioButtonFor(model => model.Param1, "2", new { @Name = "formRadio", id = "p1" })
+                            <label class="form-check-label" for="p1">Complaints</label>
+                            <br />
+                        </li>
+                        <li>
+                            @Html.RadioButtonFor(model => model.Param1, "3", new { @Name = "formRadio", id = "p1" })
+                            <label class="form-check-label" for="p1">Good News</label>
+                            <br />
+                        </li>
+                        <li>
+                            @Html.RadioButtonFor(model => model.Param1, "4", new { @Name = "formRadio", id = "p1" })
+                            <label class="form-check-label" for="p1"> Emergency Prep </label>
+                            <br />
+                        </li>
+                        <li>
+                            @Html.RadioButtonFor(model => model.Param1, "5", new { @Name = "formRadio", id = "p1" })
+                            <label class="form-check-label" for="p1">Community Risk or Legal</label>
+                            <br />
+                        </li>
 
-                        <div style="height:540px;position:relative;width:450px" id="div" class="col-lg-1 col-md-1">
-                            <ul style="font-weight:bold;font-family:'Palatino Linotype';font-size:larger;list-style-type: none;position:absolute">
-                                <li>
+                        <li id="lii" style="list-style-type: none;font-size: medium;font-weight: bold"
+                            class="single">
+                            Agency Inspections
+                            <ul style="list-style-type: none" class="sub">
+                                <li id="sub1">
+                                    Ontario
+                                    <ul style="list-style-type: none" class="sub">
+                                        <li>
+                                            @Html.RadioButtonFor(model => model.Param1, "6", new { @Name = "formRadio", id = "p1" })
+                                            <label class="form-check-label" for="p1">Ministry of Health</label>
+                                        </li>
+                                        <li>
+                                            @Html.RadioButtonFor(model => model.Param1, "7", new { @Name = "formRadio" })
+                                            <label class="form-check-label" for="p1">Ministry of Labour</label>
+                                        </li>
+                                        <li>
+                                            @Html.RadioButtonFor(model => model.Param1, "8", new { @Name = "formRadio" })
+                                            <label class="form-check-label" for="p1">Fire</label>
+                                        </li>
 
-                                    <!-- Add treeWiew: -->
+                                        <li>
+                                            @Html.RadioButtonFor(model => model.Param1, "9", new { @Name = "formRadio" })
+                                            <label class="form-check-label" for="p1">TSSA</label>
+                                        </li>
 
-                                    <script type="text/javascript" src="~/Scripts/jquery-1.10.2.js"></script>
-                                    @{ Html.RenderPartial("Activity", (List<DTS.Models.Activities>)ViewBag.Activities); }
+                                        <li>
+                                            @Html.RadioButtonFor(model => model.Param1, "10", new { @Name = "formRadio" })
+                                            <label class="form-check-label" for="p1">Other</label>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li id="sub2">
+                                    British Columbia
+                                    <ul style="list-style-type: none" class="sub">
+                                        <li>
+                                            @Html.RadioButtonFor(model => model.Param1, "11", new { @Name = "formRadio", id = "p1" })
+                                            <label class="form-check-label" for="p1">Ministry of Health</label>
+                                        </li>
+                                        <li>
+                                            @Html.RadioButtonFor(model => model.Param1, "12", new { @Name = "formRadio" })
+                                            <label class="form-check-label" for="p1">Ministry of Labour</label>
+                                        </li>
+                                        <li>
+                                            @Html.RadioButtonFor(model => model.Param1, "13", new { @Name = "formRadio" })
+                                            <label class="form-check-label" for="p1">Fire</label>
+                                        </li>
 
-                                    <!--
-                                    <div class="panel panel-primary">
-                                        <div class="panel-heading panel-head">Activities</div>
-                                        <div id="frm-author" class="panel-body">
-                                            <div class="tree">
-                                                { Html.RenderPartial("Activity", (List<DTS.Models.Activities>)ViewBag.Activities[0]); }
-                                            </div>
-                                        </div>
-                                    </div>-->
-                                    @*@Html.ListBoxFor(model => model.Name, new SelectList(Model.ListForms, "Value", "Text", Model.ListForms.SelectedValue), new { id = "ref" })*@
+                                        <li>
+                                            @Html.RadioButtonFor(model => model.Param1, "14", new { @Name = "formRadio" })
+                                            <label class="form-check-label" for="p1">TSSA</label>
+                                        </li>
+
+                                        <li>
+                                            @Html.RadioButtonFor(model => model.Param1, "15", new { @Name = "formRadio" })
+                                            <label class="form-check-label" for="p1">Other</label>
+                                        </li>
+                                    </ul>
                                 </li>
                             </ul>
-                        </div>
+                        </li>
 
-                        <div style="border:1px solid black" class="col-lg-9 col-md-9">
-                            <ul style="" class="nav nav-justified badge">
-                                <li><button class="btn add-on" style="color:darkgoldenrod;font-size:medium;font-weight:bold" name="btn-summary" type="submit">SUMMARY</button></li>
+                        <li id="lii" style="list-style-type: none;font-size: medium;font-weight: bold">
+                            Privacy
+                            <ul style="list-style-type: none" class="sub">
                                 <li>
-                                    <p class="btn btn-dropbox" name="btn-insert" style="width:220px;background-color:whitesmoke; color:darkgoldenrod;font-size:medium;font-weight:bold" id="hiddenShow">
-                                        NEW COMPLIANCE
-                                    </p>
+                                    @Html.RadioButtonFor(model => model.Param1, "16", new { @Name = "formRadio" })
+                                    <label class="form-check-label" for="p1">Breach</label>
                                 </li>
                                 <li>
-                                    <button class="btn btn-dropbox" name="btn-export" style="color: darkgoldenrod; font-size: medium; font-weight: bold" type="submit">
-                                        EXPORT DATA
-                                    </button>
+                                    @Html.RadioButtonFor(model => model.Param1, "17", new { @Name = "formRadio" })
+                                    <label class="form-check-label" for="p1">Complaints</label>
                                 </li>
                             </ul>
-                            <br /><br />
-                            <ul class="nav nav-justified" style="width:1600px" id="btns">
-                                <li><button hidden type="submit"></button></li>
-                                <li id="ll" style="">
-                                    <button id="b1" class="btn btn-primary" name="btn-insert" style="margin: -15px 0 0 225px" type="submit">Input New Record</button>
-                                    <button id="b2" class="btn btn-primary" style="margin:-15px 0 0 3px" name="btn-list">All Records</button>
+                        </li>
+
+                        <li>
+                            @Html.RadioButtonFor(model => model.Param1, "18", new { @Name = "formRadio", id = "p1" })
+                            <label class="form-check-label" for="p1">Education</label>
+                            <br />
+                        </li>
+                        <li>
+                            @Html.RadioButtonFor(model => model.Param1, "19", new { @Name = "formRadio", id = "p1" })
+                            <label class="form-check-label" for="p1">Labor Relations</label>
+                            <br />
+                        </li>
+                        <li>
+                            @Html.RadioButtonFor(model => model.Param1, "20", new { @Name = "formRadio", id = "p1" })
+                            <label class="form-check-label" for="p1">Immunization</label>
+                            <br />
+                        </li>
+                        <li>
+                            @Html.RadioButtonFor(model => model.Param1, "21", new { @Name = "formRadio", id = "p1" })
+                            <label class="form-check-label" for="p1">Outbreak</label>
+                            <br />
+                        </li>
+                        <li id="lii" style="list-style-type: none;font-size: medium;font-weight: bold">
+                            TM Incident
+                            <ul style="list-style-type: none" class="sub">
+                                <li>
+                                    @Html.RadioButtonFor(model => model.Param1, "22", new { @Name = "formRadio" })
+                                    <label class="form-check-label" for="p1">WSIB</label>
                                 </li>
-                                <li></li>
+                                <li>
+                                    @Html.RadioButtonFor(model => model.Param1, "23", new { @Name = "formRadio" })
+                                    <label class="form-check-label" for="p1">Internal</label>
+                                </li>
                             </ul>
+                        </li>
+                    </ul>
+                    <style>
+                        #lii {
+                            list-style-type: none;
+                        }
+                        #sub1::before {
+                            content: '+';
+                        }
+                        #sub2::before {
+                            content: '+';
+                        }
+                            #lii::before {
+                                content: '+';
+                     
+                            }
+                        p1 {
+                            font-size: small;
+                        }
 
+                        body {
+                            font-size: 20px;
+                            font-weight: 500;
+                            font-family: sans-serif;
+                        }
+
+                        .sub {
+                            display: none;
+                        }
+                        #r1{
+                            font-size:medium;
+                        }
+                    </style>
+
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+                    <script type="text/javascript">
+                        $(function () {
+                            $('ul').hide;
+                            $('.main li').click(function () {
+                                $(this).find('.sub').slideToggle();
+                            })
+                        });
+                    </script>
+                    @*@Html.ListBoxFor(model => model.Name, new SelectList(Model.ListForms, "Value", "Text", Model.ListForms.SelectedValue), new { id = "ref" })*@
+                </div>
+
+                <div style="width:810px" class="col-lg-9 col-md-9">
+                    <ul style="" class="nav nav-justified badge">
+                        <li><button class="btn add-on" style="color:darkgoldenrod;font-size:medium;font-weight:bold" name="btn-summary" type="submit">SUMMARY</button></li>
+                        <li>
+                            <p class="btn btn-dropbox" name="btn-insert" style="width:220px;background-color:whitesmoke; color:darkgoldenrod;font-size:medium;font-weight:bold" id="hiddenShow">
+                                NEW COMPLIANCE
+                            </p>
+                        </li>
+                        <li>
+                            <button class="btn btn-dropbox" name="btn-export" style="color: darkgoldenrod; font-size: medium; font-weight: bold" type="submit">
+                                EXPORT DATA
+                            </button>
+                        </li>
+                    </ul>
+
+                    <ul class="nav nav-justified" style="width:900px" id="btns">
+                        @*<li><button hidden type="submit"></button></li>*@
+                        <li id="ll" style="">
+                            <button id="b1" class="btn btn-primary" name="btn-insert" style="margin: -15px 0 0 225px" type="submit">Input New Record</button>
+                            <button id="b2" class="btn btn-primary" style="margin:-15px 0 0 3px" name="btn-list">All Records</button>
+                        </li>
+                        <li></li>
+                    </ul>
+
+                    <div style="margin:-36px 0 0 0">
+                        <div class="form-check-inline" style="width:420px;padding:5px;margin:auto">
+                            @Html.DropDownListFor(model => model.Filter, new SelectList(new string[] { "1 month back", "2 month back", "3 month back" }, "", ""), new { id = "filter", @class = "form-control" })
                             <br />
-                            <br />
-                            <div class="form-check-inline" style="width:420px;padding:5px;margin:auto;">
-                                @Html.DropDownListFor(model => model.Filter, new SelectList(new string[] { "1 month back", "2 month back", "3 month back" }, "", ""), new { id = "filter", @class = "form-control" })
-                                <br />
-                                <label class="form-check-label">
-                                    @*<input type="radio" id="r1" class="form-check-input" name="range-with" />*@
-                                    @Html.RadioButtonFor(model => model.WithRadio, "-with", new { @Name = "range", @checked = "checked", id = "r1" })
-                                    With Date Range
-                                </label>&nbsp; &nbsp;
-                                <label class="form-check-label">
-                                    @*<input type="radio" id="r2" class="form-check-input" name="range-without" />*@
-                                    @Html.RadioButtonFor(model => model.WithoutRadio, "-without", new { @Name = "range", id = "r2" })
-                                    With All Data
-                                </label>&nbsp; &nbsp;
-                                <!--<label class="form-check-label">-->
-                                @*<input type="radio" id="r3" class="form-check-input" name="range-filter" />*@
-                                <!--@Html.RadioButtonFor(model => model.FilterRadio, "-filter", new { @Name = "range", id = "r3" })
-                                    Select Month Back
-                                </label>-->
-
-                            </div>
-
-                            <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-                            <script>
-                                $(document).ready(function () {
-                                    $("#filter").hide("slow");
-                                    $("#r2").click(function () {
-                                        $("#rangePart").hide("slow");
-                                        $("#filter").hide("slow");
-                                    });
-                                    $("#r1").click(function () {
-                                        $("#rangePart").show("slow");
-                                        $("#filter").hide("slow");
-                                    });
-                                    $("#r3").click(function () {
-                                        $("#rangePart").hide("slow");
-                                        $("#filter").show("slow");
-                                    });
-                                });
-                            </script>
-                            <br />
-                            <div id="rangePart">
-                                <ul class="nav nav-justified">
-                                    <li id="d" style="font-family:'Palatino Linotype';font-size:medium">Date range:</li>
-                                    <li style="color: darkorange;font-size: medium"> Start:&nbsp; @Html.EditorFor(model => model.Start, new { htmlAttributes = new { @class = "", @id = "start" } })</li>
-                                    <li style="color: darkorange;font-size: medium"> End:&nbsp;   @Html.EditorFor(model => model.End, new { htmlAttributes = new { @class = "", @id = "end" } })</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4" style="width:80%">
-                            @if (ViewBag.Check == "none")
-                            {
-
-                            }
-                            else if (ViewBag.Check == "insert")
-                            {
-
-                            }
-                            else if (ViewBag.Check == "search")
-                            {
-                                switch (ViewBag.Check1)
-                                {
-                                    case "search1":
-                                        <br /><br />
-                                        <div class="row" style="">
-                                            <label style="text-align:right;font-size:large;color:brown" class="col-sm-4">Search by CI Category Number</label>
-                                            <div style="width:340px" class="col-md-1">
-                                                @Html.DropDownListFor(model => model.Id, ViewBag.ListCI as SelectList, "", new { placeholder = "Input CI Category Type", @class = "form-control", style = "width:320px" })
-                                            </div>
-                                            <div style="width:200px" class="col-md-5">
-                                                <input style="width:100px;margin:auto" name="btn-search" type="submit" value="Search" class="btn btn-danger" />
-                                            </div>
-                                        </div>
-                                        <br /><br />
-                                        <div style="">
-                                            @Html.Partial("IncidentPartial");
-                                        </div>
-                                        break;
-                                    case "search2":
-                                        <br /><br />
-                                        <div class="row" style="">
-                                            <label style="text-align:right;font-size:large;color:brown" class="col-sm-4">Search by Department</label>
-                                            <div style="width:340px" class="col-md-1">
-                                                @Html.DropDownListFor(model => model.Id, ViewBag.Department as SelectList, "", new { placeholder = "Input or Select Department", @class = "form-control", style = "width:320px" })
-                                            </div>
-                                            <div style="width:200px" class="col-md-5">
-                                                <input style="width:100px;margin:auto" name="btn-search" type="submit" value="Search" class="btn btn-danger" />
-                                            </div>
-                                        </div>
-                                        <br /><br />
-                                        <div style="">
-                                            @Html.Partial("IncidentPartial");
-                                        </div>
-                                        break;
-                                }
-                            }
-                            else if (ViewBag.Check == "list")
-                            {
-                                if (ViewBag.Tbl == "1")
-                                {
-                                    if (ViewBag.CheckEmpty == false)
-                                    {
-                                        <br /><br />
-                                        <div class="row" style="">
-                                            <label style="text-align:right;font-size:large;color:brown" class="col-sm-4">Search by CI Category Number</label>
-                                            <div style="width:340px" class="col-md-1">
-                                                @Html.DropDownListFor(model => model.Id, ViewBag.ListCI as SelectList, "", new { placeholder = "Input CI Category Type", @class = "form-control", style = "width:320px" })
-                                            </div>
-                                            <div style="width:200px" class="col-md-5">
-                                                <input style="width:100px;margin:auto" name="btn-search" type="submit" value="Search" class="btn btn-danger" />
-                                            </div>
-                                        </div>
-                                        <br /><br />
-                                        <div style="">
-                                            @Html.Partial("IncidentPartial");
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <p style="font-size:x-large;text-align:center;margin-top:25px;color:red;font-family:'Palatino Linotype'">@ViewBag.EmptyFilter</p>
-                                    }
-                                }
-                                else if (ViewBag.Tbl == "2")
-                                {
-                                    <br /><br />
-                                    <div class="row" style="">
-                                        <label style="text-align:right;font-size:large;color:brown" class="col-sm-4">Search by Department</label>
-                                        <div style="width:340px" class="col-md-1">
-                                            @Html.DropDownListFor(model => model.Id, ViewBag.Department as SelectList, "", new { placeholder = "Select or Write Department", @class = "form-control", style = "width:320px" })
-                                        </div>
-                                        <div style="width:200px" class="col-md-5">
-                                            <input style="width:100px;margin:auto" name="btn-search" type="submit" value="Search" class="btn btn-danger" />
-                                        </div>
-                                    </div>
-                                    <br /><br />
-                                    <div style="">
-                                        @Html.Partial("ComplaintsPartial");
-                                    </div>
-                                }
-                                else if (ViewBag.Tbl == "3")
-                                {
-                                    <br /><br />
-                                    <div style="">
-                                        @Html.Partial("GoToListForm");
-                                    </div>
-                                }
-                                else if (ViewBag.Tbl == "4")
-                                {
-                                    <br /><br />
-                                    <div style="">
-                                        @Html.Partial("EmergencyPrepPartial");
-                                    </div>
-                                }
-                                else if (ViewBag.Tbl == "5")
-                                {
-                                    <br /><br />
-                                    <div style="">
-                                        @Html.Partial("RiskLegalPartial");
-                                    </div>
-                                }
-                                else if (ViewBag.Tbl == "6")
-                                {
-                                    <br /><br /> <br /><br />
-                                    <div style="">
-                                        @Html.Partial("VisitOtherPartial");
-                                    </div>
-                                }
-                                else if (ViewBag.Tbl == "7")
-                                {
-                                    <br /><br /> <br /><br />
-                                    <div style="">
-                                        @Html.Partial("PrivacyBreachPartial");
-                                    </div>
-                                }
-                                else if (ViewBag.Tbl == "8")
-                                {
-                                    <br /><br /> <br /><br />
-                                    <div style="">
-                                        @Html.Partial("PrivacyComplaintsPartial");
-                                    </div>
-                                }
-                                else if (ViewBag.Tbl == "9")
-                                {
-                                    <br /><br /> <br /><br />
-                                    <div style="">
-                                        @Html.Partial("EducationPartial");
-                                    </div>
-                                }
-                                else if (ViewBag.Tbl == "10")
-                                {
-                                    <br /><br /> <br /><br />
-                                    <div style="">
-                                        @Html.Partial("RelationPartial");
-                                    </div>
-                                }
-                                else if (ViewBag.Tbl == "11")
-                                {
-                                    <br /><br /> <br /><br />
-                                    <div style="">
-                                        @Html.Partial("ImmunPartial");
-                                    </div>
-                                }
-                                else if (ViewBag.Tbl == "12")
-                                {
-                                    <br /><br /> <br /><br />
-                                    <div style="">
-                                        @Html.Partial("OutbrakePartial");
-                                    </div>
-                                }
-                                else if (ViewBag.Tbl == "13")
-                                {
-                                    <br /><br /> <br /><br />
-                                    <div style="">
-                                        @Html.Partial("WSIBPartial");
-                                    </div>
-                                }
-                                else if (ViewBag.Tbl == "14")
-                                {
-                                    <br /><br /> <br /><br />
-                                    <div style="">
-                                        @Html.Partial("NoWSIBPartial");
-                                    </div>
-                                }
-
-                            }
-                            else if (ViewBag.Check == "summary")
-                            {
-                                if (ViewBag.Entity == "Outbreaks")
-                                {
-                                    <br /><br />
-                                    <ul style="list-style-type:none;position:relative;border:1px solid blue;border-radius:15px" class="">
-                                        <li>@{Html.RenderPartial("OutbrakSummaryPa", (List<string>)ViewBag.GN_Found);}</li>
-                                    </ul>
-                                }
-                                else if (ViewBag.Entity == "Critical_Incidents")
-                                {
-                                    <br /><br />
-                                    <ul style="list-style-type:none;position:relative;border:1px solid blue;width:1500px;border-radius:15px" class="">
-                                        <li>@{Html.RenderPartial("IncidentsPartial", (List<DTS.Models.CriticalIncidentSummary>)ViewBag.GN_Found);}</li>
-                                    </ul>
-                                }
-                                else if (ViewBag.Entity == "Complaints")
-                                {
-                                    <br /><br />
-                                    <ul style="list-style-type: none; position: relative; border: 1px solid blue;border-radius: 15px" class="">
-                                        <li>@{Html.RenderPartial("ComlaintsSummaryPart", (List<string>)ViewBag.GN_Found);}</li>
-                                    </ul>
-                                }
-                                else if (ViewBag.Entity == "Good_News")
-                                {
-                                    <br /><br />
-                                    <ul style="list-style-type: none; position: relative; border: 1px solid blue;border-radius: 15px" class="">
-                                        <li>@{Html.RenderPartial("GoodNewsPartial", (List<string>)ViewBag.GN_Found);}</li>
-                                    </ul>
-                                }
-                                else if (ViewBag.Entity == "Emergency_Prep")
-                                {
-                                    <br /><br />
-                                    <ul style="list-style-type: none; position: relative; border: 1px solid blue; border-radius: 15px" class="">
-                                        <li>@{Html.RenderPartial("Visits_OthersPartial", (List<string>)ViewBag.GN_Found);}</li>
-                                    </ul>
-                                }
-                                else if (ViewBag.Entity == "Visits_Others")
-                                {
-                                    <br /><br />
-                                    <ul style="list-style-type: none; position: relative; border: 1px solid blue; border-radius: 15px" class="">
-                                        <li>@{Html.RenderPartial("VisitsOthersPartial", (List<string>)ViewBag.GN_Found);}</li>
-                                    </ul>
-                                }
-                                else if (ViewBag.Entity == "Community_Risks")
-                                {
-                                    <br /><br />
-                                    <ul style="list-style-type: none; position: relative; border: 1px solid blue; border-radius: 15px" class="">
-                                        <li>@{Html.RenderPartial("CommunityRisksPartial", (List<string>)ViewBag.GN_Found);}</li>
-                                    </ul>
-                                }
-                                else if (ViewBag.Entity == "Labour_Relations")
-                                {
-                                    <br /><br />
-                                    <ul style="list-style-type: none; position: relative; border: 1px solid blue; border-radius: 15px" class="">
-                                        <li>@{Html.RenderPartial("LabourRelationsPartial", (List<string>)ViewBag.GN_Found);}</li>
-                                    </ul>
-                                }
-                                else if (ViewBag.Entity == "WSIB")
-                                {
-                                    <br /><br />
-                                    <ul style="list-style-type: none; position: relative; border: 1px solid blue; border-radius: 15px" class="">
-                                        <li>@{Html.RenderPartial("WSIB_Partial", (List<string>)ViewBag.GN_Found);}</li>
-                                    </ul>
-                                }
-                                else if (ViewBag.Entity == "Not_WSIB")
-                                {
-                                    <br /><br />
-                                    <ul style="list-style-type: none; position: relative; border: 1px solid blue; border-radius: 15px" class="">
-                                        <li>@{Html.RenderPartial("Not_WSIB_Partial", (List<string>)ViewBag.GN_Found);}</li>
-                                    </ul>
-                                }
-                                else if (ViewBag.Entity == "Privacy_Breaches")
-                                {
-                                    <br /><br />
-                                    <ul style="list-style-type: none; position: relative; border: 1px solid blue; border-radius: 15px" class="">
-                                        <li>@{Html.RenderPartial("PrivBreachSummary_Partial", (List<string>)ViewBag.GN_Found);}</li>
-                                    </ul>
-                                }
-                                else if (ViewBag.Entity == "Privacy_Complaints")
-                                {
-                                    <br /><br />
-                                    <ul style="list-style-type: none; position: relative; border: 1px solid blue; border-radius: 15px" class="">
-                                        <li>@{Html.RenderPartial("PrivacyComplaints_Partial", (List<string>)ViewBag.GN_Found);}</li>
-                                    </ul>
-                                }
-                                else if (ViewBag.Entity == "Educations")
-                                {
-                                    <br /><br />
-                                    <ul style="list-style-type: none; position: relative; border: 1px solid blue; border-radius: 15px" class="">
-                                        <li>@{Html.RenderPartial("EducationSummaryPartial", (List<string>)ViewBag.GN_Found);}</li>
-                                    </ul>
-                                }
-                                else if (ViewBag.Entity == "Immunization")
-                                {
-                                    <br /><br />
-                                    <ul style="list-style-type: none; position: relative; border: 1px solid blue; border-radius: 15px" class="">
-                                        <li>@{Html.RenderPartial("ImmunizatSummaryPartial", (List<string>)ViewBag.GN_Found);}</li>
-                                    </ul>
-                                }
-                            }
+                            <label style="font-size:medium"  class="form-check-label">
+                                @*<input type="radio" id="r1" class="form-check-input" name="range-with" />*@
+                                @Html.RadioButtonFor(model => model.WithRadio, "-with", new { @Name = "range", @checked = "checked", id = "r1" })
+                                With Date Range
+                            </label>&nbsp; &nbsp;
+                            <label style="font-size:medium" class="form-check-label">
+                                @*<input type="radio" id="r2" class="form-check-input" name="range-without" />*@
+                                @Html.RadioButtonFor(model => model.WithoutRadio, "-without", new { @Name = "range", id = "r2" })
+                                With All Data
+                            </label>&nbsp; &nbsp;
+                            <!--<label class="form-check-label">-->
+                            @*<input type="radio" id="r3" class="form-check-input" name="range-filter" />*@
+                            <!--@Html.RadioButtonFor(model => model.FilterRadio, "-filter", new { @Name = "range", id = "r3" })
+                                Select Month Back
+                            </label>-->
                         </div>
                     </div>
-            }
-        </div>
-    </div>
-    <hr />
 
-    <style>
-        #nameApp {
-            font-family: 'Times New Roman';
-            font-weight: bold;
-            font-size: x-large;
-            float: left;
-            height: 50px;
-            padding: 15px 15px;
-            font-size: 18px;
-            line-height: 20px;
-            color: darkorange;
+                    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+                    <script>
+                        $(document).ready(function () {
+                            $("#filter").hide("slow");
+                            $("#r2").click(function () {
+                                $("#rangePart").hide("slow");
+                                $("#filter").hide("slow");
+                            });
+                            $("#r1").click(function () {
+                                $("#rangePart").show("slow");
+                                $("#filter").hide("slow");
+                            });
+                            $("#r3").click(function () {
+                                $("#rangePart").hide("slow");
+                                $("#filter").show("slow");
+                            });
+                        });
+                    </script>
+                    <br />
+                    <div id="rangePart" style="margin:-15px 0 0 0 ">
+                        <ul class="nav nav-justified">
+                            <li id="d" style="font-family:'Palatino Linotype';font-size:medium">Date range:</li>
+                            <li style="color: darkorange;font-size: medium"> Start:&nbsp; @Html.EditorFor(model => model.Start, new { htmlAttributes = new { @class = "", @id = "start" } })</li>
+                            <li style="color: darkorange;font-size: medium"> End:&nbsp;   @Html.EditorFor(model => model.End, new { htmlAttributes = new { @class = "", @id = "end" } })</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4" style="width:80%">
+                    @if (ViewBag.Check == "none")
+                    {
+
+                    }
+                    else if (ViewBag.Check == "insert")
+                    {
+
+                    }
+                    else if (ViewBag.Check == "search")
+                    {
+                        switch (ViewBag.Check1)
+                        {
+                            case "search1":
+                                <br /><br />
+                                <div class="row" style="">
+                                    <label style="text-align:right;font-size:large;color:brown" class="col-sm-4">Search by CI Category Number</label>
+                                    <div style="width:340px" class="col-md-1">
+                                        @Html.DropDownListFor(model => model.Id, ViewBag.ListCI as SelectList, "", new { placeholder = "Input CI Category Type", @class = "form-control", style = "width:320px" })
+                                    </div>
+                                    <div style="width:200px" class="col-md-5">
+                                        <input style="width:100px;margin:auto" name="btn-search" type="submit" value="Search" class="btn btn-danger" />
+                                    </div>
+                                </div>
+                                <br /><br />
+                                <div style="">
+                                    @Html.Partial("IncidentPartial");
+                                </div>
+                                break;
+                            case "search2":
+                                <br /><br />
+                                <div class="row" style="">
+                                    <label style="text-align:right;font-size:large;color:brown" class="col-sm-4">Search by Department</label>
+                                    <div style="width:340px" class="col-md-1">
+                                        @Html.DropDownListFor(model => model.Id, ViewBag.Department as SelectList, "", new { placeholder = "Input or Select Department", @class = "form-control", style = "width:320px" })
+                                    </div>
+                                    <div style="width:200px" class="col-md-5">
+                                        <input style="width:100px;margin:auto" name="btn-search" type="submit" value="Search" class="btn btn-danger" />
+                                    </div>
+                                </div>
+                                <br /><br />
+                                <div style="">
+                                    @Html.Partial("IncidentPartial");
+                                </div>
+                                break;
+                        }
+                    }
+                    else if (ViewBag.Check == "list")
+                    {
+                        if (ViewBag.Tbl == "1")
+                        {
+                            //if (ViewBag.CheckEmpty == false)
+                            //{
+                            @*<br /><br />
+                                <div  style="">
+                                    <label style="text-align:right;font-size:large;color:brown" class="col-sm-4">Search by CI Category Number</label>
+                                    <div style="width:340px" class="col-md-1">
+                                        @Html.DropDownListFor(model => model.Id, ViewBag.ListCI as SelectList, "", new { placeholder = "Input CI Category Type", @class = "form-control", style = "width:320px" })
+                                    </div>
+                                    <div style="width:200px" class="col-md-5">
+                                        <input style="width:100px;margin:auto" name="btn-search" type="submit" value="Search" class="btn btn-danger" />
+                                    </div>
+                                </div>*@
+                            <div style="margin: -320px 0 0 270px">
+                                @Html.Partial("IncidentPartial")
+                            </div>
+                            //}
+                            @*else
+                                {
+                                    <p style="font-size:x-large;text-align:center;margin-top:25px;color:red;font-family:'Palatino Linotype'">@ViewBag.EmptyFilter</p>
+                                }*@
+                        }
+                        else if (ViewBag.Tbl == "2")
+                        {
+                            @*< <br /><br />
+                                            div class="row" style="margin: -300px 0 0 450px">
+                                    <label style="text-align:right;font-size:large;color:brown" class="col-sm-4">Search by Department</label>
+                                    <div style="width:340px" class="col-md-1">
+                                        @Html.DropDownListFor(model => model.Id, ViewBag.Department as SelectList, "", new { placeholder = "Select or Write Department", @class = "form-control", style = "width:320px" })
+                                    </div>
+                                    <div style="width:200px" class="col-md-5">
+                                        <input style="width:100px;margin:auto" name="btn-search" type="submit" value="Search" class="btn btn-danger" />
+                                    </div>
+                                </div>*@
+                            <br /><br />
+                            <div style="margin: -380px 0 0 450px">
+                                @Html.Partial("ComplaintsPartial")
+                            </div>
+                        }
+                        else if (ViewBag.Tbl == "3")
+                        {
+                            <br /><br />
+                            <div style="margin:-380px 0 0 450px">
+                                @Html.Partial("GoToListForm")
+                            </div>
+                        }
+                        else if (ViewBag.Tbl == "4")
+                        {
+                            <br /><br />
+                            <div style="margin: -300px 0 0 450px">
+                                @Html.Partial("EmergencyPrepPartial")
+                            </div>
+                        }
+                        else if (ViewBag.Tbl == "5")
+                        {
+                            <br /><br />
+                            <div style="margin: -300px 0 0 450px">
+                                @Html.Partial("RiskLegalPartial")
+                            </div>
+                        }
+                        else if (ViewBag.Tbl == "6")
+                        {
+                            <br /><br /> <br /><br />
+                            <div style="margin: -300px 0 0 450px">
+                                @Html.Partial("VisitOtherPartial")
+                            </div>
+                        }
+                        else if (ViewBag.Tbl == "7")
+                        {
+                            <br /><br /> <br /><br />
+                            <div style="margin: -300px 0 0 450px">
+                                @Html.Partial("PrivacyBreachPartial")
+                            </div>
+                        }
+                        else if (ViewBag.Tbl == "8")
+                        {
+                            <br /><br /> <br /><br />
+                            <div style="margin: -300px 0 0 450px">
+                                @Html.Partial("PrivacyComplaintsPartial")
+                            </div>
+                        }
+                        else if (ViewBag.Tbl == "9")
+                        {
+                            <br /><br /> <br /><br />
+                            <div style="margin: -300px 0 0 450px">
+                                @Html.Partial("EducationPartial")
+                            </div>
+                        }
+                        else if (ViewBag.Tbl == "10")
+                        {
+                            <br /><br /> <br /><br />
+                            <div style="margin: -300px 0 0 450px">
+                                @Html.Partial("RelationPartial")
+                            </div>
+                        }
+                        else if (ViewBag.Tbl == "11")
+                        {
+                            <br /><br /> <br /><br />
+                            <div style="margin: -300px 0 0 450px">
+                                @Html.Partial("ImmunPartial")
+                            </div>
+                        }
+                        else if (ViewBag.Tbl == "12")
+                        {
+                            <br /><br /> <br /><br />
+                            <div style="margin: -300px 0 0 450px">
+                                @Html.Partial("OutbrakePartial")
+                            </div>
+                        }
+                        else if (ViewBag.Tbl == "13")
+                        {
+                            <br /><br /> <br /><br />
+                            <div style="margin: -300px 0 0 450px">
+                                @Html.Partial("WSIBPartial");
+                            </div>
+                        }
+                        else if (ViewBag.Tbl == "14")
+                        {
+                            <br /><br /> <br /><br />
+                            <div style="margin: -300px 0 0 450px">
+                                @Html.Partial("NoWSIBPartial")
+                            </div>
+                        }
+
+                    }
+                    else if (ViewBag.Check == "summary")
+                    {
+                        if (ViewBag.Entity == "Outbreaks")
+                        {
+                            <br /><br />
+                            <div style="margin: -290px 0 0 450px">
+                                <ul style="list-style-type:none;position:relative;border:1px solid blue;border-radius:15px" class="">
+                                    <li>@{Html.RenderPartial("OutbrakSummaryPa", (List<string>)ViewBag.GN_Found);}</li>
+                                </ul>
+                            </div>
+                        }
+                        else if (ViewBag.Entity == "Critical_Incidents")
+                        {
+                            <br /><br />
+                            <div style="margin: -400px 0 0 250px">
+                                <ul style="list-style-type:none;position:relative;border:1px solid blue;width:1500px;border-radius:15px" class="">
+                                    <li>@{Html.RenderPartial("IncidentsPartial", (List<DTS.Models.CriticalIncidentSummary>)ViewBag.GN_Found);}</li>
+                                </ul>
+                            </div>
+                        }
+                        else if (ViewBag.Entity == "Complaints")
+                        {
+                            <br /><br />
+                            <div style="margin: -380px 0 0 450px">
+                                <ul style="list-style-type: none; position: relative; border: 1px solid blue;border-radius: 15px" class="">
+                                    <li>@{Html.RenderPartial("ComlaintsSummaryPart", (List<string>)ViewBag.GN_Found);}</li>
+                                </ul>
+                            </div>
+                        }
+                        else if (ViewBag.Entity == "Good_News")
+                        {
+                            <br /><br />
+                            <div style="margin: -380px 0 0 450px">
+
+                                <ul style="list-style-type: none; position: relative; border: 1px solid blue;border-radius: 15px" class="">
+                                    <li>@{Html.RenderPartial("GoodNewsPartial", (List<string>)ViewBag.GN_Found);}</li>
+                                </ul>
+                            </div>
+                        }
+                        else if (ViewBag.Entity == "Emergency_Prep")
+                        {
+                            <br /><br />
+                            <div style="margin: -380px 0 0 450px">
+                                <ul style="list-style-type: none; position: relative; border: 1px solid blue; border-radius: 15px" class="">
+                                    <li>@{Html.RenderPartial("Visits_OthersPartial", (List<string>)ViewBag.GN_Found);}</li>
+                                </ul>
+                            </div>
+                        }
+                        else if (ViewBag.Entity == "Visits_Others")
+                        {
+                            <br /><br />
+                            <ul style="list-style-type: none; position: relative; border: 1px solid blue; border-radius: 15px" class="">
+                                <li>@{Html.RenderPartial("VisitsOthersPartial", (List<string>)ViewBag.GN_Found);}</li>
+                            </ul>
+                        }
+                        else if (ViewBag.Entity == "Community_Risks")
+                        {
+                            <br /><br />
+                            <ul style="list-style-type: none; position: relative; border: 1px solid blue; border-radius: 15px" class="">
+                                <li>@{Html.RenderPartial("CommunityRisksPartial", (List<string>)ViewBag.GN_Found);}</li>
+                            </ul>
+                        }
+                        else if (ViewBag.Entity == "Labour_Relations")
+                        {
+                            <br /><br />
+                            <ul style="list-style-type: none; position: relative; border: 1px solid blue; border-radius: 15px" class="">
+                                <li>@{Html.RenderPartial("LabourRelationsPartial", (List<string>)ViewBag.GN_Found);}</li>
+                            </ul>
+                        }
+                        else if (ViewBag.Entity == "WSIB")
+                        {
+                            <br /><br />
+                            <ul style="list-style-type: none; position: relative; border: 1px solid blue; border-radius: 15px" class="">
+                                <li>@{Html.RenderPartial("WSIB_Partial", (List<string>)ViewBag.GN_Found);}</li>
+                            </ul>
+                        }
+                        else if (ViewBag.Entity == "Not_WSIB")
+                        {
+                            <br /><br />
+                            <ul style="list-style-type: none; position: relative; border: 1px solid blue; border-radius: 15px" class="">
+                                <li>@{Html.RenderPartial("Not_WSIB_Partial", (List<string>)ViewBag.GN_Found);}</li>
+                            </ul>
+                        }
+                        else if (ViewBag.Entity == "Privacy_Breaches")
+                        {
+                            <br /><br />
+                            <ul style="list-style-type: none; position: relative; border: 1px solid blue; border-radius: 15px" class="">
+                                <li>@{Html.RenderPartial("PrivBreachSummary_Partial", (List<string>)ViewBag.GN_Found);}</li>
+                            </ul>
+                        }
+                        else if (ViewBag.Entity == "Privacy_Complaints")
+                        {
+                            <br /><br />
+                            <ul style="list-style-type: none; position: relative; border: 1px solid blue; border-radius: 15px" class="">
+                                <li>@{Html.RenderPartial("PrivacyComplaints_Partial", (List<string>)ViewBag.GN_Found);}</li>
+                            </ul>
+                        }
+                        else if (ViewBag.Entity == "Educations")
+                        {
+                            <br /><br />
+                            <ul style="list-style-type: none; position: relative; border: 1px solid blue; border-radius: 15px" class="">
+                                <li>@{Html.RenderPartial("EducationSummaryPartial", (List<string>)ViewBag.GN_Found);}</li>
+                            </ul>
+                        }
+                        else if (ViewBag.Entity == "Immunization")
+                        {
+                            <br /><br />
+                            <ul style="list-style-type: none; position: relative; border: 1px solid blue; border-radius: 15px" class="">
+                                <li>@{Html.RenderPartial("ImmunizatSummaryPartial", (List<string>)ViewBag.GN_Found);}</li>
+                            </ul>
+                        }
+                    }
+                </div>
+            </div>
         }
+    </div>
+</div>
+<hr />
 
-            #nameApp:hover {
-                text-decoration: none;
-                color: navajowhite;
-            }
-    </style>
+<style>
+    #nameApp {
+        font-family: 'Times New Roman';
+        font-weight: bold;
+        font-size: x-large;
+        float: left;
+        height: 50px;
+        padding: 15px 15px;
+        font-size: 18px;
+        line-height: 20px;
+        color: darkorange;
+    }
+
+        #nameApp:hover {
+            text-decoration: none;
+            color: navajowhite;
+        }
+</style>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>

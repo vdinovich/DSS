@@ -803,3 +803,171 @@ C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - C
 C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\itextsharp.dll
 C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\bin\itextsharp.xml
 C:\Users\ldinovich-Admin\Documents\2. DSS - WOR Project\DSS (WOR Compliants) - Copy\DSS (WOR Compliants)\DTS-v3\DTS\obj\Debug\DTS.csproj.CoreCompileInputs.cache
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\DTS.dll.config
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\DTS.dll
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\DTS.pdb
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\roslyn\csc.exe
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\roslyn\csc.exe.config
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\roslyn\csc.rsp
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\roslyn\csi.exe
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\roslyn\csi.exe.config
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\roslyn\csi.rsp
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\roslyn\Microsoft.Managed.Core.targets
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\roslyn\System.AppContext.dll
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\roslyn\System.Console.dll
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\roslyn\System.IO.Compression.dll
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\roslyn\System.IO.FileSystem.dll
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\roslyn\System.IO.Pipes.AccessControl.dll
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\roslyn\System.IO.Pipes.dll
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\roslyn\System.Security.AccessControl.dll
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\roslyn\System.Security.Claims.dll
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\roslyn\System.Security.Cryptography.Encoding.dll
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\roslyn\System.Security.Cryptography.Primitives.dll
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\roslyn\System.Security.Principal.Windows.dll
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\roslyn\System.Text.Encoding.CodePages.dll
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\roslyn\System.ValueTuple.dll
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\roslyn\System.Xml.ReaderWriter.dll
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\roslyn\System.Xml.XmlDocument.dll
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\roslyn\System.Xml.XPath.dll
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\roslyn\System.Xml.XPath.XDocument.dll
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\roslyn\vbc.exe
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\roslyn\vbc.exe.config
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\roslyn\vbc.rsp
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\roslyn\VBCSCompiler.exe
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\Antlr3.Runtime.dll
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\BouncyCastle.Crypto.dll
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\EntityFramework.dll
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\EntityFramework.SqlServer.dll
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\itextsharp.dll
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\Newtonsoft.Json.dll
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\System.Configuration.dll
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\System.Web.Helpers.dll
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\System.Web.Mvc.dll
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\System.Web.Optimization.dll
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\System.Web.Razor.dll
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\System.Web.WebPages.Deployment.dll
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\System.Web.WebPages.dll
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\System.Web.WebPages.Razor.dll
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\WebGrease.dll
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\EntityFramework.xml
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\EntityFramework.SqlServer.xml
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\itextsharp.xml
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\System.Web.Helpers.xml
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\System.Web.Mvc.xml
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\System.Web.Optimization.xml
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\System.Web.Razor.xml
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\System.Web.WebPages.xml
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\System.Web.WebPages.Deployment.xml
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\System.Web.WebPages.Razor.xml
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\Newtonsoft.Json.xml
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\Antlr3.Runtime.pdb
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\obj\Debug\DTS.csprojAssemblyReference.cache
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\obj\Debug\DTS.csproj.CoreCompileInputs.cache
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\obj\Debug\DTS.csproj.CopyComplete
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\obj\Debug\DTS.dll
+C:\Users\Андрей\Documents\Владимир Динович\23.06.2021\DSS\DTS-v3\DTS\obj\Debug\DTS.pdb
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\DTS.dll.config
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\DTS.dll
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\DTS.pdb
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\roslyn\csc.exe
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\roslyn\csc.exe.config
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\roslyn\csc.rsp
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\roslyn\csi.exe
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\roslyn\csi.exe.config
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\roslyn\csi.rsp
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\roslyn\Microsoft.Managed.Core.targets
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\roslyn\System.AppContext.dll
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\roslyn\System.Console.dll
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\roslyn\System.IO.Compression.dll
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\roslyn\System.IO.FileSystem.dll
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\roslyn\System.IO.Pipes.AccessControl.dll
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\roslyn\System.IO.Pipes.dll
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\roslyn\System.Security.AccessControl.dll
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\roslyn\System.Security.Claims.dll
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\roslyn\System.Security.Cryptography.Encoding.dll
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\roslyn\System.Security.Cryptography.Primitives.dll
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\roslyn\System.Security.Principal.Windows.dll
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\roslyn\System.Text.Encoding.CodePages.dll
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\roslyn\System.ValueTuple.dll
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\roslyn\System.Xml.ReaderWriter.dll
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\roslyn\System.Xml.XmlDocument.dll
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\roslyn\System.Xml.XPath.dll
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\roslyn\System.Xml.XPath.XDocument.dll
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\roslyn\vbc.exe
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\roslyn\vbc.exe.config
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\roslyn\vbc.rsp
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\roslyn\VBCSCompiler.exe
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\Antlr3.Runtime.dll
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\BouncyCastle.Crypto.dll
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\EntityFramework.dll
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\EntityFramework.SqlServer.dll
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\itextsharp.dll
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\Newtonsoft.Json.dll
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\System.Configuration.dll
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\System.Web.Helpers.dll
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\System.Web.Mvc.dll
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\System.Web.Optimization.dll
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\System.Web.Razor.dll
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\System.Web.WebPages.Deployment.dll
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\System.Web.WebPages.dll
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\System.Web.WebPages.Razor.dll
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\WebGrease.dll
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\EntityFramework.xml
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\EntityFramework.SqlServer.xml
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\itextsharp.xml
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\System.Web.Helpers.xml
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\System.Web.Mvc.xml
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\System.Web.Optimization.xml
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\System.Web.Razor.xml
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\System.Web.WebPages.xml
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\System.Web.WebPages.Deployment.xml
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\System.Web.WebPages.Razor.xml
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\Newtonsoft.Json.xml
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\Antlr3.Runtime.pdb
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\obj\Debug\DTS.csprojAssemblyReference.cache
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\obj\Debug\DTS.csproj.CoreCompileInputs.cache
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\obj\Debug\DTS.csproj.CopyComplete
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\obj\Debug\DTS.dll
+C:\Users\ldinovich-Admin\Downloads\DSS\DSS\DTS-v3\DTS\obj\Debug\DTS.pdb

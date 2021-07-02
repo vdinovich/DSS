@@ -164,6 +164,9 @@
     <Compile Include="Models\ADO_NET_CRUD.cs" />
     <Compile Include="Models\Care_Community.cs" />
     <Compile Include="Models\CI_Category_Type.cs" />
+    <Compile Include="Models\ComplaintsSummary.cs" />
+    <Compile Include="Models\ComplaintsSummaryAll.cs" />
+    <Compile Include="Models\FormsAll.cs" />
     <Compile Include="Models\Community_Risks.cs" />
     <Compile Include="Models\Complaint.cs" />
     <Compile Include="Models\CriticalIncidentSummary.cs" />
@@ -360,6 +363,7 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\tree.js" />
     <None Include="Scripts\_references.js" />
+    <Content Include="tenor.gif" />
     <Content Include="wwwroot\bower_components\bootstrap-colorpicker\dist\css\bootstrap-colorpicker.css" />
     <Content Include="wwwroot\bower_components\bootstrap-colorpicker\dist\css\bootstrap-colorpicker.min.css" />
     <Content Include="wwwroot\bower_components\bootstrap-colorpicker\dist\img\bootstrap-colorpicker\alpha-horizontal.png" />
