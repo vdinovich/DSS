@@ -1,5 +1,9 @@
 ﻿
+<input type="submit" value="^" name="btn-upSort"/>
+<input type="submit" value="⌄" name="btn-downSort"/>
+
 <table style="font-size:medium;font-family:'Palatino Linotype'" class="table table-bordered">
+
     <tr>
         <th>
             Date mm-dd-yyyy
@@ -51,21 +55,36 @@
         string[] names = ViewBag.Names;
         string[] ciNames = ViewBag.CiNames;
         var list = (List<DTS.Models.Critical_Incidents>)ViewBag.List;
+        var location = (List<DTS.Models.Care_Community>)ViewBag.AllLocs;
+        var ci = (List<DTS.Models.CI_Category_Type>)ViewBag.AllCI;
         foreach (var item in list)
         {
             <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Date)
-                    </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.CI_Form_Number)
                 </td>
                 <td>
-                    @ciNames[item.Location - 1];
-                   @* @Html.DisplayFor(modelItem => item.CI_Category_Type)*@
+                    @if (ViewBag.IsAdmin == false) // if we entered as User
+                    {
+                        @ci[item.CI_Category_Type - 1].Name;
+                    }
+                    else
+                    {
+                        @ci[item.CI_Category_Type - 1].Name;
+                    }
                 </td>
-                <td >
-                    @names[item.Location - 1];
+                <td>
+                    @if (ViewBag.IsAdmin == false) // if we entered as User
+                    {
+                        @location[item.Location - 1].Name;
+                    }
+                    else
+                    {
+                        @location[item.Location - 1].Name;
+                    }
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Brief_Description)
@@ -127,7 +146,8 @@
             text-decoration: none;
             background-color: blue;
         }
+
     th td {
-        width :300px;
+        width: 300px;
     }
 </style>

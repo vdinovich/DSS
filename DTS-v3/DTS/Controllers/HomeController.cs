@@ -386,6 +386,8 @@
         [HttpGet]
         public ActionResult WOR_Tabs()
         {
+            ViewBag.AllCI = db.CI_Category_Types.ToList();
+            ViewBag.AllLocs = db.Care_Communities.ToList();
             WorTabs tabs = null;
             try
             {
@@ -452,6 +454,7 @@
                             ViewBag.Entity = "Critical_Incidents";
                         }
 
+                        { ViewBag.IsAdmin = isAdmin; }
                         { ViewBag.TotalSummary = allSummary1; }
                         { ViewBag.Check1 = isEmpty; }
                         { ViewBag.Check = checkView; }
@@ -746,7 +749,8 @@
         #endregion
 
         #region WOR Tabs(Post):
-        static string model_name;
+        static string model_name, rememberFormName = string.Empty, w_without = string.Empty;
+        static string radioNameForms = string.Empty;
         static bool isEmpty = false, checkRepead = false;
         static List<string> locList = new List<string>();
         static List<CriticalIncidentSummary> foundSummary1 = new List<CriticalIncidentSummary>();
@@ -756,14 +760,19 @@
             p14 = 0, p15 = 0, p16 = 0, p17 = 0, p18 = 0, p19 = 0, p20 = 0, p21 = 0, p22 = 0, p23 = 0, p24 = 0, p25 = 0, p26 = 0, p27 = 0;
         List<int> cnt = new List<int>();
         int cnt1 = 0, cnt2 = 0, cnt3 = 0, cnt4 = 0, cnt5 = 0, cnt6 = 0, cnt7 = 0, cnt8 = 0, cnt9 = 0, cnt10 = 0, cnt11 = 0;
+        static string radioName = null;
         [HttpPost]
         public ActionResult WOR_Tabs(WorTabs Value)
         {
-            string radioName = null, radioNameForms = string.Empty;
+            ViewBag.AllCI = db.CI_Category_Types.ToList();
+            ViewBag.AllLocs = db.Care_Communities.ToList();
             try
             {
-                radioName = Request.Form["range"];
-                radioNameForms = Request.Form["formRadio"];
+                if(radioName == null)
+                    radioName = Request.Form["range"];
+                w_without = radioName;
+                if (radioNameForms == string.Empty)
+                    radioNameForms = Request.Form["formRadio"];
                 Value.Name = radioNameForms;
             }
             catch { }
@@ -772,8 +781,10 @@
                 ViewBag.Welcome = Role.Admin;
             else if (role == Role.User)
                 ViewBag.Welcome = Role.User;
+            ViewBag.IsAdmin = isAdmin;
             DateTime start = DateTime.MinValue, end = DateTime.MinValue;
             string errorMsg = string.Empty;
+            // With Range:
             if (Value != null && Value.Name != null && radioName != "-without" && radioName != "-filter")  // If we select anythng from the listbox
             {
                 string btnName = Request.Params
@@ -783,7 +794,7 @@
                       .First();
 
                 #region For Showing List (with Range):
-                if (btnName.Equals("-list"))
+                if (btnName.Equals("-list") || btnName.Equals("-upSort") || btnName.Equals("-downSort"))
                 {
                     {
                         ViewBag.Check = "list";
@@ -805,8 +816,16 @@
                             switch (Value.Name)
                             {
                                 case "1":
-                                    var lst1 = (from ent in db.Critical_Incidents where ent.Date >= start && ent.Date <= end select ent).ToList();
+                                    List<Critical_Incidents> lst1 = (from c in db.Critical_Incidents where c.Date==start && c.Date==end select c).ToList();
                                     TablesContainer.list1 = lst1.OrderBy(x => x.Date).ToList();
+                                    if (btnName.Equals("-upSort"))
+                                    {
+                                        TablesContainer.list1 = lst1.OrderBy(x => x.Date).ToList();
+                                    }
+                                    else if (btnName.Equals("-downSort"))
+                                    {
+                                        TablesContainer.list1 = lst1.OrderByDescending(x => x.Date).ToList();
+                                    }
                                     if (TablesContainer.list1.Count != 0 || TablesContainer.list1 != null)
                                     {
                                         { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
@@ -1061,8 +1080,17 @@
                             switch (Value.Name)
                             {
                                 case "1":
-                                    var lst1 = db.Critical_Incidents.Where(i => i.Location == Id_Location);
-                                    TablesContainer.list1 = (from ent in lst1 where ent.Date >= start && ent.Date <= end select ent).ToList();
+                                    var lstLoc = db.Critical_Incidents.Where(x => x.Location == Id_Location);
+                                    List<Critical_Incidents> lst1 = (from ent in lstLoc where ent.Date >= start && ent.Date <= end select ent).ToList();
+                                    TablesContainer.list1 = lst1.OrderBy(x => x.Date).ToList();
+                                    if (btnName.Equals("-upSort"))
+                                    {
+                                        TablesContainer.list1 = lst1.OrderBy(x => x.Date).ToList();
+                                    }
+                                    else if (btnName.Equals("-downSort"))
+                                    {
+                                        TablesContainer.list1 = lst1.OrderByDescending(x => x.Date).ToList();
+                                    }
                                     if (TablesContainer.list1.Count != 0 || TablesContainer.list1 != null)
                                     {
                                         { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
@@ -1319,8 +1347,16 @@
                             switch (Value.Name)
                             {
                                 case "1":
-                                    var lst = db.Critical_Incidents.Where(i => i.Location == Id_Location);
-                                    TablesContainer.list1 = (from ent in lst where ent.Date >= start && ent.Date <= end select ent).ToList();
+                                    List<Critical_Incidents> lst1 = db.Critical_Incidents.ToList();
+                                    TablesContainer.list1 = lst1.OrderBy(x => x.Date).ToList();
+                                    if (btnName.Equals("-upSort"))
+                                    {
+                                        TablesContainer.list1 = lst1.OrderBy(x => x.Date).ToList();
+                                    }
+                                    else if (btnName.Equals("-downSort"))
+                                    {
+                                        TablesContainer.list1 = lst1.OrderByDescending(x => x.Date).ToList();
+                                    }
                                     if (TablesContainer.list1.Count != 0 || TablesContainer.list1 != null)
                                     {
                                         { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
@@ -5454,9 +5490,10 @@
                 }
                 #endregion
             }
+            // Without Range:
             else if (radioName == "-without" || radioName == "-filter")  // If we selected All With Datas:
             {
-                #region With all Datas:
+                #region Grab to get button names:
                 string btnName = Request.Params
                      .Cast<string>()
                      .Where(p => p.StartsWith("btn"))
@@ -5467,7 +5504,7 @@
                 #endregion
 
                 #region For Showing List (Without Range):
-                if (btnName.Equals("-list"))
+                if (btnName.Equals("-list") || btnName.Equals("-upSort") || btnName.Equals("-downSort"))
                 {
                     {
                         ViewBag.Check = "list";
@@ -5476,6 +5513,7 @@
                     {
                         ViewBag.Tbl = Value.Name;
                     }
+                    ViewBag.IsAdmin = isAdmin;
                     ViewBag.Check = checkView;
                     string name = Value.Name;
 
@@ -5487,51 +5525,60 @@
                         switch (Value.Name)
                         {
                             case "1":
-                                TablesContainer.list1 = db.Critical_Incidents.OrderBy(x=>x.Date).ToList();
+                                List<Critical_Incidents> lst1 = db.Critical_Incidents.ToList();
+                                TablesContainer.list1 = lst1.OrderBy(x => x.Date).ToList();
+                                if (btnName.Equals("-upSort"))
+                                {
+                                    TablesContainer.list1 = lst1.OrderBy(x => x.Date).ToList();
+                                }
+                                else if (btnName.Equals("-downSort"))
+                                {
+                                    TablesContainer.list1 = lst1.OrderByDescending(x => x.Date).ToList();
+                                }
 
                                 #region If We selected any item from dropdown Filter:
-                                if (filter != null)
-                                {
-                                    switch (filter)
-                                    {
-                                        case "1 month back":
-                                            DateTime oneBack1 = new DateTime(DateTime.Now.Year, DateTime.Now.Month - 1, DateTime.Now.Day);
-                                            TablesContainer.list1 = (from it in db.Critical_Incidents
-                                                                     where it.Date <= DateTime.Now && it.Date >= oneBack1
-                                                                     select it).ToList();
-                                            ViewBag.CheckEmpty = isEmpty;
-                                            if (TablesContainer.list1.Count == 0)
-                                            {
-                                                ViewBag.CheckEmpty = isEmpty = true;
-                                                ViewBag.EmptyFilter = "Nothing was found... Try selecting another date.";
-                                            }
-                                            break;
-                                        case "2 month back":
-                                            DateTime oneBack2 = new DateTime(DateTime.Now.Year, DateTime.Now.Month - 1, DateTime.Now.Day);
-                                            TablesContainer.list1 = (from it in db.Critical_Incidents
-                                                                     where it.Date <= DateTime.Now && it.Date >= oneBack2
-                                                                     select it).ToList();
-                                            ViewBag.CheckEmpty = isEmpty;
-                                            if (TablesContainer.list1.Count == 0)
-                                            {
-                                                ViewBag.CheckEmpty = isEmpty = true;
-                                                ViewBag.EmptyFilter = "Nothing was found... Try selecting another date.";
-                                            }
-                                            break;
-                                        case "3 month back":
-                                            DateTime oneBack3 = new DateTime(DateTime.Now.Year, DateTime.Now.Month - 1, DateTime.Now.Day);
-                                            TablesContainer.list1 = (from it in db.Critical_Incidents
-                                                                     where it.Date <= DateTime.Now && it.Date >= oneBack3
-                                                                     select it).ToList();
-                                            ViewBag.CheckEmpty = isEmpty;
-                                            if (TablesContainer.list1.Count == 0)
-                                            {
-                                                ViewBag.CheckEmpty = isEmpty = true;
-                                                ViewBag.EmptyFilter = "Nothing was found... Try selecting another date.";
-                                            }
-                                            break;
-                                    }
-                                }
+                                //if (filter != null)
+                                //{
+                                //    switch (filter)
+                                //    {
+                                //        case "1 month back":
+                                //            DateTime oneBack1 = new DateTime(DateTime.Now.Year, DateTime.Now.Month - 1, DateTime.Now.Day);
+                                //            TablesContainer.list1 = (from it in db.Critical_Incidents
+                                //                                     where it.Date <= DateTime.Now && it.Date >= oneBack1
+                                //                                     select it).ToList();
+                                //            ViewBag.CheckEmpty = isEmpty;
+                                //            if (TablesContainer.list1.Count == 0)
+                                //            {
+                                //                ViewBag.CheckEmpty = isEmpty = true;
+                                //                ViewBag.EmptyFilter = "Nothing was found... Try selecting another date.";
+                                //            }
+                                //            break;
+                                //        case "2 month back":
+                                //            DateTime oneBack2 = new DateTime(DateTime.Now.Year, DateTime.Now.Month - 1, DateTime.Now.Day);
+                                //            TablesContainer.list1 = (from it in db.Critical_Incidents
+                                //                                     where it.Date <= DateTime.Now && it.Date >= oneBack2
+                                //                                     select it).ToList();
+                                //            ViewBag.CheckEmpty = isEmpty;
+                                //            if (TablesContainer.list1.Count == 0)
+                                //            {
+                                //                ViewBag.CheckEmpty = isEmpty = true;
+                                //                ViewBag.EmptyFilter = "Nothing was found... Try selecting another date.";
+                                //            }
+                                //            break;
+                                //        case "3 month back":
+                                //            DateTime oneBack3 = new DateTime(DateTime.Now.Year, DateTime.Now.Month - 1, DateTime.Now.Day);
+                                //            TablesContainer.list1 = (from it in db.Critical_Incidents
+                                //                                     where it.Date <= DateTime.Now && it.Date >= oneBack3
+                                //                                     select it).ToList();
+                                //            ViewBag.CheckEmpty = isEmpty;
+                                //            if (TablesContainer.list1.Count == 0)
+                                //            {
+                                //                ViewBag.CheckEmpty = isEmpty = true;
+                                //                ViewBag.EmptyFilter = "Nothing was found... Try selecting another date.";
+                                //            }
+                                //            break;
+                                //    }
+                                //}
                                 #endregion
 
                                 if (TablesContainer.list1.Count != 0 || TablesContainer.list1 != null)
@@ -5783,8 +5830,16 @@
                         switch (Value.Name)
                         {
                             case "1":
-                                var lst1 = db.Critical_Incidents.Where(i => i.Location == Id_Location);
-                                TablesContainer.list1 = lst1.ToList();
+                                List<Critical_Incidents> lst1 = (from c in db.Critical_Incidents where c.Location == Id_Location select c).ToList();
+                                TablesContainer.list1 = lst1.OrderBy(x => x.Date).ToList();
+                                if (btnName.Equals("-upSort"))
+                                {
+                                    TablesContainer.list1 = lst1.OrderBy(x => x.Date).ToList();
+                                }
+                                else if (btnName.Equals("-downSort"))
+                                {
+                                    TablesContainer.list1 = lst1.OrderByDescending(x => x.Date).ToList();
+                                }
                                 if (TablesContainer.list1.Count != 0 || TablesContainer.list1 != null)
                                 {
                                     { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
