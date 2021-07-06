@@ -388,6 +388,10 @@
         {
             ViewBag.AllCI = db.CI_Category_Types.ToList();
             ViewBag.AllLocs = db.Care_Communities.ToList();
+
+            if (w_without != null) 
+                mirrorWout = w_without;
+
             WorTabs tabs = null;
             try
             {
@@ -760,7 +764,7 @@
             p14 = 0, p15 = 0, p16 = 0, p17 = 0, p18 = 0, p19 = 0, p20 = 0, p21 = 0, p22 = 0, p23 = 0, p24 = 0, p25 = 0, p26 = 0, p27 = 0;
         List<int> cnt = new List<int>();
         int cnt1 = 0, cnt2 = 0, cnt3 = 0, cnt4 = 0, cnt5 = 0, cnt6 = 0, cnt7 = 0, cnt8 = 0, cnt9 = 0, cnt10 = 0, cnt11 = 0;
-        static string radioName = null;
+        static string radioName = null, mirrorWout = null;
         [HttpPost]
         public ActionResult WOR_Tabs(WorTabs Value)
         {
@@ -768,9 +772,10 @@
             ViewBag.AllLocs = db.Care_Communities.ToList();
             try
             {
-                if(radioName == null)
-                    radioName = Request.Form["range"];
-                w_without = radioName;
+                w_without = Request.Form["range"];
+                if (w_without == null)
+                    w_without = mirrorWout;
+
                 if (radioNameForms == string.Empty)
                     radioNameForms = Request.Form["formRadio"];
                 Value.Name = radioNameForms;
@@ -785,7 +790,7 @@
             DateTime start = DateTime.MinValue, end = DateTime.MinValue;
             string errorMsg = string.Empty;
             // With Range:
-            if (Value != null && Value.Name != null && radioName != "-without" && radioName != "-filter")  // If we select anythng from the listbox
+            if (Value != null && Value.Name != null && w_without != "-without"/* && w_without != "-filter"*/)  // If we select anythng from the listbox
             {
                 string btnName = Request.Params
                       .Cast<string>()
@@ -816,7 +821,7 @@
                             switch (Value.Name)
                             {
                                 case "1":
-                                    List<Critical_Incidents> lst1 = (from c in db.Critical_Incidents where c.Date==start && c.Date==end select c).ToList();
+                                    List<Critical_Incidents> lst1 = (from c in db.Critical_Incidents where c.Date >=  start && c.Date <= end select c).ToList();
                                     TablesContainer.list1 = lst1.OrderBy(x => x.Date).ToList();
                                     if (btnName.Equals("-upSort"))
                                     {
@@ -1424,6 +1429,15 @@
                                 case "1": // CriticalIncidents tbl
                                     var lst1 = db.Critical_Incidents.Where(i => i.Location == Id_Location);
                                     TablesContainer.list1 = (from ent in lst1 where ent.Date >= start && ent.Date <= end select ent).ToList();
+                                    TablesContainer.list1 = lst1.OrderBy(x => x.Date).ToList();
+                                    if (btnName.Equals("-upSort"))
+                                    {
+                                        TablesContainer.list1 = lst1.OrderBy(x => x.Date).ToList();
+                                    }
+                                    else if (btnName.Equals("-downSort"))
+                                    {
+                                        TablesContainer.list1 = lst1.OrderByDescending(x => x.Date).ToList();
+                                    }
                                     if (TablesContainer.list1.Count != 0 || TablesContainer.list1 != null)
                                     {
                                         { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
@@ -5491,7 +5505,7 @@
                 #endregion
             }
             // Without Range:
-            else if (radioName == "-without" || radioName == "-filter")  // If we selected All With Datas:
+            else if (w_without == "-without" || w_without == "-filter")  // If we selected All With Datas:
             {
                 #region Grab to get button names:
                 string btnName = Request.Params

@@ -214,19 +214,21 @@
                     <ul class="nav nav-justified" style="width:900px" id="btns">
                         @*<li><button hidden type="submit"></button></li>*@
                         <li id="ll" style="">
-                            <button id="b1" class="btn btn-primary" name="btn-insert" style="margin: -15px 0 0 225px" type="submit">Input New Record</button>
-                            <button id="b2" class="btn btn-primary" style="margin:-15px 0 0 3px" name="btn-list">All Records</button>
+                            <button id="b1" class="btn btn-primary" name="btn-insert" style="        margin: -15px 0 0 225px;
+        background-color: darkorange
+" type="submit">Input New Record</button>
+                            <button id="b2" class="btn btn-primary" style="margin:-15px 0 0 3px;background-color:darkorange" name="btn-list">All Records</button>
                         </li>
                         <li></li>
                     </ul>
 
                     <div style="margin:-36px 0 0 0">
-                        <div class="form-check-inline" style="width:420px;padding:5px;margin:auto">
+                        <div class="form-check-inline" style="width:330px;padding:5px;margin:auto">
                             @Html.DropDownListFor(model => model.Filter, new SelectList(new string[] { "1 month back", "2 month back", "3 month back" }, "", ""), new { id = "filter", @class = "form-control" })
                             <br />
                             <label style="font-size:medium"  class="form-check-label">
                                 @*<input type="radio" id="r1" class="form-check-input" name="range-with" />*@
-                                @Html.RadioButtonFor(model => model.WithRadio, "-with", new { @Name = "range", @checked = "checked", id = "r1" })
+                                @Html.RadioButtonFor(model => model.WithRadio, "-with", new { @Name = "range", id = "r1" })
                                 With Date Range
                             </label>&nbsp; &nbsp;
                             <label style="font-size:medium" class="form-check-label">
