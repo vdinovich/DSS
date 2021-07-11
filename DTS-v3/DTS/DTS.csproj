@@ -175,6 +175,8 @@
     <Compile Include="Models\EditViewModel.cs" />
     <Compile Include="Models\Education.cs" />
     <Compile Include="Models\Emergency_Prep.cs" />
+    <Compile Include="Models\GoodNewsSummary.cs" />
+    <Compile Include="Models\GoodNewsSummaryAll.cs" />
     <Compile Include="Models\Good_News.cs" />
     <Compile Include="Models\Immunization.cs" />
     <Compile Include="Models\IncidentSummaryAll.cs" />
@@ -4896,6 +4898,7 @@
     <Content Include="Views\Home\TreeViewpartialo.cshtml" />
     <Content Include="Views\Home\Activity.cshtml" />
     <Content Include="Views\Activities\Add.cshtml" />
+    <Content Include="Views\Home\ComplaintsSummaryPart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DownloadedFiles\" />

@@ -111,20 +111,18 @@
             allSummary1 = new List<IncidentSummaryAll>();
             foundSummary2 = new List<ComplaintsSummary>();
             allSummary2 = new List<ComplaintsSummaryAll>();
+            foundSummary3 = new List<GoodNewsSummary>();
+            allSummary3 = new List<GoodNewsSummaryAll>();
             locList = new List<string>();
-            ll1 = new List<Critical_Incidents>();
-            ll2 = new List<Critical_Incidents>();
-            ll3 = new List<Critical_Incidents>();
-            ll4 = new List<Critical_Incidents>();
-            ll5 = new List<Critical_Incidents>();
-            ll6 = new List<Critical_Incidents>();
-            ll7 = new List<Critical_Incidents>();
-            ll8 = new List<Critical_Incidents>();
-            ll9 = new List<Critical_Incidents>();
-            ll10 = new List<Critical_Incidents>();
-            ll11 = new List<Critical_Incidents>();
+            ll1 = ll2 = ll3 = ll4 =  ll5 = ll6 = ll7 = ll8 = ll9 = ll10 = ll11 = 
+                new List<Critical_Incidents>();
             p1 = p2 = p3 = p4 = p5 = p6 = p7 = p8 = p9 = p10 = p11 = p12 = p13 = p14 = p15 = p16 = p17 = p18 = p18 = p19 = p20 = p21 = p22 =
                 p23 = p24 = p25 = p26 = p27 = 0;
+            aa1 = aa2 = aa3 = aa4 = aa5 = aa6 = aa7 = aa8 = aa9 = aa10 = aa11 = aa12 = aa13 = aa14 = aa15 = aa16 =
+            aa17 = aa18 = aa19 = aa20 = aa21 = aa22 = aa23 = aa24 = aa25 = aa26 = aa27 =
+            new List<Complaint>();
+            gg1 = gg2 = gg3 = gg4 = gg5 = gg6 = gg7 = gg8 = gg9 = gg10 = gg11 = new List<Good_News>();
+            cnt1 = cnt2 = cnt3 = cnt4 = cnt5 = cnt6 = cnt7 = cnt8 = cnt9 = cnt10 = cnt11 = 0;
         }
         #endregion
 
@@ -382,6 +380,7 @@
         public static bool b = false;
         static List<IncidentSummaryAll> allSummary1 = new List<IncidentSummaryAll>();
         static List<ComplaintsSummaryAll> allSummary2 = new List<ComplaintsSummaryAll>();
+        static List<GoodNewsSummaryAll> allSummary3 = new List<GoodNewsSummaryAll>();
         public static List<Activities> formList = default;
         [HttpGet]
         public ActionResult WOR_Tabs()
@@ -485,7 +484,7 @@
                         }
 
                         {
-                            ViewBag.GN_Found = strN;
+                            ViewBag.GN_Found = foundSummary2;
                         }
 
                         {
@@ -496,7 +495,7 @@
                             ViewBag.Entity = "Complaints";
                         }
 
-                        { ViewBag.TotalSummary = allSummary1; }
+                        { ViewBag.TotalSummary = allSummary2; }
                         { ViewBag.Check1 = isEmpty; }
                         { ViewBag.Check = checkView; }
 
@@ -759,7 +758,11 @@
         static List<string> locList = new List<string>();
         static List<CriticalIncidentSummary> foundSummary1 = new List<CriticalIncidentSummary>();
         static List<ComplaintsSummary> foundSummary2 = new List<ComplaintsSummary>();
+        static List<GoodNewsSummary> foundSummary3 = new List<GoodNewsSummary>();
         static List<Critical_Incidents> ll1, ll2, ll3, ll4, ll5, ll6, ll7, ll8, ll9, ll10, ll11;
+        static List<Complaint> aa1, aa2, aa3, aa4, aa5, aa6, aa7, aa8, aa9, aa10, aa11, aa12, aa13, aa14, aa15, aa16,
+            aa17, aa18, aa19, aa20, aa21, aa22, aa23, aa24, aa25, aa26, aa27;
+        static List<Good_News> gg1, gg2, gg3, gg4, gg5, gg6, gg7, gg8, gg9, gg10, gg11;
         static int p1 = 0, p2 = 0, p3 = 0, p4 = 0, p5 = 0, p6 = 0, p7 = 0, p8 = 0, p9 = 0, p10 = 0, p11 = 0, p12 = 0, p13 = 0,
             p14 = 0, p15 = 0, p16 = 0, p17 = 0, p18 = 0, p19 = 0, p20 = 0, p21 = 0, p22 = 0, p23 = 0, p24 = 0, p25 = 0, p26 = 0, p27 = 0;
         List<int> cnt = new List<int>();
@@ -770,17 +773,36 @@
         {
             ViewBag.AllCI = db.CI_Category_Types.ToList();
             ViewBag.AllLocs = db.Care_Communities.ToList();
+
+            string btnName = Request.Params
+                     .Cast<string>()
+                     .Where(p => p.StartsWith("btn"))
+                     .Select(p => p.Substring("btn".Length))
+                     .First();
+
             try
             {
                 w_without = Request.Form["range"];
                 if (w_without == null)
                     w_without = mirrorWout;
 
+                #region Change a table:
                 if (radioNameForms == string.Empty)
+                {
                     radioNameForms = Request.Form["formRadio"];
-                Value.Name = radioNameForms;
+                    Value.Name = radioNameForms;
+                }
+                if (radioNameForms != string.Empty && (btnName.Equals("-insert") ||
+                    btnName.Equals("-summary") || btnName.Equals("-list")))
+                {
+                    radioNameForms = Request.Form["formRadio"];
+                    Value.Name = radioNameForms;
+                }
+                else Value.Name = radioNameForms;
+                #endregion
             }
             catch { }
+
             ViewBag.ListCI = list3;
             if (role == Role.Admin)
                 ViewBag.Welcome = Role.Admin;
@@ -792,12 +814,6 @@
             // With Range:
             if (Value != null && Value.Name != null && w_without != "-without"/* && w_without != "-filter"*/)  // If we select anythng from the listbox
             {
-                string btnName = Request.Params
-                      .Cast<string>()
-                      .Where(p => p.StartsWith("btn"))
-                      .Select(p => p.Substring("btn".Length))
-                      .First();
-
                 #region For Showing List (with Range):
                 if (btnName.Equals("-list") || btnName.Equals("-upSort") || btnName.Equals("-downSort"))
                 {
@@ -5490,11 +5506,11 @@
                     {
                         if (TablesContainer.list2.Count != 0)
                         {
-                            List<Complaint> found =
-                                TablesContainer.list2.Where(ci => ci.Department == Value.Id).ToList();
+                            //List<Complaint> found =
+                            //    TablesContainer.list2.Where(ci => ci.Department == Value.Id).ToList();
 
                             { ViewBag.Names = STREAM.GetLocNames().ToArray(); }
-                            ViewBag.List = found;
+                            //ViewBag.List = found;
                             WorTabs tabs = new WorTabs();
                             tabs.ListForms = GetFormNames();
                             return View(tabs);
@@ -5508,13 +5524,13 @@
             else if (w_without == "-without" || w_without == "-filter")  // If we selected All With Datas:
             {
                 #region Grab to get button names:
-                string btnName = Request.Params
-                     .Cast<string>()
-                     .Where(p => p.StartsWith("btn"))
-                     .Select(p => p.Substring("btn".Length))
-                     .First();
+                //string btnName = Request.Params
+                //     .Cast<string>()
+                //     .Where(p => p.StartsWith("btn"))
+                //     .Select(p => p.Substring("btn".Length))
+                //     .First();
 
-                string filter = Value.Filter;
+                //string filter = Value.Filter;
                 #endregion
 
                 #region For Showing List (Without Range):
@@ -6402,7 +6418,7 @@
                     int id = 0;
                     try
                     {
-                         id = num_tbl = int.Parse(Value.Name);
+                         id = num_tbl = int.Parse(radioNameForms);
                     }
                     catch { }
                     if (id == 11) Id_Location = 1;
@@ -8276,7 +8292,7 @@
                                 checkRepead = true;
 
                                 #region Accounting all location name:
-                                foreach (var cc in TablesContainer.list1)
+                                foreach (var cc in TablesContainer.list2)
                                 {
                                     if (STREAM.GetLocNameById(cc.Location).Contains("Altamont Care Community"))
                                         cnt1++;
@@ -8306,7 +8322,7 @@
                                 ComplaintsSummary model = new ComplaintsSummary();
                                 var locDistinct = new HashSet<string>();
                                 var locId = new List<int>();
-                                foreach (var it in TablesContainer.list1)
+                                foreach (var it in TablesContainer.list2)
                                 {
                                     Care_Community cc = db.Care_Communities.Find(it.Location);
                                     locDistinct.Add(cc.Name);
@@ -8320,58 +8336,58 @@
                                 {
                                     if (locList[i].Contains("Altamont Care Community"))
                                     {
-                                        ll1 = TablesContainer.list1.Where
+                                        aa1 = TablesContainer.list2.Where
                                      (loc => STREAM.GetLocNameById(loc.Location) == "Altamont Care Community\r\n").ToList();
                                     }
                                     else if (locList[i].Contains("Astoria Retirement Residence"))
                                     {
-                                        ll2 = TablesContainer.list1.Where
+                                        aa2 = TablesContainer.list2.Where
                                            (loc => STREAM.GetLocNameById(loc.Location) == "Astoria Retirement Residence\r\n").ToList();
                                     }
                                     else if (locList[i].Contains("Barnswallow Place Care Community"))
                                     {
-                                        ll3 = TablesContainer.list1.Where
+                                        aa3 = TablesContainer.list2.Where
                                       (loc => STREAM.GetLocNameById(loc.Location) == "Barnswallow Place Care Community\r\n").ToList();
                                     }
                                     else if (locList[i].Contains("Bearbrook Retirement Residence"))
                                     {
-                                        ll4 = TablesContainer.list1.Where
+                                        aa4 = TablesContainer.list2.Where
                                       (loc => STREAM.GetLocNameById(loc.Location) == "Bearbrook Retirement Residence\r\n").ToList();
                                     }
                                     else if (locList[i].Contains("Bloomington Cove Care Community"))
                                     {
-                                        ll5 = TablesContainer.list1.Where
+                                        aa5 = TablesContainer.list2.Where
                                        (loc => STREAM.GetLocNameById(loc.Location) == "Bloomington Cove Care Community\r\n").ToList();
                                     }
                                     else if (locList[i].Contains("Bradford Valley Care Community"))
                                     {
-                                        ll6 = TablesContainer.list1.Where
+                                        aa6 = TablesContainer.list2.Where
                                         (loc => STREAM.GetLocNameById(loc.Location) == "Bradford Valley Care Community\r\n").ToList();
                                     }
                                     else if (locList[i].Contains("Brookside Lodge"))
                                     {
-                                        ll7 = TablesContainer.list1.Where
+                                        aa7 = TablesContainer.list2.Where
                                        (loc => STREAM.GetLocNameById(loc.Location) == "Brookside Lodge\r\n").ToList();
                                     }
                                     else if (locList[i].Contains("Woodbridge Vista"))
                                     {
                                         string retName = STREAM.GetLocNameById(8);
-                                        ll8 = TablesContainer.list1.Where
+                                        aa8 = TablesContainer.list2.Where
                                         (loc => STREAM.GetLocNameById(loc.Location) == "Woodbridge Vista").ToList();
                                     }
                                     else if (locList[i].Contains("Norfinch"))
                                     {
-                                        ll9 = TablesContainer.list1.Where
+                                        aa9 = TablesContainer.list2.Where
                                         (loc => STREAM.GetLocNameById(loc.Location) == "Norfinch\r\n").ToList();
                                     }
                                     else if (locList[i].Contains("Rideau"))
                                     {
-                                        ll10 = TablesContainer.list1.Where
+                                        aa10 = TablesContainer.list2.Where
                                       (loc => STREAM.GetLocNameById(loc.Location) == "Rideau\r\n").ToList();
                                     }
                                     else if (locList[i].Contains("Villa da Vinci"))
                                     {
-                                        ll11 = TablesContainer.list1.Where
+                                        aa11 = TablesContainer.list2.Where
                                         (loc => STREAM.GetLocNameById(loc.Location) == "Villa da Vinci\r\n").ToList();
                                     }
                                 }
@@ -8419,7 +8435,7 @@
 
                                 #region Count all atributes to location:
                                 #region For the 1st Location:
-                                if(ll1 != null)
+                                if(aa1 != null)
                                 {
                                     model.LocationName = locList.Find(i => i == "Altamont Care Community\r\n" + " - " + cnt1);
                                     var att1 = TablesContainer.list2.GroupBy(i => i.DateReceived);
@@ -10290,8 +10306,7 @@
                                     model.LocationName = locList.Find(i => i == "Altamont Care Community\r\n" + " - " + cnt1);
                                     var att1 = TablesContainer.list2.GroupBy(i => i.DateReceived);
                                     if (att1 != null)
-                                    {
-                                        
+                                    {                                 
                                         foreach (var cc in att1)
                                         {
                                             string key = cc.Key == null ? "NULL" : cc.Key.ToString();
@@ -11923,7 +11938,7 @@
                             { ViewBag.TotalSummary = allSummary2; }
 
                             b = true;
-                            if (foundSummary1.Count == 0) { b = false; ViewBag.EmptLocation = b; }
+                            if (foundSummary2.Count == 0) { b = false; ViewBag.EmptLocation = b; }
 
                             {
                                 ViewBag.Count = TablesContainer.COUNT;
@@ -11956,214 +11971,3282 @@
 
                         #region Good_News:
                         case "Good_News":
-                            { ViewBag.ObjName = "Good_News"; }
-                            TablesContainer.list3 = db.Good_News.ToList();
-                            if (TablesContainer.list3.Count() == 0)
-                            {
-                                ViewBag.ErrorMsg = errorMsg = "Please select a date range.";
-                                WorTabs tabs = new WorTabs();
-                                tabs.ListForms = GetFormNames();
-                                return View(tabs);
-                            }
+                            if (role == Role.Admin)
+                                TablesContainer.list3 = db.Good_News.ToList();
+                            else if (role == Role.User)
+                                TablesContainer.list3 = db.Good_News.Where(i => i.Location == Id_Location).ToList();
+                            ClearAllStatic();
 
-                            strN = new List<string>();
-                            //var news = db.Good_News.ToList();
-                            var a1 = TablesContainer.list3.GroupBy(i => i.DateNews);
-                            if (a1 != null)
+                            if (!checkRepead)
                             {
-                                strN.Add("Date News: ");
-                                foreach (var cc in a1)
+                                checkRepead = true;
+
+                                #region Accounting all location name:
+                                foreach (var cc in TablesContainer.list3)
                                 {
-                                    string key = cc.Key == null ? "NULL" : cc.Key.ToString();
-                                    if (key == "NULL") continue;
-                                    strN.Add($"{key}\t - \t{cc.Count()}");
+                                    if (STREAM.GetLocNameById(cc.Location).Contains("Altamont Care Community"))
+                                        cnt1++;
+                                    else if (STREAM.GetLocNameById(cc.Location).Contains("Astoria Retirement Residence"))
+                                        cnt2++;
+                                    else if (STREAM.GetLocNameById(cc.Location).Contains("Barnswallow Place Care Community"))
+                                        cnt3++;
+                                    else if (STREAM.GetLocNameById(cc.Location).Contains("Bearbrook Retirement Residence"))
+                                        cnt4++;
+                                    else if (STREAM.GetLocNameById(cc.Location).Contains("Bloomington Cove Care Community"))
+                                        cnt5++;
+                                    else if (STREAM.GetLocNameById(cc.Location).Contains("Bradford Valley Care Community"))
+                                        cnt6++;
+                                    else if (STREAM.GetLocNameById(cc.Location).Contains("Brookside Lodge"))
+                                        cnt7++;
+                                    else if (STREAM.GetLocNameById(cc.Location).Contains("Woodbridge Vista"))
+                                        cnt8++;
+                                    else if (STREAM.GetLocNameById(cc.Location).Contains("Norfinch"))
+                                        cnt9++;
+                                    else if (STREAM.GetLocNameById(cc.Location).Contains("Rideau"))
+                                        cnt10++;
+                                    else if (STREAM.GetLocNameById(cc.Location).Contains("Villa da Vinci"))
+                                        cnt11++;
                                 }
-                            }
+                                #endregion
 
-                            var a2 = TablesContainer.list3.GroupBy(i => i.Department);
-                            if (a2 != null)
-                            {
-                                
-                                foreach (var cc in a2)
+                                GoodNewsSummary model = new GoodNewsSummary();
+                                var locDistinct = new HashSet<string>();
+                                var locId = new List<int>();
+                                foreach (var it in TablesContainer.list3)
                                 {
-                                    string key = cc.Key == null ? "NULL" : cc.Key.ToString();
-                                    if (key == "NULL") continue;
-                                    strN.Add($"{key}\t - \t{cc.Count()}");
+                                    Care_Community cc = db.Care_Communities.Find(it.Location);
+                                    locDistinct.Add(cc.Name);
+                                    locId.Add(cc.Id);
                                 }
-                            }
 
-                            var a3 = TablesContainer.list3.GroupBy(i => i.SourceCompliment);
-                            if (a3 != null)
-                            {
-                                strN.Add("Source Compliment: ");
-                                foreach (var cc in a3)
+                                locList = locDistinct.ToList();
+
+                                #region Fill out lists ll1,ll2,ll3...ll11 existing locations:
+                                for (var i = 0; i < locList.Count; i++)
                                 {
-                                    string key = cc.Key == null ? "NULL" : cc.Key.ToString();
-                                    if (key == "NULL") continue;
-                                    strN.Add($"{key}\t - \t{cc.Count()}");
+                                    if (locList[i].Contains("Altamont Care Community"))
+                                    {
+                                        gg1 = TablesContainer.list3.Where
+                                     (loc => STREAM.GetLocNameById(loc.Location) == "Altamont Care Community\r\n").ToList();
+                                    }
+                                    else if (locList[i].Contains("Astoria Retirement Residence"))
+                                    {
+                                        gg2 = TablesContainer.list3.Where
+                                           (loc => STREAM.GetLocNameById(loc.Location) == "Astoria Retirement Residence\r\n").ToList();
+                                    }
+                                    else if (locList[i].Contains("Barnswallow Place Care Community"))
+                                    {
+                                        gg3 = TablesContainer.list3.Where
+                                      (loc => STREAM.GetLocNameById(loc.Location) == "Barnswallow Place Care Community\r\n").ToList();
+                                    }
+                                    else if (locList[i].Contains("Bearbrook Retirement Residence"))
+                                    {
+                                        gg4 = TablesContainer.list3.Where
+                                      (loc => STREAM.GetLocNameById(loc.Location) == "Bearbrook Retirement Residence\r\n").ToList();
+                                    }
+                                    else if (locList[i].Contains("Bloomington Cove Care Community"))
+                                    {
+                                        gg5 = TablesContainer.list3.Where
+                                       (loc => STREAM.GetLocNameById(loc.Location) == "Bloomington Cove Care Community\r\n").ToList();
+                                    }
+                                    else if (locList[i].Contains("Bradford Valley Care Community"))
+                                    {
+                                        gg6 = TablesContainer.list3.Where
+                                        (loc => STREAM.GetLocNameById(loc.Location) == "Bradford Valley Care Community\r\n").ToList();
+                                    }
+                                    else if (locList[i].Contains("Brookside Lodge"))
+                                    {
+                                        gg7 = TablesContainer.list3.Where
+                                       (loc => STREAM.GetLocNameById(loc.Location) == "Brookside Lodge\r\n").ToList();
+                                    }
+                                    else if (locList[i].Contains("Woodbridge Vista"))
+                                    {
+                                        string retName = STREAM.GetLocNameById(8);
+                                        gg8 = TablesContainer.list3.Where
+                                        (loc => STREAM.GetLocNameById(loc.Location) == "Woodbridge Vista").ToList();
+                                    }
+                                    else if (locList[i].Contains("Norfinch"))
+                                    {
+                                        gg9 = TablesContainer.list3.Where
+                                        (loc => STREAM.GetLocNameById(loc.Location) == "Norfinch\r\n").ToList();
+                                    }
+                                    else if (locList[i].Contains("Rideau"))
+                                    {
+                                        gg10 = TablesContainer.list3.Where
+                                      (loc => STREAM.GetLocNameById(loc.Location) == "Rideau\r\n").ToList();
+                                    }
+                                    else if (locList[i].Contains("Villa da Vinci"))
+                                    {
+                                        gg11 = TablesContainer.list3.Where
+                                        (loc => STREAM.GetLocNameById(loc.Location) == "Villa da Vinci\r\n").ToList();
+                                    }
                                 }
-                            }
+                                #endregion
 
-                            var a4 = TablesContainer.list3.GroupBy(i => i.ReceivedFrom);
-                            if (a4 != null)
-                            {
-                                strN.Add("Received From: ");
-                                foreach (var cc in a4)
+                                #region Add count location for each exist:
+                                for (var i = 0; i < locList.Count; i++)
                                 {
-                                    string key = cc.Key == null ? "NULL" : cc.Key.ToString();
-                                    if (key == "NULL") continue;
-                                    strN.Add($"{key}\t - \t{cc.Count()}");
+                                    if (locList[i].Contains("Altamont Care Community"))
+                                        locList[i] = locList[i] + " - " + cnt1;
+                                    else if (locList[i].Contains("Astoria Retirement Residence"))
+                                        locList[i] = locList[i] + " - " + cnt2;
+                                    else if (locList[i].Contains("Barnswallow Place Care Community"))
+                                        locList[i] = locList[i] + " - " + cnt3;
+                                    else if (locList[i].Contains("Bearbrook Retirement Residence"))
+                                        locList[i] = locList[i] + " - " + cnt4;
+                                    else if (locList[i].Contains("Bloomington Cove Care Community"))
+                                        locList[i] = locList[i] + " - " + cnt5;
+                                    else if (locList[i].Contains("Bradford Valley Care Community"))
+                                        locList[i] = locList[i] + " - " + cnt6;
+                                    else if (locList[i].Contains("Brookside Lodge"))
+                                        locList[i] = locList[i] + " - " + cnt7;
+                                    else if (locList[i].Contains("Woodbridge Vista"))
+                                        locList[i] = locList[i] + " - " + cnt8;
+                                    else if (locList[i].Contains("Norfinch"))
+                                        locList[i] = locList[i] + " - " + cnt9;
+                                    else if (locList[i].Contains("Rideau"))
+                                        locList[i] = locList[i] + " - " + cnt10;
+                                    else if (locList[i].Contains("Villa da Vinci"))
+                                        locList[i] = locList[i] + " - " + cnt11;
                                 }
-                            }
+                                #endregion
 
-                            var a5 = TablesContainer.list3.GroupBy(i => i.Description_Complim);
-                            if (a5 != null)
-                            {
-                                strN.Add("Description Compliment: ");
-                                foreach (var cc in a5)
+                                locList.Sort(); // Sorted by alphanumeric
+
+                                if (TablesContainer.list3.Count() == 0)
                                 {
-                                    string key = cc.Key == null ? "NULL" : cc.Key.ToString();
-                                    if (key == "NULL") continue;
-                                    strN.Add($"{key}\t - \t{cc.Count()}");
+                                    { ViewBag.ObjName = "Good_News"; }
+                                    ViewBag.ErrorMsg = errorMsg = "Please select a date range.";
+                                    WorTabs tabs = new WorTabs();
+                                    tabs.ListForms = GetFormNames();
+                                    return View(tabs);
                                 }
-                            }
+                                TablesContainer.COUNT = TablesContainer.list3.Count;
 
-                            var a6 = TablesContainer.list3.GroupBy(i => i.Respect);
-                            if (a6 != null)
-                            {
-                                strN.Add("Respect: ");
-                                foreach (var cc in a6)
+                                #region Count all atributes to location:
+                                #region For the 1st Location:
+                                if (aa1 != null)
                                 {
-                                    strN.Add($"{cc.Key}\t - \t{cc.Count()}");
-                                }
-                            }
+                                    model.LocationName = locList.Find(i => i == "Altamont Care Community\r\n" + " - " + cnt1);
+                                    var att1 = TablesContainer.list3.GroupBy(i => i.Awards_Details);
+                                    if (att1 != null)
+                                    {
+                                        foreach (var cc in att1)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.Awards_Details += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p1 += cc.Count();
+                                        }
+                                    }
 
-                            var a7 = TablesContainer.list3.GroupBy(i => i.Passion);
-                            if (a7 != null)
-                            {
-                                strN.Add("Passion: ");
-                                foreach (var cc in a7)
+                                    var att2 = TablesContainer.list3.GroupBy(i => i.Awards_Received);
+                                    if (att2 != null)
+                                    {
+                                        foreach (var cc in att2)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.Awards_Received += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p2 += cc.Count();
+                                        }
+                                    }
+
+                                    var att3 = TablesContainer.list3.GroupBy(i => i.Category);
+                                    if (att3 != null)
+                                    {
+                                        foreach (var cc in att3)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.Category += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p3 += cc.Count();
+                                        }
+                                    }
+
+                                    var att4 = TablesContainer.list3.GroupBy(i => i.Community_Inititives);
+                                    if (att4 != null)
+                                    {
+                                        foreach (var cc in att4)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.Community_Inititives += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p4 += cc.Count();
+                                        }
+                                    }
+
+                                    var att5 = TablesContainer.list3.GroupBy(i => i.Compliment);
+                                    if (att5 != null)
+                                    {
+                                        foreach (var cc in att5)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.Compliment += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p5 += cc.Count();
+                                        }
+                                    }
+
+                                    var att6 = TablesContainer.list3.GroupBy(i => i.Department);
+                                    if (att6 != null)
+                                    {
+                                        foreach (var cc in att6)
+                                        {
+                                            model.Department += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p6 += cc.Count();
+                                        }
+                                    }
+
+                                    var att7 = TablesContainer.list3.GroupBy(i => i.Description_Complim);
+                                    if (att7 != null)
+                                    {
+                                        foreach (var cc in att7)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.Description_Complim += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p7 += cc.Count();
+                                        }
+                                    }
+
+                                    var att8 = TablesContainer.list3.GroupBy(i => i.Growth);
+                                    if (att8 != null)
+                                    {
+                                        foreach (var cc in att8)
+                                        {
+                                            model.Growth += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p8 += cc.Count();
+                                        }
+                                    }
+
+                                    var att9 = TablesContainer.list3.GroupBy(i => i.NameAwards);
+                                    if (att9 != null)
+                                    {
+                                        foreach (var cc in att9)
+                                        {
+                                            model.NameAwards += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p9 += cc.Count();
+                                        }
+                                    }
+
+                                    var att10 = TablesContainer.list3.GroupBy(i => i.Passion);
+                                    if (att10 != null)
+                                    {
+                                        foreach (var cc in att10)
+                                        {
+                                            model.Passion += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p10 += cc.Count();
+                                        }
+                                    }
+
+                                    var att11 = TablesContainer.list3.GroupBy(i => i.ReceivedFrom);
+                                    if (att11 != null)
+                                    {
+                                        foreach (var cc in att11)
+                                        {
+                                            model.ReceivedFrom += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p11 += cc.Count();
+                                        }
+                                    }
+
+                                    var att12 = TablesContainer.list3.GroupBy(i => i.Respect);
+                                    if (att12 != null)
+                                    {
+                                        foreach (var cc in att2)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.Respect += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p12 += cc.Count();
+                                        }
+                                    }
+
+                                    var att13 = TablesContainer.list3.GroupBy(i => i.Responsibility);
+                                    if (att13 != null)
+                                    {
+                                        foreach (var cc in att13)
+                                        {
+                                            model.Responsibility += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p13 += cc.Count();
+                                        }
+                                    }
+
+                                    var att14 = TablesContainer.list3.GroupBy(i => i.SourceCompliment);
+                                    if (att14 != null)
+                                    {
+                                        foreach (var cc in att14)
+                                        {
+                                            model.SourceCompliment += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p14 += cc.Count();
+                                        }
+                                    }
+
+                                    var att15 = TablesContainer.list3.GroupBy(i => i.Spot_Awards);
+                                    if (att15 != null)
+                                    {
+                                        foreach (var cc in att15)
+                                        {
+                                            model.Spot_Awards += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p15 += cc.Count();
+                                        }
+                                    }
+
+                                    var att16 = TablesContainer.list3.GroupBy(i => i.Teamwork);
+                                    if (att16 != null)
+                                    {
+                                        foreach (var cc in att16)
+                                        {
+                                            model.Teamwork += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p16 += cc.Count();
+                                        }
+                                    }
+                                }
+
+                                foundSummary3.Add(model);
+                                model = new GoodNewsSummary();
+                                #endregion
+
+                                #region For the 2nd Location:
+
+
+                                #endregion
+
+                                #region For the 3rd Location:
+                                if (ll3 != null)
                                 {
-                                    strN.Add($"{cc.Key}\t - \t{cc.Count()}");
-                                }
-                            }
+                                    model.LocationName = locList.Find(i => i == "Altamont Care Community\r\n" + " - " + cnt1);
+                                    var att1 = TablesContainer.list2.GroupBy(i => i.DateReceived);
+                                    if (att1 != null)
+                                    {
 
-                            var a8 = TablesContainer.list3.GroupBy(i => i.Teamwork);
-                            if (a8 != null)
-                            {
-                                strN.Add("Teamwork: ");
-                                foreach (var cc in a8)
+                                        foreach (var cc in att1)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.DateReceived += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p1 += cc.Count();
+                                        }
+                                    }
+
+                                    var att2 = TablesContainer.list2.GroupBy(i => i.WritenOrVerbal);
+                                    if (att2 != null)
+                                    {
+
+                                        foreach (var cc in att2)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.WritenOrVerbal += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p2 += cc.Count();
+                                        }
+                                    }
+
+                                    var att3 = TablesContainer.list2.GroupBy(i => i.Receive_Directly);
+                                    if (att3 != null)
+                                    {
+
+                                        foreach (var cc in att3)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.Receive_Directly += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p3 += cc.Count();
+                                        }
+                                    }
+
+                                    var att4 = TablesContainer.list2.GroupBy(i => i.FromResident);
+                                    if (att4 != null)
+                                    {
+
+                                        foreach (var cc in att4)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.FromResident += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p4 += cc.Count();
+                                        }
+                                    }
+
+                                    var att5 = TablesContainer.list2.GroupBy(i => i.ResidentName);
+                                    if (att5 != null)
+                                    {
+
+                                        foreach (var cc in att5)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.ResidentName += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p5 += cc.Count();
+                                        }
+                                    }
+
+                                    var att6 = TablesContainer.list2.GroupBy(i => i.Department);
+                                    if (att6 != null)
+                                    {
+
+                                        foreach (var cc in att6)
+                                        {
+                                            model.Department += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p6 += cc.Count();
+                                        }
+                                    }
+
+                                    var att7 = TablesContainer.list2.GroupBy(i => i.BriefDescription);
+                                    if (att7 != null)
+                                    {
+
+                                        foreach (var cc in att7)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.BriefDescription += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p7 += cc.Count();
+                                        }
+                                    }
+
+                                    var att8 = TablesContainer.list2.GroupBy(i => i.IsAdministration);
+                                    if (att8 != null)
+                                    {
+
+                                        foreach (var cc in att8)
+                                        {
+                                            model.BriefDescription += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p8 += cc.Count();
+                                        }
+                                    }
+
+                                    var att9 = TablesContainer.list2.GroupBy(i => i.CareServices);
+                                    if (att9 != null)
+                                    {
+
+                                        foreach (var cc in att9)
+                                        {
+                                            model.CareServices += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p9 += cc.Count();
+                                        }
+                                    }
+
+                                    var att10 = TablesContainer.list2.GroupBy(i => i.PalliativeCare);
+                                    if (att10 != null)
+                                    {
+
+                                        foreach (var cc in att10)
+                                        {
+                                            model.PalliativeCare += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p10 += cc.Count();
+                                        }
+                                    }
+
+                                    var att11 = TablesContainer.list2.GroupBy(i => i.Dietary);
+                                    if (att11 != null)
+                                    {
+
+                                        foreach (var cc in att11)
+                                        {
+                                            model.Dietary += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p11 += cc.Count();
+                                        }
+                                    }
+
+                                    var att12 = TablesContainer.list2.GroupBy(i => i.Housekeeping);
+                                    if (att12 != null)
+                                    {
+
+                                        foreach (var cc in att2)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.Housekeeping += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p12 += cc.Count();
+                                        }
+                                    }
+
+                                    var att13 = TablesContainer.list2.GroupBy(i => i.Laundry);
+                                    if (att13 != null)
+                                    {
+
+                                        foreach (var cc in att13)
+                                        {
+                                            model.Laundry += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p13 += cc.Count();
+                                        }
+                                    }
+
+                                    var att14 = TablesContainer.list2.GroupBy(i => i.Maintenance);
+                                    if (att14 != null)
+                                    {
+
+                                        foreach (var cc in att14)
+                                        {
+                                            model.Maintenance += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p14 += cc.Count();
+                                        }
+                                    }
+
+                                    var att15 = TablesContainer.list2.GroupBy(i => i.Programs);
+                                    if (att15 != null)
+                                    {
+
+                                        foreach (var cc in att15)
+                                        {
+                                            model.Programs += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p15 += cc.Count();
+                                        }
+                                    }
+
+                                    var att16 = TablesContainer.list2.GroupBy(i => i.Physician);
+                                    if (att16 != null)
+                                    {
+
+                                        foreach (var cc in att16)
+                                        {
+                                            model.Physician += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p16 += cc.Count();
+                                        }
+                                    }
+
+                                    var att17 = TablesContainer.list2.GroupBy(i => i.Beautician);
+                                    if (att17 != null)
+                                    {
+
+                                        foreach (var cc in att17)
+                                        {
+                                            model.Beautician += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p17 += cc.Count();
+                                        }
+                                    }
+
+                                    var att18 = TablesContainer.list2.GroupBy(i => i.FootCare);
+                                    if (att18 != null)
+                                    {
+
+                                        foreach (var cc in att18)
+                                        {
+                                            model.FootCare += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p18 += cc.Count();
+                                        }
+                                    }
+
+                                    var att19 = TablesContainer.list2.GroupBy(i => i.DentalCare);
+                                    if (att19 != null)
+                                    {
+
+                                        foreach (var cc in att19)
+                                        {
+                                            model.DentalCare += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p19 += cc.Count();
+                                        }
+                                    }
+
+                                    var att20 = TablesContainer.list2.GroupBy(i => i.Physio);
+                                    if (att20 != null)
+                                    {
+
+                                        foreach (var cc in att20)
+                                        {
+                                            model.Physio += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p20 += cc.Count();
+                                        }
+                                    }
+
+                                    var att21 = TablesContainer.list2.GroupBy(i => i.Other);
+                                    if (att21 != null)
+                                    {
+
+                                        foreach (var cc in att21)
+                                        {
+                                            model.Other += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p21 += cc.Count();
+                                        }
+                                    }
+
+                                    var att22 = TablesContainer.list2.GroupBy(i => i.MOHLTCNotified);
+                                    if (att22 != null)
+                                    {
+
+                                        foreach (var cc in att22)
+                                        {
+                                            model.MOHLTCNotified += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p22 += cc.Count();
+                                        }
+                                    }
+
+                                    var att23 = TablesContainer.list2.GroupBy(i => i.CopyToVP);
+                                    if (att23 != null)
+                                    {
+
+                                        foreach (var cc in att23)
+                                        {
+                                            model.CopyToVP += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p23 += cc.Count();
+                                        }
+                                    }
+
+                                    var att24 = TablesContainer.list2.GroupBy(i => i.ResponseSent);
+                                    if (att15 != null)
+                                    {
+
+                                        foreach (var cc in att15)
+                                        {
+                                            model.ResponseSent += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p24 += cc.Count();
+                                        }
+                                    }
+
+                                    var att25 = TablesContainer.list2.GroupBy(i => i.ActionToken);
+                                    if (att25 != null)
+                                    {
+
+                                        foreach (var cc in att25)
+                                        {
+                                            model.ActionToken += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p25 += cc.Count();
+                                        }
+                                    }
+
+                                    var att26 = TablesContainer.list2.GroupBy(i => i.Resolved);
+                                    if (att26 != null)
+                                    {
+
+                                        foreach (var cc in att26)
+                                        {
+                                            model.Resolved += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p26 += cc.Count();
+                                        }
+                                    }
+
+                                    var att27 = TablesContainer.list2.GroupBy(i => i.MinistryVisit);
+                                    if (att27 != null)
+                                    {
+
+                                        foreach (var cc in att27)
+                                        {
+                                            model.MinistryVisit += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p27 += cc.Count();
+                                        }
+                                    }
+                                }
+
+                                foundSummary2.Add(model);
+                                model = new ComplaintsSummary();
+                                #endregion
+
+                                #region For the 4th Location:
+                                if (ll4 != null)
                                 {
-                                    strN.Add($"{cc.Key}\t - \t{cc.Count()}");
-                                }
-                            }
+                                    model.LocationName = locList.Find(i => i == "Altamont Care Community\r\n" + " - " + cnt1);
+                                    var att1 = TablesContainer.list2.GroupBy(i => i.DateReceived);
+                                    if (att1 != null)
+                                    {
 
-                            var a9 = TablesContainer.list3.GroupBy(i => i.Responsibility);
-                            if (a9 != null)
-                            {
-                                strN.Add("Responsibility: ");
-                                foreach (var cc in a9)
+                                        foreach (var cc in att1)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.DateReceived += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p1 += cc.Count();
+                                        }
+                                    }
+
+                                    var att2 = TablesContainer.list2.GroupBy(i => i.WritenOrVerbal);
+                                    if (att2 != null)
+                                    {
+
+                                        foreach (var cc in att2)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.WritenOrVerbal += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p2 += cc.Count();
+                                        }
+                                    }
+
+                                    var att3 = TablesContainer.list2.GroupBy(i => i.Receive_Directly);
+                                    if (att3 != null)
+                                    {
+
+                                        foreach (var cc in att3)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.Receive_Directly += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p3 += cc.Count();
+                                        }
+                                    }
+
+                                    var att4 = TablesContainer.list2.GroupBy(i => i.FromResident);
+                                    if (att4 != null)
+                                    {
+
+                                        foreach (var cc in att4)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.FromResident += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p4 += cc.Count();
+                                        }
+                                    }
+
+                                    var att5 = TablesContainer.list2.GroupBy(i => i.ResidentName);
+                                    if (att5 != null)
+                                    {
+
+                                        foreach (var cc in att5)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.ResidentName += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p5 += cc.Count();
+                                        }
+                                    }
+
+                                    var att6 = TablesContainer.list2.GroupBy(i => i.Department);
+                                    if (att6 != null)
+                                    {
+
+                                        foreach (var cc in att6)
+                                        {
+                                            model.Department += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p6 += cc.Count();
+                                        }
+                                    }
+
+                                    var att7 = TablesContainer.list2.GroupBy(i => i.BriefDescription);
+                                    if (att7 != null)
+                                    {
+
+                                        foreach (var cc in att7)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.BriefDescription += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p7 += cc.Count();
+                                        }
+                                    }
+
+                                    var att8 = TablesContainer.list2.GroupBy(i => i.IsAdministration);
+                                    if (att8 != null)
+                                    {
+
+                                        foreach (var cc in att8)
+                                        {
+                                            model.BriefDescription += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p8 += cc.Count();
+                                        }
+                                    }
+
+                                    var att9 = TablesContainer.list2.GroupBy(i => i.CareServices);
+                                    if (att9 != null)
+                                    {
+
+                                        foreach (var cc in att9)
+                                        {
+                                            model.CareServices += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p9 += cc.Count();
+                                        }
+                                    }
+
+                                    var att10 = TablesContainer.list2.GroupBy(i => i.PalliativeCare);
+                                    if (att10 != null)
+                                    {
+
+                                        foreach (var cc in att10)
+                                        {
+                                            model.PalliativeCare += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p10 += cc.Count();
+                                        }
+                                    }
+
+                                    var att11 = TablesContainer.list2.GroupBy(i => i.Dietary);
+                                    if (att11 != null)
+                                    {
+
+                                        foreach (var cc in att11)
+                                        {
+                                            model.Dietary += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p11 += cc.Count();
+                                        }
+                                    }
+
+                                    var att12 = TablesContainer.list2.GroupBy(i => i.Housekeeping);
+                                    if (att12 != null)
+                                    {
+
+                                        foreach (var cc in att2)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.Housekeeping += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p12 += cc.Count();
+                                        }
+                                    }
+
+                                    var att13 = TablesContainer.list2.GroupBy(i => i.Laundry);
+                                    if (att13 != null)
+                                    {
+
+                                        foreach (var cc in att13)
+                                        {
+                                            model.Laundry += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p13 += cc.Count();
+                                        }
+                                    }
+
+                                    var att14 = TablesContainer.list2.GroupBy(i => i.Maintenance);
+                                    if (att14 != null)
+                                    {
+
+                                        foreach (var cc in att14)
+                                        {
+                                            model.Maintenance += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p14 += cc.Count();
+                                        }
+                                    }
+
+                                    var att15 = TablesContainer.list2.GroupBy(i => i.Programs);
+                                    if (att15 != null)
+                                    {
+
+                                        foreach (var cc in att15)
+                                        {
+                                            model.Programs += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p15 += cc.Count();
+                                        }
+                                    }
+
+                                    var att16 = TablesContainer.list2.GroupBy(i => i.Physician);
+                                    if (att16 != null)
+                                    {
+
+                                        foreach (var cc in att16)
+                                        {
+                                            model.Physician += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p16 += cc.Count();
+                                        }
+                                    }
+
+                                    var att17 = TablesContainer.list2.GroupBy(i => i.Beautician);
+                                    if (att17 != null)
+                                    {
+
+                                        foreach (var cc in att17)
+                                        {
+                                            model.Beautician += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p17 += cc.Count();
+                                        }
+                                    }
+
+                                    var att18 = TablesContainer.list2.GroupBy(i => i.FootCare);
+                                    if (att18 != null)
+                                    {
+
+                                        foreach (var cc in att18)
+                                        {
+                                            model.FootCare += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p18 += cc.Count();
+                                        }
+                                    }
+
+                                    var att19 = TablesContainer.list2.GroupBy(i => i.DentalCare);
+                                    if (att19 != null)
+                                    {
+
+                                        foreach (var cc in att19)
+                                        {
+                                            model.DentalCare += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p19 += cc.Count();
+                                        }
+                                    }
+
+                                    var att20 = TablesContainer.list2.GroupBy(i => i.Physio);
+                                    if (att20 != null)
+                                    {
+
+                                        foreach (var cc in att20)
+                                        {
+                                            model.Physio += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p20 += cc.Count();
+                                        }
+                                    }
+
+                                    var att21 = TablesContainer.list2.GroupBy(i => i.Other);
+                                    if (att21 != null)
+                                    {
+
+                                        foreach (var cc in att21)
+                                        {
+                                            model.Other += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p21 += cc.Count();
+                                        }
+                                    }
+
+                                    var att22 = TablesContainer.list2.GroupBy(i => i.MOHLTCNotified);
+                                    if (att22 != null)
+                                    {
+
+                                        foreach (var cc in att22)
+                                        {
+                                            model.MOHLTCNotified += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p22 += cc.Count();
+                                        }
+                                    }
+
+                                    var att23 = TablesContainer.list2.GroupBy(i => i.CopyToVP);
+                                    if (att23 != null)
+                                    {
+
+                                        foreach (var cc in att23)
+                                        {
+                                            model.CopyToVP += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p23 += cc.Count();
+                                        }
+                                    }
+
+                                    var att24 = TablesContainer.list2.GroupBy(i => i.ResponseSent);
+                                    if (att15 != null)
+                                    {
+
+                                        foreach (var cc in att15)
+                                        {
+                                            model.ResponseSent += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p24 += cc.Count();
+                                        }
+                                    }
+
+                                    var att25 = TablesContainer.list2.GroupBy(i => i.ActionToken);
+                                    if (att25 != null)
+                                    {
+
+                                        foreach (var cc in att25)
+                                        {
+                                            model.ActionToken += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p25 += cc.Count();
+                                        }
+                                    }
+
+                                    var att26 = TablesContainer.list2.GroupBy(i => i.Resolved);
+                                    if (att26 != null)
+                                    {
+
+                                        foreach (var cc in att26)
+                                        {
+                                            model.Resolved += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p26 += cc.Count();
+                                        }
+                                    }
+
+                                    var att27 = TablesContainer.list2.GroupBy(i => i.MinistryVisit);
+                                    if (att27 != null)
+                                    {
+
+                                        foreach (var cc in att27)
+                                        {
+                                            model.MinistryVisit += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p27 += cc.Count();
+                                        }
+                                    }
+                                }
+
+                                foundSummary2.Add(model);
+                                model = new ComplaintsSummary();
+                                #endregion
+
+                                #region For the 5th Location:
+                                if (ll5 != null)
                                 {
-                                    strN.Add($"{cc.Key}\t - \t{cc.Count()}");
-                                }
-                            }
+                                    model.LocationName = locList.Find(i => i == "Altamont Care Community\r\n" + " - " + cnt1);
+                                    var att1 = TablesContainer.list2.GroupBy(i => i.DateReceived);
+                                    if (att1 != null)
+                                    {
 
-                            var a10 = TablesContainer.list3.GroupBy(i => i.Growth);
-                            if (a10 != null)
-                            {
-                                strN.Add("Growth: ");
-                                foreach (var cc in a10)
+                                        foreach (var cc in att1)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.DateReceived += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p1 += cc.Count();
+                                        }
+                                    }
+
+                                    var att2 = TablesContainer.list2.GroupBy(i => i.WritenOrVerbal);
+                                    if (att2 != null)
+                                    {
+
+                                        foreach (var cc in att2)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.WritenOrVerbal += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p2 += cc.Count();
+                                        }
+                                    }
+
+                                    var att3 = TablesContainer.list2.GroupBy(i => i.Receive_Directly);
+                                    if (att3 != null)
+                                    {
+
+                                        foreach (var cc in att3)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.Receive_Directly += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p3 += cc.Count();
+                                        }
+                                    }
+
+                                    var att4 = TablesContainer.list2.GroupBy(i => i.FromResident);
+                                    if (att4 != null)
+                                    {
+
+                                        foreach (var cc in att4)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.FromResident += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p4 += cc.Count();
+                                        }
+                                    }
+
+                                    var att5 = TablesContainer.list2.GroupBy(i => i.ResidentName);
+                                    if (att5 != null)
+                                    {
+
+                                        foreach (var cc in att5)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.ResidentName += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p5 += cc.Count();
+                                        }
+                                    }
+
+                                    var att6 = TablesContainer.list2.GroupBy(i => i.Department);
+                                    if (att6 != null)
+                                    {
+
+                                        foreach (var cc in att6)
+                                        {
+                                            model.Department += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p6 += cc.Count();
+                                        }
+                                    }
+
+                                    var att7 = TablesContainer.list2.GroupBy(i => i.BriefDescription);
+                                    if (att7 != null)
+                                    {
+
+                                        foreach (var cc in att7)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.BriefDescription += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p7 += cc.Count();
+                                        }
+                                    }
+
+                                    var att8 = TablesContainer.list2.GroupBy(i => i.IsAdministration);
+                                    if (att8 != null)
+                                    {
+
+                                        foreach (var cc in att8)
+                                        {
+                                            model.BriefDescription += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p8 += cc.Count();
+                                        }
+                                    }
+
+                                    var att9 = TablesContainer.list2.GroupBy(i => i.CareServices);
+                                    if (att9 != null)
+                                    {
+
+                                        foreach (var cc in att9)
+                                        {
+                                            model.CareServices += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p9 += cc.Count();
+                                        }
+                                    }
+
+                                    var att10 = TablesContainer.list2.GroupBy(i => i.PalliativeCare);
+                                    if (att10 != null)
+                                    {
+
+                                        foreach (var cc in att10)
+                                        {
+                                            model.PalliativeCare += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p10 += cc.Count();
+                                        }
+                                    }
+
+                                    var att11 = TablesContainer.list2.GroupBy(i => i.Dietary);
+                                    if (att11 != null)
+                                    {
+
+                                        foreach (var cc in att11)
+                                        {
+                                            model.Dietary += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p11 += cc.Count();
+                                        }
+                                    }
+
+                                    var att12 = TablesContainer.list2.GroupBy(i => i.Housekeeping);
+                                    if (att12 != null)
+                                    {
+
+                                        foreach (var cc in att2)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.Housekeeping += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p12 += cc.Count();
+                                        }
+                                    }
+
+                                    var att13 = TablesContainer.list2.GroupBy(i => i.Laundry);
+                                    if (att13 != null)
+                                    {
+
+                                        foreach (var cc in att13)
+                                        {
+                                            model.Laundry += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p13 += cc.Count();
+                                        }
+                                    }
+
+                                    var att14 = TablesContainer.list2.GroupBy(i => i.Maintenance);
+                                    if (att14 != null)
+                                    {
+
+                                        foreach (var cc in att14)
+                                        {
+                                            model.Maintenance += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p14 += cc.Count();
+                                        }
+                                    }
+
+                                    var att15 = TablesContainer.list2.GroupBy(i => i.Programs);
+                                    if (att15 != null)
+                                    {
+
+                                        foreach (var cc in att15)
+                                        {
+                                            model.Programs += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p15 += cc.Count();
+                                        }
+                                    }
+
+                                    var att16 = TablesContainer.list2.GroupBy(i => i.Physician);
+                                    if (att16 != null)
+                                    {
+
+                                        foreach (var cc in att16)
+                                        {
+                                            model.Physician += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p16 += cc.Count();
+                                        }
+                                    }
+
+                                    var att17 = TablesContainer.list2.GroupBy(i => i.Beautician);
+                                    if (att17 != null)
+                                    {
+
+                                        foreach (var cc in att17)
+                                        {
+                                            model.Beautician += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p17 += cc.Count();
+                                        }
+                                    }
+
+                                    var att18 = TablesContainer.list2.GroupBy(i => i.FootCare);
+                                    if (att18 != null)
+                                    {
+
+                                        foreach (var cc in att18)
+                                        {
+                                            model.FootCare += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p18 += cc.Count();
+                                        }
+                                    }
+
+                                    var att19 = TablesContainer.list2.GroupBy(i => i.DentalCare);
+                                    if (att19 != null)
+                                    {
+
+                                        foreach (var cc in att19)
+                                        {
+                                            model.DentalCare += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p19 += cc.Count();
+                                        }
+                                    }
+
+                                    var att20 = TablesContainer.list2.GroupBy(i => i.Physio);
+                                    if (att20 != null)
+                                    {
+
+                                        foreach (var cc in att20)
+                                        {
+                                            model.Physio += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p20 += cc.Count();
+                                        }
+                                    }
+
+                                    var att21 = TablesContainer.list2.GroupBy(i => i.Other);
+                                    if (att21 != null)
+                                    {
+
+                                        foreach (var cc in att21)
+                                        {
+                                            model.Other += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p21 += cc.Count();
+                                        }
+                                    }
+
+                                    var att22 = TablesContainer.list2.GroupBy(i => i.MOHLTCNotified);
+                                    if (att22 != null)
+                                    {
+
+                                        foreach (var cc in att22)
+                                        {
+                                            model.MOHLTCNotified += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p22 += cc.Count();
+                                        }
+                                    }
+
+                                    var att23 = TablesContainer.list2.GroupBy(i => i.CopyToVP);
+                                    if (att23 != null)
+                                    {
+
+                                        foreach (var cc in att23)
+                                        {
+                                            model.CopyToVP += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p23 += cc.Count();
+                                        }
+                                    }
+
+                                    var att24 = TablesContainer.list2.GroupBy(i => i.ResponseSent);
+                                    if (att15 != null)
+                                    {
+
+                                        foreach (var cc in att15)
+                                        {
+                                            model.ResponseSent += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p24 += cc.Count();
+                                        }
+                                    }
+
+                                    var att25 = TablesContainer.list2.GroupBy(i => i.ActionToken);
+                                    if (att25 != null)
+                                    {
+
+                                        foreach (var cc in att25)
+                                        {
+                                            model.ActionToken += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p25 += cc.Count();
+                                        }
+                                    }
+
+                                    var att26 = TablesContainer.list2.GroupBy(i => i.Resolved);
+                                    if (att26 != null)
+                                    {
+
+                                        foreach (var cc in att26)
+                                        {
+                                            model.Resolved += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p26 += cc.Count();
+                                        }
+                                    }
+
+                                    var att27 = TablesContainer.list2.GroupBy(i => i.MinistryVisit);
+                                    if (att27 != null)
+                                    {
+
+                                        foreach (var cc in att27)
+                                        {
+                                            model.MinistryVisit += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p27 += cc.Count();
+                                        }
+                                    }
+                                }
+
+                                foundSummary2.Add(model);
+                                model = new ComplaintsSummary();
+                                #endregion
+
+                                #region For the 6th Location:
+                                if (ll6 != null)
                                 {
-                                    strN.Add($"{cc.Key}\t - \t{cc.Count()}");
-                                }
-                            }
+                                    model.LocationName = locList.Find(i => i == "Altamont Care Community\r\n" + " - " + cnt1);
+                                    var att1 = TablesContainer.list2.GroupBy(i => i.DateReceived);
+                                    if (att1 != null)
+                                    {
 
-                            var a11 = TablesContainer.list3.GroupBy(i => i.Compliment);
-                            if (a11 != null)
-                            {
-                                strN.Add("Compliment: ");
-                                foreach (var cc in a11)
+                                        foreach (var cc in att1)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.DateReceived += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p1 += cc.Count();
+                                        }
+                                    }
+
+                                    var att2 = TablesContainer.list2.GroupBy(i => i.WritenOrVerbal);
+                                    if (att2 != null)
+                                    {
+
+                                        foreach (var cc in att2)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.WritenOrVerbal += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p2 += cc.Count();
+                                        }
+                                    }
+
+                                    var att3 = TablesContainer.list2.GroupBy(i => i.Receive_Directly);
+                                    if (att3 != null)
+                                    {
+
+                                        foreach (var cc in att3)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.Receive_Directly += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p3 += cc.Count();
+                                        }
+                                    }
+
+                                    var att4 = TablesContainer.list2.GroupBy(i => i.FromResident);
+                                    if (att4 != null)
+                                    {
+
+                                        foreach (var cc in att4)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.FromResident += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p4 += cc.Count();
+                                        }
+                                    }
+
+                                    var att5 = TablesContainer.list2.GroupBy(i => i.ResidentName);
+                                    if (att5 != null)
+                                    {
+
+                                        foreach (var cc in att5)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.ResidentName += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p5 += cc.Count();
+                                        }
+                                    }
+
+                                    var att6 = TablesContainer.list2.GroupBy(i => i.Department);
+                                    if (att6 != null)
+                                    {
+
+                                        foreach (var cc in att6)
+                                        {
+                                            model.Department += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p6 += cc.Count();
+                                        }
+                                    }
+
+                                    var att7 = TablesContainer.list2.GroupBy(i => i.BriefDescription);
+                                    if (att7 != null)
+                                    {
+
+                                        foreach (var cc in att7)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.BriefDescription += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p7 += cc.Count();
+                                        }
+                                    }
+
+                                    var att8 = TablesContainer.list2.GroupBy(i => i.IsAdministration);
+                                    if (att8 != null)
+                                    {
+
+                                        foreach (var cc in att8)
+                                        {
+                                            model.BriefDescription += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p8 += cc.Count();
+                                        }
+                                    }
+
+                                    var att9 = TablesContainer.list2.GroupBy(i => i.CareServices);
+                                    if (att9 != null)
+                                    {
+
+                                        foreach (var cc in att9)
+                                        {
+                                            model.CareServices += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p9 += cc.Count();
+                                        }
+                                    }
+
+                                    var att10 = TablesContainer.list2.GroupBy(i => i.PalliativeCare);
+                                    if (att10 != null)
+                                    {
+
+                                        foreach (var cc in att10)
+                                        {
+                                            model.PalliativeCare += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p10 += cc.Count();
+                                        }
+                                    }
+
+                                    var att11 = TablesContainer.list2.GroupBy(i => i.Dietary);
+                                    if (att11 != null)
+                                    {
+
+                                        foreach (var cc in att11)
+                                        {
+                                            model.Dietary += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p11 += cc.Count();
+                                        }
+                                    }
+
+                                    var att12 = TablesContainer.list2.GroupBy(i => i.Housekeeping);
+                                    if (att12 != null)
+                                    {
+
+                                        foreach (var cc in att2)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.Housekeeping += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p12 += cc.Count();
+                                        }
+                                    }
+
+                                    var att13 = TablesContainer.list2.GroupBy(i => i.Laundry);
+                                    if (att13 != null)
+                                    {
+
+                                        foreach (var cc in att13)
+                                        {
+                                            model.Laundry += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p13 += cc.Count();
+                                        }
+                                    }
+
+                                    var att14 = TablesContainer.list2.GroupBy(i => i.Maintenance);
+                                    if (att14 != null)
+                                    {
+
+                                        foreach (var cc in att14)
+                                        {
+                                            model.Maintenance += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p14 += cc.Count();
+                                        }
+                                    }
+
+                                    var att15 = TablesContainer.list2.GroupBy(i => i.Programs);
+                                    if (att15 != null)
+                                    {
+
+                                        foreach (var cc in att15)
+                                        {
+                                            model.Programs += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p15 += cc.Count();
+                                        }
+                                    }
+
+                                    var att16 = TablesContainer.list2.GroupBy(i => i.Physician);
+                                    if (att16 != null)
+                                    {
+
+                                        foreach (var cc in att16)
+                                        {
+                                            model.Physician += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p16 += cc.Count();
+                                        }
+                                    }
+
+                                    var att17 = TablesContainer.list2.GroupBy(i => i.Beautician);
+                                    if (att17 != null)
+                                    {
+
+                                        foreach (var cc in att17)
+                                        {
+                                            model.Beautician += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p17 += cc.Count();
+                                        }
+                                    }
+
+                                    var att18 = TablesContainer.list2.GroupBy(i => i.FootCare);
+                                    if (att18 != null)
+                                    {
+
+                                        foreach (var cc in att18)
+                                        {
+                                            model.FootCare += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p18 += cc.Count();
+                                        }
+                                    }
+
+                                    var att19 = TablesContainer.list2.GroupBy(i => i.DentalCare);
+                                    if (att19 != null)
+                                    {
+
+                                        foreach (var cc in att19)
+                                        {
+                                            model.DentalCare += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p19 += cc.Count();
+                                        }
+                                    }
+
+                                    var att20 = TablesContainer.list2.GroupBy(i => i.Physio);
+                                    if (att20 != null)
+                                    {
+
+                                        foreach (var cc in att20)
+                                        {
+                                            model.Physio += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p20 += cc.Count();
+                                        }
+                                    }
+
+                                    var att21 = TablesContainer.list2.GroupBy(i => i.Other);
+                                    if (att21 != null)
+                                    {
+
+                                        foreach (var cc in att21)
+                                        {
+                                            model.Other += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p21 += cc.Count();
+                                        }
+                                    }
+
+                                    var att22 = TablesContainer.list2.GroupBy(i => i.MOHLTCNotified);
+                                    if (att22 != null)
+                                    {
+
+                                        foreach (var cc in att22)
+                                        {
+                                            model.MOHLTCNotified += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p22 += cc.Count();
+                                        }
+                                    }
+
+                                    var att23 = TablesContainer.list2.GroupBy(i => i.CopyToVP);
+                                    if (att23 != null)
+                                    {
+
+                                        foreach (var cc in att23)
+                                        {
+                                            model.CopyToVP += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p23 += cc.Count();
+                                        }
+                                    }
+
+                                    var att24 = TablesContainer.list2.GroupBy(i => i.ResponseSent);
+                                    if (att15 != null)
+                                    {
+
+                                        foreach (var cc in att15)
+                                        {
+                                            model.ResponseSent += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p24 += cc.Count();
+                                        }
+                                    }
+
+                                    var att25 = TablesContainer.list2.GroupBy(i => i.ActionToken);
+                                    if (att25 != null)
+                                    {
+
+                                        foreach (var cc in att25)
+                                        {
+                                            model.ActionToken += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p25 += cc.Count();
+                                        }
+                                    }
+
+                                    var att26 = TablesContainer.list2.GroupBy(i => i.Resolved);
+                                    if (att26 != null)
+                                    {
+
+                                        foreach (var cc in att26)
+                                        {
+                                            model.Resolved += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p26 += cc.Count();
+                                        }
+                                    }
+
+                                    var att27 = TablesContainer.list2.GroupBy(i => i.MinistryVisit);
+                                    if (att27 != null)
+                                    {
+
+                                        foreach (var cc in att27)
+                                        {
+                                            model.MinistryVisit += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p27 += cc.Count();
+                                        }
+                                    }
+                                }
+
+                                foundSummary2.Add(model);
+                                model = new ComplaintsSummary();
+                                #endregion
+
+                                #region For the 7th Location:
+                                if (ll7 != null)
                                 {
-                                    string key = cc.Key == null ? "NULL" : cc.Key.ToString();
-                                    if (key == "NULL") continue;
-                                    strN.Add($"{key}\t - \t{cc.Count()}");
-                                }
-                            }
+                                    model.LocationName = locList.Find(i => i == "Altamont Care Community\r\n" + " - " + cnt1);
+                                    var att1 = TablesContainer.list2.GroupBy(i => i.DateReceived);
+                                    if (att1 != null)
+                                    {
+                                        foreach (var cc in att1)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.DateReceived += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p1 += cc.Count();
+                                        }
+                                    }
 
-                            var a12 = TablesContainer.list3.GroupBy(i => i.Spot_Awards);
-                            if (a12 != null)
-                            {
-                                strN.Add("Spot Awards: ");
-                                foreach (var cc in a12)
+                                    var att2 = TablesContainer.list2.GroupBy(i => i.WritenOrVerbal);
+                                    if (att2 != null)
+                                    {
+
+                                        foreach (var cc in att2)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.WritenOrVerbal += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p2 += cc.Count();
+                                        }
+                                    }
+
+                                    var att3 = TablesContainer.list2.GroupBy(i => i.Receive_Directly);
+                                    if (att3 != null)
+                                    {
+
+                                        foreach (var cc in att3)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.Receive_Directly += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p3 += cc.Count();
+                                        }
+                                    }
+
+                                    var att4 = TablesContainer.list2.GroupBy(i => i.FromResident);
+                                    if (att4 != null)
+                                    {
+
+                                        foreach (var cc in att4)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.FromResident += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p4 += cc.Count();
+                                        }
+                                    }
+
+                                    var att5 = TablesContainer.list2.GroupBy(i => i.ResidentName);
+                                    if (att5 != null)
+                                    {
+
+                                        foreach (var cc in att5)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.ResidentName += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p5 += cc.Count();
+                                        }
+                                    }
+
+                                    var att6 = TablesContainer.list2.GroupBy(i => i.Department);
+                                    if (att6 != null)
+                                    {
+
+                                        foreach (var cc in att6)
+                                        {
+                                            model.Department += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p6 += cc.Count();
+                                        }
+                                    }
+
+                                    var att7 = TablesContainer.list2.GroupBy(i => i.BriefDescription);
+                                    if (att7 != null)
+                                    {
+
+                                        foreach (var cc in att7)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.BriefDescription += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p7 += cc.Count();
+                                        }
+                                    }
+
+                                    var att8 = TablesContainer.list2.GroupBy(i => i.IsAdministration);
+                                    if (att8 != null)
+                                    {
+
+                                        foreach (var cc in att8)
+                                        {
+                                            model.BriefDescription += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p8 += cc.Count();
+                                        }
+                                    }
+
+                                    var att9 = TablesContainer.list2.GroupBy(i => i.CareServices);
+                                    if (att9 != null)
+                                    {
+
+                                        foreach (var cc in att9)
+                                        {
+                                            model.CareServices += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p9 += cc.Count();
+                                        }
+                                    }
+
+                                    var att10 = TablesContainer.list2.GroupBy(i => i.PalliativeCare);
+                                    if (att10 != null)
+                                    {
+
+                                        foreach (var cc in att10)
+                                        {
+                                            model.PalliativeCare += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p10 += cc.Count();
+                                        }
+                                    }
+
+                                    var att11 = TablesContainer.list2.GroupBy(i => i.Dietary);
+                                    if (att11 != null)
+                                    {
+
+                                        foreach (var cc in att11)
+                                        {
+                                            model.Dietary += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p11 += cc.Count();
+                                        }
+                                    }
+
+                                    var att12 = TablesContainer.list2.GroupBy(i => i.Housekeeping);
+                                    if (att12 != null)
+                                    {
+
+                                        foreach (var cc in att2)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.Housekeeping += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p12 += cc.Count();
+                                        }
+                                    }
+
+                                    var att13 = TablesContainer.list2.GroupBy(i => i.Laundry);
+                                    if (att13 != null)
+                                    {
+
+                                        foreach (var cc in att13)
+                                        {
+                                            model.Laundry += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p13 += cc.Count();
+                                        }
+                                    }
+
+                                    var att14 = TablesContainer.list2.GroupBy(i => i.Maintenance);
+                                    if (att14 != null)
+                                    {
+
+                                        foreach (var cc in att14)
+                                        {
+                                            model.Maintenance += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p14 += cc.Count();
+                                        }
+                                    }
+
+                                    var att15 = TablesContainer.list2.GroupBy(i => i.Programs);
+                                    if (att15 != null)
+                                    {
+
+                                        foreach (var cc in att15)
+                                        {
+                                            model.Programs += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p15 += cc.Count();
+                                        }
+                                    }
+
+                                    var att16 = TablesContainer.list2.GroupBy(i => i.Physician);
+                                    if (att16 != null)
+                                    {
+
+                                        foreach (var cc in att16)
+                                        {
+                                            model.Physician += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p16 += cc.Count();
+                                        }
+                                    }
+
+                                    var att17 = TablesContainer.list2.GroupBy(i => i.Beautician);
+                                    if (att17 != null)
+                                    {
+
+                                        foreach (var cc in att17)
+                                        {
+                                            model.Beautician += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p17 += cc.Count();
+                                        }
+                                    }
+
+                                    var att18 = TablesContainer.list2.GroupBy(i => i.FootCare);
+                                    if (att18 != null)
+                                    {
+
+                                        foreach (var cc in att18)
+                                        {
+                                            model.FootCare += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p18 += cc.Count();
+                                        }
+                                    }
+
+                                    var att19 = TablesContainer.list2.GroupBy(i => i.DentalCare);
+                                    if (att19 != null)
+                                    {
+
+                                        foreach (var cc in att19)
+                                        {
+                                            model.DentalCare += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p19 += cc.Count();
+                                        }
+                                    }
+
+                                    var att20 = TablesContainer.list2.GroupBy(i => i.Physio);
+                                    if (att20 != null)
+                                    {
+
+                                        foreach (var cc in att20)
+                                        {
+                                            model.Physio += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p20 += cc.Count();
+                                        }
+                                    }
+
+                                    var att21 = TablesContainer.list2.GroupBy(i => i.Other);
+                                    if (att21 != null)
+                                    {
+
+                                        foreach (var cc in att21)
+                                        {
+                                            model.Other += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p21 += cc.Count();
+                                        }
+                                    }
+
+                                    var att22 = TablesContainer.list2.GroupBy(i => i.MOHLTCNotified);
+                                    if (att22 != null)
+                                    {
+
+                                        foreach (var cc in att22)
+                                        {
+                                            model.MOHLTCNotified += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p22 += cc.Count();
+                                        }
+                                    }
+
+                                    var att23 = TablesContainer.list2.GroupBy(i => i.CopyToVP);
+                                    if (att23 != null)
+                                    {
+
+                                        foreach (var cc in att23)
+                                        {
+                                            model.CopyToVP += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p23 += cc.Count();
+                                        }
+                                    }
+
+                                    var att24 = TablesContainer.list2.GroupBy(i => i.ResponseSent);
+                                    if (att15 != null)
+                                    {
+
+                                        foreach (var cc in att15)
+                                        {
+                                            model.ResponseSent += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p24 += cc.Count();
+                                        }
+                                    }
+
+                                    var att25 = TablesContainer.list2.GroupBy(i => i.ActionToken);
+                                    if (att25 != null)
+                                    {
+
+                                        foreach (var cc in att25)
+                                        {
+                                            model.ActionToken += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p25 += cc.Count();
+                                        }
+                                    }
+
+                                    var att26 = TablesContainer.list2.GroupBy(i => i.Resolved);
+                                    if (att26 != null)
+                                    {
+
+                                        foreach (var cc in att26)
+                                        {
+                                            model.Resolved += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p26 += cc.Count();
+                                        }
+                                    }
+
+                                    var att27 = TablesContainer.list2.GroupBy(i => i.MinistryVisit);
+                                    if (att27 != null)
+                                    {
+
+                                        foreach (var cc in att27)
+                                        {
+                                            model.MinistryVisit += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p27 += cc.Count();
+                                        }
+                                    }
+                                }
+
+                                foundSummary2.Add(model);
+                                model = new ComplaintsSummary();
+                                #endregion
+
+                                #region For the 8th Location:
+                                if (ll8 != null)
                                 {
-                                    string key = cc.Key == null ? "NULL" : cc.Key.ToString();
-                                    if (key == "NULL") continue;
-                                    strN.Add($"{key}\t - \t{cc.Count()}");
-                                }
-                            }
+                                    model.LocationName = locList.Find(i => i == "Altamont Care Community\r\n" + " - " + cnt1);
+                                    var att1 = TablesContainer.list2.GroupBy(i => i.DateReceived);
+                                    if (att1 != null)
+                                    {
 
-                            var a13 = TablesContainer.list3.GroupBy(i => i.Awards_Details);
-                            if (a13 != null)
-                            {
-                                strN.Add("Awards Details: ");
-                                foreach (var cc in a13)
+                                        foreach (var cc in att1)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.DateReceived += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p1 += cc.Count();
+                                        }
+                                    }
+
+                                    var att2 = TablesContainer.list2.GroupBy(i => i.WritenOrVerbal);
+                                    if (att2 != null)
+                                    {
+
+                                        foreach (var cc in att2)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.WritenOrVerbal += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p2 += cc.Count();
+                                        }
+                                    }
+
+                                    var att3 = TablesContainer.list2.GroupBy(i => i.Receive_Directly);
+                                    if (att3 != null)
+                                    {
+
+                                        foreach (var cc in att3)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.Receive_Directly += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p3 += cc.Count();
+                                        }
+                                    }
+
+                                    var att4 = TablesContainer.list2.GroupBy(i => i.FromResident);
+                                    if (att4 != null)
+                                    {
+
+                                        foreach (var cc in att4)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.FromResident += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p4 += cc.Count();
+                                        }
+                                    }
+
+                                    var att5 = TablesContainer.list2.GroupBy(i => i.ResidentName);
+                                    if (att5 != null)
+                                    {
+
+                                        foreach (var cc in att5)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.ResidentName += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p5 += cc.Count();
+                                        }
+                                    }
+
+                                    var att6 = TablesContainer.list2.GroupBy(i => i.Department);
+                                    if (att6 != null)
+                                    {
+
+                                        foreach (var cc in att6)
+                                        {
+                                            model.Department += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p6 += cc.Count();
+                                        }
+                                    }
+
+                                    var att7 = TablesContainer.list2.GroupBy(i => i.BriefDescription);
+                                    if (att7 != null)
+                                    {
+
+                                        foreach (var cc in att7)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.BriefDescription += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p7 += cc.Count();
+                                        }
+                                    }
+
+                                    var att8 = TablesContainer.list2.GroupBy(i => i.IsAdministration);
+                                    if (att8 != null)
+                                    {
+
+                                        foreach (var cc in att8)
+                                        {
+                                            model.BriefDescription += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p8 += cc.Count();
+                                        }
+                                    }
+
+                                    var att9 = TablesContainer.list2.GroupBy(i => i.CareServices);
+                                    if (att9 != null)
+                                    {
+
+                                        foreach (var cc in att9)
+                                        {
+                                            model.CareServices += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p9 += cc.Count();
+                                        }
+                                    }
+
+                                    var att10 = TablesContainer.list2.GroupBy(i => i.PalliativeCare);
+                                    if (att10 != null)
+                                    {
+
+                                        foreach (var cc in att10)
+                                        {
+                                            model.PalliativeCare += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p10 += cc.Count();
+                                        }
+                                    }
+
+                                    var att11 = TablesContainer.list2.GroupBy(i => i.Dietary);
+                                    if (att11 != null)
+                                    {
+
+                                        foreach (var cc in att11)
+                                        {
+                                            model.Dietary += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p11 += cc.Count();
+                                        }
+                                    }
+
+                                    var att12 = TablesContainer.list2.GroupBy(i => i.Housekeeping);
+                                    if (att12 != null)
+                                    {
+
+                                        foreach (var cc in att2)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.Housekeeping += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p12 += cc.Count();
+                                        }
+                                    }
+
+                                    var att13 = TablesContainer.list2.GroupBy(i => i.Laundry);
+                                    if (att13 != null)
+                                    {
+
+                                        foreach (var cc in att13)
+                                        {
+                                            model.Laundry += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p13 += cc.Count();
+                                        }
+                                    }
+
+                                    var att14 = TablesContainer.list2.GroupBy(i => i.Maintenance);
+                                    if (att14 != null)
+                                    {
+
+                                        foreach (var cc in att14)
+                                        {
+                                            model.Maintenance += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p14 += cc.Count();
+                                        }
+                                    }
+
+                                    var att15 = TablesContainer.list2.GroupBy(i => i.Programs);
+                                    if (att15 != null)
+                                    {
+
+                                        foreach (var cc in att15)
+                                        {
+                                            model.Programs += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p15 += cc.Count();
+                                        }
+                                    }
+
+                                    var att16 = TablesContainer.list2.GroupBy(i => i.Physician);
+                                    if (att16 != null)
+                                    {
+
+                                        foreach (var cc in att16)
+                                        {
+                                            model.Physician += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p16 += cc.Count();
+                                        }
+                                    }
+
+                                    var att17 = TablesContainer.list2.GroupBy(i => i.Beautician);
+                                    if (att17 != null)
+                                    {
+
+                                        foreach (var cc in att17)
+                                        {
+                                            model.Beautician += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p17 += cc.Count();
+                                        }
+                                    }
+
+                                    var att18 = TablesContainer.list2.GroupBy(i => i.FootCare);
+                                    if (att18 != null)
+                                    {
+
+                                        foreach (var cc in att18)
+                                        {
+                                            model.FootCare += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p18 += cc.Count();
+                                        }
+                                    }
+
+                                    var att19 = TablesContainer.list2.GroupBy(i => i.DentalCare);
+                                    if (att19 != null)
+                                    {
+
+                                        foreach (var cc in att19)
+                                        {
+                                            model.DentalCare += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p19 += cc.Count();
+                                        }
+                                    }
+
+                                    var att20 = TablesContainer.list2.GroupBy(i => i.Physio);
+                                    if (att20 != null)
+                                    {
+
+                                        foreach (var cc in att20)
+                                        {
+                                            model.Physio += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p20 += cc.Count();
+                                        }
+                                    }
+
+                                    var att21 = TablesContainer.list2.GroupBy(i => i.Other);
+                                    if (att21 != null)
+                                    {
+
+                                        foreach (var cc in att21)
+                                        {
+                                            model.Other += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p21 += cc.Count();
+                                        }
+                                    }
+
+                                    var att22 = TablesContainer.list2.GroupBy(i => i.MOHLTCNotified);
+                                    if (att22 != null)
+                                    {
+
+                                        foreach (var cc in att22)
+                                        {
+                                            model.MOHLTCNotified += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p22 += cc.Count();
+                                        }
+                                    }
+
+                                    var att23 = TablesContainer.list2.GroupBy(i => i.CopyToVP);
+                                    if (att23 != null)
+                                    {
+
+                                        foreach (var cc in att23)
+                                        {
+                                            model.CopyToVP += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p23 += cc.Count();
+                                        }
+                                    }
+
+                                    var att24 = TablesContainer.list2.GroupBy(i => i.ResponseSent);
+                                    if (att15 != null)
+                                    {
+
+                                        foreach (var cc in att15)
+                                        {
+                                            model.ResponseSent += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p24 += cc.Count();
+                                        }
+                                    }
+
+                                    var att25 = TablesContainer.list2.GroupBy(i => i.ActionToken);
+                                    if (att25 != null)
+                                    {
+
+                                        foreach (var cc in att25)
+                                        {
+                                            model.ActionToken += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p25 += cc.Count();
+                                        }
+                                    }
+
+                                    var att26 = TablesContainer.list2.GroupBy(i => i.Resolved);
+                                    if (att26 != null)
+                                    {
+
+                                        foreach (var cc in att26)
+                                        {
+                                            model.Resolved += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p26 += cc.Count();
+                                        }
+                                    }
+
+                                    var att27 = TablesContainer.list2.GroupBy(i => i.MinistryVisit);
+                                    if (att27 != null)
+                                    {
+
+                                        foreach (var cc in att27)
+                                        {
+                                            model.MinistryVisit += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p27 += cc.Count();
+                                        }
+                                    }
+                                }
+
+                                foundSummary2.Add(model);
+                                model = new ComplaintsSummary();
+                                #endregion
+
+                                #region For the 9th Location:
+                                if (ll9 != null)
                                 {
-                                    string key = cc.Key == null ? "NULL" : cc.Key.ToString();
-                                    if (key == "NULL") continue;
-                                    strN.Add($"{key}\t - \t{cc.Count()}");
-                                }
-                            }
+                                    model.LocationName = locList.Find(i => i == "Altamont Care Community\r\n" + " - " + cnt1);
+                                    var att1 = TablesContainer.list2.GroupBy(i => i.DateReceived);
+                                    if (att1 != null)
+                                    {
 
-                            var a14 = TablesContainer.list3.GroupBy(i => i.NameAwards);
-                            if (a14 != null)
-                            {
-                                strN.Add("Name Awards: ");
-                                foreach (var cc in a14)
+                                        foreach (var cc in att1)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.DateReceived += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p1 += cc.Count();
+                                        }
+                                    }
+
+                                    var att2 = TablesContainer.list2.GroupBy(i => i.WritenOrVerbal);
+                                    if (att2 != null)
+                                    {
+
+                                        foreach (var cc in att2)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.WritenOrVerbal += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p2 += cc.Count();
+                                        }
+                                    }
+
+                                    var att3 = TablesContainer.list2.GroupBy(i => i.Receive_Directly);
+                                    if (att3 != null)
+                                    {
+
+                                        foreach (var cc in att3)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.Receive_Directly += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p3 += cc.Count();
+                                        }
+                                    }
+
+                                    var att4 = TablesContainer.list2.GroupBy(i => i.FromResident);
+                                    if (att4 != null)
+                                    {
+
+                                        foreach (var cc in att4)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.FromResident += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p4 += cc.Count();
+                                        }
+                                    }
+
+                                    var att5 = TablesContainer.list2.GroupBy(i => i.ResidentName);
+                                    if (att5 != null)
+                                    {
+
+                                        foreach (var cc in att5)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.ResidentName += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p5 += cc.Count();
+                                        }
+                                    }
+
+                                    var att6 = TablesContainer.list2.GroupBy(i => i.Department);
+                                    if (att6 != null)
+                                    {
+
+                                        foreach (var cc in att6)
+                                        {
+                                            model.Department += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p6 += cc.Count();
+                                        }
+                                    }
+
+                                    var att7 = TablesContainer.list2.GroupBy(i => i.BriefDescription);
+                                    if (att7 != null)
+                                    {
+
+                                        foreach (var cc in att7)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.BriefDescription += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p7 += cc.Count();
+                                        }
+                                    }
+
+                                    var att8 = TablesContainer.list2.GroupBy(i => i.IsAdministration);
+                                    if (att8 != null)
+                                    {
+
+                                        foreach (var cc in att8)
+                                        {
+                                            model.BriefDescription += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p8 += cc.Count();
+                                        }
+                                    }
+
+                                    var att9 = TablesContainer.list2.GroupBy(i => i.CareServices);
+                                    if (att9 != null)
+                                    {
+
+                                        foreach (var cc in att9)
+                                        {
+                                            model.CareServices += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p9 += cc.Count();
+                                        }
+                                    }
+
+                                    var att10 = TablesContainer.list2.GroupBy(i => i.PalliativeCare);
+                                    if (att10 != null)
+                                    {
+
+                                        foreach (var cc in att10)
+                                        {
+                                            model.PalliativeCare += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p10 += cc.Count();
+                                        }
+                                    }
+
+                                    var att11 = TablesContainer.list2.GroupBy(i => i.Dietary);
+                                    if (att11 != null)
+                                    {
+
+                                        foreach (var cc in att11)
+                                        {
+                                            model.Dietary += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p11 += cc.Count();
+                                        }
+                                    }
+
+                                    var att12 = TablesContainer.list2.GroupBy(i => i.Housekeeping);
+                                    if (att12 != null)
+                                    {
+
+                                        foreach (var cc in att2)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.Housekeeping += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p12 += cc.Count();
+                                        }
+                                    }
+
+                                    var att13 = TablesContainer.list2.GroupBy(i => i.Laundry);
+                                    if (att13 != null)
+                                    {
+
+                                        foreach (var cc in att13)
+                                        {
+                                            model.Laundry += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p13 += cc.Count();
+                                        }
+                                    }
+
+                                    var att14 = TablesContainer.list2.GroupBy(i => i.Maintenance);
+                                    if (att14 != null)
+                                    {
+
+                                        foreach (var cc in att14)
+                                        {
+                                            model.Maintenance += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p14 += cc.Count();
+                                        }
+                                    }
+
+                                    var att15 = TablesContainer.list2.GroupBy(i => i.Programs);
+                                    if (att15 != null)
+                                    {
+
+                                        foreach (var cc in att15)
+                                        {
+                                            model.Programs += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p15 += cc.Count();
+                                        }
+                                    }
+
+                                    var att16 = TablesContainer.list2.GroupBy(i => i.Physician);
+                                    if (att16 != null)
+                                    {
+
+                                        foreach (var cc in att16)
+                                        {
+                                            model.Physician += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p16 += cc.Count();
+                                        }
+                                    }
+
+                                    var att17 = TablesContainer.list2.GroupBy(i => i.Beautician);
+                                    if (att17 != null)
+                                    {
+
+                                        foreach (var cc in att17)
+                                        {
+                                            model.Beautician += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p17 += cc.Count();
+                                        }
+                                    }
+
+                                    var att18 = TablesContainer.list2.GroupBy(i => i.FootCare);
+                                    if (att18 != null)
+                                    {
+
+                                        foreach (var cc in att18)
+                                        {
+                                            model.FootCare += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p18 += cc.Count();
+                                        }
+                                    }
+
+                                    var att19 = TablesContainer.list2.GroupBy(i => i.DentalCare);
+                                    if (att19 != null)
+                                    {
+
+                                        foreach (var cc in att19)
+                                        {
+                                            model.DentalCare += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p19 += cc.Count();
+                                        }
+                                    }
+
+                                    var att20 = TablesContainer.list2.GroupBy(i => i.Physio);
+                                    if (att20 != null)
+                                    {
+
+                                        foreach (var cc in att20)
+                                        {
+                                            model.Physio += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p20 += cc.Count();
+                                        }
+                                    }
+
+                                    var att21 = TablesContainer.list2.GroupBy(i => i.Other);
+                                    if (att21 != null)
+                                    {
+
+                                        foreach (var cc in att21)
+                                        {
+                                            model.Other += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p21 += cc.Count();
+                                        }
+                                    }
+
+                                    var att22 = TablesContainer.list2.GroupBy(i => i.MOHLTCNotified);
+                                    if (att22 != null)
+                                    {
+
+                                        foreach (var cc in att22)
+                                        {
+                                            model.MOHLTCNotified += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p22 += cc.Count();
+                                        }
+                                    }
+
+                                    var att23 = TablesContainer.list2.GroupBy(i => i.CopyToVP);
+                                    if (att23 != null)
+                                    {
+
+                                        foreach (var cc in att23)
+                                        {
+                                            model.CopyToVP += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p23 += cc.Count();
+                                        }
+                                    }
+
+                                    var att24 = TablesContainer.list2.GroupBy(i => i.ResponseSent);
+                                    if (att15 != null)
+                                    {
+
+                                        foreach (var cc in att15)
+                                        {
+                                            model.ResponseSent += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p24 += cc.Count();
+                                        }
+                                    }
+
+                                    var att25 = TablesContainer.list2.GroupBy(i => i.ActionToken);
+                                    if (att25 != null)
+                                    {
+
+                                        foreach (var cc in att25)
+                                        {
+                                            model.ActionToken += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p25 += cc.Count();
+                                        }
+                                    }
+
+                                    var att26 = TablesContainer.list2.GroupBy(i => i.Resolved);
+                                    if (att26 != null)
+                                    {
+
+                                        foreach (var cc in att26)
+                                        {
+                                            model.Resolved += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p26 += cc.Count();
+                                        }
+                                    }
+
+                                    var att27 = TablesContainer.list2.GroupBy(i => i.MinistryVisit);
+                                    if (att27 != null)
+                                    {
+
+                                        foreach (var cc in att27)
+                                        {
+                                            model.MinistryVisit += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p27 += cc.Count();
+                                        }
+                                    }
+                                }
+
+                                foundSummary2.Add(model);
+                                model = new ComplaintsSummary();
+                                #endregion
+
+                                #region For the 10th Location:
+                                if (ll10 != null)
                                 {
-                                    string key = cc.Key == null ? "NULL" : cc.Key.ToString();
-                                    if (key == "NULL") continue;
-                                    strN.Add($"{key}\t - \t{cc.Count()}");
-                                }
-                            }
+                                    model.LocationName = locList.Find(i => i == "Altamont Care Community\r\n" + " - " + cnt1);
+                                    var att1 = TablesContainer.list2.GroupBy(i => i.DateReceived);
+                                    if (att1 != null)
+                                    {
 
-                            var a15 = TablesContainer.list3.GroupBy(i => i.Awards_Received);
-                            if (a15 != null)
-                            {
-                                strN.Add("Awards Received: ");
-                                foreach (var cc in a15)
+                                        foreach (var cc in att1)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.DateReceived += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p1 += cc.Count();
+                                        }
+                                    }
+
+                                    var att2 = TablesContainer.list2.GroupBy(i => i.WritenOrVerbal);
+                                    if (att2 != null)
+                                    {
+
+                                        foreach (var cc in att2)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.WritenOrVerbal += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p2 += cc.Count();
+                                        }
+                                    }
+
+                                    var att3 = TablesContainer.list2.GroupBy(i => i.Receive_Directly);
+                                    if (att3 != null)
+                                    {
+
+                                        foreach (var cc in att3)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.Receive_Directly += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p3 += cc.Count();
+                                        }
+                                    }
+
+                                    var att4 = TablesContainer.list2.GroupBy(i => i.FromResident);
+                                    if (att4 != null)
+                                    {
+
+                                        foreach (var cc in att4)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.FromResident += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p4 += cc.Count();
+                                        }
+                                    }
+
+                                    var att5 = TablesContainer.list2.GroupBy(i => i.ResidentName);
+                                    if (att5 != null)
+                                    {
+
+                                        foreach (var cc in att5)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.ResidentName += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p5 += cc.Count();
+                                        }
+                                    }
+
+                                    var att6 = TablesContainer.list2.GroupBy(i => i.Department);
+                                    if (att6 != null)
+                                    {
+
+                                        foreach (var cc in att6)
+                                        {
+                                            model.Department += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p6 += cc.Count();
+                                        }
+                                    }
+
+                                    var att7 = TablesContainer.list2.GroupBy(i => i.BriefDescription);
+                                    if (att7 != null)
+                                    {
+
+                                        foreach (var cc in att7)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.BriefDescription += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p7 += cc.Count();
+                                        }
+                                    }
+
+                                    var att8 = TablesContainer.list2.GroupBy(i => i.IsAdministration);
+                                    if (att8 != null)
+                                    {
+
+                                        foreach (var cc in att8)
+                                        {
+                                            model.BriefDescription += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p8 += cc.Count();
+                                        }
+                                    }
+
+                                    var att9 = TablesContainer.list2.GroupBy(i => i.CareServices);
+                                    if (att9 != null)
+                                    {
+
+                                        foreach (var cc in att9)
+                                        {
+                                            model.CareServices += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p9 += cc.Count();
+                                        }
+                                    }
+
+                                    var att10 = TablesContainer.list2.GroupBy(i => i.PalliativeCare);
+                                    if (att10 != null)
+                                    {
+
+                                        foreach (var cc in att10)
+                                        {
+                                            model.PalliativeCare += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p10 += cc.Count();
+                                        }
+                                    }
+
+                                    var att11 = TablesContainer.list2.GroupBy(i => i.Dietary);
+                                    if (att11 != null)
+                                    {
+
+                                        foreach (var cc in att11)
+                                        {
+                                            model.Dietary += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p11 += cc.Count();
+                                        }
+                                    }
+
+                                    var att12 = TablesContainer.list2.GroupBy(i => i.Housekeeping);
+                                    if (att12 != null)
+                                    {
+
+                                        foreach (var cc in att2)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.Housekeeping += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p12 += cc.Count();
+                                        }
+                                    }
+
+                                    var att13 = TablesContainer.list2.GroupBy(i => i.Laundry);
+                                    if (att13 != null)
+                                    {
+
+                                        foreach (var cc in att13)
+                                        {
+                                            model.Laundry += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p13 += cc.Count();
+                                        }
+                                    }
+
+                                    var att14 = TablesContainer.list2.GroupBy(i => i.Maintenance);
+                                    if (att14 != null)
+                                    {
+
+                                        foreach (var cc in att14)
+                                        {
+                                            model.Maintenance += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p14 += cc.Count();
+                                        }
+                                    }
+
+                                    var att15 = TablesContainer.list2.GroupBy(i => i.Programs);
+                                    if (att15 != null)
+                                    {
+
+                                        foreach (var cc in att15)
+                                        {
+                                            model.Programs += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p15 += cc.Count();
+                                        }
+                                    }
+
+                                    var att16 = TablesContainer.list2.GroupBy(i => i.Physician);
+                                    if (att16 != null)
+                                    {
+
+                                        foreach (var cc in att16)
+                                        {
+                                            model.Physician += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p16 += cc.Count();
+                                        }
+                                    }
+
+                                    var att17 = TablesContainer.list2.GroupBy(i => i.Beautician);
+                                    if (att17 != null)
+                                    {
+
+                                        foreach (var cc in att17)
+                                        {
+                                            model.Beautician += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p17 += cc.Count();
+                                        }
+                                    }
+
+                                    var att18 = TablesContainer.list2.GroupBy(i => i.FootCare);
+                                    if (att18 != null)
+                                    {
+
+                                        foreach (var cc in att18)
+                                        {
+                                            model.FootCare += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p18 += cc.Count();
+                                        }
+                                    }
+
+                                    var att19 = TablesContainer.list2.GroupBy(i => i.DentalCare);
+                                    if (att19 != null)
+                                    {
+
+                                        foreach (var cc in att19)
+                                        {
+                                            model.DentalCare += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p19 += cc.Count();
+                                        }
+                                    }
+
+                                    var att20 = TablesContainer.list2.GroupBy(i => i.Physio);
+                                    if (att20 != null)
+                                    {
+
+                                        foreach (var cc in att20)
+                                        {
+                                            model.Physio += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p20 += cc.Count();
+                                        }
+                                    }
+
+                                    var att21 = TablesContainer.list2.GroupBy(i => i.Other);
+                                    if (att21 != null)
+                                    {
+
+                                        foreach (var cc in att21)
+                                        {
+                                            model.Other += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p21 += cc.Count();
+                                        }
+                                    }
+
+                                    var att22 = TablesContainer.list2.GroupBy(i => i.MOHLTCNotified);
+                                    if (att22 != null)
+                                    {
+
+                                        foreach (var cc in att22)
+                                        {
+                                            model.MOHLTCNotified += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p22 += cc.Count();
+                                        }
+                                    }
+
+                                    var att23 = TablesContainer.list2.GroupBy(i => i.CopyToVP);
+                                    if (att23 != null)
+                                    {
+
+                                        foreach (var cc in att23)
+                                        {
+                                            model.CopyToVP += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p23 += cc.Count();
+                                        }
+                                    }
+
+                                    var att24 = TablesContainer.list2.GroupBy(i => i.ResponseSent);
+                                    if (att15 != null)
+                                    {
+
+                                        foreach (var cc in att15)
+                                        {
+                                            model.ResponseSent += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p24 += cc.Count();
+                                        }
+                                    }
+
+                                    var att25 = TablesContainer.list2.GroupBy(i => i.ActionToken);
+                                    if (att25 != null)
+                                    {
+
+                                        foreach (var cc in att25)
+                                        {
+                                            model.ActionToken += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p25 += cc.Count();
+                                        }
+                                    }
+
+                                    var att26 = TablesContainer.list2.GroupBy(i => i.Resolved);
+                                    if (att26 != null)
+                                    {
+
+                                        foreach (var cc in att26)
+                                        {
+                                            model.Resolved += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p26 += cc.Count();
+                                        }
+                                    }
+
+                                    var att27 = TablesContainer.list2.GroupBy(i => i.MinistryVisit);
+                                    if (att27 != null)
+                                    {
+
+                                        foreach (var cc in att27)
+                                        {
+                                            model.MinistryVisit += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p27 += cc.Count();
+                                        }
+                                    }
+                                }
+
+                                foundSummary2.Add(model);
+                                model = new ComplaintsSummary();
+                                #endregion
+
+                                #region For the 11th Location:
+                                if (ll11 != null)
                                 {
-                                    string key = cc.Key == null ? "NULL" : cc.Key.ToString();
-                                    if (key == "NULL") continue;
-                                    strN.Add($"{key}\t - \t{cc.Count()}");
-                                }
-                            }
+                                    model.LocationName = locList.Find(i => i == "Altamont Care Community\r\n" + " - " + cnt1);
+                                    var att1 = TablesContainer.list2.GroupBy(i => i.DateReceived);
+                                    if (att1 != null)
+                                    {
 
-                            var a16 = TablesContainer.list3.GroupBy(i => i.Community_Inititives);
-                            if (a16 != null)
-                            {
-                                strN.Add("Awards Received: ");
-                                foreach (var cc in a16)
+                                        foreach (var cc in att1)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.DateReceived += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p1 += cc.Count();
+                                        }
+                                    }
+
+                                    var att2 = TablesContainer.list2.GroupBy(i => i.WritenOrVerbal);
+                                    if (att2 != null)
+                                    {
+
+                                        foreach (var cc in att2)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.WritenOrVerbal += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p2 += cc.Count();
+                                        }
+                                    }
+
+                                    var att3 = TablesContainer.list2.GroupBy(i => i.Receive_Directly);
+                                    if (att3 != null)
+                                    {
+
+                                        foreach (var cc in att3)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.Receive_Directly += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p3 += cc.Count();
+                                        }
+                                    }
+
+                                    var att4 = TablesContainer.list2.GroupBy(i => i.FromResident);
+                                    if (att4 != null)
+                                    {
+
+                                        foreach (var cc in att4)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.FromResident += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p4 += cc.Count();
+                                        }
+                                    }
+
+                                    var att5 = TablesContainer.list2.GroupBy(i => i.ResidentName);
+                                    if (att5 != null)
+                                    {
+
+                                        foreach (var cc in att5)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.ResidentName += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p5 += cc.Count();
+                                        }
+                                    }
+
+                                    var att6 = TablesContainer.list2.GroupBy(i => i.Department);
+                                    if (att6 != null)
+                                    {
+
+                                        foreach (var cc in att6)
+                                        {
+                                            model.Department += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p6 += cc.Count();
+                                        }
+                                    }
+
+                                    var att7 = TablesContainer.list2.GroupBy(i => i.BriefDescription);
+                                    if (att7 != null)
+                                    {
+
+                                        foreach (var cc in att7)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.BriefDescription += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p7 += cc.Count();
+                                        }
+                                    }
+
+                                    var att8 = TablesContainer.list2.GroupBy(i => i.IsAdministration);
+                                    if (att8 != null)
+                                    {
+
+                                        foreach (var cc in att8)
+                                        {
+                                            model.BriefDescription += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p8 += cc.Count();
+                                        }
+                                    }
+
+                                    var att9 = TablesContainer.list2.GroupBy(i => i.CareServices);
+                                    if (att9 != null)
+                                    {
+
+                                        foreach (var cc in att9)
+                                        {
+                                            model.CareServices += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p9 += cc.Count();
+                                        }
+                                    }
+
+                                    var att10 = TablesContainer.list2.GroupBy(i => i.PalliativeCare);
+                                    if (att10 != null)
+                                    {
+
+                                        foreach (var cc in att10)
+                                        {
+                                            model.PalliativeCare += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p10 += cc.Count();
+                                        }
+                                    }
+
+                                    var att11 = TablesContainer.list2.GroupBy(i => i.Dietary);
+                                    if (att11 != null)
+                                    {
+
+                                        foreach (var cc in att11)
+                                        {
+                                            model.Dietary += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p11 += cc.Count();
+                                        }
+                                    }
+
+                                    var att12 = TablesContainer.list2.GroupBy(i => i.Housekeeping);
+                                    if (att12 != null)
+                                    {
+
+                                        foreach (var cc in att2)
+                                        {
+                                            string key = cc.Key == null ? "NULL" : cc.Key.ToString();
+                                            if (key == "NULL") continue;
+                                            model.Housekeeping += $"{key}\t - \t{cc.Count()}" + " | ";
+                                            p12 += cc.Count();
+                                        }
+                                    }
+
+                                    var att13 = TablesContainer.list2.GroupBy(i => i.Laundry);
+                                    if (att13 != null)
+                                    {
+
+                                        foreach (var cc in att13)
+                                        {
+                                            model.Laundry += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p13 += cc.Count();
+                                        }
+                                    }
+
+                                    var att14 = TablesContainer.list2.GroupBy(i => i.Maintenance);
+                                    if (att14 != null)
+                                    {
+
+                                        foreach (var cc in att14)
+                                        {
+                                            model.Maintenance += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p14 += cc.Count();
+                                        }
+                                    }
+
+                                    var att15 = TablesContainer.list2.GroupBy(i => i.Programs);
+                                    if (att15 != null)
+                                    {
+
+                                        foreach (var cc in att15)
+                                        {
+                                            model.Programs += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p15 += cc.Count();
+                                        }
+                                    }
+
+                                    var att16 = TablesContainer.list2.GroupBy(i => i.Physician);
+                                    if (att16 != null)
+                                    {
+
+                                        foreach (var cc in att16)
+                                        {
+                                            model.Physician += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p16 += cc.Count();
+                                        }
+                                    }
+
+                                    var att17 = TablesContainer.list2.GroupBy(i => i.Beautician);
+                                    if (att17 != null)
+                                    {
+
+                                        foreach (var cc in att17)
+                                        {
+                                            model.Beautician += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p17 += cc.Count();
+                                        }
+                                    }
+
+                                    var att18 = TablesContainer.list2.GroupBy(i => i.FootCare);
+                                    if (att18 != null)
+                                    {
+
+                                        foreach (var cc in att18)
+                                        {
+                                            model.FootCare += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p18 += cc.Count();
+                                        }
+                                    }
+
+                                    var att19 = TablesContainer.list2.GroupBy(i => i.DentalCare);
+                                    if (att19 != null)
+                                    {
+
+                                        foreach (var cc in att19)
+                                        {
+                                            model.DentalCare += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p19 += cc.Count();
+                                        }
+                                    }
+
+                                    var att20 = TablesContainer.list2.GroupBy(i => i.Physio);
+                                    if (att20 != null)
+                                    {
+
+                                        foreach (var cc in att20)
+                                        {
+                                            model.Physio += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p20 += cc.Count();
+                                        }
+                                    }
+
+                                    var att21 = TablesContainer.list2.GroupBy(i => i.Other);
+                                    if (att21 != null)
+                                    {
+
+                                        foreach (var cc in att21)
+                                        {
+                                            model.Other += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p21 += cc.Count();
+                                        }
+                                    }
+
+                                    var att22 = TablesContainer.list2.GroupBy(i => i.MOHLTCNotified);
+                                    if (att22 != null)
+                                    {
+
+                                        foreach (var cc in att22)
+                                        {
+                                            model.MOHLTCNotified += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p22 += cc.Count();
+                                        }
+                                    }
+
+                                    var att23 = TablesContainer.list2.GroupBy(i => i.CopyToVP);
+                                    if (att23 != null)
+                                    {
+
+                                        foreach (var cc in att23)
+                                        {
+                                            model.CopyToVP += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p23 += cc.Count();
+                                        }
+                                    }
+
+                                    var att24 = TablesContainer.list2.GroupBy(i => i.ResponseSent);
+                                    if (att15 != null)
+                                    {
+
+                                        foreach (var cc in att15)
+                                        {
+                                            model.ResponseSent += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p24 += cc.Count();
+                                        }
+                                    }
+
+                                    var att25 = TablesContainer.list2.GroupBy(i => i.ActionToken);
+                                    if (att25 != null)
+                                    {
+
+                                        foreach (var cc in att25)
+                                        {
+                                            model.ActionToken += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p25 += cc.Count();
+                                        }
+                                    }
+
+                                    var att26 = TablesContainer.list2.GroupBy(i => i.Resolved);
+                                    if (att26 != null)
+                                    {
+
+                                        foreach (var cc in att26)
+                                        {
+                                            model.Resolved += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p26 += cc.Count();
+                                        }
+                                    }
+
+                                    var att27 = TablesContainer.list3.GroupBy(i => i.Awards_Details);
+                                    if (att27 != null)
+                                    {
+
+                                        foreach (var cc in att27)
+                                        {
+                                            model.awa += $"{cc.Key}\t - \t{cc.Count()}" + " | ";
+                                            p27 += cc.Count();
+                                        }
+                                    }
+                                }
+
+                                foundSummary3.Add(model);
+                                model = new GoodNewsSummary();
+                                #endregion
+                                #endregion
+
+                                #region Add All Summary quantity on List:
+                                allSummary3.Add(new GoodNewsSummaryAll
                                 {
-                                    string key = cc.Key == null ? "NULL" : cc.Key.ToString();
-                                    if (key == "NULL") continue;
-                                    strN.Add($"{key}\t - \t{cc.Count()}");
-                                }
+                                     Awards_Details = p1,
+                                     Category = p2,
+                                     Awards_Received = p3,
+                                     Community_Inititives = p4,
+                                     Compliment = p5,
+                                     Description_Complim = p6,
+                                     Growth = p7,
+                                     NameAwards = p8,
+                                     Passion = p9,
+                                     ReceivedFrom = p10,
+                                     Respect = p11,
+                                     Department = p12,
+                                     Responsibility = p13,
+                                     SourceCompliment = p14,
+                                     Spot_Awards = p15,
+                                     Teamwork = p16                                   
+                                });
+                                #endregion
                             }
 
-                            ///
-                            b = true; TablesContainer.COUNT = TablesContainer.list3.Count;
+                            #region Create ViewBags:
+                            { ViewBag.TotalSummary = allSummary3; }
+
+                            b = true;
+                            if (foundSummary3.Count == 0) { b = false; ViewBag.EmptLocation = b; }
 
                             {
                                 ViewBag.Count = TablesContainer.COUNT;
                             }
 
                             {
-                                ViewBag.GN_Found = HomeController.strN;
+                                ViewBag.GN_Found = foundSummary3;
                             }
 
                             {
-                                ViewBag.Entity = "Good_News";
+                                ViewBag.Entity = "Complaints";
                             }
+
+                            if (locList.Count != 0) isEmpty = true;
+
+                            { ViewBag.Check1 = isEmpty; }
+
+                            {
+                                ViewBag.Locations = locList;
+                            }
+
+                            {
+                                if (role == Role.Admin)
+                                    ViewBag.LocInfo = db.Care_Communities.Find(1).Name;
+                                else ViewBag.LocInfo = db.Care_Communities.Find(Id_Location).Name;
+                            }
+                            #endregion    
                             break;
                         #endregion
 

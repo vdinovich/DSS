@@ -15,9 +15,6 @@
         <thead>
             <tr style="font-size:small">
                 <th scope="col">
-                    <label></label>
-                </th>
-                <th scope="col">
                     <label>Action Token</label>
                 </th>
                 <th scope="col">
@@ -221,7 +218,7 @@
             </thead>
             <tbody>
                 @{
-                    List<DTS.Models.Complaint> list = ViewBag.GN_Found;
+                    List<DTS.Models.ComplaintsSummary> list = ViewBag.GN_Found;
                     for (int ci = 0; ci < list.Count; ci++)
                     {
                         if (list[ci].LocationName == l)

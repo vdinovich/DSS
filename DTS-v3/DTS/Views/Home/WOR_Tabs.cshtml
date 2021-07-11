@@ -469,9 +469,9 @@
                         else if (ViewBag.Entity == "Complaints")
                         {
                             <br /><br />
-                            <div style="margin: -380px 0 0 450px">
-                                <ul style="list-style-type: none; position: relative; border: 1px solid blue;border-radius: 15px" class="">
-                                    <li>@{Html.RenderPartial("ComlaintsSummaryPart", (List<string>)ViewBag.GN_Found);}</li>
+                            <div style="margin: -380px 0 0 150px">
+                                <ul style="list-style-type: none;width:2700px; position: relative; border: 1px solid blue;border-radius: 15px" class="">
+                                    <li>@{Html.RenderPartial("ComlaintsSummaryPart", (List<DTS.Models.ComplaintsSummary>)ViewBag.GN_Found);}</li>
                                 </ul>
                             </div>
                         }

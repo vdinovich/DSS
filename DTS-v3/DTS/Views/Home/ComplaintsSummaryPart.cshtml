@@ -1,0 +1,273 @@
+﻿
+
+
+
+<h2 style="text-align:center;color:darkorchid">@ViewBag.ObjName (Records Found - <span style="color:gold">@ViewBag.Count</span>) for <span style="color:crimson">@ViewBag.LocInfo</span></h2>
+
+
+
+@if (ViewBag.Check1 == true && ViewBag.EmptLocation == true)
+{
+    <h2 style="text-align:center;color:tomato;font-family:'Palatino Linotype';font-weight:bold">
+        Summary For All Locations:
+    </h2>
+    <table class="table table-bordered" style="">
+        <thead>
+            <tr style="font-size:small">
+                <th scope="col">
+                    <label>Writen Or Verbal</label>
+                </th>
+                <th scope="col">
+                    <label>Receive Directly</label>
+                </th>
+                <th scope="col">
+                    <label>From Resident</label>
+                </th>
+                <th scope="col">
+                    <label>Resident Name</label>
+                </th>
+                <th scope="col">
+                    <label>Department</label>
+                </th>
+                <th scope="col">
+                    <label>Brief Description</label>
+                </th>
+                <th scope="col">
+                    <label>Is Administration</label>
+                </th>
+                <th scope="col">
+                    <label>Care Services</label>
+                </th>
+                <th scope="col">
+                    <label>Palliative Care</label>
+                </th>
+                <th scope="col">
+                    <label>Dietary</label>
+                </th>
+                <th scope="col">
+                    <label>Housekeeping</label>
+                </th>
+                <th scope="col">
+                    <label>Laundry</label>
+                </th>
+                <th scope="col">
+                    <label>Maintenance</label>
+                </th>
+                <th scope="col">
+                    <label>Programs</label>
+                </th>
+                <th scope="col">
+                    <label>Physician</label>
+                </th>
+                <th scope="col">
+                    <label>Beautician</label>
+                </th>
+                <th scope="col">
+                    <label>Foot Care</label>
+                </th>
+                <th scope="col">
+                    <label>Dental Care</label>
+                </th>
+                <th scope="col">
+                    <label>Physio</label>
+                </th>
+                <th scope="col">
+                    <label>Other</label>
+                </th>
+                <th scope="col">
+                    <label>MOHLTC Notified</label>
+                </th>
+                <th scope="col">
+                    <label>Copy To VP</label>
+                </th>
+                <th scope="col">
+                    <label>Response Sent</label>
+                </th>
+                <th scope="col">
+                    <label>Action Token</label>
+                </th>
+                <th scope="col">
+                    <label>Resolved</label>
+                </th>
+                <th scope="col">
+                    <label>Ministry Visit</label>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                List<DTS.Models.ComplaintsSummaryAll> arr = ViewBag.TotalSummary;
+                foreach (var ci in arr)
+                {
+                    <tr style="font-size:small;color:black">
+                        <td scope="row">@ci.WritenOrVerbal</td>
+                        <td scope="row">@ci.Receive_Directly</td>
+                        <td scope="row">@ci.FromResident</td>
+                        <td scope="row">@ci.ResidentName</td>
+                        <td scope="row">@ci.Department</td>
+                        <td scope="row">@ci.BriefDescription</td>
+                        <td scope="row">@ci.IsAdministration</td>
+                        <td scope="row">@ci.CareServices</td>
+                        <td scope="row">@ci.PalliativeCare</td>
+                        <td scope="row">@ci.Dietary</td>
+                        <td scope="row">@ci.Housekeeping</td>
+                        <td scope="row">@ci.Laundry</td>
+                        <td scope="row">@ci.Maintenance</td>
+                        <td scope="row">@ci.Programs</td>
+                        <td scope="row">@ci.Physician</td>
+                        <td scope="row">@ci.Beautician</td>
+                        <td scope="row">@ci.FootCare</td>
+                        <td scope="row">@ci.DentalCare</td>
+                        <td scope="row">@ci.Physio</td>
+                        <td scope="row">@ci.Other</td>
+                        <td scope="row">@ci.MOHLTCNotified</td>
+                        <td scope="row">@ci.CopyToVP</td>
+                        <td scope="row">@ci.ResponseSent</td>
+                        <td scope="row">@ci.ActionToken</td>
+                        <td scope="row">@ci.Resolved</td>
+                        <td scope="row">@ci.MinistryVisit</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+    foreach (var l in ViewBag.Locations)
+    {
+        <h2 style="text-align:center;color:darkorange;font-family:'Times New Roman'">@l</h2>
+        <table class="table table-bordered" style="">
+            <thead>
+                <tr style="font-size:small">
+                    <th scope="col">
+                        <label>Writen Or Verbal</label>
+                    </th>
+                    <th scope="col">
+                        <label>Receive Directly</label>
+                    </th>
+                    <th scope="col">
+                        <label>From Resident</label>
+                    </th>
+                    <th scope="col">
+                        <label>Resident Name</label>
+                    </th>
+                    <th scope="col">
+                        <label>Department</label>
+                    </th>
+                    <th scope="col">
+                        <label>Brief Description</label>
+                    </th>
+                    <th scope="col">
+                        <label>Is Administration</label>
+                    </th>
+                    <th scope="col">
+                        <label>Care Services</label>
+                    </th>
+                    <th scope="col">
+                        <label>Palliative Care</label>
+                    </th>
+                    <th scope="col">
+                        <label>Dietary</label>
+                    </th>
+                    <th scope="col">
+                        <label>Housekeeping</label>
+                    </th>
+                    <th scope="col">
+                        <label>Laundry</label>
+                    </th>
+                    <th scope="col">
+                        <label>Maintenance</label>
+                    </th>
+                    <th scope="col">
+                        <label>Programs</label>
+                    </th>
+                    <th scope="col">
+                        <label>Physician</label>
+                    </th>
+                    <th scope="col">
+                        <label>Beautician</label>
+                    </th>
+                    <th scope="col">
+                        <label>Foot Care</label>
+                    </th>
+                    <th scope="col">
+                        <label>Dental Care</label>
+                    </th>
+                    <th scope="col">
+                        <label>Physio</label>
+                    </th>
+                    <th scope="col">
+                        <label>Other</label>
+                    </th>
+                    <th scope="col">
+                        <label>MOHLTC Notified</label>
+                    </th>
+                    <th scope="col">
+                        <label>Copy To VP</label>
+                    </th>
+                    <th scope="col">
+                        <label>Response Sent</label>
+                    </th>
+                    <th scope="col">
+                        <label>Action Token</label>
+                    </th>
+                    <th scope="col">
+                        <label>Resolved</label>
+                    </th>
+                    <th scope="col">
+                        <label>Ministry Visit</label>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    List<DTS.Models.ComplaintsSummary> list = ViewBag.GN_Found;
+                    for (int ci = 0; ci < list.Count; ci++)
+                    {
+                        if (list[ci].LocationName == l)
+                        {
+                            <tr style="font-size:small;color:black">
+                                <td scope="row">@Html.DisplayFor(m => list[ci].WritenOrVerbal)</td>
+                                <td scope="row">@Html.DisplayFor(m => list[ci].Receive_Directly)</td>
+                                <td scope="row">@Html.DisplayFor(m => list[ci].FromResident)</td>
+                                <td scope="row">@Html.DisplayFor(m => list[ci].ResidentName)</td>
+                                <td scope="row">@Html.DisplayFor(m => list[ci].Department)</td>
+                                <td scope="row">@Html.DisplayFor(m => list[ci].BriefDescription)</td>
+                                <td scope="row">@Html.DisplayFor(m => list[ci].IsAdministration)</td>
+                                <td scope="row">@Html.DisplayFor(m => list[ci].CareServices)</td>
+                                <td scope="row">@Html.DisplayFor(m => list[ci].PalliativeCare)</td>
+                                <td scope="row">@Html.DisplayFor(m => list[ci].Dietary)</td>
+                                <td scope="row">@Html.DisplayFor(m => list[ci].Housekeeping)</td>
+                                <td scope="row">@Html.DisplayFor(m => list[ci].Laundry)</td>
+                                <td scope="row">@Html.DisplayFor(m => list[ci].Maintenance)</td>
+                                <td scope="row">@Html.DisplayFor(m => list[ci].Programs)</td>
+                                <td scope="row">@Html.DisplayFor(m => list[ci].Physician)</td>
+                                <td scope="row">@Html.DisplayFor(m => list[ci].Beautician)</td>
+                                <td scope="row">@Html.DisplayFor(m => list[ci].FootCare)</td>
+                                <td scope="row">@Html.DisplayFor(m => list[ci].DentalCare)</td>
+                                <td scope="row">@Html.DisplayFor(m => list[ci].Physio)</td>
+                                <td scope="row">@Html.DisplayFor(m => list[ci].Other)</td>
+                                <td scope="row">@Html.DisplayFor(m => list[ci].MOHLTCNotified)</td>
+                                <td scope="row">@Html.DisplayFor(m => list[ci].CopyToVP)</td>
+                                <td scope="row">@Html.DisplayFor(m => list[ci].ResponseSent)</td>
+                                <td scope="row">@Html.DisplayFor(m => list[ci].ActionToken)</td>
+                                <td scope="row">@Html.DisplayFor(m => list[ci].Resolved)</td>
+                                <td scope="row">@Html.DisplayFor(m => list[ci].MinistryVisit)</td>
+                            </tr>
+                        }
+                    }
+                }
+            </tbody>
+        </table>
+    }
+}
+else
+{
+    <h3 style="font-family:'Palatino Linotype';color:red">Locations or another records for summary does NOT exist in the table...</h3>
+}
+
+
+
+
+
+
+
